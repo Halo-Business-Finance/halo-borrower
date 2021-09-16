@@ -1,0 +1,68 @@
+import styled from 'styled-components';
+import Link from 'next/link';
+
+
+const Nav = styled.nav`
+  height: 60px;
+  background: #1B46B0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+  
+  
+  .Document{
+      background: #F3BA17;
+      padding: 5px 20px;
+      border-radius: 5px;
+  }
+  
+`;
+
+const StyledLink = styled.a`
+
+
+  ${'' /* padding: 0rem 0rem; */}
+  ${'' /* margin: 30px; */}
+
+`;
+
+const NavMenu = () => {
+    return (
+        <Nav>
+
+
+            <div>
+                <Link href='/form' passHref>
+                    <StyledLink>Pre-qualify</StyledLink>
+                </Link>
+            </div>
+            <div>
+                <Link href='/form' passHref>
+                    <StyledLink>Financials</StyledLink>
+                </Link>
+            </div>
+            <div>
+                <Link href='/form' passHref>
+                    <StyledLink>Personal Financials</StyledLink>
+                </Link>
+            </div>
+            <div className="Document">
+                <Link href='/form' passHref>
+                    <StyledLink>Documents</StyledLink>
+                </Link>
+            </div>
+
+
+
+
+
+
+        </Nav>
+
+
+    );
+};
+
+export default NavMenu;
