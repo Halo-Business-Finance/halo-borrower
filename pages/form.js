@@ -2,178 +2,146 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const Hero = styled.div`
-  height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f2f2f2;
+  background: #E5E5E5;
   padding: 20px;
-  position: absolute;
   
   .formstyle{
-    width: 80%;
-    height: 80%;
+    width: 60%;
     background: #F8F8FF;
-    /* border-style: groove; */
-    border-radius: 20px;  
+    border-radius: 10px; 
+     
+  }
+  .Form-design{
+    padding: 30px 30px 30px 30px;
+    
   }
   
-  .heading{
-    padding-left: 30px;
-    
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 150%;
+  .textbox{
+    width:100%;
+    padding: 12px;
   }
-  #firstname{
-    width: 90%;
-    padding: 12px 20px;
-  margin: 8px 15px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .firstname{
-    padding-left: 20px;
-
-  }
-
-  #address{
-    width: 120%;
-    padding: 12px 20px;
-  margin: 8px 15px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .address{
-    padding-left: 20px;
-    
-  }
-
-  #suite{
-    width: 60%;
-    padding: 12px 20px;
-  margin: 8px 170px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .suite{
-    padding-left: 25px;
-    margin-left: 150px;
-    
-  }
-
-  #city{
-    width: 90%;
-    padding: 12px 20px;
-  margin: 8px 25px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .city{
-    padding-left: 20px;
-    margin-left: 10px;
-
-  }
-
-  #state{
-    width: 80%;
-    padding: 12px 20px;
-  margin: 8px 40px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .state{
-    padding-left: 20px;
-    margin-left: 20px;
-
-  }
-
-  #zipcode{
-    width: 80%;
-    padding: 12px 20px;
-  margin: 8px 23px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .zipcode{
-    padding-left: 20px;
-    margin-left: 4px;
-
-  }
-
-  #phone{
-    width: 90%;
-    padding: 12px 20px;
-  margin: 8px 25px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .phone{
-    padding-left: 20px;
-    margin-left: 10px;
-
-  }
-
-  #website{
-    width: 180%;
-    padding: 12px 20px;
-  margin: 8px 40px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-right: 20px;
-  }
-
-  .website{
-    padding-left: 20px;
-    margin-left: 20px;
-
-  }
-
-  #button{
-    display: inline-block;
-    background: #F3BA17;
-    padding: 0.5rem 0;
-    margin: 0.5rem 1rem;
-      border-radius: 3px;
-      width: 11rem;
-           
-  }
-  .form-row{
+  
+  .form-row-one{
     column-count: 2;
-  column-gap: 20px;
-  margin: 10px;
+    width:100%;
+    display:inline-block;
+    column-gap:5%;
   }
-  .form-row1{
-    column-count: 3;
+  
+  .form-row-two{
+    width:100%;
+    display:inline-block;
   }
-  .form-row2{
-    column-count: 3;
+
+  .form-row-three{
+    width:100%;
+    display:inline-block;
+    
   }
+
+  .form-row-four{
+    width:100%;
+    display:inline-block;
+  }
+
+  .form-city{
+    width:40%;
+    display:inline-block;
+    margin-right:5%;
+  }
+
+  .form-state{
+    width:25%;
+    display:inline-block;
+    margin-right:5%;
+  }
+
+  .form-zip{
+    width:25%;
+    display:inline-block;
+  }
+
+  .form-addess{
+    width:60%;
+    display:inline-block;
+    margin-right:5%;
+  }
+
+  .form-phone{
+    width:40%;
+    display:inline-block;
+    margin-right:5%;
+  }
+
+  .form-website{
+    width:55%;
+    display:inline-block;
+  }
+
+  .form-suite{
+    width:35%;
+    display:inline-block;
+  }
+
+  .form-head{
+    display:inline-block;
+    width:100%;
+  }
+
+  .active{
+    color:#1B46B0;
+    display:inline;
+  }
+
+  .heading{
+    display:inline;
+    float:left;
+  }
+
+  .heading-step{
+    display:inline;
+    color:#ADADAD;
+    display:inline;
+    float:right; 
+  }
+
+  .formlabel{
+    color: #5C5C5C;
+  }
+
+  .textbox{
+    border-radius: 4px;
+    border: 1px solid #ededed;
+  }
+
+  .form-gap{
+    margin-top:20px;
+  }
+
+  input[type=submit]{
+    
+    background-color: #F3BA17;
+    border: none;
+    color: black;
+    font-weight: 600;
+    border-radius:8px;
+    padding: 14px 30px;
+    text-decoration: none;
+    cursor: pointer;
+    
+  }
+
+  .form-row-button{
+    width:100%;
+    justify-content:center;
+    align-items: center;
+    display: flex;
+    margin:20px 0px 20px 0px;
+  }
+
 `;
 
 
@@ -186,65 +154,69 @@ export default function Form() {
       </Head>
       <Hero>
 
-
-
-
-
         <form className="formstyle">
-          <h2 className="heading">Business Contact Information</h2>
-          <div className="form-row">
-            <div className="form-group">
-
-              <label htmlFor="fname" className="firstname">Business Label Name</label>
-              <input id="firstname" type="text" autoComplete="fname" placeholder="Enter Business Legal Name" required />
+          
+          <section className="Form-design">
+            
+            <div className="form-head">
+              <h2 className="heading">Business Contact Information</h2>
+              <h2 className="heading-step"><p className="active">Step 1</p> /3</h2>
             </div>
-            <div className="form-group">
-              <label htmlFor="fname" className="firstname">DBA</label>
-              <input id="firstname" type="text" autoComplete="fname" placeholder="Enter DBA" required />
+          
+          <div className="form-row-one form-gap">
+            <div className="form-group form-name">
+              <label htmlFor="fname" className="formlabel ">Business Label Name</label>
+              <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Business Legal Name" required />
             </div>
-          </div>
-
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="fname" className="address">Address</label>
-              <input id="address" type="text" autoComplete="fname" placeholder="Enter Address" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="fname" className="suite">Suite/FL</label>
-              <input id="suite" type="text" autoComplete="fname" placeholder="Enter Suite/FL" required />
+            <div className="form-group form-dba">
+              <label htmlFor="fdba" className="formlabel">DBA</label>
+              <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter DBA" required />
             </div>
           </div>
 
-          <div className="form-row1">
-            <div className="form-group">
-              <label htmlFor="fname" className="city">City</label>
-              <input id="city" type="text" autoComplete="fname" placeholder="Enter City" required />
+          <div className="form-row-two form-gap">
+            <div className="form-group form-addess">
+              <label htmlFor="fname" className="formlabel">Address</label>
+              <input id="address" className="textbox" type="text" autoComplete="fname" placeholder="Enter Address" required />
             </div>
-            <div className="form-group">
-              <label htmlFor="fname" className="state">State</label>
-              <input id="state" type="text" autoComplete="fname" placeholder="Select State" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="fname" className="zipcode">Zip Code</label>
-              <input id="zipcode" type="text" autoComplete="fname" placeholder="Enter Zip Code" required />
+            <div className="form-group form-suite">
+              <label htmlFor="fname" className="formlabel">Suite/FL</label>
+              <input id="suite" className="textbox" type="text" autoComplete="fname" placeholder="Enter Suite/FL" required />
             </div>
           </div>
 
-          <div className="form-row2">
-            <div className="form-group">
-              <label htmlFor="fname" className="phone">Business Phone</label>
-              <input id="phone" type="text" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
+          <div className="form-row-three form-gap">
+            <div className="form-group form-city">
+              <label htmlFor="fname" className="formlabel">City</label>
+              <input id="city" className="textbox" type="text" autoComplete="fname" placeholder="Enter City" required />
             </div>
-            <div className="form-group">
-              <label htmlFor="fname" className="website">Website</label>
-              <input id="website" type="text" autoComplete="fname" placeholder="Enter Website" required />
+            <div className="form-group form-state">
+              <label htmlFor="fname" className="formlabel">State</label>
+              <input id="state" className="textbox" type="text" autoComplete="fname" placeholder="Select State" required />
+            </div>
+            <div className="form-group form-zip">
+              <label htmlFor="fname" className="formlabel">Zip Code</label>
+              <input id="zipcode" className="textbox" type="number" autoComplete="fname" placeholder="Enter Zip Code" required />
             </div>
           </div>
 
-          <button type="submit" id="button">Continue</button>
+          <div className="form-row-four form-gap">
+            <div className="form-group form-phone">
+              <label htmlFor="fname" className="formlabel">Business Phone</label>
+              <input id="phone" className="textbox" type="text" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
+            </div>
+            <div className="form-group form-website">
+              <label htmlFor="fname" className="formlabel">Website</label>
+              <input id="website" className="textbox" type="text" autoComplete="fname" placeholder="Enter Website" required />
+            </div>
+          </div>
+          </section>
+
+          <div className="form-row-button">
+            <input type="submit" id="button" value="Continue" />
+          </div>
+        
         </form>
-
-
       </Hero>
 
 
