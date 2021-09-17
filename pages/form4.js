@@ -177,7 +177,7 @@ const Hero = styled.div`
 `;
 
 
-export default function Form3() {
+export default function Form4() {
     return (
         <>
             <Head>
@@ -191,63 +191,54 @@ export default function Form3() {
 
 
                 <form className="formstyle">
-                    <h2 className="heading">Financial Information</h2>
+                    <h2 className="heading">Owner 1</h2>
                     <div className="form-row">
                         <div className="form-group">
 
-                            <label htmlFor="fname" className="firstname">Annual Business Revenue</label>
-                            <input id="firstname" type="text" autoComplete="fname" placeholder="Enter Annual Business Revenue" required />
+                            <label htmlFor="fname" className="firstname">Full Name</label>
+                            <input id="firstname" type="text" autoComplete="fname" placeholder="Enter Full Name" required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="fname" className="firstname">Monthly Total Payroll Expenses</label>
-                            <input id="firstname" type="text" autoComplete="fname" placeholder="Enter Monthly Total Payroll Expenses" required />
+                            <label htmlFor="fname" className="firstname">Date of Birth</label>
+                            <input id="firstname" type="text" autoComplete="fname" placeholder="MM-DD-YYYY" required />
                         </div>
                     </div>
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="fname" className="address">Monthly Total Business Expenses  </label>
-                            <input id="address" type="text" autoComplete="fname" placeholder="Enter Monthly Total Business Expenses" required />
+                            <label htmlFor="fname" className="address">Home Address</label>
+                            <input id="address" type="text" autoComplete="fname" placeholder="Enter Address" required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="fname" className="suite">Average Daily Bank Balance</label>
-                            <input id="suite" type="text" autoComplete="fname" placeholder="Enter Average Daily Bank Balance" required />
+                            <label htmlFor="fname" className="suite">City</label>
+                            <input id="suite" type="text" autoComplete="fname" placeholder="Enter City" required />
                         </div>
                     </div>
 
                     <div className="form-row1">
                         <div className="form-group">
-                            <label htmlFor="fname" className="city">DO you have any outstanding loans or advances?</label>
-                            <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
+                            <label htmlFor="fname" className="city">State</label>
+                            <input id="city" type="text" autoComplete="fname" placeholder="Enter State" required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="fname" className="state">State</label>
-                            <input id="state" type="text" autoComplete="fname" placeholder="No" required />
+                            <label htmlFor="fname" className="state">Zip Code</label>
+                            <input id="state" type="text" autoComplete="fname" placeholder="Enter Zip Code" required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="fname" className="zipcode">Outstanding Loan/Advance Balance</label>
-                            <input id="zipcode" type="text" autoComplete="fname" placeholder="Enter Outstanding Loan/Advance Balance" required />
+                            <label htmlFor="fname" className="zipcode">Social Security Number</label>
+                            <input id="zipcode" type="text" autoComplete="fname" placeholder="Enter Social Security Number" required />
                         </div>
                     </div>
 
                     <div className="form-row2">
                         <div className="form-group">
-                            <label htmlFor="fname" className="phone">Use of Funds</label>
-                            <input id="phone" type="text" autoComplete="fname" placeholder="Enter Use of Funds" required />
+                            <label htmlFor="fname" className="phone">Email</label>
+                            <input id="phone" type="text" autoComplete="fname" placeholder="Enter Email" required />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="fname" className="website">Loan Amount Requested</label>
-                            <input id="website" type="text" autoComplete="fname" placeholder="Enter Loan Amount Requested" required />
+                            <label htmlFor="fname" className="website">Mobile Number</label>
+                            <input id="website" type="text" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
                         </div>
-                    </div>
-
-                    <h2 className="heading">Property Details</h2>
-
-                    <div className="form-group">
-                        <label htmlFor="fname" className="city">DO you own the business property?</label>
-                        <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
-                        <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
-                        <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
                     </div>
 
                     <button type="submit" id="button">Continue</button>
