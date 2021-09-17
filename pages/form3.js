@@ -2,262 +2,351 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const Hero = styled.div`
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
+display: flex;
+justify-content: center;
+align-items: center;
+background: #E5E5E5;
+padding: 20px;
+
+.formstyle{
+  width: 60%;
+  background: #F8F8FF;
+  border-radius: 10px; 
+   
+}
+.Form-design{
+  padding: 30px 30px 30px 30px;
+  
+}
+
+.textbox{
+  width:100%;
+  padding: 12px;
+}
+
+.radio-four{
+  column-count: 4;
+  width:100%;
+  display:inline-block;
+  column-gap:5%;
+}
+
+.radio-two{
+  column-count: 2;
+  width:100%;
+  display:inline-block;
+  column-gap:5%;
+}
+
+.form-row-one{
+  column-count: 2;
+  width:100%;
+  display:inline-block;
+  column-gap:5%;
+}
+
+.form-row-two{
+  width:100%;
+  display:inline-block;
+}
+
+.form-row-three{
+  width:100%;
+  display:inline-block;
+  
+}
+
+.form-row-four{
+  width:100%;
+  display:inline-block;
+}
+
+.form-city{
+  width:40%;
+  display:inline-block;
+  margin-right:5%;
+}
+
+.form-state{
+  width:25%;
+  display:inline-block;
+  margin-right:5%;
+}
+
+.form-zip{
+  width:25%;
+  display:inline-block;
+}
+
+.form-addess{
+  width:60%;
+  display:inline-block;
+  margin-right:5%;
+}
+
+.form-phone{
+  width:40%;
+  display:inline-block;
+  margin-right:5%;
+}
+
+.form-website{
+  width:55%;
+  display:inline-block;
+}
+
+.form-suite{
+  width:35%;
+  display:inline-block;
+}
+
+.form-head{
+  display:inline-block;
+  width:100%;
+}
+
+.active{
+  color:#1B46B0;
+  display:inline;
+}
+
+.heading{
+  display:inline;
+  float:left;
+}
+
+.heading-step{
+  display:inline;
+  color:#ADADAD;
+  display:inline;
+  float:right; 
+}
+
+.formlabel{
+  color: #5C5C5C;
+}
+
+.textbox{
+  border-radius: 4px;
+  border: 1px solid #ededed;
+}
+
+.form-gap{
+  margin-top:20px;
+}
+
+input[type=submit]{
+  
+  background-color: #F3BA17;
+  border: none;
+  color: black;
+  font-weight: 600;
+  border-radius:8px;
+  padding: 14px 30px;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+
+.form-row-button{
+  width:100%;
+  justify-content:center;
   align-items: center;
-  background: #f2f2f2;
-  padding: 20px;
-  position: absolute;
-  
-  .formstyle{
-    width: 80%;
-    height: 80%;
-    background: #F8F8FF;
-    /* border-style: groove; */
-    border-radius: 20px;  
-  }
-  
-  .heading{
-    padding-left: 30px;
-    
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 150%;
-  }
-  #firstname{
-    width: 90%;
-    padding: 12px 20px;
-  margin: 8px 15px;
-  display: inline-block;
-  border: 1px solid #ccc;
+  display: flex;
+  margin:20px 0px 20px 0px;
+}
+
+.radio-container{
+  padding: 5px 5px 5px 5px;
+  border: 1px solid #ededed; 
   border-radius: 4px;
-  box-sizing: border-box;
-  }
+  background-color:white;
+}
 
-  .firstname{
-    padding-left: 20px;
+.rent{
+  display:none;
+}
 
-  }
+.mortgage{
+  display:none;
+}
 
-  #address{
-    width: 120%;
-    padding: 12px 20px;
-  margin: 8px 15px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
+.check-btn input:checked ~ .hiddendiv {
+  display: block;
+}
 
-  .address{
-    padding-left: 20px;
-    
-  }
+.mortgage-click input:checked ~ .mortgage {
+  display:block;
+}
 
-  #suite{
-    width: 60%;
-    padding: 12px 20px;
-  margin: 8px 170px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
+.own-click:checked ~ .mortgage {
+  display:none;
+}
 
-  .suite{
-    padding-left: 25px;
-    margin-left: 150px;
-    
-  }
+.own-click:checked ~ .rent {
+  display:none;
+}
 
-  #city{
-    width: 90%;
-    padding: 12px 20px;
-  margin: 8px 25px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .city{
-    padding-left: 20px;
-    margin-left: 10px;
-
-  }
-
-  #state{
-    width: 80%;
-    padding: 12px 20px;
-  margin: 8px 40px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .state{
-    padding-left: 20px;
-    margin-left: 20px;
-
-  }
-
-  #zipcode{
-    width: 80%;
-    padding: 12px 20px;
-  margin: 8px 23px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .zipcode{
-    padding-left: 20px;
-    margin-left: 4px;
-
-  }
-
-  #phone{
-    width: 90%;
-    padding: 12px 20px;
-  margin: 8px 25px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  }
-
-  .phone{
-    padding-left: 20px;
-    margin-left: 10px;
-
-  }
-
-  #website{
-    width: 180%;
-    padding: 12px 20px;
-  margin: 8px 40px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-right: 20px;
-  }
-
-  .website{
-    padding-left: 20px;
-    margin-left: 20px;
-
-  }
-
-  #button{
-    display: inline-block;
-    background: #F3BA17;
-    padding: 0.5rem 0;
-    margin: 0.5rem 1rem;
-      border-radius: 3px;
-      width: 11rem;
-           
-  }
-  .form-row{
-    column-count: 2;
-  column-gap: 20px;
-  margin: 10px;
-  }
-  .form-row1{
-    column-count: 3;
-  }
-  .form-row2{
-    column-count: 3;
-  }
 `;
 
 
-export default function Form3() {
-    return (
-        <>
-            <Head>
-                <title>Form</title>
-                <link rel='icon' href='/favicon.ico' />
-            </Head>
-            <Hero>
+export default function Form() {
+  return (
+    <>
+      <Head>
+        <title>Form</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Hero>
+
+        <form className="formstyle">
+
+          <section className="Form-design">
+
+            <div className="form-head">
+              <h2 className="heading">Financial Information</h2>
+              <h2 className="heading-step"><p className="active">Step 3</p> /3</h2>
+            </div>
+
+            <div className="form-row form-gap">
+              <div className="form-group">
+                <label htmlFor="fname" className="formlabel ">Annual Business Revenue</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Annual Business Revenue" required />
+              </div>
+
+            </div>
+
+            <div className="form-row-one form-gap">
+              <div className="form-group form-name">
+                <label htmlFor="fname" className="formlabel ">Monthly Total Payroll Expenses</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Total Payroll Expenses" required />
+              </div>
+              <div className="form-group form-dba">
+                <label htmlFor="fdba" className="formlabel">Monthly Total Business Expenses</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter Monthly Total Business Expenses" required />
+              </div>
+            </div>
+
+            <div className="form-row-one form-gap">
+              <div className="form-group form-name">
+                <label htmlFor="fname" className="formlabel ">Average Daily Bank Balance</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Average Daily Bank Balance" required />
+              </div>
+            </div>
 
 
+            <div className="form-row-one form-gap">
+              <div className="form-group form-name">
+                <label htmlFor="ffti" className="formlabel">Do you have any outstanding loans or advances?</label>
+                <div className="radio-two">
+            
+                  <div className="radio-container">
+                    <input type="radio"  name="radio" />
+                    <label>Yes</label>
+                  </div>
 
+                  <div className="radio-container">
+                    <input type="radio"  name="radio" />
+                    <label>No</label>
+                  </div>
 
+                </div>
+              </div>
+              <div className="form-group form-dba">
+                <label htmlFor="fdba" className="formlabel">Outstanding Loan/Advance Balance</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter Outstanding Loan/Advance Balance" required />
+              </div>
+            </div>
 
-                <form className="formstyle">
-                    <h2 className="heading">Financial Information</h2>
-                    <div className="form-row">
-                        <div className="form-group">
+            <div className="form-row-one form-gap">
+              <div className="form-group form-name">
+                <label htmlFor="fname" className="formlabel ">Use of Funds</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Use of Funds" required />
+              </div>
+              <div className="form-group form-dba">
+                <label htmlFor="fdba" className="formlabel">Loan Amount Requested</label>
+                <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter Loan Amount Requested" required />
+              </div>
+            </div>
 
-                            <label htmlFor="fname" className="firstname">Annual Business Revenue</label>
-                            <input id="firstname" type="text" autoComplete="fname" placeholder="Enter Annual Business Revenue" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="fname" className="firstname">Monthly Total Payroll Expenses</label>
-                            <input id="firstname" type="text" autoComplete="fname" placeholder="Enter Monthly Total Payroll Expenses" required />
-                        </div>
+            <div className="form-head">
+              <h2 className="heading">Property Details</h2>
+            </div>
+            <div className="form-group form-name">
+                <label htmlFor="ffti" className="formlabel">Do you own the business property?</label>
+                <div className="radio-four">
+            
+                  <div className="radio-container">
+                    <input type="radio"  name="radio" className="own-click" />
+                    <label>Own</label>
+                  </div>
+
+                  <div className="radio-container mortgage-click">
+                    <input type="radio"  name="radio"  className="" />
+                    <label>Mortgage</label>
+                 
+                  </div>
+
+                  <div className="radio-container">
+                    <input type="radio"  name="radio"  className="rent-click" />
+                    <label>Rent</label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div className="form-row-one form-gap mortgage">
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">Monthly Rent/Mortgage</label>
+                  <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage" required />
+                </div>
+              </div>
+
+              <div className="rent">
+                
+                <div className="form-row-one form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">Monthly Rent/Mortgage</label>
+                    <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage" required />
+                  </div>
+                </div>
+
+                <div className="form-row-one form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">Monthly Rent/Mortgage</label>
+                    <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage" required />
+                  </div>
+                </div>
+
+                <div className="form-group form-gap radio-two rent">
+                  <label htmlFor="ffti" className="formlabel">Do you have any outstanding loans or advances?</label>
+                  <div className="radio-two">
+            
+                    <div className="radio-container">
+                      <input type="radio"  name="radio" />
+                      <label>Yes</label>
                     </div>
 
-                    <div className="form-row">
-                        <div className="form-group">
-                            <label htmlFor="fname" className="address">Monthly Total Business Expenses  </label>
-                            <input id="address" type="text" autoComplete="fname" placeholder="Enter Monthly Total Business Expenses" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="fname" className="suite">Average Daily Bank Balance</label>
-                            <input id="suite" type="text" autoComplete="fname" placeholder="Enter Average Daily Bank Balance" required />
-                        </div>
+                    <div className="radio-container">
+                      <input type="radio"  name="radio" />
+                      <label>No</label>
                     </div>
 
-                    <div className="form-row1">
-                        <div className="form-group">
-                            <label htmlFor="fname" className="city">DO you have any outstanding loans or advances?</label>
-                            <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="fname" className="state">State</label>
-                            <input id="state" type="text" autoComplete="fname" placeholder="No" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="fname" className="zipcode">Outstanding Loan/Advance Balance</label>
-                            <input id="zipcode" type="text" autoComplete="fname" placeholder="Enter Outstanding Loan/Advance Balance" required />
-                        </div>
-                    </div>
+                  </div>
+              </div>
+            </div>
 
-                    <div className="form-row2">
-                        <div className="form-group">
-                            <label htmlFor="fname" className="phone">Use of Funds</label>
-                            <input id="phone" type="text" autoComplete="fname" placeholder="Enter Use of Funds" required />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="fname" className="website">Loan Amount Requested</label>
-                            <input id="website" type="text" autoComplete="fname" placeholder="Enter Loan Amount Requested" required />
-                        </div>
-                    </div>
+          </section>
 
-                    <h2 className="heading">Property Details</h2>
+          <div className="form-row-button">
+            <input type="submit" id="button" value="Continue" />
+          </div>
 
-                    <div className="form-group">
-                        <label htmlFor="fname" className="city">DO you own the business property?</label>
-                        <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
-                        <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
-                        <input id="city" type="text" autoComplete="fname" placeholder="Yes" required />
-                    </div>
-
-                    <button type="submit" id="button">Continue</button>
-                </form>
-
-
-            </Hero>
+        </form>
+      </Hero>
 
 
 
-        </>
-    );
+    </>
+  );
 }
