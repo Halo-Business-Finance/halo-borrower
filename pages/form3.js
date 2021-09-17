@@ -179,6 +179,7 @@ input[type=submit]{
   display:block;
 }
 
+
 .own-click:checked ~ .mortgage {
   display:none;
 }
@@ -199,7 +200,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle">
+        <form className="formstyle" action ="form4">
 
           <section className="Form-design">
 
@@ -268,7 +269,7 @@ export default function Form() {
                 <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter Loan Amount Requested" required />
               </div>
             </div>
-
+          
             <div className="form-head">
               <h2 className="heading">Property Details</h2>
             </div>
@@ -281,10 +282,9 @@ export default function Form() {
                     <label>Own</label>
                   </div>
 
-                  <div className="radio-container mortgage-click">
-                    <input type="radio"  name="radio"  className="" />
+                  <div className="radio-container">
+                    <input type="radio"  name="radio"  className="mortgage-click" />
                     <label>Mortgage</label>
-                 
                   </div>
 
                   <div className="radio-container">
@@ -298,7 +298,7 @@ export default function Form() {
               <div className="form-row-one form-gap mortgage">
                 <div className="form-group form-name">
                   <label htmlFor="fname" className="formlabel ">Monthly Rent/Mortgage</label>
-                  <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage" required />
+                  <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage"  />
                 </div>
               </div>
 
@@ -307,14 +307,14 @@ export default function Form() {
                 <div className="form-row-one form-gap">
                   <div className="form-group form-name">
                     <label htmlFor="fname" className="formlabel ">Monthly Rent/Mortgage</label>
-                    <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage" required />
+                    <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage"  />
                   </div>
                 </div>
 
                 <div className="form-row-one form-gap">
                   <div className="form-group form-name">
                     <label htmlFor="fname" className="formlabel ">Monthly Rent/Mortgage</label>
-                    <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage" required />
+                    <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter Monthly Rent/Mortgage"  />
                   </div>
                 </div>
 

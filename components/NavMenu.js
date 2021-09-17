@@ -9,13 +9,13 @@ const Nav = styled.nav`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  color: white;
+  color: #FFFFFF99;
   
   
   .Document{
       background: #F3BA17;
       padding: 5px 20px;
-      border-radius: 5px;
+      color:#33333399;
   }
   
 `;
@@ -31,8 +31,6 @@ const StyledLink = styled.a`
 const NavMenu = () => {
     return (
         <Nav>
-
-
             <div>
                 <Link href='/form' passHref>
                     <StyledLink>Pre-qualify</StyledLink>
@@ -53,15 +51,7 @@ const NavMenu = () => {
                     <StyledLink>Documents</StyledLink>
                 </Link>
             </div>
-
-
-
-
-
-
         </Nav>
-
-
     );
 };
 

@@ -175,7 +175,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle">
+        <form className="formstyle" action ="form3">
           
           <section className="Form-design">
             

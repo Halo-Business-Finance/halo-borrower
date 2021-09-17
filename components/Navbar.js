@@ -17,6 +17,10 @@ const Nav = styled.nav`
       margin-left: 155px;
   }
 
+  .top-details{
+    margin-right: 155px;
+  }
+
 `;
 
 const StyledLink = styled.a`
@@ -36,19 +40,18 @@ const Navbar = () => {
                     </StyledLink>
 
                 </div>
-                <div>
+                <div className="top-details">
                     <Link href='/' passHref>
-                        <StyledLink>Phone: 981515441</StyledLink>
+                        <StyledLink>Phone: (877) 597-1714</StyledLink>
                     </Link>
                     <Link href='/form' passHref>
-                        <StyledLink>Anish adhikari</StyledLink>
+                        <StyledLink>John Doe</StyledLink>
                     </Link>
 
                 </div>
             </Nav>
             <NavMenu />
         </>
-
 
     );
 };
