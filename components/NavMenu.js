@@ -23,12 +23,11 @@ const Nav = styled.nav`
 const StyledLink = styled.a`
 
 
-  ${'' /* padding: 0rem 0rem; */}
-  ${'' /* margin: 30px; */}
-
 `;
 
 const NavMenu = () => {
+
+
     return (
         <Nav>
             <div>
@@ -46,7 +45,7 @@ const NavMenu = () => {
                     <StyledLink>Personal Financials</StyledLink>
                 </Link>
             </div>
-            <div className="Document">
+            <div>
                 <Link href='/form' passHref>
                     <StyledLink>Documents</StyledLink>
                 </Link>

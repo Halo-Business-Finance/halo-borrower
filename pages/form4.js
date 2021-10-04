@@ -225,10 +225,6 @@ input[type=submit]{
     top: 50%;
     position: absolute;
   }
-
- 
-
-  
 `;
 
 
@@ -241,7 +237,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action ="form5">
+        <form className="formstyle" action="form5">
 
           <section className="Form-design">
 
@@ -250,7 +246,7 @@ export default function Form() {
               <h2 className="heading-step"><p className="active">Step 3</p> /3</h2>
             </div>
 
-          
+
             <div className="form-row-one form-gap">
               <div className="form-group form-name">
                 <label htmlFor="fname" className="formlabel ">Full Name</label>
@@ -286,7 +282,7 @@ export default function Form() {
                 <label htmlFor="fname" className="formlabel">Social Security Number</label>
                 <input id="zipcode" className="textbox" type="number" autoComplete="fname" placeholder="Social Security Number" required />
               </div>
-            </div>           
+            </div>
 
             <div className="form-row-one form-gap">
               <div className="form-group form-name">
@@ -304,25 +300,25 @@ export default function Form() {
                 <label htmlFor="fname" className="formlabel ">Ownership</label>
                 <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter percent of ownership" required />
               </div>
-           
+
             </div>
 
             <div className="form-group form-gap">
               <label htmlFor="ffti" className="formlabel">Are you a:</label>
               <div className="radio-three">
-          
+
                 <div className="radio-container">
-                  <input type="radio"  name="radio" className="own-click" />
+                  <input type="radio" name="radio" className="own-click" />
                   <label>US Citizen</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio"  className="mortgage-click" />
+                  <input type="radio" name="radio" className="mortgage-click" />
                   <label>US Permanent Resident</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio"  className="rent-click" />
+                  <input type="radio" name="radio" className="rent-click" />
                   <label>Other</label>
                 </div>
 
@@ -330,7 +326,7 @@ export default function Form() {
             </div>
           </section>
 
-          <p class="add-owner">Add Owner</p>
+          <p className="add-owner">Add Owner</p>
 
           <section className="Form-design owner-two">
 
@@ -373,7 +369,7 @@ export default function Form() {
                 <label htmlFor="fname" className="formlabel">Social Security Number</label>
                 <input id="zipcode" className="textbox" type="number" autoComplete="fname" placeholder="Social Security Number" required />
               </div>
-            </div>           
+            </div>
 
             <div className="form-row-one form-gap">
               <div className="form-group form-name">
@@ -399,23 +395,23 @@ export default function Form() {
               <div className="radio-three">
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio" className="own-click" />
+                  <input type="radio" name="radio" className="own-click" />
                   <label>US Citizen</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio"  className="mortgage-click" />
+                  <input type="radio" name="radio" className="mortgage-click" />
                   <label>US Permanent Resident</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio"  className="rent-click" />
+                  <input type="radio" name="radio" className="rent-click" />
                   <label>Other</label>
                 </div>
 
               </div>
             </div>
-            </section>
+          </section>
 
           <div className="form-row-button">
             <input type="submit" id="button" value="Continue" />

@@ -175,103 +175,103 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action ="form3">
-          
+        <form className="formstyle" action="form3">
+
           <section className="Form-design">
-            
+
             <div className="form-head">
               <h2 className="heading">Business Contact Information</h2>
               <h2 className="heading-step"><p className="active">Step 2</p> /3</h2>
             </div>
-          
+
             <div className="form-row">
               <label htmlFor="fentity" className="formlabel ">Business Label Name</label>
               <div className="radio-four">
-              
+
                 <div className="radio-container">
-                  <input type="radio"  name="radio" />
-                  
+                  <input type="radio" name="radio" />
+
                   <label>C- Corp</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio" />   
+                  <input type="radio" name="radio" />
                   <label>Sole-Prop</label>
                 </div>
-                
+
                 <div className="radio-container">
-                  <input type="radio"  name="radio" />
+                  <input type="radio" name="radio" />
                   <label>LLC</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio"  name="radio" />
+                  <input type="radio" name="radio" />
                   <label>Partnership</label>
-                </div>
-
-            </div>
-          </div>
-
-          <div className="form-row-two form-gap">
-            <div className="form-group form-addess">
-              <label htmlFor="fsoo" className="formlabel">State of Organization</label>
-              <input id="address" className="textbox" type="text" autoComplete="fsoo" placeholder="Enter State of Organization" required />
-            </div>
-            <div className="form-group form-suite">
-              <label htmlFor="ffti" className="formlabel">Federal Tax ID</label>
-              <input id="suite" className="textbox" type="text" autoComplete="ffti" placeholder="Enter Federal Tax ID" required />
-            </div>
-          </div>
-
-          <div className="form-row-four form-gap">
-            <div className="form-group form-phone">
-              <label htmlFor="fname" className="formlabel">Business Start Date</label>
-              <input id="phone" className="textbox" type="date" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
-            </div>
-            <div className="form-group form-website">
-              <label htmlFor="fname" className="formlabel">Industry Description/SIC</label>
-              <input id="website" className="textbox" type="text" autoComplete="fname" placeholder="Enter Industry Description/SIC:" required />
-            </div>
-          </div>
-
-          <div className="form-row form-gap">
-            <div className="form-group">
-              <label htmlFor="fname" className="formlabel">Type of Product/Service Sold</label>
-              <input id="city" className="textbox" type="text" autoComplete="fname" placeholder="Enter Type of Product/Service Sold" required />
-            </div>
-          </div>
-
-          <div className="form-row-two form-gap">
-            <div className="form-group form-addess">
-              <label htmlFor="fsoo" className="formlabel">Total Company Employees and 1099 Contractors</label>
-              <input id="address" className="textbox" type="text" autoComplete="fsoo" placeholder="Total Company Employees and 1099 Contractors" required />
-            </div>
-            <div className="form-group form-suite">
-              <label htmlFor="ffti" className="formlabel">Was this Business Purchased?</label>
-
-              <div className="radio-two">
-          
-                <div className="radio-container">
-                  <input type="radio"  name="radio" />
-                  <label>Yes</label>
-                </div>
-
-                <div className="radio-container">
-                  <input type="radio"  name="radio" />
-                  <label>No</label>
                 </div>
 
               </div>
             </div>
-          </div>
 
-       
+            <div className="form-row-two form-gap">
+              <div className="form-group form-addess">
+                <label htmlFor="fsoo" className="formlabel">State of Organization</label>
+                <input id="address" className="textbox" type="text" autoComplete="fsoo" placeholder="Enter State of Organization" required />
+              </div>
+              <div className="form-group form-suite">
+                <label htmlFor="ffti" className="formlabel">Federal Tax ID</label>
+                <input id="suite" className="textbox" type="text" autoComplete="ffti" placeholder="Enter Federal Tax ID" required />
+              </div>
+            </div>
+
+            <div className="form-row-four form-gap">
+              <div className="form-group form-phone">
+                <label htmlFor="fname" className="formlabel">Business Start Date</label>
+                <input id="phone" className="textbox" type="date" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
+              </div>
+              <div className="form-group form-website">
+                <label htmlFor="fname" className="formlabel">Industry Description/SIC</label>
+                <input id="website" className="textbox" type="text" autoComplete="fname" placeholder="Enter Industry Description/SIC:" required />
+              </div>
+            </div>
+
+            <div className="form-row form-gap">
+              <div className="form-group">
+                <label htmlFor="fname" className="formlabel">Type of Product/Service Sold</label>
+                <input id="city" className="textbox" type="text" autoComplete="fname" placeholder="Enter Type of Product/Service Sold" required />
+              </div>
+            </div>
+
+            <div className="form-row-two form-gap">
+              <div className="form-group form-addess">
+                <label htmlFor="fsoo" className="formlabel">Total Company Employees and 1099 Contractors</label>
+                <input id="address" className="textbox" type="text" autoComplete="fsoo" placeholder="Total Company Employees and 1099 Contractors" required />
+              </div>
+              <div className="form-group form-suite">
+                <label htmlFor="ffti" className="formlabel">Was this Business Purchased?</label>
+
+                <div className="radio-two">
+
+                  <div className="radio-container">
+                    <input type="radio" name="radio" />
+                    <label>Yes</label>
+                  </div>
+
+                  <div className="radio-container">
+                    <input type="radio" name="radio" />
+                    <label>No</label>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
           </section>
 
           <div className="form-row-button">
             <input type="submit" id="button" value="Continue" />
           </div>
-        
+
         </form>
       </Hero>
     </>
