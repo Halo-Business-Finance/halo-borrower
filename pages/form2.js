@@ -180,7 +180,7 @@ export default function Form() {
           <section className="Form-design">
 
             <div className="form-head">
-              <h2 className="heading">Business Contact Information</h2>
+              <h2 className="heading">Business Information</h2>
               <h2 className="heading-step"><p className="active">Step 2</p> /3</h2>
             </div>
 

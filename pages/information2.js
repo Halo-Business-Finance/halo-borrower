@@ -2,124 +2,142 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const Hero = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-background: #E5E5E5;
-padding: 20px;
-
-.formstyle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #E5E5E5;
+  padding: 20px;
+  
+  .formstyle{
     width: 60%;
     background: #F8F8FF;
     border-radius: 10px; 
-}
-.Form-design{
+     
+  }
+  .Form-design{
     padding: 30px 30px 30px 30px;
     
-}
-
-.textbox{
+  }
+  
+  .textbox{
     width:100%;
     padding: 12px;
-}
+  }
 
-.form-row-one{
+  .radio-four{
+    column-count: 4;
+    width:100%;
+    display:inline-block;
+    column-gap:5%;
+  }
+
+  .radio-two{
     column-count: 2;
     width:100%;
     display:inline-block;
     column-gap:5%;
-}
-
-.form-row-two{
-    width:100%;
-    display:inline-block;
-}
-
-.form-row-three{
-    width:100%;
-    display:inline-block;
     
-}
-
-.form-row-four{
+  }
+  
+  .form-row-one{
+    column-count: 2;
     width:100%;
     display:inline-block;
-}
+    column-gap:5%;
+  }
+  
+  .form-row-two{
+    width:100%;
+    display:inline-block;
+  }
 
-.form-city{
+  .form-row-three{
+    column-count: 1;
+    width:100%;
+    
+    
+  }
+
+  .form-row-four{
+    width:100%;
+    display:inline-block;
+  }
+
+  .form-city{
     width:40%;
     display:inline-block;
     margin-right:5%;
-}
+  }
 
-.form-state{
+  .form-state{
     width:25%;
     display:inline-block;
     margin-right:5%;
-}
+  }
 
-.form-zip{
+  .form-zip{
     width:25%;
     display:inline-block;
-}
+  }
 
-.form-addess{
+  .form-addess{
     width:60%;
     display:inline-block;
     margin-right:5%;
-}
+  }
 
-.form-phone{
+  .form-phone{
     width:40%;
     display:inline-block;
     margin-right:5%;
-}
+  }
 
-.form-website{
+  .form-website{
     width:55%;
     display:inline-block;
-}
+  }
 
-.form-suite{
+  .form-suite{
     width:35%;
     display:inline-block;
-}
+  }
 
-.form-head{
+  .form-head{
     display:inline-block;
     width:100%;
-}
+  }
 
-.active{
+  .active{
     color:#1B46B0;
     display:inline;
-}
+  }
 
-.heading{
+  .heading{
     display:inline;
     float:left;
-}
+  }
 
-.heading-step{
+  .heading-step{
     display:inline;
     color:#ADADAD;
     display:inline;
     float:right; 
-}
+  }
 
-.formlabel{
-    color: #5C5C5C;}
+  .formlabel{
+    color: #5C5C5C;
+  }
 
-.textbox{
+  .textbox{
     border-radius: 4px;
     border: 1px solid #ededed;
-}
+  }
 
-.form-gap{
+  .form-gap{
     margin-top:20px;
-}
+  }
 
-input[type=submit]{
+  input[type=submit]{
     
     background-color: #F3BA17;
     border: none;
@@ -130,97 +148,128 @@ input[type=submit]{
     text-decoration: none;
     cursor: pointer;
     
-}
+  }
 
-.form-row-button{
+  .form-row-button{
     width:100%;
     justify-content:center;
     align-items: center;
     display: flex;
     margin:20px 0px 20px 0px;
-}
-.radio-container{
+  }
+
+  .radio-container{
     padding: 5px 5px 5px 5px;
     border: 1px solid #ededed; 
     border-radius: 4px;
     background-color:white;
-}
-
-.radio-two{
-    column-count: 2;
-    width:100%;
-    display:inline-block;
-    column-gap:5%;
-}
-.raido-four {
-    column-count: 4;
-    width:100%;
-    display:inline-block;
-    column-gap:5%;
-}
-
+  }
 
 `;
 
 
 export default function Form() {
-    return (
-        <>
-            <Head>
-                <title>Personal Information</title>
-                <link rel='icon' href='/favicon.ico' />
-            </Head>
-            <Hero>
+  return (
+    <>
+      <Head>
+        <title>Form</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Hero>
 
-                <form className="formstyle" action="form2">
+        <form className="formstyle" action="form3">
 
-                    <section className="Form-design">
+          <section className="Form-design">
 
-                        <div className="form-head">
-                            <h2 className="heading">General Information</h2>
-                            <h2 className="heading-step"><p className="active">Step 2</p> /6</h2>
-                        </div>
+            <div className="form-head">
+              <h2 className="heading">General Information</h2>
+              <h2 className="heading-step"><p className="active">Step 2</p> /6</h2>
+            </div>
 
-                        <div className="form-row">
-                            <label htmlFor="inform" className="formlabel">Are any assets pledged?</label>
-                            <div className="radio-two">
-                                <div className="radio-container">
-                                    <input type="radio" name="radio" />
-                                    <label>Yes</label>
-                                </div>
+            <div className="form-row-one">
+              <label htmlFor="fentity" className="formlabel ">Are any assets pledged?</label>
+              <div className="radio-two">
 
-                                <div className="radio-container">
-                                    <input type="radio" name="radio" />
-                                    <label>No</label>
-                                </div>
-                            </div>
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>Yes</label>
+                </div>
 
-                            <label htmlFor="inform" className="formlabel">Are you a defendant in any suits or legal actions?</label>
-                            <div className="radio-two">
-                                <div className="radio-container">
-                                    <input type="radio" name="radio" />
-                                    <label>Yes</label>
-                                </div>
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>No</label>
+                </div>                
 
-                                <div className="radio-container">
-                                    <input type="radio" name="radio" />
-                                    <label>No</label>
-                                </div>
-                            </div>
+             </div>
+            </div>
 
+            <div className="form-row-one form-gap">
+              <label htmlFor="fentity" className="formlabel ">Are you a defendant in any suits or legal actions?</label>
+              <div className="radio-two">
 
-                        </div>
-                    </section>
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>Yes</label>
+                </div>
 
-                    <div className="form-row-button">
-                        <input type="submit" href="form2" id="button" value="Continue" />
-                    </div>
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>No</label>
+                </div>                
 
-                </form>
-            </Hero>
+             </div>
+            </div>
 
+            <div className="form-row-one form-gap">
+              <label htmlFor="fentity" className="formlabel ">US Citizen?</label>
+              <div className="radio-two">
 
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>Yes</label>
+                </div>
 
-        </>
-    );
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>No</label>
+                </div>                
+
+             </div>
+            </div>
+
+            <div className="form-row-two form-gap">
+              <div className="form-group form-addess">
+                <label htmlFor="fsoo" className="formlabel">Personal bank account carried at (name of financial institutions)</label>
+                <input id="address" className="textbox" type="text" autoComplete="fsoo" placeholder="Enter State of Organization" required />
+              </div>
+              
+            </div>
+
+            <div className="form-row-one form-gap">
+              <label htmlFor="fentity" className="formlabel ">Have you or any business you have owned ever declared bankruptcy?</label>
+              <div className="radio-two">
+
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>Yes</label>
+                </div>
+
+                <div className="radio-container">
+                  <input type="radio" name="radio" />
+                  <label>No</label>
+                </div>                
+
+             </div>
+            </div>
+
+          </section>
+
+          <div className="form-row-button">
+            <input type="submit" id="button" value="Continue" />
+          </div>
+
+        </form>
+      </Hero>
+    </>
+  );
 }
