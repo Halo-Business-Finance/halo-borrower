@@ -36,6 +36,7 @@ padding: 20px;
 }
 
 .form-row-three{
+    column-count: 3;
     width:100%;
     display:inline-block;
     
@@ -47,43 +48,58 @@ padding: 20px;
 }
 
 .form-city{
-    width:40%;
+    width:100%;
     display:inline-block;
     margin-right:5%;
 }
 
-.form-state{
+/* .form-state{
     width:25%;
     display:inline-block;
     margin-right:5%;
-}
+} */
 
-.form-zip{
+/* .form-zip{
     width:25%;
     display:inline-block;
-}
+} */
 
 .form-addess{
-    width:60%;
+    width:100%;
     display:inline-block;
     margin-right:5%;
 }
 
 .form-phone{
-    width:40%;
+    width:100%;
     display:inline-block;
     margin-right:5%;
 }
 
-.form-website{
-    width:55%;
-    display:inline-block;
+.form-state{
+    
+    display: inline-block;
 }
 
-.form-suite{
-    width:35%;
+/* .form-fzip{
+    display: inline-block;
+    margin-right: 5%;
+} */
+
+/* .form-tele{
+    display: inline-block;
+    margin-right: 5%;
+} */
+
+/* .form-website{
+    width:55%;
     display:inline-block;
-}
+} */
+
+/* .form-suite{
+    width:100%;
+    display:inline-block;
+} */
 
 .form-head{
     display:inline-block;
@@ -192,7 +208,7 @@ export default function Form() {
                             </div>
                         </div>
 
-                        <div className="form-row-two form-gap">
+                        <div className="form-row-one form-gap">
                             <div className="form-group form-addess">
                                 <label htmlFor="fname" className="formlabel">Business of Employer</label>
                                 <input id="address" className="textbox" type="text" autoComplete="fname" placeholder="Enter Applicant Name" required />
@@ -203,48 +219,61 @@ export default function Form() {
                             </div>
                         </div>
 
-                        <div className="form-row-two form-gap">
+                        <div className="form-row-one form-gap">
                             <div className="form-group form-city">
                                 <label htmlFor="fname" className="formlabel">Co-Applicant Name</label>
                                 <input id="city" className="textbox" type="text" autoComplete="fname" placeholder="Enter Co-Applicant Name" required />
                             </div>
-                            <div className="form-group form-state">
+                            <div className="form-group form-bphone">
                                 <label htmlFor="fname" className="formlabel">Business Phone</label>
                                 <input id="state" className="textbox" type="text" autoComplete="fname" placeholder="XXX-XXX-XXXX" required />
                             </div>
+                        </div>
+
+
+
+                        <div className="form-row-one form-gap">
+
                             <div className="form-group form-zip">
                                 <label htmlFor="fname" className="formlabel">Business of Employeer</label>
-                                <input id="employer" className="textbox" type="text  " autoComplete="fname" placeholder="Enter Applicant Name" required />
+                                <input id="employer" className="textbox" type="text" autoComplete="fname" placeholder="Enter Applicant Name" required />
+                            </div>
+                            <div className="form-group form-phone">
+                                <label htmlFor="fname" className="formlabel">Date of Birth</label>
+                                <input id="dob" className="textbox" type="text" autoComplete="fname" placeholder="MM-DD-YYYY" required />
                             </div>
                         </div>
 
-                        <div className="form-row-four form-gap">
-                            <div className="form-group form-phone">
-                                <label htmlFor="fname" className="formlabel">Residence Address</label>
-                                <input id="phone" className="textbox" type="text" autoComplete="fname" placeholder="Enter City" required />
-                            </div>
+
+
+
+                        <div className="form-row-one form-gap">
                             <div className="form-group form-website">
-                                <label htmlFor="fname" className="formlabel">City</label>
+                                <label htmlFor="fname" className="formlabel">Residence Address</label>
                                 <input id="website" className="textbox" type="text" autoComplete="fname" placeholder="Enter City" required />
                             </div>
+                            <div className="form-group form-city">
+                                <label htmlFor="fname" className="formlabel">City</label>
+                                <input id="city" className="textbox" type="text" autoComplete="fname" placeholder="Enter City" required />
+                            </div>
+
                         </div>
 
                         <div className="form-row-three form-gap">
-                            <div className="form-group form-city">
-                                <label htmlFor="fname" className="formlabel">State</label>
-                                <input id="city" className="textbox" type="text" autoComplete="fname" placeholder="Select State" required />
-                            </div>
                             <div className="form-group form-state">
-                                <label htmlFor="fname" className="formlabel">Zip Code</label>
-                                <input id="state" className="textbox" type="text" autoComplete="fname" placeholder="Enter Zip Code" required />
+                                <label htmlFor="fname" className="formlabel">State</label>
+                                <input id="state" className="textbox" type="text" autoComplete="fname" placeholder="Select State" required />
                             </div>
-                            <div className="form-group form-zip">
+                            <div className="form-group form-fzip">
+                                <label htmlFor="fname" className="formlabel">Zip Code</label>
+                                <input id="zipcode" className="textbox" type="text" autoComplete="fname" placeholder="Enter Zip Code" required />
+                            </div>
+                            <div className="form-group form-tele">
                                 <label htmlFor="fname" className="formlabel">Residence Phone</label>
-                                <input id="zipcode" className="textbox" type="number" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
+                                <input id="tele" className="textbox" type="text" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />
                             </div>
                         </div>
-
-                        <div className="form-row">
+                        <div className="form-row form-gap">
                             <label htmlFor="fentity" className="formlabel ">Partner or officer in any other venture?</label>
                             <div className="radio-two">
 
