@@ -144,7 +144,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action="form3">
+        <form className="formstyle" action="income1">
 
           <section className="form-design">
 
@@ -232,7 +232,7 @@ export default function Form() {
           </section>
 
           <div className="form-row-button">
-            <input type="submit" id="button" value="Continue" />
+            <input type="submit" href=""  id="button" value="Continue" />
           </div>
 
         </form>

@@ -314,7 +314,7 @@ export default function Form() {
                     </section>
 
                     <div className="form-row-button">
-                        <input type="submit" href="form2" id="button" value="Continue" />
+                        <input type="submit" href="information2" id="button" value="Continue" />
                     </div>
 
                 </form>
