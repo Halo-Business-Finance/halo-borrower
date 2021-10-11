@@ -162,6 +162,14 @@ export default function Form() {
                         <th>0.00</th>
                     </tr>
                     <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <th>Total Income</th>
                         <th>0.00</th>
                     </tr>
