@@ -14,7 +14,7 @@ const Hero = styled.div`
     border-radius: 10px; 
      
   }
-  .Form-design{
+  .form-design{
     padding: 30px 30px 30px 30px;
     
   }
@@ -63,43 +63,10 @@ const Hero = styled.div`
     display:inline-block;
   }
 
-  .form-city{
-    width:40%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-state{
-    width:25%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-zip{
-    width:25%;
-    display:inline-block;
-  }
-
   .form-addess{
     width:60%;
     display:inline-block;
     margin-right:5%;
-  }
-
-  .form-phone{
-    width:40%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-website{
-    width:55%;
-    display:inline-block;
-  }
-
-  .form-suite{
-    width:35%;
-    display:inline-block;
   }
 
   .form-head{
@@ -179,7 +146,7 @@ export default function Form() {
 
         <form className="formstyle" action="form3">
 
-          <section className="Form-design">
+          <section className="form-design">
 
             <div className="form-head">
               <h2 className="heading">General Information</h2>
