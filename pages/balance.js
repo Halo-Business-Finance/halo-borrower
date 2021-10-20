@@ -38,7 +38,7 @@ const Hero = styled.div`
   }
   td, th {
     border: 1px solid #DDDDDD;
-    text-align: left;
+    number-align: left;
     padding: 8px;
   }
   tr:nth-child(odd) {
@@ -65,7 +65,7 @@ const Hero = styled.div`
   .formlabel{
     color: #5C5C5C;
   }
-  .textbox{
+  .numberbox{
     border-radius: 4px;
     border: 1px solid #EDEDED;
   }
@@ -79,7 +79,7 @@ const Hero = styled.div`
     font-weight: 600;
     border-radius:8px;
     padding: 14px 30px;
-    text-decoration: none;
+    number-decoration: none;
     cursor: pointer;
   }
   .form-row-button{
@@ -89,8 +89,25 @@ const Hero = styled.div`
     display: flex;
     margin:20px 0px 20px 0px;
   }
+
+  input[type=number] {
+    border:none;
+    background: none;
+    font-weight:600;
+    width:80%;
+  }
+
+  input[type=number]:focus {
+    border:none!important;
+    border-shadow:none;
+    background: none;
+    width:80%;
+  }
+
+
 `;
 export default function Form() {
+    
     return (
         <>
             <Head>
@@ -98,7 +115,7 @@ export default function Form() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Hero>
-                <form className="formstyle" action="form2">
+                <form className="formstyle" action="assets">
                     <section className="Form-design">
                         <div className="form-head">
                             <h2 className="heading">Income Source</h2>
@@ -115,127 +132,126 @@ export default function Form() {
                                 </tr>
                                 <tr>
                                     <th rowSpan="2">Cash in Bank(including money market accounts, CDs)</th>
-                                    <th rowSpan="2">0.00</th>
-                                    <th >Notes Payable to Bank</th>
-                                    <th rowSpan="2">0.00</th>
+                                    <th rowSpan="2"><input type="number" name="test" placeholder="0.00" /></th>  <th >Notes Payable to Bank</th>
+                                    <th rowSpan="2"><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>
                                         <th>Secured</th>
-                                        <th>$__</th>
+                                        <th><input type="number" name="test" placeholder="0.00" /></th>
                                         <th>Unsecured</th>
-                                        <th>$__</th>
+                                        <th>$<input type="number" name="test" placeholder="__" /></th>
                                     </th>
                                 </tr>
                                 <tr>
                                     <th rowSpan="2">Cash in Bank(including money market accounts, CDs)</th>
-                                    <th rowSpan="2">0.00</th>
+                                    <th rowSpan="2"><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Notes Payable to Others (Schedule F)</th>
-                                    <th rowSpan="2">0.00</th>
+                                    <th rowSpan="2"><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>
                                         <th>Secured</th>
-                                        <th>$__</th>
+                                        <th>$<input type="number" name="test" placeholder="__" /></th>
                                         <th>Unsecured</th>
-                                        <th>$__</th>
+                                        <th>$<input type="number" name="test" placeholder="__" /></th>
                                     </th>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th></th>
                                     <th>Credit Cards & Accounts Payable</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th></th>
                                     <th></th>
                                     <th>Margin Accounts</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Readily Marketable Securities (Schedule A)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Notes Due to Privately Owned Businesse</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Non-Readily Marketable Securities (Schedule A)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Taxes Payable</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Ownership in Privately Owned Businesses (Schedule B)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Personal Residential Mortgages (Schedule D)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Notes Receivable from Business</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Investment Real Estate Debt (Schedule E)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Notes Receivable from Others</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Life Insurance Loans (Schedule C)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Net Cash Surrender Value of Life Insurance (Schedule C)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Other Liabilities (List)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>Real Estate for Personal Use (Schedule D)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>List your liabilities separated by comma</th>
                                     <th></th>
                                 </tr>
                                 <tr>
                                     <th>Real Estate Investments (Schedule E)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 <tr>
                                     <th>Retirement Accounts (IRA, Keogh, Profit Sharing & Other)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 <tr>
                                     <th>Automobiles</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Total Liabilities</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>List your automobiles separated by comma</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 <tr>
                                     <th>Other Assets (List)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Net Worth(Total Assets - Total Liabalities)</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                                 <tr>
                                     <th>List your assets separated by comma</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                                 <tr>
                                     <th>Total Assets</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                     <th>Total Liabilities & Net Worth</th>
-                                    <th>0.00</th>
+                                    <th><input type="number" name="test" placeholder="0.00" /></th>
                                 </tr>
                             </table>
                         </div>

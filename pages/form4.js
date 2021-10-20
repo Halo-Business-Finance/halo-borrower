@@ -237,12 +237,12 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action="form5">
+        <form className="formstyle" action="form6">
 
           <section className="Form-design">
 
             <div className="form-head">
-              <h2 className="heading">Financial Information</h2>
+              <h2 className="heading">Owner 1</h2>
               <h2 className="heading-step"><p className="active">Step 3</p> /3</h2>
             </div>
 

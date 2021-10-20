@@ -144,7 +144,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action="income1">
+        <form className="formstyle" action="income">
 
           <section className="form-design">
 
