@@ -210,7 +210,7 @@ export default function Form() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
-        <form className="formstyle" action="form5">
+        <form className="formstyle" action="assets2">
           <section className="form-design">
             <div className="form-head">
               <h2 className="heading">Schedule of Assets Pledged</h2>

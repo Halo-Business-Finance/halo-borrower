@@ -37,11 +37,11 @@ const NavMenu = () => {
             </div>
             <div>
                 <Link href='/informationindex' passHref>
-                    <StyledLink>Financials</StyledLink>
+                    <StyledLink>Business Financials</StyledLink>
                 </Link>
             </div>
             <div>
-                <Link href='/form' passHref>
+                <Link href='/information' passHref>
                     <StyledLink>Personal Financials</StyledLink>
                 </Link>
             </div>

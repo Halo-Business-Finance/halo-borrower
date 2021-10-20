@@ -102,7 +102,7 @@ export default function Form() {
                 <form className="formstyle" action="form2">
                     <section className="Form-design">
                         <div className="form-head">
-                            <h2 className="heading">Debt Schedule</h2>
+                            <h2 className="heading">Schedule of Assets Pledged</h2>
                             <h2 className="heading-step"><p className="active">Step 6 </p> / 7</h2>
                         </div>
 
@@ -235,8 +235,8 @@ export default function Form() {
                             <div>
                                 <img src="images/plus.png" />
                                 Add More Row
-                                {/* <img src="images/delete.png" />
-                                Remove Row */}
+                                <img src="images/delete.png" />
+                                Remove Row
                             </div>
 
                         </div>

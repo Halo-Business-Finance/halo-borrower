@@ -109,6 +109,20 @@ const Hero = styled.div`
     margin:20px 0px 20px 0px;
   }
 
+  input[type=number] {
+    border:none;
+    background: none;
+    font-weight:600;
+    width:80%;
+  }
+
+  input[type=number]:focus {
+    border:none!important;
+    border-shadow:none;
+    background: none;
+    width:80%;
+  }
+
 `;
 
 
@@ -143,23 +157,23 @@ export default function Form() {
                     </tr>
                     <tr>
                         <th>Salary</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Bonus and Commissions </th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Interest & Dividends</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Real Estate Income</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Other Income (please itemize)</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th></th>
@@ -171,7 +185,7 @@ export default function Form() {
                     </tr>
                     <tr>
                         <th>Total Income</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     
                 </table>
