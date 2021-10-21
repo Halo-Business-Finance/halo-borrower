@@ -243,7 +243,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action ="form6">
+        <form className="formstyle" action ="form5">
 
           <section className="Form-design">
 
@@ -253,7 +253,7 @@ export default function Form() {
             </div>
 
             <div className="form-head">
-              <p className="heading">By clicking “Finish”, you consent to receive calls and emails from Halo Business Finance. You acknowledge that no purchase of credit or services is contingent upon such consent and acknowledge that you have read Halo Business Finance’s Application Agreement and Halo Business Finance’s privacy policy. You understand that you may opt-out of receiving communications of your choice from Halo Business Finance as provided in the privacy policy.</p>
+              <p className="heading">I certify that all information entered thus far into the application is accurate and that "Borrower Name" is a principal owner of "Business Name" I am authorized to act on behalf of "Business Name" and I grant permission for Halo Business Finance to procure ONLY a credit score number and share a PASS or FAIL result only with Halo Business Finance lending partners for the purpose of loan options. I understand this will not impact the applicant’s credit score and will not show up as an inquiry on a credit report pulled by Halo Business Finance.</p>
             </div>
 
             

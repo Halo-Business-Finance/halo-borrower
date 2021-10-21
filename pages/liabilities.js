@@ -107,6 +107,20 @@ const Hero = styled.div`
     margin:20px 0px 20px 0px;
   }
 
+  input[type=number] {
+    border:none;
+    background: none;
+    font-weight:600;
+    width:80%;
+  }
+
+  input[type=number]:focus {
+    border:none!important;
+    border-shadow:none;
+    background: none;
+    width:80%;
+  }
+
 `;
 
 
@@ -119,7 +133,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action ="assets">
+        <form className="formstyle" action ="balance">
           
           <section className="Form-design">
             
@@ -137,23 +151,23 @@ export default function Form() {
                     </tr>
                     <tr>
                         <th>As Guarantor, Endorser, or Co-maker</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>On Leases or Contracts </th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Legal Claims</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Provisions for Federal Income Taxes</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th>Other Special Debt</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
                         <th></th>
@@ -165,7 +179,7 @@ export default function Form() {
                     </tr>
                     <tr>
                         <th>Total Contingent Liabilities</th>
-                        <th>0.00</th>
+                        <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                    
                     

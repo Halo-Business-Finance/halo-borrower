@@ -116,7 +116,7 @@ font-family: Mulish;
   }
   
   .meter span{
-      width:33%;
+      width:80%;
   }
 
     .meter-link{
@@ -342,6 +342,64 @@ export default function Form() {
                             <div className="finance-container-two">
 
                                 <div className="button-step">
+                                    <a href="/form" > <span>Next step</span></a>    
+                                </div> 
+
+                                <div className="button-time">
+                                    <a href="#"  id="button-time-icon"> <span>5 minutes</span></a>    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br /><br />
+                    <div className="finance-list">
+                        <div class="sba-header-container">
+            
+                            <div class="finance-container-one">
+                                
+                                <img src="/images/financials.png" class="sba-image" />
+                                
+                                <div class="sba-details">
+                                    <p class="finance-detail-title">Business Financials</p>
+                                    <p class="finance-detail-detail">You need to enter your business financial info!</p>
+                                </div>
+
+                            </div>
+                            
+                            <div className="finance-container-two">
+
+                                <div className="button-step">
+                                    <a href="/" > <span>Next step</span></a>    
+                                </div> 
+
+                                <div className="button-time">
+                                    <a href="#"  id="button-time-icon"> <span>5 minutes</span></a>    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <br /><br />
+                    <div className="finance-list">
+                        <div class="sba-header-container">
+            
+                            <div class="finance-container-one">
+                                
+                                <img src="/images/financials.png" class="sba-image" />
+                                
+                                <div class="sba-details">
+                                    <p class="finance-detail-title">Personal Financials</p>
+                                    <p class="finance-detail-detail">You need to enter your Personal financial info!</p>
+                                </div>
+
+                            </div>
+                            
+                            <div className="finance-container-two">
+
+                                <div className="button-step">
                                     <a href="/information" > <span>Next step</span></a>    
                                 </div> 
 
@@ -352,6 +410,9 @@ export default function Form() {
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
                 
             </Hero>
