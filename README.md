@@ -4,10 +4,7 @@ To run the application on your local computer, please follow the following steps
 - Clone the Gitlab repository in your local computer.
 
 `git clone https://gitlab.com/santoshpanta50/halo-onehorn.git`
-
--Change the branch to forms using following command.
-
-`git checkout forms`
+ 
 
 - Install Next using following command.
 

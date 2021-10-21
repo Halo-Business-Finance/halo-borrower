@@ -17,7 +17,6 @@ const BusinessStyle = styled.div`
     header{
         .header-one p{
             font-size: 16px;
-            letter-spacing: .5px;
             color: #5C5C5C;
             font-weight: bold;
         }
@@ -91,7 +90,7 @@ const BusinessStyle = styled.div`
   }
 `;
 
-export default function Form() {
+export default function Business() {
   return (
     <>
       <BusinessStyle>
