@@ -31,7 +31,6 @@ const BusinessStyle = styled.div`
     }
     
   }
-  //body section css
   body{
      display: flex;
      flex-direction: column;
@@ -88,7 +87,6 @@ const BusinessStyle = styled.div`
                 text-decoration-line: underline;
             }
         }    
-  }
 `;
 
 export default function Form() {
