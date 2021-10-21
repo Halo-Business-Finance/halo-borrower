@@ -23,12 +23,15 @@ const Hero = styled.div`
     width:100%;
     padding: 12px;
   }
+.form-group {
+    margin-top: 5%;
+}  
   
   .form-row-one{
-    column-count: 2;
-    width:100%;
-    display:inline-block;
-    column-gap:5%;
+    width:60%;
+    margin-top: 5%;
+    margin-left: 20%;
+    
   }
   
   .form-row-two{
@@ -144,7 +147,6 @@ const Hero = styled.div`
 
 
 
-
 `;
 
 
@@ -162,29 +164,25 @@ export default function Form() {
                     <section className="Form-design">
 
                         <div className="form-head">
-                            <h2 className="heading">Continue to Enroll</h2>
+                            <h2 className="heading">Log In</h2>
 
                         </div>
 
                         <div className="form-row-one form-gap">
-                            <div className="form-group form-name">
-                                <label htmlFor="fname" className="formlabel ">Email Address</label>
+                            <div className="form-name">
+                                <label htmlFor="fname" className="formlabel ">Email</label>
                                 <input id="firstname" className="textbox" type="email" autoComplete="fname" placeholder="Enter your email address" required />
                             </div>
+
                             <div className="form-group form-dba">
                                 <label htmlFor="fdba" className="formlabel">Password</label>
                                 <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter your password" required />
                             </div>
                         </div>
-                        <div>
-                            <p>
-                                By clicking “Register”, you consent to receive calls and emails from Halo Business Finance. You acknowledge that no purchase of credit or services is contingent upon such consent and acknowledge that you have read Halo Business Finance’s Application Agreement and Halo Business Finance’s privacy policy. You understand that you may opt-out of receiving communications of your choice from Halo Business Finance as provided in the privacy policy.
-                            </p>
-                        </div>
                     </section>
 
                     <div className="form-row-button">
-                        <input type="submit" href="form2" id="button" value="Register" />
+                        <input type="submit" href="form2" id="button" value="Log In" />
                     </div>
 
                 </form>
