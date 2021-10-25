@@ -146,12 +146,12 @@ export default function Form() {
                                         
                                         <input type="radio"  name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/sba504loan.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>SBA 504 Loan</p>
                                 </div>
                             </div>
                         </div>
@@ -165,12 +165,12 @@ export default function Form() {
                                         
                                         <input type="radio"  name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/invoicefactoring.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Invoice Factoring</p>
                                 </div>
                             </div>
                         </div>
@@ -184,12 +184,12 @@ export default function Form() {
                                         
                                         <input type="radio"  name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/equipmentfinance.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Equipment Finance</p>
                                 </div>
                             </div>
                         </div>
@@ -203,12 +203,12 @@ export default function Form() {
                                         
                                         <input type="radio"  name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/businesstermloan.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Business Term Loan</p>
                                 </div>
                             </div>
                         </div>
@@ -222,12 +222,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/shorttermbridgeloan.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Commercial Bridge Loan</p>
                                 </div>
                             </div>
                         </div>
@@ -241,12 +241,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/ShortTermBusinessLoan.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Short Term Business Loan</p>
                                 </div>
                             </div>
                         </div>
@@ -260,12 +260,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/CommercialRealEstateLoan.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Commercial Real Estate Loan</p>
                                 </div>
                             </div>
                         </div>
@@ -279,12 +279,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/Multi-familyLoans.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Multi-family Loans</p>
                                 </div>
                             </div>
                         </div>
@@ -298,12 +298,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/AgricultureLoans.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Agriculture Loans</p>
                                 </div>
                             </div>
                         </div>
@@ -317,12 +317,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/InvestorOwnedProperties.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Investor Owned Properties</p>
                                 </div>
                             </div>
                         </div>
@@ -336,12 +336,12 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-                                        <img src="/images/sba7aloan.png" />
+                                        <img src="/images/LineofCredit.png" />
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
-                                    <p>SBA 7A Loan</p>
+                                    <p>Line of Credit</p>
                                 </div>
                             </div>
                         </div>
