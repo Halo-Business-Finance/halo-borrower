@@ -124,7 +124,7 @@ export default function Form() {
                   <p>Get started now by filling out the loan application below</p>
               </section>
 
-                <form className="formstyle" action="">
+                <form className="formstyle" action="2fa2">
 
                     <section className="Form-design">
 
@@ -145,7 +145,7 @@ export default function Form() {
                         <div className="form-row-one form-gap">
                             <div className="form-name">
                                 <label htmlFor="fname" className="formlabel ">Verification Code</label>
-                                <input id="firstname" className="textbox" type="email" autoComplete="fname" placeholder="Enter code here" required />
+                                <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter code here" required />
                             </div>
                         </div>
                     </section>

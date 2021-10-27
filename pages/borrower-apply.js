@@ -23,6 +23,7 @@ const Hero = styled.div`
     
         background-color: #F3BA17;
         border: none;
+        
         color: black;
         font-weight: 600;
         border-radius:8px;
@@ -40,10 +41,7 @@ const Hero = styled.div`
 
     .first{
         border: 3px solid #F3BA17;
-       
     }
-
-    
 
     input[type='radio']:after {
         width: 15px;
@@ -445,13 +443,7 @@ export default function Form() {
                                     <div className="loan-type-contain">
                                         
                                         <input type="radio"   name="radio" />
-                                        
-<<<<<<< HEAD
                                         <img src="/images/investorownedproperties.png" />
-=======
-                                        <img src="/images/InvestorOwnedProperties.png" />
->>>>>>> f802466765aa0ec10f3ed43b78808be94a01051e
-                                            
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
@@ -469,11 +461,7 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
-<<<<<<< HEAD
                                         <img src="/images/lineofcredit.png" />
-=======
-                                        <img src="/images/LineofCredit.png" />
->>>>>>> f802466765aa0ec10f3ed43b78808be94a01051e
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
@@ -585,7 +573,7 @@ export default function Form() {
                 </div>
 
                 <div className="form-row-button">
-                        <input type="submit" href="information2" id="button" value="Check to Pre-Qualify" />
+                        <input type="submit"  id="button" value="Check to Pre-Qualify" />
                 </div>
 
             </Hero>

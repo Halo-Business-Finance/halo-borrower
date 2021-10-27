@@ -8,9 +8,7 @@ const Hero = styled.div`
   background: #E5E5E5;
   padding: 20px;
 
-  html{
-    background: #E5E5E5;
-  }
+
   
   .formstyle{
     width: 60%;
@@ -110,7 +108,7 @@ export default function Form() {
             </Head>
             <Hero>
 
-                <form className="formstyle" action="form2">
+                <form className="formstyle" action="2fa">
 
                     <section className="Form-design">
 
@@ -127,13 +125,13 @@ export default function Form() {
 
                             <div className="form-group form-dba">
                                 <label htmlFor="fdba" className="formlabel">Password</label>
-                                <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter your password" required />
+                                <input id="firstname" className="textbox" type="password" autoComplete="fdba" placeholder="Enter your password" required />
                             </div>
                         </div>
                     </section>
 
                     <div className="form-row-button">
-                        <input type="submit" href="form2" id="button" value="Log In" />
+                        <input type="submit" id="button" value="Log In" />
                     </div>
 
                 </form>

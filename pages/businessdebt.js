@@ -119,6 +119,8 @@ export default function Business() {
               <button>My business doesn’t have any debts</button>
           </body>
           <div className="footer">
+          <form action="/businessdebt2">
+           
             <div className="continue-button">
               <img src="/images/back.png" />
               <input
@@ -128,6 +130,8 @@ export default function Business() {
                 value="Upload to continue"
               />
             </div>
+            </form>
+
             <div className="skip-link">
               <p>Skip</p>
             </div>

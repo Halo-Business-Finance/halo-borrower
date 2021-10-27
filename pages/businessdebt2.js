@@ -229,7 +229,7 @@ export default function Form() {
                         </div>
 
                     </section>
-
+                    <form action="/profitloss">
                     <div className='footer'>
                         <div className="continue-button">
                             <img src='/images/back.png' />
@@ -239,7 +239,7 @@ export default function Form() {
                             <p>Skip</p>
                         </div>
                     </div>
-
+                    </form>
                 </form>
             </Hero>
 

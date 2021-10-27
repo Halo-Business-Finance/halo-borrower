@@ -94,6 +94,30 @@ const BusinessStyle = styled.div`
                 text-decoration-line: underline;
             }
         }    
+
+        [type="file"] {
+          height: 0;
+          overflow: hidden;
+          width: 0;
+        }
+        
+        [type="file"] + label {
+         
+          border: none;
+          border-radius: 5px;
+          color: #fff;
+          cursor: pointer;
+          display: inline-block;
+          font-family: 'Rubik', sans-serif;
+          font-size: inherit;
+          font-weight: 500;
+          margin-bottom: 1rem;
+          outline: none;
+          padding: 1rem 50px;
+          position: relative;
+          transition: all 0.3s;
+          vertical-align: middle;
+        }
 `;
 
 export default function Business() {
@@ -125,8 +149,10 @@ export default function Business() {
                   <input type="date" id="birthday" name="birthday" />
               </div>
               <div className='column-two'>
-                  <img src='' />
-                  <label>Drag & Drop or click to upload files</label>
+
+                <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
+            
               </div>
               </section>
               <section>
@@ -135,8 +161,9 @@ export default function Business() {
                   <input type="date" id="birthday" name="birthday" />
               </div>
               <div className='column-two'>
-                  <img src='' />
-                  <label>Drag & Drop or click to upload files</label>
+                
+                <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
               </div>
               </section>
               <section>
@@ -145,10 +172,13 @@ export default function Business() {
                   </div>
               </section>
           </body>
+          <form action="/businessdebt">
+
           <div className="continue-button">
-               <input type="submit" href="form2" id="button" value="Upload to continue" />
+               <input type="submit"  id="button" value="Upload to continue" />
                <p>Skip</p>
            </div>
+           </form>
           
         </section>
       </BusinessStyle>
