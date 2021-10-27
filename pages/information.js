@@ -7,6 +7,8 @@ justify-content: center;
 align-items: center;
 background: #E5E5E5;
 padding: 20px;
+font-family: Mulish;
+
 
 .formstyle{
     width: 60%;
@@ -53,16 +55,6 @@ padding: 20px;
     margin-right:5%;
 }
 
-/* .form-state{
-    width:25%;
-    display:inline-block;
-    margin-right:5%;
-} */
-
-/* .form-zip{
-    width:25%;
-    display:inline-block;
-} */
 
 .form-addess{
     width:100%;
@@ -80,26 +72,6 @@ padding: 20px;
     
     display: inline-block;
 }
-
-/* .form-fzip{
-    display: inline-block;
-    margin-right: 5%;
-} */
-
-/* .form-tele{
-    display: inline-block;
-    margin-right: 5%;
-} */
-
-/* .form-website{
-    width:55%;
-    display:inline-block;
-} */
-
-/* .form-suite{
-    width:100%;
-    display:inline-block;
-} */
 
 .form-head{
     display:inline-block;
@@ -124,7 +96,8 @@ padding: 20px;
 }
 
 .formlabel{
-    color: #5C5C5C;}
+    color: #5C5C5C;
+}
 
 .textbox{
     border-radius: 4px;

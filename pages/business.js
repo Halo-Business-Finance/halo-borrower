@@ -5,7 +5,7 @@ const BusinessStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Mullish;
+  font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
 
@@ -15,12 +15,20 @@ const BusinessStyle = styled.div`
     background: #f8f8ff;
     border-radius: 10px;
     header{
-        .header-one p{
+        .header-one 
+        h1{
+          font-weight: 500;
+        }
+        p{
             font-size: 16px;
             color: #5C5C5C;
             font-weight: bold;
         }
         .header-two {
+        h3{
+          font-weight: 500;
+        }
+        
             
             p{
                 margin-top: -10px;
@@ -92,6 +100,10 @@ export default function Business() {
   return (
     <>
       <BusinessStyle>
+      <Head>
+                <title>Business Tax Returns</title>
+                <link rel='icon' href='/favicon.ico' />
+            </Head>
         <section className="main-style">
           <header>
             <div className='header-one'>

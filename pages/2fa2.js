@@ -2,140 +2,80 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const Hero = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #E5E5E5;
-  padding: 20px;
-  
-  .formstyle{
+padding: 40px 20% 40px 20%;
+font-family: Mulish;
+background-color: #E5E5E5;
+
+  .verify{
     width: 60%;
-    background: #F8F8FF;
-    border-radius: 10px; 
-     
+    color: #5C5C5C;
+    font-weight:600;
+    font-size: 16px;
   }
+
+  .formstyle{
+    background: #FFF;
+    border-radius: 10px; 
+    padding: 0px 0px 20px 0px;
+  }
+
   .Form-design{
-    padding: 30px 30px 30px 30px;
-    
+    padding: 30px 30px 20px 30px;
   }
   
   .textbox{
     width:100%;
     padding: 12px;
   }
-.form-group {
-    margin-top: 5%;
-}  
   
   .form-row-one{
-    width:60%;
-    margin-top: 5%;
-    margin-left: 20%;
-    
+    justify-content:center;
+    align-items: center;
+    display: flex;
+    width:100%;
   }
   
-  .form-row-two{
-    width:100%;
-    display:inline-block;
-  }
-
-  .form-row-three{
-    width:100%;
-    display:inline-block;
-    
-  }
-
-  .form-row-four{
-    width:100%;
-    display:inline-block;
-  }
-
-  .form-city{
-    width:40%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-state{
-    width:25%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-zip{
-    width:25%;
-    display:inline-block;
-  }
-
-  .form-addess{
-    width:60%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-phone{
-    width:40%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-website{
-    width:55%;
-    display:inline-block;
-  }
-
-  .form-suite{
-    width:35%;
-    display:inline-block;
-  }
-
   .form-head{
     display:inline-block;
     width:100%;
-  }
-
-  .active{
-    color:#1B46B0;
-    display:inline;
+    text-align:center;
   }
 
   .heading{
-    display:inline;
-    float:left;
-  }
-
-  .heading-step{
-    display:inline;
-    color:#ADADAD;
-    display:inline;
-    float:right; 
+    font-weight:700;
+    color: #333333;
   }
 
   .formlabel{
     color: #5C5C5C;
+    font-weight:600;
+    font-size: 16px;
+    line-height: 10px;
   }
 
   .textbox{
     border-radius: 4px;
-    border: 1px solid #ededed;
-    margin-top: 2%;
+    border: 2px solid #ededed;
+    
   }
 
-  .form-gap{
-    margin-top:20px;
+  .textbox ::placeholder {
+    color:#ADADAD;
+    opacity: 1; 
+    font-style: italic;
   }
 
   input[type=submit]{
     
     background-color: #F3BA17;
     border: none;
-    color: black;
-    font-weight: 600;
+    color: #333333;
+    font-weight: 700;
     border-radius:8px;
     padding: 14px 30px;
     text-decoration: none;
     cursor: pointer;
-    
+    font-size: 18px;
   }
 
   .form-row-button{
@@ -143,11 +83,28 @@ const Hero = styled.div`
     justify-content:center;
     align-items: center;
     display: flex;
-    margin: 5px 0px;
   }
-.verify{
-    width: 50%;
-}
+
+  .req{
+    color: red;
+    font-size: 14px;
+  }
+
+  .reg-head{
+    width:100%;
+    background-color: #1B46B0;
+    color: #fff;
+    text-align:center;
+    padding:20px;
+    line-height:10px;
+    margin-bottom:20px;
+  }
+
+  .reg-head p{
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    line-height:10px;
+  }
 
 
 `;
@@ -162,19 +119,24 @@ export default function Form() {
             </Head>
             <Hero>
 
-                <form className="formstyle" action="form2">
+              <section className="reg-head">
+                  <h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
+                  <p>Get started now by filling out the loan application below</p>
+              </section>
+
+                <form className="formstyle" action="">
 
                     <section className="Form-design">
 
                         <div className="form-head">
                             <h2 className="heading">Two Factor Authentication</h2>
-
                         </div>
+
                         <div>
                             <center>
                                 <img src="/images/sms.png" />
                                 <p className="verify">
-                                A verification code has been sand to you via SMS. This code will be valid for 15 minutes.
+                                  A verification code has been sand to you via SMS. This code will be valid for 15 minutes.
                                 </p>
                             </center>
 

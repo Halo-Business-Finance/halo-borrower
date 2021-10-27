@@ -7,12 +7,16 @@ const Hero = styled.div`
   align-items: center;
   background: #E5E5E5;
   padding: 20px;
+
+  html{
+    background: #E5E5E5;
+  }
   
   .formstyle{
     width: 60%;
-    background: #F8F8FF;
+    background: #FFF;
     border-radius: 10px; 
-     
+    padding: 0px 20px 20px 20px;
   }
   .Form-design{
     padding: 30px 30px 30px 30px;
@@ -23,80 +27,27 @@ const Hero = styled.div`
     width:100%;
     padding: 12px;
   }
-.form-group {
-    margin-top: 5%;
-}  
+
+  .form-group {
+      margin-top: 5%;
+  }  
   
   .form-row-one{
     width:60%;
     margin-top: 5%;
     margin-left: 20%;
-    
   }
   
-  .form-row-two{
-    width:100%;
-    display:inline-block;
+  .formlabel{
+    color: #5C5C5C;
+    font-weight:600;
+    font-size: 16px;
+    line-height: 10px;
   }
-
-  .form-row-three{
-    width:100%;
-    display:inline-block;
-    
-  }
-
-  .form-row-four{
-    width:100%;
-    display:inline-block;
-  }
-
-  .form-city{
-    width:40%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-state{
-    width:25%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-zip{
-    width:25%;
-    display:inline-block;
-  }
-
-  .form-addess{
-    width:60%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-phone{
-    width:40%;
-    display:inline-block;
-    margin-right:5%;
-  }
-
-  .form-website{
-    width:55%;
-    display:inline-block;
-  }
-
-  .form-suite{
-    width:35%;
-    display:inline-block;
-  }
-
+  
   .form-head{
     display:inline-block;
     width:100%;
-  }
-
-  .active{
-    color:#1B46B0;
-    display:inline;
   }
 
   .heading{
@@ -111,13 +62,16 @@ const Hero = styled.div`
     float:right; 
   }
 
-  .formlabel{
-    color: #5C5C5C;
-  }
-
   .textbox{
     border-radius: 4px;
-    border: 1px solid #ededed;
+    border: 2px solid #ededed;
+    
+  }
+
+  .textbox ::placeholder {
+    color:#ADADAD;
+    opacity: 1; 
+    font-style: italic;
   }
 
   .form-gap{
@@ -128,13 +82,13 @@ const Hero = styled.div`
     
     background-color: #F3BA17;
     border: none;
-    color: black;
-    font-weight: 600;
+    color: #333333;
+    font-weight: 700;
     border-radius:8px;
     padding: 14px 30px;
     text-decoration: none;
     cursor: pointer;
-    
+    font-size: 18px;
   }
 
   .form-row-button{
@@ -142,10 +96,7 @@ const Hero = styled.div`
     justify-content:center;
     align-items: center;
     display: flex;
-    margin:20px 0px 20px 0px;
   }
-
-
 
 `;
 
