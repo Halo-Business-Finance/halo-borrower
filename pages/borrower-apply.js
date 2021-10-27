@@ -446,7 +446,11 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
+<<<<<<< HEAD
                                         <img src="/images/investorownedproperties.png" />
+=======
+                                        <img src="/images/InvestorOwnedProperties.png" />
+>>>>>>> f802466765aa0ec10f3ed43b78808be94a01051e
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
@@ -465,7 +469,11 @@ export default function Form() {
                                         
                                         <input type="radio"   name="radio" />
                                         
+<<<<<<< HEAD
                                         <img src="/images/lineofcredit.png" />
+=======
+                                        <img src="/images/LineofCredit.png" />
+>>>>>>> f802466765aa0ec10f3ed43b78808be94a01051e
                                             
                                         <a><img src="/images/help.png" /></a>
                                     
