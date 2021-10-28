@@ -144,9 +144,13 @@ const BusinessStyle = styled.div`
 }
 `;
 
-export default function Form() {
+export default function ProfitLoss() {
   return (
     <>
+     <Head>
+        <title>Profit and Loss</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <BusinessStyle>
         <section className="main-style">
           <header>

@@ -170,6 +170,10 @@ const PersonalStyle = styled.div`
 export default function PersonalForm() {
   return (
     <>
+    <Head>
+        <title>Personal Tax</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <PersonalStyle>
         <section className="main-style">
             <div>

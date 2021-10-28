@@ -7,20 +7,18 @@ const BusinessStyle = styled.div`
   font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
-  height: 90vh;
+  
 
   .main-style {
     width: 60%;
     padding: 12px;
-    background: #f8f8ff;
+    background: #FFFFFF;
     border-radius: 10px;
-    header {
-      .header p {
-        font-size: 16px;
-        letter-spacing: 0.5px;
-        color: #5c5c5c;
+    .header {
+      h1{
+        font-size: 20px;
         font-weight: bold;
-      } 
+      }
     }
     .first-row{
         display: flex;
@@ -32,18 +30,19 @@ const BusinessStyle = styled.div`
             label{
                 display: block;
                 font-size: 18px;
+                font-weight: 600;
                 color: #5C5C5C;
-            }
-            .first-input{
-              display: inline;
-              
             }
             input{
                 width: 100%;
-                font-size: 18px;
-                padding: 8px;
-                border: 1px solid #adadad;
+                padding: 10px 12px;
+                border: 1px solid #ADADAD;
                 border-radius: 4px;
+                ::placeholder{
+                  font-size: 14px;
+                  font-style: italic;
+                  color: #ADADAD;
+                }
                }
 
         }
@@ -53,31 +52,38 @@ const BusinessStyle = styled.div`
             label{
                 display: block;
                 font-size: 18px;
+                font-weight: 600;
                 color: #5C5C5C;
             }
             input{
                 width: 100%;
-                font-size: 18px;
-                padding: 8px;
-                border: 1px solid #adadad;
+                padding: 10px 12px;
+                border: 1px solid #ADADAD;
                 border-radius: 4px;
+                ::placeholder{
+                  font-size: 14px;
+                  color: #ADADAD;
+                }
                }
         }
-    }
-    .second-row{
+      }
+    .second-row ul{
       display: flex;
+      justify-content: center;
       flex-direction: column;
       align-items: center;
-      gap: 50px;
+     li{
+      color: #ADADAD;
+     }
     }
-  }
+  
   
   .continue-button {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 5%;
+    margin: 12px 0;
 
     input {
       padding: 10px 32px;
@@ -91,11 +97,16 @@ const BusinessStyle = styled.div`
       text-decoration-line: underline;
     }
   }
+}
 `;
 
 export default function Form() {
   return (
     <>
+    <Head>
+        <title>Password</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <BusinessStyle>
         <form className="main-style">
           <div className="header">
@@ -104,7 +115,7 @@ export default function Form() {
           <div className='first-row'>
                     <div className='first-name'>
                         <label>New Password</label>                      
-                          <input type='text' placeholder='Enter new password here' />                       
+                        <input type='text' placeholder='Enter new password here' />                       
                     </div>
                     <div className='last-name'>
                         <label>Confirm New Password</label>
@@ -123,7 +134,7 @@ export default function Form() {
           <div className="continue-button">
             <input
               type="submit"
-              href="form2"
+              href=""
               id="button"
               value="Save new password"
             />
