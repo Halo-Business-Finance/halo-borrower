@@ -6,24 +6,32 @@ const PersonalStyle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: Mullish;
+  font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
 
   .main-style {
-    width: 52%;
+    width: 60%;
     padding: 12px;
-    background: #f8f8ff;
+    background: #FFFFFF;
     border-radius: 10px;
     header{
-        .header-one p{
+        .header-one {
+            h1{
+                font-weight: 700;
+            }
+            p{
             font-size: 16px;
-            color: #5C5C5C;
+            color: #ADADAD;
             font-weight: bold;
+        }
         }
         .header-two {
             display: flex;
             flex-direction: column;
+            h3{
+                color: #5C5C5C;
+            }
 
             .buttons{
                 align-self: center;
@@ -45,7 +53,7 @@ const PersonalStyle = styled.div`
         }
     }
     
-  }
+  
   //body section css
   body{
      display: flex;
@@ -61,6 +69,13 @@ const PersonalStyle = styled.div`
             flex-direction: column;
             gap: 10px;
             margin-right: auto;
+            input{
+                  font-size: 16px;
+                  padding: 10px 5px;
+                  border: 1px solid #ADADAD;
+                  border-radius: 4px;
+                  
+              }
            
           }
           .column-two{
@@ -68,6 +83,7 @@ const PersonalStyle = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
+            gap: 8px;
             border: 2px dashed #EDEDED;
             border-radius: 8px;
             width: 60%;
@@ -84,6 +100,7 @@ const PersonalStyle = styled.div`
                   color: #1B46B0;
                   text-decoration-line: underline;
               }
+              
           }
         
         }
@@ -121,7 +138,7 @@ const PersonalStyle = styled.div`
         }    
         
     }
-  }
+}
 `;
 
 export default function PersonalForm() {
@@ -132,7 +149,7 @@ export default function PersonalForm() {
             <div>
             <header>
             <div className='header-one'>
-              <h1>Personal Tax Returns for John Smith</h1>
+              <h1>Personal Tax Returns for Owner 1</h1>
               <p>
               Include all schedules and statements, We need all pages to give an accurate analysis.
               </p>
@@ -150,7 +167,7 @@ export default function PersonalForm() {
               <section>
               <div className='column-one'>
                   <label>Business Tax Return 1</label>
-                  <input type="date" id="birthday" name="birthday" />
+                  <input type="date" id="business" name="fbusiness" />
               </div>
               <div className='column-two'>
                   <img src='/images/upload.png' />
@@ -160,7 +177,7 @@ export default function PersonalForm() {
               <section>
               <div className='column-one'>
                   <label>Business Tax Return 2</label>
-                  <input type="date" id="birthday" name="birthday" />
+                  <input type="date" id="business" name="sbusiness" />
               </div>
               <div className='column-two'>
                   <img src='/images/upload.png' />
@@ -175,51 +192,7 @@ export default function PersonalForm() {
           </body>
             </div>
           
-          <div>
-          <header>
-            <div className='header-one'>
-              <h1>Personal Tax Returns for Peter Dykson</h1>
-              <p>
-              Include all schedules and statements, We need all pages to give an accurate analysis.
-              </p>
-            </div>
-            <div className='header-two'>
-                <h3>What year did Peter Dykson most recently file taxes?</h3>
-                <div className='buttons'>
-                    <button>2019</button>
-                    <button className='mid-button'>2018</button>
-                    <button>Before 2018</button>
-                </div>
-            </div>
-          </header>
-          <body>
-              <section>
-              <div className='column-one'>
-                  <label>Business Tax Return 1</label>
-                  <input type="date" id="birthday" name="birthday" />
-              </div>
-              <div className='column-two'>
-                  <img src='/images/upload.png' />
-                  <label>Drag & Drop or click to upload files</label>
-              </div>
-              </section>
-              <section>
-              <div className='column-one'>
-                  <label>Business Tax Return 2</label>
-                  <input type="date" id="birthday" name="birthday" />
-              </div>
-              <div className='column-two'>
-                  <img src='/images/upload.png' />
-                  <label>Drag & Drop or click to upload files</label>
-              </div>
-              </section>
-              <section>
-                  <div className='new-column'>
-                      <h6>Add Another Tax Return</h6>
-                  </div>
-              </section>
-          </body>
-          </div>
+          
           <div className='footer'>
             <div className="continue-button">
                 <img src='/images/back.png' />
