@@ -129,23 +129,34 @@ input[type=submit]{
     margin:20px 0px 20px 0px;
 }
 .radio-container{
-    padding: 5px 5px 5px 5px;
-    border: 1px solid #ededed; 
-    border-radius: 4px;
-    background-color:white;
+    padding: 10px 40px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    label{
+        font-weight: 600;
+        font-size: 16px;
+    }
 }
 
 .radio-two{
     column-count: 2;
-    width:100%;
-    display:inline-block;
+    width: 100%;
+    display: block;
     column-gap:5%;
 }
-.raido-four {
-    column-count: 4;
-    width:100%;
-    display:inline-block;
-    column-gap:5%;
+
+.radio-one{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2px;
+
+}
+.radio-third{
+    margin-top: 2px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 
@@ -248,7 +259,7 @@ export default function Form() {
                         </div>
                         <div className="form-row form-gap">
                             <label htmlFor="fentity" className="formlabel ">Partner or officer in any other venture?</label>
-                            <div className="radio-two">
+                            <div className="radio-one">
 
                                 <div className="radio-container">
                                     <input type="radio" name="radio" />
@@ -265,16 +276,19 @@ export default function Form() {
                         </div>
                         <div className="form-row">
                             <label htmlFor="inform" className="formlabel">Do you have a will?</label>
-                            <div className="radio-two">
-                                <div className="radio-container">
+                            <div className="radio-two" >
+                                <div className='radio-third'>
+                                <div className="">
                                     <input type="radio" name="radio" />
                                     <label>Yes</label>
                                 </div>
 
-                                <div className="radio-container">
+                                <div className="">
                                     <input type="radio" name="radio" />
                                     <label>No</label>
                                 </div>
+                                </div>
+                                
                                 <div className="form-group form-website">
                                     <label htmlFor="fname" className="formlabel">Name of executor</label>
                                     <input id="website" className="textbox" type="text" autoComplete="fname" placeholder="(XXX)-(XXX)-(XXXX)" required />

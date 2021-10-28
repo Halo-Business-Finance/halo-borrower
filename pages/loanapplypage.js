@@ -29,7 +29,7 @@ font-family: Mulish;
 
     .right{
         
-        float:right;
+        float: right;
         display:inline-block;
     }
 

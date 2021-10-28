@@ -62,6 +62,7 @@ const BusinessStyle = styled.div`
                 border-radius: 4px;
                 ::placeholder{
                   font-size: 14px;
+                  font-style: italic;
                   color: #ADADAD;
                 }
                }
