@@ -3,16 +3,17 @@ import Image from 'next/image'
 import styled from "styled-components";
 
 const Hero = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #e5e5e5;
-  padding: 20px;
+  font-family: Mulish;
+  background: #E5E5E5;
+  padding: 40px 5% 40px 5%;
+  
 
   .formstyle {
     width: 60%;
-    background: #f8f8ff;
+    background: #F8F8FF;
     border-radius: 10px;
+    margin-left: 20%;
+    padding-bottom: 20px;
   }
   .form-design {
     padding: 30px 30px 30px 30px;
@@ -200,6 +201,75 @@ const Hero = styled.div`
     width: 100%;
     display: inline-block;
   }
+
+  .meter {
+  margin-top:20px;
+  box-sizing: content-box;
+  height: 10px;
+  position: relative;
+  background: #EDEDED;
+  border-radius: 25px;
+}
+
+
+.meter > span {
+  display: block;
+  height: 100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: #1B46B0;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter span{
+  width:10%;
+}
+
+.pi span {
+  width:100%;
+}
+.gi span {
+  width:100%;
+}
+.is span {
+  width: 100%;
+}
+.cl span {
+  width: 100%;
+}
+.bs span {
+  width: 100%;
+}
+
+.meter-link{
+  
+  float:right;
+  font-weight: 500;
+  font-size: 14px;
+  Color: #1B46B0;
+  text-decoration: underline;
+}
+.progress-tracker{
+  width:100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+.progress-form{
+  width: 10%;
+  // min-height:100px;
+  // background-color:red;
+}
+
+.progress-form{
+  font-weight: 700;
+  color: #1B46B0;
+  font-size: 14px;
+}
 `;
 
 export default function Form() {
@@ -210,6 +280,68 @@ export default function Form() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
+
+        <section className="progress-tracker">
+
+          <div className="progress-form">
+            <h3>Personal Information</h3>
+            <div className="meter pi">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>General Information</h3>
+            <div className="meter gi">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>Income<br />Source</h3>
+            <div className="meter is">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>Contigent Liabilities</h3>
+            <div className="meter cl">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>Balance<br /> Sheet</h3>
+            <div className="meter bs">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>Schedule of Assets Pledged</h3>
+            <div className="meter soap">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>Business Debt Schedule</h3>
+            <div className="meter bds">
+              <span ></span>
+            </div>
+          </div>
+
+          <div className="progress-form">
+            <h3>Personal Tax Returns(100%)</h3>
+            <div className="meter ptr">
+              <span ></span>
+            </div>
+          </div>
+
+        </section>
+        <br /><br /><br /><br />
+
         <form className="formstyle" action="assets2">
           <section className="form-design">
             <div className="form-head">
@@ -268,10 +400,10 @@ export default function Form() {
               <div className="form-header">
                 <h3>
                   Schedule A - <span> All securities including non-money market mutual
-                  funds{" "}</span>
+                    funds{" "}</span>
                 </h3>
                 <button>
-                    <img className="" src="images/Mask.png" />
+                  <img className="" src="images/Mask.png" />
                 </button>
               </div>
             </div>
@@ -372,648 +504,648 @@ export default function Form() {
               <div className="form-group form-name form-header">
                 <h3>Schedule B - <span>Ownership in privately held businesses </span> </h3>
                 <button>
-                    <img className="" src="images/Mask.png" />
+                  <img className="" src="images/Mask.png" />
                 </button>
               </div>
-              
+
               <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Business Name
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Business Name"
-                  required
-                />
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">
+                    Business Name
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the Business Name"
+                    required
+                  />
+                </div>
+                <div className="form-group form-dba">
+                  <label htmlFor="fdba" className="formlabel">
+                    Nature of Business
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fdba"
+                    placeholder="Enter Nature of Business"
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Nature of Business
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter Nature of Business"
-                  required
-                />
+              <div className="form-row-two form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">
+                    Original Investment Cost
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the Original Investment"
+                    required
+                  />
+                </div>
+                <div className="form-group form-dba">
+                  <label htmlFor="fdba" className="formlabel">
+                    Present Value of Your Investment
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fdba"
+                    placeholder="Enter the Present Value of Your Investment"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Original Investment Cost
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Original Investment"
-                  required
-                />
+              <div className="form-row-five form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">
+                    Ownership %
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the Ownership %"
+                    required
+                  />
+                </div>
+                <div className="form-group form-dba">
+                  <label htmlFor="fdba" className="formlabel">
+                    Date of Investment
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="date"
+                    placeholder="(MM-DD-YYYY)"
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Present Value of Your Investment
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter the Present Value of Your Investment"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-five form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Ownership %
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Ownership %"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Date of Investment
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="date"
-                  placeholder="(MM-DD-YYYY)"
-                  required
-                />
-              </div>
-            </div>
             </div>
 
             <div className="form-row form-gap">
               <div className="form-group form-name form-header">
                 <h3>Schedule C - <span>Life Insurance</span> </h3>
                 <button>
-                    <img className="" src="images/Mask.png" />
+                  <img className="" src="images/Mask.png" />
                 </button>
               </div>
               <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Insurance Company
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Insurance Company"
-                  required
-                />
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">
+                    Insurance Company
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the Insurance Company"
+                    required
+                  />
+                </div>
+                <div className="form-group form-dba">
+                  <label htmlFor="fdba" className="formlabel">
+                    Type of Policy
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fdba"
+                    placeholder="Enter Type of Policy"
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Type of Policy
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter Type of Policy"
-                  required
-                />
+              <div className="form-row-three form-gap">
+                <div className="form-group form-city">
+                  <label htmlFor="fname" className="formlabel">
+                    Face Amount of Policy
+                  </label>
+                  <input
+                    id="city"
+                    className="textbox"
+                    type="state"
+                    autoComplete="fname"
+                    placeholder="Enter the Face Amount ..."
+                    required
+                  />
+                </div>
+                <div className="form-group form-state">
+                  <label htmlFor="fname" className="formlabel">
+                    Cash Surrender Value
+                  </label>
+                  <input
+                    id="state"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Cash Surrender Val.."
+                    required
+                  />
+                </div>
+                <div className="form-group form-zip">
+                  <label htmlFor="fname" className="formlabel">
+                    Policy Loans
+                  </label>
+                  <input
+                    id="zipcode"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the description"
+                    required
+                  />
+                </div>
               </div>
-            </div>
-            <div className="form-row-three form-gap">
-              <div className="form-group form-city">
-                <label htmlFor="fname" className="formlabel">
-                 Face Amount of Policy
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="state"
-                  autoComplete="fname"
-                  placeholder="Enter the Face Amount ..."
-                  required
-                />
+              <div className="form-row-two form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">
+                    Beneficiary
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Beneficiary"
+                    required
+                  />
+                </div>
+                <div className="form-group form-dba">
+                  <label htmlFor="fdba" className="formlabel">
+                    Ownership
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fdba"
+                    placeholder="Enter Ownership"
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-group form-state">
-                <label htmlFor="fname" className="formlabel">
-                 Cash Surrender Value
-                </label>
-                <input
-                  id="state"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Cash Surrender Val.."
-                  required
-                />
-              </div>
-              <div className="form-group form-zip">
-                <label htmlFor="fname" className="formlabel">
-                Policy Loans
-                </label>
-                <input
-                  id="zipcode"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the description"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Beneficiary
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Beneficiary"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Ownership
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter Ownership"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="ffti" className="formlabel">
-                Is it Pledged?
-                </label>
-                <div className="radio-two">
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>Yes</label>
-                  </div>
+              <div className="form-row-two form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="ffti" className="formlabel">
+                    Is it Pledged?
+                  </label>
+                  <div className="radio-two">
+                    <div className="radio-container">
+                      <input type="radio" name="radio" />
+                      <label>Yes</label>
+                    </div>
 
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>No</label>
+                    <div className="radio-container">
+                      <input type="radio" name="radio" />
+                      <label>No</label>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="form-row form-gap">
-              <div className="form-group form-name form-header">
-                <h3>Schedule D - <span> Real Estate for personal use </span></h3>
-                <button>
+              <div className="form-row form-gap">
+                <div className="form-group form-name form-header">
+                  <h3>Schedule D - <span> Real Estate for personal use </span></h3>
+                  <button>
                     <img className="" src="images/Mask.png" />
-                </button>
-              </div>
-              <div className="form-group form-gap form-name">
-                <label htmlFor="fname" className="formlabel">
-                Property Address
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Property Address"
-                  required
-                />
-              </div>
-              <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Legal Owner
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Montly Payment"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Market Value
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter the Market Value"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-five form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Purchase Price
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Ownership %"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Purchase Year
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="date"
-                  placeholder="(XXX)"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-three form-gap">
-              <div className="form-group form-city">
-                <label htmlFor="fname" className="formlabel">
-                Present Loan Balance
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="state"
-                  autoComplete="fname"
-                  placeholder="Enter Present Loan Balanc.."
-                  required
-                />
-              </div>
-              <div className="form-group form-state">
-                <label htmlFor="fname" className="formlabel">
-                Interest Rate
-                </label>
-                <input
-                  id="state"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Interest Rate"
-                  required
-                />
-              </div>
-              <div className="form-group form-zip">
-                <label htmlFor="fname" className="formlabel">
-                Maturity Date
-                </label>
-                <input
-                  id="zipcode"
-                  className="textbox"
-                  type="date"
-                  placeholder="Enter Interest Rate"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Montly Payment
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Montly Payment"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Lender
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter the Lender Name"
-                  required
-                />
-              </div>
-            </div>
-            </div>
-
-            <div className="form-row form-gap">
-              <div className=" form-header">
-                <h3> Schedule E - <span>Real Estate Investments (Majority ownership only)</span></h3>
-                <button>
-                    <img className="" src="images/Mask.png" />
-                </button>
-              </div>
-             
-              <div className="form-group form-gap form-name">
-                <label htmlFor="fname" className="formlabel">
-                Property Address
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Property Address"
-                  required
-                />
-              </div>
-              <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Legal Owner
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Montly Payment"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Market Value
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter the Market Value"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-five form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Purchase Price
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Ownership %"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Purchase Year
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="date"
-                  placeholder="(XXX)"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-three form-gap">
-              <div className="form-group form-city">
-                <label htmlFor="fname" className="formlabel">
-                Present Loan Balance
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="state"
-                  autoComplete="fname"
-                  placeholder="Enter Present Loan Balanc.."
-                  required
-                />
-              </div>
-              <div className="form-group form-state">
-                <label htmlFor="fname" className="formlabel">
-                Interest Rate
-                </label>
-                <input
-                  id="state"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Interest Rate"
-                  required
-                />
-              </div>
-              <div className="form-group form-zip">
-                <label htmlFor="fname" className="formlabel">
-                Maturity Date
-                </label>
-                <input
-                  id="zipcode"
-                  className="textbox"
-                  type="date"
-                  placeholder="Enter Interest Rate"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                Montly Payment
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Montly Payment"
-                  required
-                />
-              </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Lender
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter the Lender Name"
-                  required
-                />
-              </div>
-            </div>
-            </div>
-            
-
-            <div className="form-row form-gap">
-              <div className="form-group form-name form-header">
-                <h3>Schedule F - <span> Notes Payable </span></h3>
-                <button>
-                    <img className="" src="images/Mask.png" />
-                </button>
-              </div>
-            </div>
-            <div className="form-row form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel">
-                  Type
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Property Address"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-three form-gap">
-              <div className="form-group form-city">
-                <label htmlFor="fname" className="formlabel">
-                  Original Amount
-                </label>
-                <input
-                  id="city"
-                  className="textbox"
-                  type="state"
-                  autoComplete="fname"
-                  placeholder="Enter Original Amount"
-                  required
-                />
-              </div>
-              <div className="form-group form-state">
-                <label htmlFor="fname" className="formlabel">
-                  Present Loan Balance
-                </label>
-                <input
-                  id="state"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Present Loan Balan..."
-                  required
-                />
-              </div>
-              <div className="form-group form-zip">
-                <label htmlFor="fname" className="formlabel">
-                  Interest Rate
-                </label>
-                <input
-                  id="zipcode"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Interest Rate"
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="ffti" className="formlabel">
-                  Is it Secured?
-                </label>
-                <div className="radio-two">
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>Yes</label>
+                  </button>
+                </div>
+                <div className="form-group form-gap form-name">
+                  <label htmlFor="fname" className="formlabel">
+                    Property Address
+                  </label>
+                  <input
+                    id="city"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Property Address"
+                    required
+                  />
+                </div>
+                <div className="form-row-two form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">
+                      Legal Owner
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Montly Payment"
+                      required
+                    />
                   </div>
-
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>No</label>
+                  <div className="form-group form-dba">
+                    <label htmlFor="fdba" className="formlabel">
+                      Market Value
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fdba"
+                      placeholder="Enter the Market Value"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row-five form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">
+                      Purchase Price
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Ownership %"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-dba">
+                    <label htmlFor="fdba" className="formlabel">
+                      Purchase Year
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="date"
+                      placeholder="(XXX)"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row-three form-gap">
+                  <div className="form-group form-city">
+                    <label htmlFor="fname" className="formlabel">
+                      Present Loan Balance
+                    </label>
+                    <input
+                      id="city"
+                      className="textbox"
+                      type="state"
+                      autoComplete="fname"
+                      placeholder="Enter Present Loan Balanc.."
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-state">
+                    <label htmlFor="fname" className="formlabel">
+                      Interest Rate
+                    </label>
+                    <input
+                      id="state"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Interest Rate"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-zip">
+                    <label htmlFor="fname" className="formlabel">
+                      Maturity Date
+                    </label>
+                    <input
+                      id="zipcode"
+                      className="textbox"
+                      type="date"
+                      placeholder="Enter Interest Rate"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row-two form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">
+                      Montly Payment
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Montly Payment"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-dba">
+                    <label htmlFor="fdba" className="formlabel">
+                      Lender
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fdba"
+                      placeholder="Enter the Lender Name"
+                      required
+                    />
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="form-row-four form-gap">
-              <div className="form-group form-website">
-                <label htmlFor="fname" className="formlabel">
-                  Collateral
-                </label>
-                <input
-                  id="website"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Collateral"
-                  required
-                />
+
+              <div className="form-row form-gap">
+                <div className=" form-header">
+                  <h3> Schedule E - <span>Real Estate Investments (Majority ownership only)</span></h3>
+                  <button>
+                    <img className="" src="images/Mask.png" />
+                  </button>
+                </div>
+
+                <div className="form-group form-gap form-name">
+                  <label htmlFor="fname" className="formlabel">
+                    Property Address
+                  </label>
+                  <input
+                    id="city"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Property Address"
+                    required
+                  />
+                </div>
+                <div className="form-row-two form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">
+                      Legal Owner
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Montly Payment"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-dba">
+                    <label htmlFor="fdba" className="formlabel">
+                      Market Value
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fdba"
+                      placeholder="Enter the Market Value"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row-five form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">
+                      Purchase Price
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Ownership %"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-dba">
+                    <label htmlFor="fdba" className="formlabel">
+                      Purchase Year
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="date"
+                      placeholder="(XXX)"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row-three form-gap">
+                  <div className="form-group form-city">
+                    <label htmlFor="fname" className="formlabel">
+                      Present Loan Balance
+                    </label>
+                    <input
+                      id="city"
+                      className="textbox"
+                      type="state"
+                      autoComplete="fname"
+                      placeholder="Enter Present Loan Balanc.."
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-state">
+                    <label htmlFor="fname" className="formlabel">
+                      Interest Rate
+                    </label>
+                    <input
+                      id="state"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Interest Rate"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-zip">
+                    <label htmlFor="fname" className="formlabel">
+                      Maturity Date
+                    </label>
+                    <input
+                      id="zipcode"
+                      className="textbox"
+                      type="date"
+                      placeholder="Enter Interest Rate"
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-row-two form-gap">
+                  <div className="form-group form-name">
+                    <label htmlFor="fname" className="formlabel ">
+                      Montly Payment
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fname"
+                      placeholder="Enter the Montly Payment"
+                      required
+                    />
+                  </div>
+                  <div className="form-group form-dba">
+                    <label htmlFor="fdba" className="formlabel">
+                      Lender
+                    </label>
+                    <input
+                      id="firstname"
+                      className="textbox"
+                      type="text"
+                      autoComplete="fdba"
+                      placeholder="Enter the Lender Name"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="form-group form-phone">
-                <label htmlFor="fname" className="formlabel">
-                  Maturity Date
-                </label>
-                <input
-                  id="phone"
-                  className="textbox"
-                  type="date"
-                  autoComplete="fname"
-                  placeholder="(XXX)-(XXX)-(XXXX)"
-                  required
-                />
+
+
+              <div className="form-row form-gap">
+                <div className="form-group form-name form-header">
+                  <h3>Schedule F - <span> Notes Payable </span></h3>
+                  <button>
+                    <img className="" src="images/Mask.png" />
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="form-row-two form-gap">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                 Montly Payment
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter the Montly Payment"
-                  required
-                />
+              <div className="form-row form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel">
+                    Type
+                  </label>
+                  <input
+                    id="city"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Property Address"
+                    required
+                  />
+                </div>
               </div>
-              <div className="form-group form-dba">
-                <label htmlFor="fdba" className="formlabel">
-                Lender
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fdba"
-                  placeholder="Enter the Lender Name"
-                  required
-                />
+              <div className="form-row-three form-gap">
+                <div className="form-group form-city">
+                  <label htmlFor="fname" className="formlabel">
+                    Original Amount
+                  </label>
+                  <input
+                    id="city"
+                    className="textbox"
+                    type="state"
+                    autoComplete="fname"
+                    placeholder="Enter Original Amount"
+                    required
+                  />
+                </div>
+                <div className="form-group form-state">
+                  <label htmlFor="fname" className="formlabel">
+                    Present Loan Balance
+                  </label>
+                  <input
+                    id="state"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Present Loan Balan..."
+                    required
+                  />
+                </div>
+                <div className="form-group form-zip">
+                  <label htmlFor="fname" className="formlabel">
+                    Interest Rate
+                  </label>
+                  <input
+                    id="zipcode"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter Interest Rate"
+                    required
+                  />
+                </div>
               </div>
-            </div>
+              <div className="form-row-two form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="ffti" className="formlabel">
+                    Is it Secured?
+                  </label>
+                  <div className="radio-two">
+                    <div className="radio-container">
+                      <input type="radio" name="radio" />
+                      <label>Yes</label>
+                    </div>
+
+                    <div className="radio-container">
+                      <input type="radio" name="radio" />
+                      <label>No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="form-row-four form-gap">
+                <div className="form-group form-website">
+                  <label htmlFor="fname" className="formlabel">
+                    Collateral
+                  </label>
+                  <input
+                    id="website"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the Collateral"
+                    required
+                  />
+                </div>
+                <div className="form-group form-phone">
+                  <label htmlFor="fname" className="formlabel">
+                    Maturity Date
+                  </label>
+                  <input
+                    id="phone"
+                    className="textbox"
+                    type="date"
+                    autoComplete="fname"
+                    placeholder="(XXX)-(XXX)-(XXXX)"
+                    required
+                  />
+                </div>
+              </div>
+              <div className="form-row-two form-gap">
+                <div className="form-group form-name">
+                  <label htmlFor="fname" className="formlabel ">
+                    Montly Payment
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fname"
+                    placeholder="Enter the Montly Payment"
+                    required
+                  />
+                </div>
+                <div className="form-group form-dba">
+                  <label htmlFor="fdba" className="formlabel">
+                    Lender
+                  </label>
+                  <input
+                    id="firstname"
+                    className="textbox"
+                    type="text"
+                    autoComplete="fdba"
+                    placeholder="Enter the Lender Name"
+                    required
+                  />
+                </div>
+              </div>
             </div>
           </section>
 
