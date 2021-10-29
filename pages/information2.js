@@ -6,6 +6,7 @@ padding: 40px 5% 40px 5%;
 
 background: #E5E5E5;
 font-family: Mulish;
+
   
   .formstyle{
     margin-left: 20%;
@@ -84,6 +85,7 @@ font-family: Mulish;
   .heading{
     display:inline;
     float:left;
+    color: #333333;
   }
 
   .heading-step{
@@ -95,6 +97,9 @@ font-family: Mulish;
 
   .formlabel{
     color: #5C5C5C;
+    font-size: 14px;
+    line-height: 150%;
+    border-radius: 8px;
   }
 
   .textbox{
@@ -128,10 +133,12 @@ font-family: Mulish;
   }
 
   .radio-container{
-    padding: 5px 5px 5px 5px;
+    padding: 8px;
     border: 1px solid #ededed; 
     border-radius: 4px;
     background-color:white;
+    height: 40px;
+    width: 100px;
   }
 
   
