@@ -6,6 +6,7 @@ const Hero = styled.div`
   justify-content: center;
   align-items: center;
   background: #E5E5E5;
+  font-family: Mulish;
   padding: 20px;
   
   .formstyle{
@@ -34,7 +35,6 @@ const Hero = styled.div`
   }
 
   table {
-    font-family: Mulish;
     font-size: 14px;
     line-height: 18px;
     border-collapse: collapse;
@@ -48,7 +48,7 @@ const Hero = styled.div`
   }
   
   tr:nth-child(odd) {
-    background-color: #dddddd;
+    background-color:  #F5F5F5;;
   }
 
   .form-head{
@@ -64,6 +64,10 @@ const Hero = styled.div`
   .heading{
     display:inline;
     float:left;
+    font-weight: bold;
+    font-size: 20px;
+    color: #333333;
+;
   }
 
   .heading-step{
@@ -72,7 +76,12 @@ const Hero = styled.div`
     display:inline;
     float:right; 
   }
-
+  .table-head{
+    font-weight: bold;
+  }
+  .thead{
+    font-weight: 500;
+  }
   .formlabel{
     color: #5C5C5C;
   }
@@ -116,7 +125,7 @@ const Hero = styled.div`
 
   input[type=number]:focus {
     border:none!important;
-    border-shadow:none;
+    /* border-shadow:none; */
     background: none;
     width:80%;
   }
@@ -133,7 +142,7 @@ export default function Form() {
       </Head>
       <Hero>
 
-        <form className="formstyle" action ="balance">
+        <form className="formstyle" action ="/balance">
           
           <section className="Form-design">
             
@@ -145,28 +154,28 @@ export default function Form() {
            
             <div className="form-gap table-form">
                 <table>
-                    <tr>
+                    <tr className='table-head'>
                         <th>Liabilites</th>
                         <th>Amount</th>
                     </tr>
                     <tr>
-                        <th>As Guarantor, Endorser, or Co-maker</th>
+                        <th className='thead'>As Guarantor, Endorser, or Co-maker</th>
                         <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
-                        <th>On Leases or Contracts </th>
+                        <th className='thead'>On Leases or Contracts </th>
                         <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
-                        <th>Legal Claims</th>
+                        <th className='thead'>Legal Claims</th>
                         <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
-                        <th>Provisions for Federal Income Taxes</th>
+                        <th className='thead'>Provisions for Federal Income Taxes</th>
                         <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
-                        <th>Other Special Debt</th>
+                        <th className='thead'>Other Special Debt</th>
                         <th><input type="number" name="test" placeholder="0.00" /></th>
                     </tr>
                     <tr>
