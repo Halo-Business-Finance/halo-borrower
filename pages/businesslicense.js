@@ -105,6 +105,30 @@ const BusinessStyle = styled.div`
         }    
     }
 
+    [type="file"] {
+        height: 0;
+        overflow: hidden;
+        width: 0;
+      }
+      
+      [type="file"] + label {
+       
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'Rubik', sans-serif;
+        font-size: inherit;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        outline: none;
+        padding: 1rem 50px;
+        position: relative;
+        transition: all 0.3s;
+        vertical-align: middle;
+      }
+
 `;
 
 export default function Form() {
@@ -129,7 +153,8 @@ export default function Form() {
                             </div>
                             <div className='column-two'>
                                 <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                                <input type="file" id="file" />
+                                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -138,7 +163,8 @@ export default function Form() {
                             </div>
                             <div className='column-two'>
                                 <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                                <input type="file" id="file" />
+                                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                     </body>

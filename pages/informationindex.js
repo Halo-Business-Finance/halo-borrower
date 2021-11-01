@@ -275,7 +275,6 @@ export default function Form() {
                         <span ></span>
                     </div>
                     <div className="top-heading">
-                        
                        
                             <p><strong className="strong-color">33%</strong> complete</p>
                        

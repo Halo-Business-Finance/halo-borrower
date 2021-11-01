@@ -36,7 +36,7 @@ const NavMenu = () => {
                 </Link>
             </div>
             <div>
-                <Link href='/informationindex' passHref>
+                <Link href='/business' passHref>
                     <StyledLink>Business Financials</StyledLink>
                 </Link>
             </div>
@@ -46,7 +46,7 @@ const NavMenu = () => {
                 </Link>
             </div>
             <div>
-                <Link href='/form' passHref>
+                <Link href='/upload' passHref>
                     <StyledLink>Documents</StyledLink>
                 </Link>
             </div>

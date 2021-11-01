@@ -5,22 +5,25 @@ const BusinessStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Mullish;
+  font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
 
   .main-style {
-    width: 52%;
+    width: 60%;
     padding: 12px;
     background: #f8f8ff;
     border-radius: 10px;
     header{
-        .header-one p{
+        .header-one{
+            h1{
+                color: #333333; 
+            }
+            p{
             font-size: 16px;
             letter-spacing: .5px;
             color: #5C5C5C;
-            font-weight: bold;
-        }
+        }} 
         .header-two {
             
             p{
@@ -46,10 +49,15 @@ const BusinessStyle = styled.div`
             gap: 10px;
             margin-right: auto;
             width: 50%;
+            label{
+                font-weight: bold;
+                font-size: 18px;
+                color: #5C5C5C;
+                width: 70%;
+            }
           }
           .column-two{
               margin-top: 5%;
-            margin-left: auto;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -57,8 +65,10 @@ const BusinessStyle = styled.div`
             border-radius: 8px;
             width: 60%;
             height: 70px;
+            gap: 10px;
             label{
                 color: #ADADAD;
+                font-size: 13px;
             }
           }
           .new-column{
@@ -81,17 +91,46 @@ const BusinessStyle = styled.div`
             margin-top: 5%;
             
             input{
-                padding: 10px 32px ;
+                padding: 8px 32px ;
                 font-size: 16px;
                 font-weight: bold;
                 background: #F3BA17;
                 border-radius: 8px;
                 border: none;
+                width: 329px;
+                height: 48px;
+                color: #333333;
+                margin: 0px 10px;
             }
             p {
                 text-decoration-line: underline;
             }
         }    
+
+        [type="file"] {
+            height: 0;
+            overflow: hidden;
+            width: 0;
+          }
+          
+          [type="file"] + label {
+           
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'Rubik', sans-serif;
+            font-size: inherit;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            outline: none;
+            padding: 1rem 50px;
+            position: relative;
+            transition: all 0.3s;
+            vertical-align: middle;
+          }
+    
 `;
 
 export default function Form() {
@@ -115,8 +154,8 @@ export default function Form() {
                                 <label> Copy of articles</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                                <input type="file" id="file" />
+                                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -124,8 +163,8 @@ export default function Form() {
                                 <label>Copy of voided check</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -133,8 +172,8 @@ export default function Form() {
                                 <label>Copy of driver license for John Smith</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -142,8 +181,8 @@ export default function Form() {
                                 <label>Copy of driver license for Peter Dykson</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -151,8 +190,8 @@ export default function Form() {
                                 <label>Information about the business and types of service</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                     </body>

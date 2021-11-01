@@ -104,6 +104,15 @@ background-color: #E5E5E5;
     font-size: 16px;
     line-height:10px;
   }
+  
+  .login-link{
+    color: blue;
+    font-weight: 700;
+  }
+
+  .register-description{
+    text-align: center;
+  }
 
 `;
 
@@ -122,7 +131,7 @@ export default function Form() {
                   <p>Get started now by filling out the loan application below</p>
               </section>
 
-                <form className="formstyle" action="">
+                <form className="formstyle"  action="/login">
 
                     <section className="Form-design">
 
@@ -147,6 +156,9 @@ export default function Form() {
                     <div className="form-row-button">
                         <input type="submit"  id="button" value="Register" />
                     </div>
+
+                    <p className="register-description"> already have an account? <a href="/login" className="login-link">login</a></p>
+                    
 
                 </form>
             </Hero>

@@ -23,6 +23,7 @@ const Hero = styled.div`
     
         background-color: #F3BA17;
         border: none;
+        
         color: black;
         font-weight: 600;
         border-radius:8px;
@@ -40,10 +41,7 @@ const Hero = styled.div`
 
     .first{
         border: 3px solid #F3BA17;
-       
     }
-
-    
 
     input[type='radio']:after {
         width: 15px;
@@ -445,9 +443,7 @@ export default function Form() {
                                     <div className="loan-type-contain">
                                         
                                         <input type="radio"   name="radio" />
-                                        
                                         <img src="/images/investorownedproperties.png" />
-                                            
                                         <a><img src="/images/help.png" /></a>
                                     
                                     </div>
@@ -577,7 +573,7 @@ export default function Form() {
                 </div>
 
                 <div className="form-row-button">
-                        <input type="submit" href="information2" id="button" value="Check to Pre-Qualify" />
+                        <input type="submit"  id="button" value="Check to Pre-Qualify" />
                 </div>
 
             </Hero>

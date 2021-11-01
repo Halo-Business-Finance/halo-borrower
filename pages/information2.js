@@ -2,16 +2,19 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const Hero = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #E5E5E5;
-  padding: 20px;
+padding: 40px 5% 40px 5%;
+
+background: #E5E5E5;
+font-family: Mulish;
+
   
   .formstyle{
+    margin-left: 20%;
+
     width: 60%;
     background: #F8F8FF;
     border-radius: 10px; 
+    padding-bottom: 20px;
      
   }
   .form-design{
@@ -82,6 +85,7 @@ const Hero = styled.div`
   .heading{
     display:inline;
     float:left;
+    color: #333333;
   }
 
   .heading-step{
@@ -93,6 +97,9 @@ const Hero = styled.div`
 
   .formlabel{
     color: #5C5C5C;
+    font-size: 14px;
+    line-height: 150%;
+    border-radius: 8px;
   }
 
   .textbox{
@@ -126,11 +133,71 @@ const Hero = styled.div`
   }
 
   .radio-container{
-    padding: 5px 5px 5px 5px;
+    padding: 8px;
     border: 1px solid #ededed; 
     border-radius: 4px;
     background-color:white;
+    height: 40px;
+    width: 100px;
   }
+
+  
+.meter {
+  margin-top:20px;
+  box-sizing: content-box;
+  height: 10px;
+  position: relative;
+  background: #EDEDED;
+  border-radius: 25px;
+}
+
+
+.meter > span {
+  display: block;
+  height: 100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: #1B46B0;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter span{
+  width:10%;
+}
+
+.pi span {
+  width:100%;
+}
+
+.meter-link{
+  
+  float:right;
+  font-weight: 500;
+  font-size: 14px;
+  Color: #1B46B0;
+  text-decoration: underline;
+}
+.progress-tracker{
+  width:100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+.progress-form{
+  width: 10%;
+  // min-height:100px;
+  // background-color:red;
+}
+
+.progress-form{
+  font-weight: 700;
+  color: #1B46B0;
+  font-size: 14px;
+}
 
 `;
 
@@ -143,6 +210,68 @@ export default function Form() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Hero>
+
+      <section className="progress-tracker">
+                    
+                    <div className="progress-form">
+                        <h3>Personal Information</h3>
+                        <div className="meter pi">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>General Information</h3>
+                        <div className="meter gi">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>Income<br />Source</h3>
+                        <div className="meter is">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>Contigent Liabilities</h3>
+                        <div className="meter cl">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>Balance<br /> Sheet</h3>
+                        <div className="meter bs">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>Schedule of Assets Pledged</h3>
+                        <div className="meter soap">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>Business Debt Schedule</h3>
+                        <div className="meter bds">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                    <div className="progress-form">
+                        <h3>Personal Tax Returns(100%)</h3>
+                        <div className="meter ptr">
+                            <span ></span>
+                        </div>
+                    </div>
+
+                </section>
+                <br /><br /><br /><br />
+
 
         <form className="formstyle" action="income">
 
