@@ -106,6 +106,31 @@ const BusinessStyle = styled.div`
                 text-decoration-line: underline;
             }
         }    
+
+        [type="file"] {
+            height: 0;
+            overflow: hidden;
+            width: 0;
+          }
+          
+          [type="file"] + label {
+           
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'Rubik', sans-serif;
+            font-size: inherit;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            outline: none;
+            padding: 1rem 50px;
+            position: relative;
+            transition: all 0.3s;
+            vertical-align: middle;
+          }
+    
 `;
 
 export default function Form() {
@@ -129,8 +154,8 @@ export default function Form() {
                                 <label> Copy of articles</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                                <input type="file" id="file" />
+                                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -138,8 +163,8 @@ export default function Form() {
                                 <label>Copy of voided check</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -147,8 +172,8 @@ export default function Form() {
                                 <label>Copy of driver license for John Smith</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -156,8 +181,8 @@ export default function Form() {
                                 <label>Copy of driver license for Peter Dykson</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                         <section>
@@ -165,8 +190,8 @@ export default function Form() {
                                 <label>Information about the business and types of service</label>
                             </div>
                             <div className='column-two'>
-                                <img src='/images/upload.png' />
-                                <label>Drag & Drop or click to upload files</label>
+                            <input type="file" id="file" />
+                <label for="file" >Drag & Drop or click to upload files</label>
                             </div>
                         </section>
                     </body>
