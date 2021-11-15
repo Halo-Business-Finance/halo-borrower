@@ -94,22 +94,24 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
-  const { register, handleSubmit, formState: { errors },   } = useForm();
+  const { register, handleSubmit, formState: { errors }, } = useForm();
 
-  const onSubmitForm = async() => {
-    const response = await fetch('/api/login', {
-    method: 'POST',
-    body: JSON.stringify( { logins }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-     
-  })
-  const data = await response.json()
-  console.log(data)
-}
 
-  
+
+  //   const onSubmitForm = async() => {
+  //     const response = await fetch('https://75.126.149.253/api/borrower/registration', {
+  //     method: 'POST',
+  //     body: JSON.stringify( { data }),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+
+  //   })
+  //   const data = await response.json()
+  //   console.log(data)
+  // }
+
+
   // function onSubmitForm(values) {
   //   console.log(values);
   //   fetch('/api/route-name', {
@@ -120,6 +122,7 @@ export default function Form() {
   //     body: JSON.stringify(objectWithData),
   //   })
   // }
+
   return (
     <>
       <Head>
@@ -150,10 +153,11 @@ export default function Form() {
                   type="email"
                   autoComplete="fname"
                   placeholder="Enter your email address"
-                  
+
                 />
-              </div>
               {errors.email && <span role="alert">{errors.email.message}</span>}
+
+              </div>
               <div className="form-group form-dba">
                 <label htmlFor="fdba" className="formlabel">
                   Password

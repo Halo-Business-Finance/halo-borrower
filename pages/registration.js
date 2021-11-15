@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import styled from 'styled-components';
+import { useForm } from "react-hook-form";
+
 
 const Hero = styled.div`
 padding: 40px 20% 40px 20%;
@@ -118,53 +120,97 @@ background-color: #E5E5E5;
 
 
 export default function Form() {
-    return (
-        <>
-            <Head>
-                <title>Registration</title>
-                <link rel='icon' href='/favicon.ico' />
-            </Head>
-            <Hero>
 
-              <section className="reg-head">
-                  <h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
-                  <p>Get started now by filling out the loan application below</p>
-              </section>
 
-                <form className="formstyle"  action="/login">
-
-                    <section className="Form-design">
-
-                        <div className="form-head">
-                            <h2 className="heading">Continue to Enroll</h2>
-                        </div>
-
-                        <div className="form-row-one">
-                            <div className="form-group">
-                                <label htmlFor="emal" className="formlabel ">Email Address<sup className="req">*</sup></label>
-                                <input id="email" className="textbox" type="email" autoComplete="fname" placeholder="Enter your email address" required />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password" className="formlabel">Password<sup className="req">*</sup></label>
-                                <input id="password" className="textbox" type="password" autoComplete="fdba" placeholder="Enter your password" required />
-                            </div>
-                        </div>
-                        
-                        <p className="register-description"> By clicking “Register”, you consent to receive calls and emails from Halo Business Finance. You acknowledge that no purchase of credit or services is contingent upon such consent and acknowledge that you have read Halo Business Finance’s Application Agreement and Halo Business Finance’s privacy policy. You understand that you may opt-out of receiving communications of your choice from Halo Business Finance as provided in the privacy policy.</p>
-                    </section>
-
-                    <div className="form-row-button">
-                        <input type="submit"  id="button" value="Register" />
-                    </div>
-
-                    <p className="register-description"> already have an account? <a href="/login" className="login-link">login</a></p>
-                    
-
-                </form>
-            </Hero>
+  const { register, handleSubmit, formState: { errors }, } = useForm();
 
 
 
-        </>
-    );
+
+
+  const onSubmitForm = async (values) => {
+    console.log(values)
+    const response = await fetch('http://75.126.149.253/api/borrower/registration', {
+      method: 'POST',
+      body: JSON.stringify({ data }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+    })
+    const data = await response.json()
+    console.log(data)
+  }
+
+
+
+
+  return (
+    <>
+      <Head>
+        <title>Registration</title>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+      <Hero>
+
+        <section className="reg-head">
+          <h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
+          <p>Get started now by filling out the loan application below</p>
+        </section>
+
+        <form className="formstyle" action="/login" onSubmit={handleSubmit(onSubmitForm)}>
+
+          <section className="Form-design">
+
+            <div className="form-head">
+              <h2 className="heading">Continue to Enroll</h2>
+            </div>
+
+            <div className="form-row-one">
+              <div className="form-group">
+                <label htmlFor="emal" className="formlabel ">Email Address<sup className="req">*</sup></label>
+                <input
+                  {...register("email", {
+                    required: "required",
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: "Entered value does not match email format"
+                    }
+                  })} id="email" className="textbox" type="email" autoComplete="fname" placeholder="Enter your email address" required />
+                {errors.email && <span role="alert">{errors.email.message}</span>}
+
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password" className="formlabel">Password<sup className="req">*</sup></label>
+                <input
+                  {...register("password", {
+                    required: "required",
+                    minLength: {
+                      value: 5,
+                      message: "min length is 5"
+                    }
+                  })} id="password" className="textbox" type="password" autoComplete="fdba" placeholder="Enter your password" required />
+                {errors.password && <span role="alert">{errors.password.message}</span>}
+
+              </div>
+            </div>
+
+            <p className="register-description"> By clicking “Register”, you consent to receive calls and emails from Halo Business Finance. You acknowledge that no purchase of credit or services is contingent upon such consent and acknowledge that you have read Halo Business Finance’s Application Agreement and Halo Business Finance’s privacy policy. You understand that you may opt-out of receiving communications of your choice from Halo Business Finance as provided in the privacy policy.</p>
+          </section>
+
+          <div className="form-row-button">
+            <input type="submit" id="button" value="Register" />
+          </div>
+
+          <p className="register-description"> already have an account? <a href="/login" className="login-link">login</a></p>
+
+
+        </form>
+      </Hero>
+
+
+
+    </>
+  );
 }

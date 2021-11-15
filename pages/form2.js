@@ -161,7 +161,7 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
-  const { register, handleSubmit, formState: { errors }} = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   function onSubmitForm(values) {
     console.log(values);
   }
@@ -187,39 +187,39 @@ export default function Form() {
               </label>
               <div className="radio-four">
                 <div className="radio-container">
-                  <input 
-                    type="radio" 
-                    name="binfo" 
+                  <input
+                    type="radio"
+                    name="binfo"
                     {...register("binfo")}
-                    />
+                  />
 
                   <label>C- Corp</label>
                 </div>
 
                 <div className="radio-container">
-                  <input 
-                    type="radio" 
-                    name="binfo" 
+                  <input
+                    type="radio"
+                    name="binfo"
                     {...register("binfo")}
-                    />
+                  />
                   <label>Sole-Prop</label>
                 </div>
 
                 <div className="radio-container">
-                  <input 
+                  <input
                     type="radio"
-                    name="binfo" 
+                    name="binfo"
                     {...register("binfo")}
-                     />
+                  />
                   <label>LLC</label>
                 </div>
 
                 <div className="radio-container">
-                  <input 
-                    type="radio" 
-                    name="binfo" 
+                  <input
+                    type="radio"
+                    name="binfo"
                     {...register("binfo")}
-                    />
+                  />
                   <label>Partnership</label>
                 </div>
               </div>
@@ -332,20 +332,20 @@ export default function Form() {
 
                 <div className="radio-two">
                   <div className="radio-container">
-                    <input 
-                      type="radio" 
-                      name="business" 
+                    <input
+                      type="radio"
+                      name="business"
                       {...register("business")}
-                      />
+                    />
                     <label>Yes</label>
                   </div>
 
                   <div className="radio-container">
-                    <input 
-                      type="radio" 
-                      name="business" 
+                    <input
+                      type="radio"
+                      name="business"
                       {...register("business")}
-                     />
+                    />
                     <label>No</label>
                   </div>
                 </div>
