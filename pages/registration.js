@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styled from 'styled-components';
 import { useForm } from "react-hook-form";
+import React, { useState } from 'react';
 import axios from 'axios';
 import { createStore } from 'redux';
 
@@ -117,6 +118,15 @@ background-color: #E5E5E5;
     text-align: center;
   }
 
+  .error{
+    text-align:center;
+  }
+
+  .error p{
+    color: #DC3545;
+    padding: 10px 10px 10px 10px;
+  }
+
 `;
 
 
@@ -125,7 +135,10 @@ export default function Form() {
 
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
+  const [aState, setA] = useState();
+      
   const onSubmitForm = async (values) => {
+    
     axios({
       method: 'post',
       url: 'http://75.126.149.253/api/borrower/registration',
@@ -149,7 +162,16 @@ export default function Form() {
     })
 
     .then((response) => {
-      console.log(response);
+      if(response.data.isSuccess){
+        console.log(response);
+      }else{
+
+        setA(response.data.reason);
+        return (
+            <div>{aState}</div>
+        );
+        // console.log(response.data.reason);
+      }
     }, (error) => {
       console.log(error);
     });
@@ -175,6 +197,10 @@ export default function Form() {
 
             <div className="form-head">
               <h2 className="heading">Continue to Enroll</h2>
+            </div>
+
+            <div className="error">
+              <p>{aState}</p>
             </div>
 
             <div className="form-row-one">
