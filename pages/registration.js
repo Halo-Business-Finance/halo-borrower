@@ -1,7 +1,8 @@
 import Head from 'next/head';
 import styled from 'styled-components';
 import { useForm } from "react-hook-form";
-
+import axios from 'axios';
+import { createStore } from 'redux';
 
 const Hero = styled.div`
 padding: 40px 20% 40px 20%;
@@ -124,26 +125,36 @@ export default function Form() {
 
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
-
-
-
-
   const onSubmitForm = async (values) => {
-    console.log(values)
-    const response = await fetch('http://75.126.149.253/api/borrower/registration', {
-      method: 'POST',
-      body: JSON.stringify({ data }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-
+    axios({
+      method: 'post',
+      url: 'http://75.126.149.253/api/borrower/registration',
+      data: {
+        loanTypeId: "b2795c5a-1779-4891-ac3d-9fff4cc12d3a",
+        amount: 1500,
+        borrowerInfo: {
+            firstName: "Ram",
+            lastName: "Charam",
+            phone: "0123456789",
+            businessName: "RamCharan",
+            source: 1
+          },
+        account: {
+            email: values.email,
+            password: values.password,
+          },
+        applicationStarted: "2021-11-16T14:45:22.123Z",
+        borrowerState: "None"
+      }
     })
-    const data = await response.json()
-    console.log(data)
+
+    .then((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
+
   }
-
-
-
 
   return (
     <>
