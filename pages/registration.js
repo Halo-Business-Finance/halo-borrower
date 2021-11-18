@@ -242,7 +242,6 @@ export default function Form() {
 
           <p className="register-description"> already have an account? <a href="/login" className="login-link">login</a></p>
 
-
         </form>
       </Hero>
 
