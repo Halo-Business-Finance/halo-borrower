@@ -151,6 +151,7 @@ export default function Form({ data }) {
   console.log(data);
 
   const onSubmitForm = async (values) => {
+    console.log(values)
     axios({
       method: "post",
       url: "http://75.126.149.253/api/borrower/add-business-contact",
