@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { parseCookies } from "../helpers/";
 
 const Hero = styled.div`
   display: flex;
@@ -139,15 +140,19 @@ const Hero = styled.div`
   }
 `;
 
-export default function Form() {
+export default function Form({ data }) {
   const { register, handleSubmit, formState: { errors }} = useForm();
+  
+  console.log(data);
+
   function onSubmitForm(values) {
     console.log(values);
   }
+
   return (
     <>
       <Head>
-        <title>Form</title>
+        <title>Form  </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
@@ -323,4 +328,19 @@ export default function Form() {
       </Hero>
     </>
   );
+}
+
+Form.getInitialProps = async ({ req, res }) => {
+  const data = parseCookies(req)
+  
+   if (res) {
+    if (Object.keys(data).length === 0 && data.constructor === Object) {
+      res.writeHead(301, { Location: "/" })
+      res.end()
+    }
+  }
+  
+  return {
+    data: data && data,
+  }
 }

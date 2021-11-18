@@ -1,6 +1,11 @@
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useCookies } from "react-cookie";
+import Router from 'next/router';
+import { parseCookies } from "../pages/helpers/";
 
 const Hero = styled.div`
   display: flex;
@@ -96,40 +101,96 @@ const Hero = styled.div`
 export default function Form() {
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
+  const [aState, setA] = useState();
+
+  const onSubmitForm = async (values) => {
+  const params = new URLSearchParams();
+  params.append('username', values.username);
+  params.append('password',  values.password);
+  params.append('grant_type', 'password');
+
+const config = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}
+
+   axios.post('http://75.126.149.253/auth/token', params, config)
+  .then((response) => {
+      if(response.data.access_token != "" ){
+        console.log(response);
+
+        const data = response.data;
+
+        setCookie("user", JSON.stringify(data), {
+          path: "/",
+          maxAge: 3600, // Expires after 1hr
+          sameSite: true,
+        });
+
+        Router.push('/form');
+      
+      }else{
+        setA(response);
+        return (
+            <div>{aState}</div>
+        );
+      }
+    }, (error) => {
+      console.log(error);
+    });
+  }
+
+  const [cookie, setCookie] = useCookies(["user"])
 
 
-  //   const onSubmitForm = async() => {
-  //     const response = await fetch('https://75.126.149.253/api/borrower/registration', {
-  //     method: 'POST',
-  //     body: JSON.stringify( { data }),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
+    
+   
 
+
+  // const onSubmitForm = async (values) => {
+  //   axios({
+  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+  //     method: 'post',
+  //     url: 'http://75.126.149.253/auth/token',
+  //     data: {
+  //       username: values.username,
+  //       password: values.password,
+  //       grant_type: "password",
+  //     }
   //   })
-  //   const data = await response.json()
-  //   console.log(data)
+
+  //   .then((response) => {
+  //     if(response.data.isSuccess){
+  //       console.log(response);
+  //     }else{
+
+  //       setA(response.data.reason);
+  //       return (
+  //           <div>{aState}</div>
+  //       );
+  //       // console.log(response.data.reason);
+  //     }
+  //   }, (error) => {
+  //     console.log(error);
+  //   });
+
   // }
 
 
-  // function onSubmitForm(values) {
-  //   console.log(values);
-  //   fetch('/api/route-name', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(objectWithData),
-  //   })
-  // }
 
   return (
     <>
       <Head>
-        <title>Registration</title>
+        <title>Registration </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
+
+      <div className="error">
+              <p>{aState}</p>
+            </div>
+
         <form className="formstyle" onSubmit={handleSubmit(onSubmitForm)} >
           <section className="Form-design">
             <div className="form-head">
@@ -142,7 +203,7 @@ export default function Form() {
                   Email
                 </label>
                 <input
-                  {...register("email", {
+                  {...register("username", {
                     required: "required",
                     pattern: {
                       value: /\S+@\S+\.\S+/,
@@ -150,7 +211,7 @@ export default function Form() {
                     }
                   })}
                   className="textbox"
-                  type="email"
+                  type="text"
                   autoComplete="fname"
                   placeholder="Enter your email address"
 
