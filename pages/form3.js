@@ -185,11 +185,7 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register,  handleSubmit,   formState: { errors }, } = useForm();
   function onSubmitForm(values) {
     console.log(values);
   }
@@ -238,6 +234,9 @@ export default function Form() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter Monthly Total Payroll Expenses"
+                  {...register("payroll", {
+                    required: "Required",
+                  })}
                   required
                 />
               </div>
@@ -251,6 +250,9 @@ export default function Form() {
                   type="text"
                   autoComplete="fdba"
                   placeholder="Enter Monthly Total Business Expenses"
+                  {...register("expenses", {
+                    required: "Required",
+                  })}
                   required
                 />
               </div>
@@ -267,6 +269,9 @@ export default function Form() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter Average Daily Bank Balance"
+                  {...register("payroll", {
+                    required: "Required",
+                  })}
                   required
                 />
               </div>
@@ -279,12 +284,12 @@ export default function Form() {
                 </label>
                 <div className="radio-two">
                   <div className="radio-container">
-                    <input type="radio" name="radio" />
+                    <input type="radio" name="radio" {...register("loans")} />
                     <label>Yes</label>
                   </div>
 
                   <div className="radio-container">
-                    <input type="radio" name="radio" />
+                    <input type="radio" name="radio" {...register("loans")} />
                     <label>No</label>
                   </div>
                 </div>
@@ -299,6 +304,9 @@ export default function Form() {
                   type="text"
                   autoComplete="fdba"
                   placeholder="Enter Outstanding Loan/Advance Balance"
+                  {...register("advanceloan", {
+                    required: "Required",
+                  })}
                   required
                 />
               </div>
@@ -315,6 +323,9 @@ export default function Form() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter Use of Funds"
+                  {...register("funds", {
+                    required: "Required",
+                  })}
                   required
                 />
               </div>
@@ -328,6 +339,9 @@ export default function Form() {
                   type="text"
                   autoComplete="fdba"
                   placeholder="Enter Loan Amount Requested"
+                  {...register("amount", {
+                    required: "Required",
+                  })}
                   required
                 />
               </div>

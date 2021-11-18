@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import { parseCookies } from "../helpers/";
 
 const Hero = styled.div`
@@ -141,18 +142,50 @@ const Hero = styled.div`
 `;
 
 export default function Form({ data }) {
-  const { register, handleSubmit, formState: { errors }} = useForm();
-  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   console.log(data);
 
-  function onSubmitForm(values) {
-    console.log(values);
-  }
-
+  const onSubmitForm = async (values) => {
+    console.log(values)
+    axios({
+      method: "post",
+      url: "http://75.126.149.253/api/borrower/add-business-contact",
+      data: {
+        businessLegalName: values.businesslegalname,
+        dba: values.dba,
+        address: values.address,
+        suite: values.suite,
+        city: values.city,
+        state: values.state,
+        zipCode: values.zipCode,
+        businessPhone: values.phone,
+        website: values.website,
+        borrowerId: "00000000-0000-0000-0000-000000000000",
+      },
+    }).then(
+      (response) => {
+        if (response.data.isSuccess) {
+          console.log(response);
+        } else {
+          setA(response.data.reason);
+          return <div>{aState}</div>;
+          // console.log(response.data.reason);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
   return (
     <>
       <Head>
-        <title>Form  </title>
+        <title>Form </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
@@ -174,12 +207,11 @@ export default function Form({ data }) {
                   id="firstname"
                   className="textbox"
                   type="text"
-                  autoComplete="fname"
+                  autoComplete="businesslegalname"
                   placeholder="Enter Business Legal Name"
-                  {...register("fname", {
+                  {...register("businesslegalname", {
                     required: "Required",
                   })}
-                  
                 />
               </div>
               <div className="form-group form-dba">
@@ -192,10 +224,9 @@ export default function Form({ data }) {
                   type="text"
                   autoComplete="fdba"
                   placeholder="Enter DBA"
-                  {...register("Dba", {
+                  {...register("dba", {
                     required: "Required",
                   })}
-
                 />
               </div>
             </div>
@@ -214,7 +245,6 @@ export default function Form({ data }) {
                   {...register("address", {
                     required: "Required",
                   })}
-
                 />
               </div>
               <div className="form-group form-suite">
@@ -230,7 +260,6 @@ export default function Form({ data }) {
                   {...register("suite", {
                     required: "Required",
                   })}
-
                 />
               </div>
             </div>
@@ -249,7 +278,6 @@ export default function Form({ data }) {
                   {...register("city", {
                     required: "Required",
                   })}
-
                 />
               </div>
               <div className="form-group form-state">
@@ -280,7 +308,6 @@ export default function Form({ data }) {
                   {...register("zipcode", {
                     required: "Required",
                   })}
-
                 />
               </div>
             </div>
@@ -299,7 +326,6 @@ export default function Form({ data }) {
                   {...register("phone", {
                     required: "Required",
                   })}
-
                 />
               </div>
               <div className="form-group form-website">
@@ -315,7 +341,6 @@ export default function Form({ data }) {
                   {...register("website", {
                     required: "Required",
                   })}
-
                 />
               </div>
             </div>
@@ -331,16 +356,16 @@ export default function Form({ data }) {
 }
 
 Form.getInitialProps = async ({ req, res }) => {
-  const data = parseCookies(req)
-  
-   if (res) {
+  const data = parseCookies(req);
+
+  if (res) {
     if (Object.keys(data).length === 0 && data.constructor === Object) {
-      res.writeHead(301, { Location: "/" })
-      res.end()
+      res.writeHead(301, { Location: "/" });
+      res.end();
     }
   }
-  
+
   return {
     data: data && data,
-  }
-}
+  };
+};
