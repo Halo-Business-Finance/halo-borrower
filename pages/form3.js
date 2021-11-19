@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import Mortage from '../components/mortage';
+import Rent from '../components/Rent';
 
 const Hero = styled.div`
   display: flex;
@@ -158,7 +161,7 @@ const Hero = styled.div`
     border-radius: 4px;
     background-color: white;
   }
-
+/* 
   .rent {
     display: none;
   }
@@ -181,11 +184,18 @@ const Hero = styled.div`
 
   .own-click:checked ~ .rent {
     display: none;
-  }
+  } */
 `;
 
 export default function Form() {
   const { register,  handleSubmit,   formState: { errors }, } = useForm();
+
+  const [status, setStatus] = useState(0) ;
+
+  const radioHandler = (status) => {
+    setStatus(status);
+  };
+
   function onSubmitForm(values) {
     console.log(values);
   }
@@ -356,85 +366,27 @@ export default function Form() {
               </label>
               <div className="radio-four">
                 <div className="radio-container">
-                  <input type="radio" name="radio" className="own-click" />
+                  <input type="radio" name="radio" className="own-click"  checked={status === 1} onClick={(e) => radioHandler(1)}/>
                   <label>Own</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" className="mortgage-click" />
+                  <input type="radio" name="radio" className="mortgage-click" checked={status === 2} onClick={(e) => radioHandler(2)}/>
                   <label>Mortgage</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" className="rent-click" />
+                  <input type="radio" name="radio" className="rent-click" checked={status === 3} onClick={(e) => radioHandler(3)} />
                   <label>Rent</label>
                 </div>
               </div>
             </div>
+            {status === 1 && ''}
+            {status === 2 && <Mortage /> }
+            {status === 3 && <Rent />}
+            
 
-            <div className="form-row-one form-gap mortgage">
-              <div className="form-group form-name">
-                <label htmlFor="fname" className="formlabel ">
-                  Monthly Rent/Mortgage
-                </label>
-                <input
-                  id="firstname"
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter Monthly Rent/Mortgage"
-                />
-              </div>
-            </div>
-
-            <div className="rent">
-              <div className="form-row-one form-gap">
-                <div className="form-group form-name">
-                  <label htmlFor="fname" className="formlabel ">
-                    Monthly Rent/Mortgage
-                  </label>
-                  <input
-                    id="firstname"
-                    className="textbox"
-                    type="text"
-                    autoComplete="fname"
-                    placeholder="Enter Monthly Rent/Mortgage"
-                  />
-                </div>
-              </div>
-
-              <div className="form-row-one form-gap">
-                <div className="form-group form-name">
-                  <label htmlFor="fname" className="formlabel ">
-                    Monthly Rent/Mortgage
-                  </label>
-                  <input
-                    id="firstname"
-                    className="textbox"
-                    type="text"
-                    autoComplete="fname"
-                    placeholder="Enter Monthly Rent/Mortgage"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group form-gap radio-two rent">
-                <label htmlFor="ffti" className="formlabel">
-                  Do you have any outstanding loans or advances?
-                </label>
-                <div className="radio-two">
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>Yes</label>
-                  </div>
-
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </section>
 
           <div className="form-row-button">
