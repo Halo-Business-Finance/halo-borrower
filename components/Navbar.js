@@ -3,8 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '../public/images/logo.svg';
 import NavMenu from './NavMenu';
-import { parseCookies } from "../helpers/";
-
 
 const Nav = styled.nav`
   height: 60px;
@@ -13,6 +11,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   color: #000000;
+  
  
   .logo{
       margin-left: 155px;
@@ -23,27 +22,16 @@ const Nav = styled.nav`
   }
 
 `;
+
 const StyledLink = styled.a`
-        padding: 0rem 2rem;
-        `;
+  padding: 0rem 2rem;
+`;
 
-
-  export default function Form({ data }) {
-    
-    // console.log(cookieCutter.get('user'));
-
-    // console.log(data);
-    
-    // if( data.access_token != ""  ){
-        
-
-    // } else {
-
-    // }
-
+const Navbar = () => {
     return (
-      <>
-       <Nav>
+        <>
+
+            <Nav>
                 <div className="logo">
 
                     <StyledLink>
@@ -64,21 +52,8 @@ const StyledLink = styled.a`
             </Nav>
             <NavMenu />
         </>
+
     );
-  }
-  
-  Form.getInitialProps = async ({ req, res }) => {
-    const data = parseCookies(req);
-  
-    if (res) {
-      if (Object.keys(data).length === 0 && data.constructor === Object) {
-        res.writeHead(301, { Location: "/" });
-        res.end();
-      }
-    }
-  
-    return {
-      data: data && data,
-    };
-  };
-  
+};
+
+export default Navbar;

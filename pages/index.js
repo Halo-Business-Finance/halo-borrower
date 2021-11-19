@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 // import nextSession from "next-session";
 // import cookie from "cookie";
+import cookie from "cookie"
+
 
 const Hero = styled.div`
   height: 90vh;
@@ -16,11 +18,14 @@ const Heading = styled.h1`
   font-weight: 900;
 `;
 
-
+export function parseCookies(req) {
+  return cookie.parse(req ? req.headers.cookie || "" : document.cookie)
+}
 
 export default function Home() {
   
   // if (loggedIn) session.user = "John Doe";
+  
 
   return (
     <>

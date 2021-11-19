@@ -5,6 +5,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useCookies } from "react-cookie";
 import Router from 'next/router';
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
 const Hero = styled.div`
   display: flex;
@@ -100,6 +101,8 @@ const Hero = styled.div`
 export default function Form() {
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
+  const [cookie, setCookie] = useCookies(["user"]);
+
   const [aState, setA] = useState();
 
   const onSubmitForm = async (values) => {
@@ -115,23 +118,17 @@ const config = {
 }
 
    axios.post('http://75.126.149.253/auth/token', params, config)
-  .then((response) => {
+    .then((response) => {
       if(response.data.access_token != "" ){
-
+        const data = response.data
         try {
-          setCookie("user", JSON.stringify(response.data), {
-            path: "/",
-            maxAge: 3600, // Expires after 1hr
-            sameSite: true,
-            httpOnly: true,
-          });
-          console.log(response);
+          saveuserstoken(response.data.auth);
+          
+          Router.push('/form');
 
         }catch (err) {
           console.log(err)
         }
-         Router.push('/form');
-      
       }else{
         setA(response);
         return (
@@ -143,7 +140,6 @@ const config = {
     });
   }
 
-  const [cookie, setCookie] = useCookies(["user"])
 
   // const onSubmitForm = async (values) => {
   //   axios({
@@ -246,4 +242,9 @@ const config = {
       </Hero>
     </>
   );
+}
+
+
+export function saveuserstoken(tokandata){
+  localStorage.setItem('userDetails', JSON.stringify(tokandata));
 }
