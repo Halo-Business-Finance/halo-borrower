@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Hero = styled.div`
   display: flex;
@@ -162,9 +163,45 @@ const Hero = styled.div`
 
 export default function Form() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  function onSubmitForm(values) {
+
+  const onSubmitForm = async (values) => {
     console.log(values);
+
+    axios({
+      method: 'post',
+      url: 'http://75.126.149.253/api/borrower/add-business-info',
+      data: {
+        "legalEntity": values.binfo,
+        "stateOfOrganization": values.organization,
+        "federalTaxId": values.federal,
+        "startDate": values.date,
+        "industryDescription": values.industry,
+        "typeOfProduct": values.product,
+        "totalEmployees": values.employees,
+        "totalContractors": values.employees,
+        "wasPurchased": values.business,
+        "borrowerId": "00000000-0000-0000-0000-000000000000"
+      }
+    })
+      
+      .then((response) => {
+        if (response.data.isSuccess) {
+          console.log(response);
+        } else {
+
+          // setA(response.data.reason);
+          // return (
+          //   <div>{aState}</div>
+          // );
+          // console.log(response.data.reason);
+        }
+      }, (error) => {
+        console.log(error);
+      });
+
   }
+
+
   return (
     <>
       <Head>
@@ -183,7 +220,7 @@ export default function Form() {
 
             <div className="form-row">
               <label htmlFor="fentity" className="formlabel ">
-                Business Label Name
+                Legal Entity
               </label>
               <div className="radio-four">
                 <div className="radio-container">
