@@ -130,7 +130,6 @@ const config = {
         }catch (err) {
           console.log(err)
         }
-
          Router.push('/form');
       
       }else{

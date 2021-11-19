@@ -1,3 +1,10 @@
+import Head from 'next/head';
+import styled from 'styled-components';
+import { useForm } from "react-hook-form";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { createStore } from 'redux';
+
 import { parseCookies } from "../helpers"
 
 export default function HomePage({ data }) {

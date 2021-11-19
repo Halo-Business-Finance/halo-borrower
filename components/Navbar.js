@@ -3,10 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Logo from '../public/images/logo.svg';
 import NavMenu from './NavMenu';
-import { useCookies } from "react-cookie";
-import { useReducer } from 'react';
 import { parseCookies } from "../helpers/";
-import cookieCutter from 'cookie-cutter';
 
 
 const Nav = styled.nav`

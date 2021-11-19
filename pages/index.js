@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import nextSession from "next-session";
-import cookie from "cookie";
+// import nextSession from "next-session";
+// import cookie from "cookie";
 
 const Hero = styled.div`
   height: 90vh;
