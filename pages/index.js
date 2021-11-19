@@ -1,6 +1,5 @@
-import Head from 'next/head';
 import styled from 'styled-components';
-import Link from 'next/dist/client/link';
+import nextSession from "next-session";
 
 const Hero = styled.div`
   height: 90vh;
@@ -17,15 +16,12 @@ const Heading = styled.h1`
 `;
 
 export default function Home() {
+  
+  // if (loggedIn) session.user = "John Doe";
+
   return (
     <>
-      <Head>
-        <title></title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <Hero>
-        
-      </Hero>
+   
     </>
   );
 }

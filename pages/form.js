@@ -2,6 +2,8 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { useReducer } from 'react';
 import { parseCookies } from "../helpers/";
 
 const Hero = styled.div`
@@ -148,32 +150,43 @@ export default function Form({ data }) {
     formState: { errors },
   } = useForm();
 
-  console.log(data);
+  // console.log(data);
 
   const onSubmitForm = async (values) => {
-    console.log(values)
+    // console.log(values);
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer dEAC2qkkZesCHzXyMcNCk4WQnc5_BEbEc9iaXovE4RB5FSjfVFUqn7JGye1uj7NDBdwEox9lXoSlg9y862n2UaTK2ykb7cgaK5Ws2oyIjK-JAcmfxCOac7kmQ3NPF2vtK-8v43anmRsWpojXTkaQ7h78X0pB0VDRy_P3XiZ0dz8yUNpcJulWcLjOU1H9DfndD8HCkj7lqFCI08E9lyYFaWmspGAPb97KhrlFqfHkD6oBl3SMYXDt_TcV-9iTRBgBh-wfzqXS7EYMv6eVuhezT4M0-hcLMrEJEHQ7VJszJM-5r8fK-szoYJ7yrsd-dzsOI0TAtBwd3MoEQQ_-hwmiBNAbYqyZgGZoBMc9wcm8SdXvMy5MpwAnEHhoIBZh6oT7DCRjohGKl5IAxlbNNQCHn_8W3PO8_aY7Mg8uiER_0d1M-HM-IV_89r5nJyr3IvhwmxKN3a_OR39djfHoOhGDzn1XbRCqyZo6pVPXBIOX1ng42f0eOLK3Tl46nNtH6Esy_5fLDHDwbjAlmZ8U2evS3w'
+    }
+
     axios({
       method: "post",
       url: "http://75.126.149.253/api/borrower/add-business-contact",
       data: {
+        
         businessLegalName: values.businesslegalname,
         dba: values.dba,
         address: values.address,
         suite: values.suite,
         city: values.city,
         state: values.state,
-        zipCode: values.zipCode,
+        zipCode: values.zipcode,
         businessPhone: values.phone,
         website: values.website,
-        borrowerId: "00000000-0000-0000-0000-000000000000",
-      },
+        userId: "98b44e3d-bdb1-4984-8d25-5abac35c7aa8",
+        borrowerId: "4c3728a5-25aa-4b49-9c26-c9551e716275",
+      }, 
+        headers: headers
+      
     }).then(
       (response) => {
         if (response.data.isSuccess) {
           console.log(response);
         } else {
-          setA(response.data.reason);
-          return <div>{aState}</div>;
+          console.log(response);
+          // setA(response.data.reason);
+          // return <div>{aState}</div>;
           // console.log(response.data.reason);
         }
       },
@@ -189,6 +202,9 @@ export default function Form({ data }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
+      {/* <div className="error">
+              <p>{aState}</p>
+            </div> */}
         <form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
           <section className="Form-design">
             <div className="form-head">

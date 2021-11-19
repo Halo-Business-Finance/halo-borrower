@@ -98,45 +98,35 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
-  const { register, handleSubmit, formState: { errors }, } = useForm();
+    const { register, handleSubmit, formState: { errors }, } = useForm();
 
-  const [aState, setA] = useState();
+    const [aState, setA] = useState();
 
-  const onSubmitForm = async (values) => {
-  const params = new URLSearchParams();
-  params.append('username', values.username);
-  params.append('password',  values.password);
-  params.append('grant_type', 'password');
+    const onSubmitForm = async (values) => {
+        
+        
+        const formData = new FormData();
+        const imagefile = document.querySelector('#file');
+        formData.append("image", imagefile.files[0]);
+        axios.post('http://75.126.149.253/api/loan-type/upload-image/ba60a8ad-5ff1-4afc-9def-36a2700977bb', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': 'Bearer f0_nl2on0C2yESeccjqLuNkPrSK_bjdfn2-iClBlsDALl1_UWcX2oWxmFrT8HB1kvpGDOphRnKhCENvdl8vU8jFPi4CO40tNCp_mmd6UTvLsprCWE0azZKOu-33EG6w1ev-HGgeXCCZzyYXKUMa-HXYW5a72P9NoimfVJitbgOhitgN3va_DgjL6MEkRP0ynP4fVzt_wvWKyOGR-IjmlAkTbQUYsv3B7HYkv05IH87E0xHTmFmeul4IHrCiajGOrVxPfbuQNhGKvAyFT-PaLChCxDiDCwxetrYgwvcqPpPd3DBF_oHgi2JWkIQaD1Gry5sCT6bymppeYJxt9LpLHKEN_ODABT3SbdRRNwAJx6H6ZMIK510_-T1Cj3BdidWVdqWpRafmWp3JdOBmNmlUudOS7BqxC6L2JqgDu5QfI_3iIyHsKpZOkwQ_mCr59jICKU7RMwRaFBJSOStzy0tUIWmFLhBR_9tsC7W2T51ARiN9FII7Us11scJ0_BRL3hPWM_XTFDSItX6G9z45TfMHopg'
+            }
+        })  .then((response) => {
+            if(response.data.access_token != "" ){
+              console.log(response);
+            
+          }else{
+              setA(response);
+              return (
+                  <div>{aState}</div>
+              );
+            }
+          }, (error) => {
+            console.log(error);
+          });
 
-const config = {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
-}
-
-   axios.post('http://75.126.149.253/auth/token', params, config)
-  .then((response) => {
-      if(response.data.access_token != "" ){
-        console.log(response);
-
-        setCookie("user", JSON.stringify(response.data), {
-          path: "/",
-          maxAge: 3600, // Expires after 1hr
-          sameSite: true,
-          httpOnly: true,
-        });
-
-        Router.push('/form');
-      
-      }else{
-        setA(response);
-        return (
-            <div>{aState}</div>
-        );
-      }
-    }, (error) => {
-      console.log(error);
-    });
   }
 
   const [cookie, setCookie] = useCookies(["user"])
@@ -191,43 +181,17 @@ const config = {
             </div>
 
             <div className="form-row-one form-gap">
-              <div className="form-name">
-                <label htmlFor="fname" className="formlabel ">
-                  Email
-                </label>
-                <input
-                  {...register("username", {
-                    required: "required",
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: "Entered value does not match email format"
-                    }
-                  })}
-                  className="textbox"
-                  type="text"
-                  autoComplete="fname"
-                  placeholder="Enter your email address"
-
-                />
-              {errors.email && <span role="alert">{errors.email.message}</span>}
-
-              </div>
+         
               <div className="form-group form-dba">
                 <label htmlFor="fdba" className="formlabel">
-                  Password
+                  Image
                 </label>
-                <input
-                  {...register("password", {
-                    required: "required",
-                    minLength: {
-                      value: 5,
-                      message: "min length is 5"
-                    }
-                  })}
+                <input id="file"
+                    name="file"
                   className="textbox"
-                  type="password"
+                  type="file"
                   autoComplete="fdba"
-                  placeholder="Enter your password"
+                
                   required
                 />
                 {errors.password && <span role="alert">{errors.password.message}</span>}
