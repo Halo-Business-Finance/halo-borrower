@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import nextSession from "next-session";
+import cookie from "cookie";
 
 const Hero = styled.div`
   height: 90vh;
@@ -14,6 +15,8 @@ const Heading = styled.h1`
   font-size: 10rem;
   font-weight: 900;
 `;
+
+
 
 export default function Home() {
   

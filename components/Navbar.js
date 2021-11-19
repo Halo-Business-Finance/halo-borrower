@@ -33,9 +33,9 @@ const StyledLink = styled.a`
 
   export default function Form({ data }) {
     
-    console.log(cookieCutter.get('user'));
+    // console.log(cookieCutter.get('user'));
 
-    console.log(data);
+    // console.log(data);
     
     // if( data.access_token != ""  ){
         

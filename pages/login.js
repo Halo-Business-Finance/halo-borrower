@@ -117,16 +117,21 @@ const config = {
    axios.post('http://75.126.149.253/auth/token', params, config)
   .then((response) => {
       if(response.data.access_token != "" ){
-        console.log(response);
 
-        setCookie("user", JSON.stringify(response.data), {
-          path: "/",
-          maxAge: 3600, // Expires after 1hr
-          sameSite: true,
-          httpOnly: true,
-        });
+        try {
+          setCookie("user", JSON.stringify(response.data), {
+            path: "/",
+            maxAge: 3600, // Expires after 1hr
+            sameSite: true,
+            httpOnly: true,
+          });
+          console.log(response);
 
-        Router.push('/form');
+        }catch (err) {
+          console.log(err)
+        }
+
+         Router.push('/form');
       
       }else{
         setA(response);
