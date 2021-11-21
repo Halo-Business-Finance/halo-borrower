@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import Router from 'next/router';
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
+// import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
+import cookie from 'js-cookie';
 
 const Hero = styled.div`
   display: flex;
@@ -98,46 +99,46 @@ const Hero = styled.div`
   }
 `;
 
-export default function Form() {
+export default function Form({ email }) {
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
-  const [cookie, setCookie] = useCookies(["user"]);
+  // const [cookie, setCookie] = useCookies(["user"]);
 
   const [aState, setA] = useState();
 
   const onSubmitForm = async (values) => {
-  const params = new URLSearchParams();
-  params.append('username', values.username);
-  params.append('password',  values.password);
-  params.append('grant_type', 'password');
+    const params = new URLSearchParams();
+    params.append('username', values.username);
+    params.append('password', values.password);
+    params.append('grant_type', 'password');
 
-const config = {
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  }
-}
-
-   axios.post('http://75.126.149.253/auth/token', params, config)
-    .then((response) => {
-      if(response.data.access_token != "" ){
-        const data = response.data
-        try {
-          saveuserstoken(response.data.auth);
-          
-          Router.push('/form');
-
-        }catch (err) {
-          console.log(err)
-        }
-      }else{
-        setA(response);
-        return (
-            <div>{aState}</div>
-        );
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }, (error) => {
-      console.log(error);
-    });
+    }
+
+    axios.post('http://75.126.149.253/auth/token', params, config)
+      .then((response) => {
+        if (response.data.access_token != "") {
+          const data = response.data
+          try {
+            saveuserstoken(response.data.auth);
+
+            Router.push('/form');
+
+          } catch (err) {
+            console.log(err)
+          }
+        } else {
+          setA(response);
+          return (
+            <div>{aState}</div>
+          );
+        }
+      }, (error) => {
+        console.log(error);
+      });
   }
 
 
@@ -180,16 +181,17 @@ const config = {
       </Head>
       <Hero>
 
-      <div className="error">
-              <p>{aState}</p>
-            </div>
+        <div className="error">
+          <p>{aState}</p>
+        </div>
 
         <form className="formstyle" onSubmit={handleSubmit(onSubmitForm)} >
           <section className="Form-design">
             <div className="form-head">
               <h2 className="heading">Log In</h2>
-            </div>
 
+            </div>
+            <h5> {email} </h5>
             <div className="form-row-one form-gap">
               <div className="form-name">
                 <label htmlFor="fname" className="formlabel ">
@@ -209,7 +211,7 @@ const config = {
                   placeholder="Enter your email address"
 
                 />
-              {errors.email && <span role="alert">{errors.email.message}</span>}
+                {errors.email && <span role="alert">{errors.email.message}</span>}
 
               </div>
               <div className="form-group form-dba">
@@ -236,7 +238,9 @@ const config = {
           </section>
 
           <div className="form-row-button">
-            <input type="submit" id="button" value="Log In" />
+            <input type="submit" id="button" value="Log In" onClick={() => {
+              cookie.set("email", "anishdon@gmail.com", { expires: 1 / 24 })
+            }} />
           </div>
         </form>
       </Hero>
@@ -245,6 +249,12 @@ const config = {
 }
 
 
-export function saveuserstoken(tokandata){
-  localStorage.setItem('userDetails', JSON.stringify(tokandata));
+// export function saveuserstoken(tokandata){
+//   localStorage.setItem('userDetails', JSON.stringify(tokandata));
+// }
+
+export function getServerSideProps({ req, res }) {
+
+  return { props: { email: req.cookies.email || "" } };
+
 }

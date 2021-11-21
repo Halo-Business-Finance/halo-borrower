@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-// import nextSession from "next-session";
-// import cookie from "cookie";
 import cookie from "cookie"
 
 
