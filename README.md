@@ -10,6 +10,10 @@ To run the application on your local computer, please follow the following steps
 
 `npm install next `
 
+-Install react-hook-form using following command.
+
+`npm install react-hook-form`
+
 - After installing dependencies above, go to `halo-onehorn` folder that you just cloned and run the following command to run the application locally.
 
 `npm run dev`
