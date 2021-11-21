@@ -140,38 +140,6 @@ const config = {
     });
   }
 
-
-  // const onSubmitForm = async (values) => {
-  //   axios({
-  //     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-  //     method: 'post',
-  //     url: 'http://75.126.149.253/auth/token',
-  //     data: {
-  //       username: values.username,
-  //       password: values.password,
-  //       grant_type: "password",
-  //     }
-  //   })
-
-  //   .then((response) => {
-  //     if(response.data.isSuccess){
-  //       console.log(response);
-  //     }else{
-
-  //       setA(response.data.reason);
-  //       return (
-  //           <div>{aState}</div>
-  //       );
-  //       // console.log(response.data.reason);
-  //     }
-  //   }, (error) => {
-  //     console.log(error);
-  //   });
-
-  // }
-
-
-
   return (
     <>
       <Head>
