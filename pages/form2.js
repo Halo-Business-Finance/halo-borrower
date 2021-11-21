@@ -173,7 +173,7 @@ export default function Form() {
     }
    
     axios({
-      method: 'post',
+      method: 'POST',
       url: 'http://75.126.149.253/api/borrower/add-business-info',
       data: {
         "legalEntity": values.binfo,
@@ -209,7 +209,7 @@ export default function Form() {
   return (
     <>
       <Head>
-        <title>Form2</title>
+        <title> Business Information</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
@@ -271,7 +271,7 @@ export default function Form() {
             </div>
 
             <div className="form-row-two form-gap">
-              <div className="form-group form-addess">
+              <div className="form-addess">
                 <label htmlFor="fsoo" className="formlabel">
                   State of Organization
                 </label>
@@ -286,7 +286,7 @@ export default function Form() {
                   })}
                 />
               </div>
-              <div className="form-group form-suite">
+              <div className="form-suite">
                 <label htmlFor="ffti" className="formlabel">
                   Federal Tax ID
                 </label>
@@ -304,7 +304,7 @@ export default function Form() {
             </div>
 
             <div className="form-row-four form-gap">
-              <div className="form-group form-phone">
+              <div className="form-phone">
                 <label htmlFor="fname" className="formlabel">
                   Business Start Date
                 </label>
@@ -319,7 +319,7 @@ export default function Form() {
                   })}
                 />
               </div>
-              <div className="form-group form-website">
+              <div className="form-website">
                 <label htmlFor="fname" className="formlabel">
                   Industry Description/SIC
                 </label>
@@ -355,7 +355,7 @@ export default function Form() {
             </div>
 
             <div className="form-row-two form-gap">
-              <div className="form-group form-addess">
+              <div className="form-addess">
                 <label htmlFor="fsoo" className="formlabel">
                   Total Company Employees and 1099 Contractors
                 </label>
@@ -381,7 +381,7 @@ export default function Form() {
                   })}
                 />
               </div>
-              <div className="form-group form-suite">
+              <div className="form-suite">
                 <label htmlFor="ffti" className="formlabel">
                   Was this Business Purchased?
                 </label>
