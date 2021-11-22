@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from 'axios';
 import React, { useState } from 'react';
-// import { useCookies } from "react-cookie";
 import Router from 'next/router';
-// import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import cookie from 'js-cookie';
 
 const Hero = styled.div`
@@ -99,10 +97,8 @@ const Hero = styled.div`
   }
 `;
 
-export default function Form({ email }) {
+export default function Form({ email, userName, access_token, userid }) {
   const { register, handleSubmit, formState: { errors }, } = useForm();
-
-  // const [cookie, setCookie] = useCookies(["user"]);
 
   const [aState, setA] = useState();
 
@@ -123,7 +119,11 @@ export default function Form({ email }) {
         if (response.data.access_token != "") {
           const data = response.data
           try {
-            saveuserstoken(response.data.auth);
+
+            cookie.set("access_token", response.data.access_token, { expires: 1 / 24 })
+            cookie.set("userName", response.data.userName, { expires: 1 / 24 })
+            cookie.set("email", response.data.Email, { expires: 1 / 24 })
+            cookie.set("userid", response.data.userId, { expires: 1 / 24 })
 
             Router.push('/form');
 
@@ -159,7 +159,7 @@ export default function Form({ email }) {
               <h2 className="heading">Log In</h2>
 
             </div>
-            <h5> {email} </h5>
+           
             <div className="form-row-one form-gap">
               <div className="form-name">
                 <label htmlFor="fname" className="formlabel ">
@@ -206,9 +206,7 @@ export default function Form({ email }) {
           </section>
 
           <div className="form-row-button">
-            <input type="submit" id="button" value="Log In" onClick={() => {
-              cookie.set("email", "anishdon@gmail.com", { expires: 1 / 24 })
-            }} />
+            <input type="submit" id="button" value="Log In" />
           </div>
         </form>
       </Hero>
@@ -221,8 +219,27 @@ export default function Form({ email }) {
 //   localStorage.setItem('userDetails', JSON.stringify(tokandata));
 // }
 
-export function getServerSideProps({ req, res }) {
+// export function getServerSideProps({ req, res }) {
+  
+//   return { props: { 
+//     //  userName: req.cookies.userName || "", 
+//      access_token: req.cookies.access_token || "", 
+//     //  userid: req.cookies.userid || ""
+//   } };
 
-  return { props: { email: req.cookies.email || "" } };
+// }
 
-}
+//  export function savecookie (req, res) {
+//   res.setHeader(
+//     "Set-Cookie",
+//     cookie.serialize("token", req.body.token, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV !== "development",
+//       maxAge: 60 * 60,
+//       sameSite: "strict",
+//       path: "/",
+//     })
+//   );
+//   res.statusCode = 200;
+//   res.json({ success: true });
+//  };
