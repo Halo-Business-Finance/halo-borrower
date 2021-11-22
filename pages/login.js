@@ -117,9 +117,9 @@ export default function Form({ email, userName, access_token, userid }) {
     }
     axios.post('http://75.126.149.253/auth/token', params, config)
       .then((response) => {
-
-        if (response.data.access_token != "") {
-          const data = response.data
+        // console.log(response);
+        if ( response.data.access_token !== "" || response.data.access_token !== "undefined") {
+          // const data = response.data
           try {
 
             const configo = {
@@ -130,11 +130,14 @@ export default function Form({ email, userName, access_token, userid }) {
             }
 
             axios.get('http://75.126.149.253/api/borrower/get-all-loan-requests', configo)
-            .then((response) => {
-              console.log(response.data);
-              cookie.set("id", response.data.payload.id, { expires: 1 / 24 })
-            })
+            .then((resone) => {
 
+                const user_data = resone.data.payload[0];
+
+                cookie.set("id", user_data.id, { expires: 1 / 24 })
+
+            })
+            // console.log(response);
             cookie.set("access_token", response.data.access_token, { expires: 1 / 24 })
             cookie.set("userName", response.data.userName, { expires: 1 / 24 })
             cookie.set("email", response.data.Email, { expires: 1 / 24 })
@@ -146,7 +149,7 @@ export default function Form({ email, userName, access_token, userid }) {
             console.log(err)
           }
         } else {
-          setA(response);
+          setA(response.error_description);
           return (
             <div>{aState}</div>
           );
