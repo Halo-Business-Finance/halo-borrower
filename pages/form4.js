@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import OwnerTwo from "../components/ownerTwo";
+import axios from "axios";
 
 const Hero = styled.div`
   display: flex;
@@ -232,42 +233,54 @@ export default function Form() {
 
   const [owner, setOwner] = useState(false);
 
-  const handleClick= () =>{
+  const handleClick = () => {
     setOwner(true);
-  }
- 
+  };
+
   const onSubmitForm = async (values) => {
-    console.log(values);
+    // console.log(values);
 
     const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer dEAC2qkkZesCHzXyMcNCk4WQnc5_BEbEc9iaXovE4RB5FSjfVFUqn7JGye1uj7NDBdwEox9lXoSlg9y862n2UaTK2ykb7cgaK5Ws2oyIjK-JAcmfxCOac7kmQ3NPF2vtK-8v43anmRsWpojXTkaQ7h78X0pB0VDRy_P3XiZ0dz8yUNpcJulWcLjOU1H9DfndD8HCkj7lqFCI08E9lyYFaWmspGAPb97KhrlFqfHkD6oBl3SMYXDt_TcV-9iTRBgBh-wfzqXS7EYMv6eVuhezT4M0-hcLMrEJEHQ7VJszJM-5r8fK-szoYJ7yrsd-dzsOI0TAtBwd3MoEQQ_-hwmiBNAbYqyZgGZoBMc9wcm8SdXvMy5MpwAnEHhoIBZh6oT7DCRjohGKl5IAxlbNNQCHn_8W3PO8_aY7Mg8uiER_0d1M-HM-IV_89r5nJyr3IvhwmxKN3a_OR39djfHoOhGDzn1XbRCqyZo6pVPXBIOX1ng42f0eOLK3Tl46nNtH6Esy_5fLDHDwbjAlmZ8U2evS3w'
-    }
-   
+      "Content-Type": "application/json",
+      Authorization:
+        "Bearer dEAC2qkkZesCHzXyMcNCk4WQnc5_BEbEc9iaXovE4RB5FSjfVFUqn7JGye1uj7NDBdwEox9lXoSlg9y862n2UaTK2ykb7cgaK5Ws2oyIjK-JAcmfxCOac7kmQ3NPF2vtK-8v43anmRsWpojXTkaQ7h78X0pB0VDRy_P3XiZ0dz8yUNpcJulWcLjOU1H9DfndD8HCkj7lqFCI08E9lyYFaWmspGAPb97KhrlFqfHkD6oBl3SMYXDt_TcV-9iTRBgBh-wfzqXS7EYMv6eVuhezT4M0-hcLMrEJEHQ7VJszJM-5r8fK-szoYJ7yrsd-dzsOI0TAtBwd3MoEQQ_-hwmiBNAbYqyZgGZoBMc9wcm8SdXvMy5MpwAnEHhoIBZh6oT7DCRjohGKl5IAxlbNNQCHn_8W3PO8_aY7Mg8uiER_0d1M-HM-IV_89r5nJyr3IvhwmxKN3a_OR39djfHoOhGDzn1XbRCqyZo6pVPXBIOX1ng42f0eOLK3Tl46nNtH6Esy_5fLDHDwbjAlmZ8U2evS3w",
+    };
+
     axios({
-      method: 'POST',
-      url: 'http://75.126.149.253/api/borrower/add-business-info',
+      method: "post",
+      url: "http://75.126.149.253/api/borrower/add-owners",
+      headers: headers,
       data: {
-        
+        // "id": "00000000-0000-0000-0000-000000000000",
         borrowerId: "4c3728a5-25aa-4b49-9c26-c9551e716275",
-      }, 
-      headers: headers
+        fullName: values.fullname,
+        dateOfBirth: values.dateofbirth,
+        homeAddress: values.homeaddress,
+        city: values.city,
+        state: values.state,
+        zipCode: values.zipcode,
+        ssn: values.socialsecuritynumber,
+        email: values.email,
+        phoneNumber: values.mobile,
+        ownershipPercentage: values.ownership,
+        typeOfResident: values.personaldata,
+      },
     })
-      
-      .then((response) => {
+    .then(
+      (response) => {
         if (response.data.isSuccess) {
-          
           console.log(response);
-          Router.push('/form3');
-          console.log('test');
+          Router.push("/form3");
+          console.log("test");
         } else {
           console.log(response);
         }
-      }, (error) => {
+      },
+      (error) => {
         console.log(error);
-      });
-
-  }
+      }
+    );
+  };
   return (
     <>
       <Head>
@@ -339,7 +352,7 @@ export default function Form() {
                   id="firstname"
                   className="textbox"
                   type="text"
-                  autoComplete="fname"
+                  autoComplete="address"
                   placeholder="Enter Address"
                   required
                 />
@@ -485,7 +498,8 @@ export default function Form() {
                     type="radio"
                     name="radio"
                     className="own-click"
-                    
+                    {...register("personaldata")}
+                    required
                   />
                   <label>US Citizen</label>
                 </div>
@@ -494,7 +508,8 @@ export default function Form() {
                     type="radio"
                     name="radio"
                     className="mortgage-click"
-                   
+                    {...register("personaldata")}
+                    required
                   />
                   <label>US Permanent Resident</label>
                 </div>
@@ -504,15 +519,21 @@ export default function Form() {
                     type="radio"
                     name="radio"
                     className="rent-click"
-                    
+                    {...register("personaldata")}
+                    required
                   />
                   <label>Other</label>
                 </div>
               </div>
-              <p className="add-owner " onClick={handleClick} >Add Owner</p>
-             {owner ? <OwnerTwo /> : ''}
+              <p className="add-owner " onClick={handleClick}>
+                Add Owner
+              </p>
+              {owner ? <OwnerTwo /> : ""}
+
+              <div className="form-row-button">
+                <input type="submit" id="button" value="Continue" />
+              </div>
             </div>
-            
           </section>
         </form>
       </Hero>

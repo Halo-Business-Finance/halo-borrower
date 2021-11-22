@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Mortage from "../components/mortage";
 import Rent from "../components/Rent";
+import axios from "axios";
+
 
 const Hero = styled.div`
   display: flex;
@@ -201,7 +203,7 @@ export default function Form() {
   };
 
   const onSubmitForm = async (values) => {
-    console.log(values);
+    // console.log(values);
 
     const headers = {
       'Content-Type': 'application/json',
@@ -209,20 +211,39 @@ export default function Form() {
     }
    
     axios({
-      method: 'POST',
-      url: 'http://75.126.149.253/api/borrower/add-business-info',
-      data: {
-        
-        borrowerId: "4c3728a5-25aa-4b49-9c26-c9551e716275",
+      method: 'post',
+      url: 'http://75.126.149.253/api/borrower/add-business-financials',
+      headers: headers,
+      data: {       
+          // "id": "00000000-0000-0000-0000-000000000000",
+          "annualRevenuw": values.annual,
+          "monthlyPayrollExpenses": values.payroll,
+          "monthlyBusinessExpenses": values.expenses,
+          "dailyAverageBankBalance": values.dailybalance,
+          "outstandingLoanOrAdvance": true,
+          "ourstandingAdvancesLoanAmount": values.advanceloan,
+          "useOfFunds": values.funds,
+          "loanAmountRequested": values.amount,
+          "typeOfProperty": "Own",
+          "borrowerId": "4c3728a5-25aa-4b49-9c26-c9551e716275",
+          "mortageInformation": {
+            "monthlyMoratge": 0
+          },
+          "rentInformation": {
+            "monthlyRent": 0,
+            "landlordName": "string",
+            "leaseStartDate": "2021-11-22T06:39:28.564Z",
+            "leaseEndDate": "2021-11-22T06:39:28.564Z"
+          }
       }, 
-      headers: headers
+      
     })
       
       .then((response) => {
         if (response.data.isSuccess) {
           
           console.log(response);
-          Router.push('/form3');
+          // Router.push('/form3');
           console.log('test');
         } else {
           console.log(response);
@@ -312,7 +333,7 @@ export default function Form() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter Average Daily Bank Balance"
-                  {...register("payroll", {
+                  {...register("dailybalance", {
                     required: "Required",
                   })}
                   required

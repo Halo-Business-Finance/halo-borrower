@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import cookie from "cookie"
+import Borrower from './borrower-apply';
 
 
 const Hero = styled.div`
@@ -27,7 +28,7 @@ export default function Home() {
 
   return (
     <>
-   
+   <Borrower />
     </>
   );
 }

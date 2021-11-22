@@ -167,12 +167,6 @@ export default function Form({ data }) {
   }).then(
     (response) => {
       if (response.data.isSuccess) {
-
-
-
-
-
-
         console.log(response);
       } else {
         console.log(response);

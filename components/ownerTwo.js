@@ -1,10 +1,11 @@
 import React from "react";
+import { useForm } from "react-hook-form";
+
 
 function ownerTwo() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   return (
     <div>
-     
-
       <section className="Form-design owner-two">
         <div className="form-head">
           <h2 className="heading">Owner 2</h2>
@@ -16,9 +17,9 @@ function ownerTwo() {
               Full Name
             </label>
             <input
-            {...register("fullname", {
-              required: "true",
-            })}
+              {...register("fullname", {
+                required: "true",
+              })}
               id="firstname"
               className="textbox"
               type="text"
@@ -32,9 +33,9 @@ function ownerTwo() {
               Date of Birth
             </label>
             <input
-            {...register("dateofbirth", {
-              required: "true",
-            })}
+              {...register("dateofbirth", {
+                required: "true",
+              })}
               id="dateofbirth"
               className="textbox"
               type="date"
@@ -67,9 +68,9 @@ function ownerTwo() {
               City
             </label>
             <input
-            {...register("city", {
-              required: "true",
-            })}
+              {...register("city", {
+                required: "true",
+              })}
               id="firstname"
               className="textbox"
               type="text"
@@ -86,9 +87,9 @@ function ownerTwo() {
               State
             </label>
             <input
-            {...register("state", {
-              required: "true",
-            })}
+              {...register("state", {
+                required: "true",
+              })}
               id="city"
               className="textbox"
               type="state"
@@ -101,10 +102,10 @@ function ownerTwo() {
             <label htmlFor="fname" className="formlabel">
               Zip Code
             </label>
-            <input 
-            {...register("zipcode", {
-              required: "true",
-            })}
+            <input
+              {...register("zipcode", {
+                required: "true",
+              })}
               id="state"
               className="textbox"
               type="text"
@@ -118,9 +119,9 @@ function ownerTwo() {
               Social Security Number
             </label>
             <input
-            {...register("zipcode", {
-              required: "true",
-            })}
+              {...register("zipcode", {
+                required: "true",
+              })}
               id="zipcode"
               className="textbox"
               type="number"
@@ -137,9 +138,9 @@ function ownerTwo() {
               Email
             </label>
             <input
-            {...register("email", {
-              required: "true",
-            })}
+              {...register("email", {
+                required: "true",
+              })}
               id="firstname"
               className="textbox"
               type="text"
@@ -153,9 +154,9 @@ function ownerTwo() {
               Mobile
             </label>
             <input
-            {...register("mobile", {
-              required: "true",
-            })}
+              {...register("mobile", {
+                required: "true",
+              })}
               id="firstname"
               className="textbox"
               type="text"
@@ -172,9 +173,9 @@ function ownerTwo() {
               Ownership
             </label>
             <input
-            {...register("ownership", {
-              required: "true",
-            })}
+              {...register("ownership", {
+                required: "true",
+              })}
               id="firstname"
               className="textbox"
               type="text"
@@ -191,36 +192,43 @@ function ownerTwo() {
           </label>
           <div className="radio-three">
             <div className="radio-container">
-              <input 
-              {...register("citizenship", {
-                required: "true,"
-              })}
-               type="radio" name="radio" className="own-click" />
+              <input
+                {...register("citizenship", {
+                  required: "true,",
+                })}
+                type="radio"
+                name="radio"
+                className="own-click"
+              />
               <label>US Citizen</label>
             </div>
 
             <div className="radio-container">
-              <input 
-              {...register("citizenship", {
-                required: "true",
-              })}
-              type="radio" name="radio" className="mortgage-click" />
+              <input
+                {...register("citizenship", {
+                  required: "true",
+                })}
+                type="radio"
+                name="radio"
+                className="mortgage-click"
+              />
               <label>US Permanent Resident</label>
             </div>
 
             <div className="radio-container">
-              <input 
-              {...register("citizenship")}
-              type="radio" name="radio" className="rent-click" />
+              <input
+                {...register("citizenship")}
+                type="radio"
+                name="radio"
+                className="rent-click"
+              />
               <label>Other</label>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="form-row-button">
-        <input type="submit" id="button" value="Continue" />
-      </div>
+     
     </div>
   );
 }
