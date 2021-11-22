@@ -1,58 +1,86 @@
-import React from 'react'
+import React from "react";
+import { useForm } from "react-hook-form";
 
 function Rent() {
-    return (
-        <div>
-            <div className="rent">
-              <div className="form-row-one form-gap">
-                <div className="form-group form-name">
-                  <label htmlFor="fname" className="formlabel ">
-                    Monthly Rent/Mortgage
-                  </label>
-                  <input
-                    id="firstname"
-                    className="textbox"
-                    type="text"
-                    autoComplete="fname"
-                    placeholder="Enter Monthly Rent/Mortgage"
-                  />
-                </div>
-              </div>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-              <div className="form-row-one form-gap">
-                <div className="form-group form-name">
-                  <label htmlFor="fname" className="formlabel ">
-                    Monthly Rent/Mortgage
-                  </label>
-                  <input
-                    id="firstname"
-                    className="textbox"
-                    type="text"
-                    autoComplete="fname"
-                    placeholder="Enter Monthly Rent/Mortgage"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group form-gap radio-two rent">
-                <label htmlFor="ffti" className="formlabel">
-                  Do you have any outstanding loans or advances?
-                </label>
-                <div className="radio-two">
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>Yes</label>
-                  </div>
-
-                  <div className="radio-container">
-                    <input type="radio" name="radio" />
-                    <label>No</label>
-                  </div>
-                </div>
-              </div>
-            </div>
+  return (
+    <div>
+      <div className="rent">
+        <div className="form-row-one form-gap">
+          <div className="form-group form-name">
+            <label htmlFor="fname" className="formlabel ">
+              Monthly Rent
+            </label>
+            <input
+              className="textbox"
+              type="text"
+              autoComplete="fname"
+              placeholder="Enter Monthly Rent"
+              {...register("rent", {
+                required: "Required",
+              })}
+            />
+          </div>
         </div>
-    )
+
+        <div className="form-row-one form-gap">
+          <div className="form-group form-name">
+            <label htmlFor="fname" className="formlabel ">
+              Landlord Name
+            </label>
+            <input
+              id="firstname"
+              className="textbox"
+              type="text"
+              autoComplete="fname"
+              placeholder="Enter Landlord Name"
+              {...register("landordName", {
+                required: "Required",
+              })}
+            />
+          </div>
+        </div>
+
+        <div>
+          <div className="form-phone">
+            <label htmlFor="fname" className="formlabel">
+              Lease Start Date
+            </label>
+            <input
+              id="date"
+              className="textbox"
+              type="date"
+              autoComplete="fname"
+              placeholder="(XXX)-(XXX)-(XXXX)"
+              {...register("date", {
+                required: "Required",
+              })}
+            />
+          </div>
+          <div className="form-phone">
+            <label htmlFor="fname" className="formlabel">
+              Lease End Date
+            </label>
+            <input
+              id="date"
+              className="textbox"
+              type="date"
+              autoComplete="fname"
+              placeholder="(XXX)-(XXX)-(XXXX)"
+              {...register("date", {
+                required: "Required",
+              })}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default Rent
+export default Rent;
