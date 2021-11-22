@@ -1,5 +1,8 @@
 import Head from "next/head";
 import styled from "styled-components";
+import Router from 'next/router';
+import cookie from 'js-cookie';
+import { useForm } from "react-hook-form";
 
 const Hero = styled.div`
   display: flex;
@@ -64,6 +67,16 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmitForm = async (values) => {
+    Router.push('/form6');
+  };
+
   return (
     <>
       <Head>
@@ -71,11 +84,11 @@ export default function Form() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
-        <form className="formstyle" action="form5">
+        <form className="formstyle" action="form5"  onSubmit={handleSubmit(onSubmitForm)}>
           <section className="Form-design">
             <div className="form-head">
               <h2 className="heading">
-                Credit Rating for John Smith (Owner 1)
+                Credit Rating for  (Owner 1)
               </h2>
               <h2 className="heading-step">
                 <p className="active">Step 2</p> /3
@@ -85,16 +98,7 @@ export default function Form() {
             <img className="scrollimage" src="images/sliderone.jpg" />
           </section>
 
-          <section className="Form-design owner-two">
-            <div className="form-head">
-              <h2 className="heading">
-                Credit Rating for Peter Dykson (Owner 2)
-              </h2>
-            </div>
-
-            <img className="scrollimage" src="images/slidertwo.jpg" />
-          </section>
-
+      
           <div className="form-row-button">
             <input type="submit" id="button" value="Continue" />
           </div>

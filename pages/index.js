@@ -22,7 +22,7 @@ export default function Home() {
   
   if(typeof cookie.get('access_token') !== "undefined" || typeof cookie.get('userName') !== "undefined" || typeof cookie.get('email') !== "undefined" || typeof cookie.get('userid') !== "undefined"){
 
-      console.log(cookie.get('access_token'))
+      // console.log(cookie.get('access_token'))
     
       return (
       <>

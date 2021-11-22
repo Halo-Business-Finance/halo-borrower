@@ -71,7 +71,7 @@ export default function Form() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
-        <form className="formstyle" action="form5">
+        <form className="formstyle" action="/">
           <section className="Form-design">
             <div className="form-head">
               <h2 className="heading">Terms and Conditions</h2>

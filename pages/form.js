@@ -154,31 +154,13 @@ export default function Form({ data }) {
     'Authorization': 'Bearer'  + ' ' + cookie.get('access_token')
   }
 
-  let url = "http://75.126.149.253/api/borrower/get-business-contact/" + cookie.get('id')
-  axios({
-    method: "GET",
-    url: url ,
-    headers: headers
-
-  }).then(
-    (response) => {
-      if (response.data.isSuccess) {
-        console.log(response);
-      } else {
-        console.log(response);
-      }
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
 
   const onSubmitForm = async (values) => {
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer' + ' ' + cookie.get('access_token')
-    }
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   'Authorization': 'Bearer' + ' ' + cookie.get('access_token')
+    // }
 
     axios({
       method: "post",
@@ -211,6 +193,28 @@ export default function Form({ data }) {
       }
     );
   };
+
+
+  let url = "http://75.126.149.253/api/borrower/get-business-contact/" + cookie.get('id')
+  axios({
+    method: "GET",
+    url: url ,
+    headers: headers
+
+  }).then(
+    (respo) => {
+      if (respo.data.isSuccess) {
+       
+        console.log(respo.data.payload.businessLegalName);
+      } else {
+        console.log(respo);
+      }
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+
   return (
     <>
 
@@ -243,9 +247,12 @@ export default function Form({ data }) {
                   type="text"
                   autoComplete="businesslegalname"
                   placeholder="Enter Business Legal Name"
+                  
                   {...register("businesslegalname", {
                     required: "Required",
+                   
                   })}
+                  
                 />
               </div>
               <div className="form-group form-dba">

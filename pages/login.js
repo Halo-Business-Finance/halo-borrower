@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 import cookie from 'js-cookie';
 
+
+
 const Hero = styled.div`
   display: flex;
   justify-content: center;
@@ -131,30 +133,37 @@ export default function Form({ email, userName, access_token, userid }) {
 
             axios.get('http://75.126.149.253/api/borrower/get-all-loan-requests', configo)
             .then((resone) => {
-
                 const user_data = resone.data.payload[0];
-
                 cookie.set("id", user_data.id, { expires: 1 / 24 })
-
-            })
-            // console.log(response);
-            cookie.set("access_token", response.data.access_token, { expires: 1 / 24 })
-            cookie.set("userName", response.data.userName, { expires: 1 / 24 })
-            cookie.set("email", response.data.Email, { expires: 1 / 24 })
-            cookie.set("userid", response.data.userId, { expires: 1 / 24 })
-
-            Router.push('/form');
+                // console.log(response);
+                cookie.set("access_token", response.data.access_token, { expires: 1 / 24 })
+                cookie.set("userName", response.data.userName, { expires: 1 / 24 })
+                cookie.set("email", response.data.Email, { expires: 1 / 24 })
+                cookie.set("userid", response.data.userId, { expires: 1 / 24 })
+                Router.push('/form');
+            }), (error) => {
+              setA('Username or Password Incorrect');
+              return (
+                <div>{aState}</div>
+              );
+            console.log(error);
+          }
+            
 
           } catch (err) {
             console.log(err)
           }
         } else {
-          setA(response.error_description);
+          setA(response);
           return (
             <div>{aState}</div>
           );
         }
       }, (error) => {
+          setA('Username or Password Incorrect');
+          return (
+            <div>{aState}</div>
+          );
         console.log(error);
       });
   }
@@ -167,15 +176,14 @@ export default function Form({ email, userName, access_token, userid }) {
       </Head>
       <Hero>
 
-        <div className="error">
-          <p>{aState}</p>
-        </div>
-
         <form className="formstyle" onSubmit={handleSubmit(onSubmitForm)} >
           <section className="Form-design">
             <div className="form-head">
               <h2 className="heading">Log In</h2>
 
+            </div>
+            <div className="error">
+              <p>{aState}</p>
             </div>
            
             <div className="form-row-one form-gap">

@@ -170,8 +170,8 @@ export default function Form() {
     .then((response) => {
       if(response.data.isSuccess){
 
-        Cookies.remove('name')
-        
+        // Cookies.remove('name')
+
         console.log(response);
       }else{
         console.log(response);
