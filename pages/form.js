@@ -152,8 +152,6 @@ export default function Form({ data }) {
     formState: { errors },
   } = useForm();
 
-  // console.log(data);
-
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer dEAC2qkkZesCHzXyMcNCk4WQnc5_BEbEc9iaXovE4RB5FSjfVFUqn7JGye1uj7NDBdwEox9lXoSlg9y862n2UaTK2ykb7cgaK5Ws2oyIjK-JAcmfxCOac7kmQ3NPF2vtK-8v43anmRsWpojXTkaQ7h78X0pB0VDRy_P3XiZ0dz8yUNpcJulWcLjOU1H9DfndD8HCkj7lqFCI08E9lyYFaWmspGAPb97KhrlFqfHkD6oBl3SMYXDt_TcV-9iTRBgBh-wfzqXS7EYMv6eVuhezT4M0-hcLMrEJEHQ7VJszJM-5r8fK-szoYJ7yrsd-dzsOI0TAtBwd3MoEQQ_-hwmiBNAbYqyZgGZoBMc9wcm8SdXvMy5MpwAnEHhoIBZh6oT7DCRjohGKl5IAxlbNNQCHn_8W3PO8_aY7Mg8uiER_0d1M-HM-IV_89r5nJyr3IvhwmxKN3a_OR39djfHoOhGDzn1XbRCqyZo6pVPXBIOX1ng42f0eOLK3Tl46nNtH6Esy_5fLDHDwbjAlmZ8U2evS3w'
@@ -175,13 +173,6 @@ export default function Form({ data }) {
       console.log(error);
     }
   );
-
-
-
-  // console.log(data);
-  // let formdata = localStorage.getItem("authtoken");
-  // console.log(formdata);
-
 
   const onSubmitForm = async (values) => {
     // console.log(values);

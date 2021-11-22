@@ -2,11 +2,12 @@
 import Head from 'next/head';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import cookie from 'js-cookie';
+import Router from 'next/router';
 
 
 
 const Hero = styled.div`
-   
     
     padding: 40px 20% 40px 20%;
     font-family: Mulish;
@@ -227,36 +228,32 @@ const Hero = styled.div`
         color: red;
         font-size: 14px;
     }
-      
 `;
 
 export default function Form() {
 
     const { register, handleSubmit } = useForm();
 
-    const onSubmitForm = async (values) => {
-        console.log(values);
-        const response = await fetch('https://75.126.149.253/api/borrower/registration', {
-            method: 'POST',
-            body: JSON.stringify({ data }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
+    const onSubmitForm = async (data) => {
 
-        })
-        const data = await response.json()
-        console.log(data)
+        cookie.set("loanTypeId", 'a2f24c40-6a37-41c5-b7c4-02eb974a1c8c', { expires: 1 / 24 })
+        cookie.set("amount", data.amount, { expires: 1 / 24 })
+        cookie.set("firstName", data.firstName, { expires: 1 / 24 })
+        cookie.set("lastName", data.lastName, { expires: 1 / 24 })
+        cookie.set("phone", data.phone, { expires: 1 / 24 })
+        cookie.set("businessName", data.businessName, { expires: 1 / 24 })
+        cookie.set("source", data.source, { expires: 1 / 24 })
+        Router.push('/registration');
     }
 
     return (
-
-
         <>
             <Head>
                 <title>Borrower Section</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Hero>
+            <form onSubmit={handleSubmit(onSubmitForm)} action="form2">
 
                 <div className="finance-list">
 
@@ -506,7 +503,15 @@ export default function Form() {
 
                         <div className="dvImageTextBox">
                             <img src="/images/dollar.png" className="leftimage" />
-                            <input name="TextBox1" type="number" id="TextBox1" />
+                            <input 
+                                {...register("amount", {
+                                    required: "true",
+                                    maxLength: {
+                                        value: 20,
+                                        message: "max length is 20"
+                                    }
+                                })}
+                             type="number"  />
                             <img src="/images/pen.png" className="rightimage" />
                         </div>
                         <br />
@@ -545,14 +550,13 @@ export default function Form() {
                     <h3 className="loan-head">Tell us a bit about you</h3>
                     <section className="loan-amount">
 
-                        <form onSubmit={handleSubmit(onSubmitForm)} action="form2">
                             <section>
                                 <div className="form-row-one">
 
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel ">First Name <sup className="req">*</sup></label>
                                         <input
-                                            {...register("firstname", {
+                                            {...register("firstName", {
                                                 required: "true",
                                                 maxLength: {
                                                     value: 20,
@@ -565,7 +569,7 @@ export default function Form() {
                                     <div className="form-group">
                                         <label htmlFor="fdba" className="formlabel">Last Name <sup className="req">*</sup></label>
                                         <input
-                                            {...register("lastname", {
+                                            {...register("lastName", {
                                                 required: "true",
                                                 maxLength: {
                                                     value: 20,
@@ -581,7 +585,7 @@ export default function Form() {
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel">Telephone Number <sup className="req">*</sup></label>
                                         <input
-                                            {...register("telephone", {
+                                            {...register("phone", {
                                                 required: "true",
                                                 maxLength: {
                                                     value: 15,
@@ -594,7 +598,7 @@ export default function Form() {
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel">Legal Business Name <sup className="req">*</sup></label>
                                         <input
-                                            {...register("legalbusinessname", {
+                                            {...register("businessName", {
                                                 required: "true",
                                                 maxLength: {
                                                     value: 20,
@@ -613,9 +617,9 @@ export default function Form() {
                                             {...register("source")}
                                             className="textbox">
                                             <option value="Select" >Select</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="opel">Opel</option>
-                                            <option value="audi">Audi</option>
+                                            <option value="1">Saab</option>
+                                            <option value="1">Opel</option>
+                                            <option value="1">Audi</option>
                                         </select>
 
                                     </div>
@@ -627,10 +631,10 @@ export default function Form() {
                                 <input type="submit" id="button" value="Check to Pre-Qualify" />
                             </div>
 
-                        </form>
                     </section>
                 </div>
-
+            </form>
+            
 
             </Hero>
         </>
