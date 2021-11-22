@@ -122,6 +122,19 @@ export default function Form({ email, userName, access_token, userid }) {
           const data = response.data
           try {
 
+            const configo = {
+              headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer'+' ' + response.data.access_token,
+              }
+            }
+
+            axios.get('http://75.126.149.253/api/borrower/get-all-loan-requests', configo)
+            .then((response) => {
+              console.log(response.data);
+              cookie.set("id", response.data.payload.id, { expires: 1 / 24 })
+            })
+
             cookie.set("access_token", response.data.access_token, { expires: 1 / 24 })
             cookie.set("userName", response.data.userName, { expires: 1 / 24 })
             cookie.set("email", response.data.Email, { expires: 1 / 24 })

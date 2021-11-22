@@ -33,7 +33,7 @@ const StyledLink = styled.a`
 const Navbar = (data) => {
 
     if(typeof cookie.get('access_token') !== "undefined" || typeof cookie.get('userName') !== "undefined" || typeof cookie.get('email') !== "undefined" || typeof cookie.get('userid') !== "undefined"){
-        console.log(cookie.get('access_token'));
+        // console.log(cookie.get('access_token'));
         var token = cookie.get('access_token');
         
             const config = {
@@ -48,7 +48,7 @@ const Navbar = (data) => {
         .then((response) => {
         
             try {
-                console.log(response)
+                // console.log(response)
                 
             } catch (err) {
               

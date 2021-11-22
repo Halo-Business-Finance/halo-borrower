@@ -164,7 +164,7 @@ export default function Form({ data }) {
   }).then(
     (response) => {
       if (response.data.isSuccess) {
-        console.log(response);
+        // console.log(response);
       } else {
         console.log(response);
       }
@@ -175,8 +175,6 @@ export default function Form({ data }) {
   );
 
   const onSubmitForm = async (values) => {
-    // console.log(values);
-
 
     const headers = {
       'Content-Type': 'application/json',
