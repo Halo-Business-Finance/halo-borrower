@@ -1,6 +1,6 @@
-import Head from 'next/head';
 import styled from 'styled-components';
-import Link from 'next/dist/client/link';
+import cookie from 'js-cookie';
+import Borrower from './borrower-apply';
 
 const Hero = styled.div`
   height: 90vh;
@@ -16,16 +16,27 @@ const Heading = styled.h1`
   font-weight: 900;
 `;
 
+
+
 export default function Home() {
-  return (
-    <>
-      <Head>
-        <title></title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <Hero>
-        
-      </Hero>
-    </>
-  );
+  
+  if(typeof cookie.get('access_token') !== "undefined" || typeof cookie.get('userName') !== "undefined" || typeof cookie.get('email') !== "undefined" || typeof cookie.get('userid') !== "undefined"){
+
+      console.log(cookie.get('access_token'))
+    
+      return (
+      <>
+    
+      </>
+    );
+  }
+  else{
+    return (
+      <>
+          <Borrower />   
+      </>
+    )
+    
+      
+  }
 }

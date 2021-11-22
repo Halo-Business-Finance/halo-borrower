@@ -25,8 +25,7 @@ const StyledLink = styled.a`
 
 `;
 
-const NavMenu = () => {
-
+const NavMenu = (email, userName, access_token, userid) => {
 
     return (
         <Nav>
@@ -55,3 +54,10 @@ const NavMenu = () => {
 };
 
 export default NavMenu;
+
+
+export function getServerSideProps({ req, res }) {
+  
+    return { props: { email: req.cookies.email || "", userName: req.cookies.userName || "", access_token: req.cookies.access_token || "", userid: req.cookies.userid || ""} };
+
+}

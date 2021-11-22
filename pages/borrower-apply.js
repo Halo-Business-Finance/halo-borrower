@@ -1,5 +1,6 @@
 
 import Head from 'next/head';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 
@@ -230,34 +231,53 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
+
+    const { register, handleSubmit } = useForm();
+
+    const onSubmitForm = async (values) => {
+        console.log(values);
+        const response = await fetch('https://75.126.149.253/api/borrower/registration', {
+            method: 'POST',
+            body: JSON.stringify({ data }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+
+        })
+        const data = await response.json()
+        console.log(data)
+    }
+
     return (
+
+
         <>
             <Head>
                 <title>Borrower Section</title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Hero>
-                
+
                 <div className="finance-list">
 
                     <p className="loan-step">Step 1</p>
                     <h3 className="loan-head">Which type of loan do you prefer?</h3>
                     <p className="loan-describe">Please select one to continue</p>
                     <section className="loans-types">
-        
+
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain first">
-                                        
-                                        <input type="radio"  name="radio" />
-                                        
-                                        <img src="/images/sba7aloan.png" />
-                                            
+
+                                        <input type="radio" name="radio" />
+
+                                        <img src="/images/sba7aloand.png" />
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>SBA 7A Loan</p>
                                 </div>
@@ -265,18 +285,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"  name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/sba504loan.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>SBA 504 Loan</p>
                                 </div>
@@ -284,18 +304,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"  name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/invoicefactoring.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Invoice Factoring</p>
                                 </div>
@@ -303,18 +323,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"  name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/equipmentfinance.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Equipment Finance</p>
                                 </div>
@@ -322,18 +342,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"  name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/businesstermloan.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Business Term Loan</p>
                                 </div>
@@ -341,18 +361,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/shorttermbridgeloan.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Commercial Bridge Loan</p>
                                 </div>
@@ -360,18 +380,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/shorttermbusinessloan.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Short Term Business Loan</p>
                                 </div>
@@ -379,18 +399,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/commercialrealestateloan.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Commercial Real Estate Loan</p>
                                 </div>
@@ -398,18 +418,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/multi-familyloans.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Multi-family Loans</p>
                                 </div>
@@ -417,18 +437,18 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/agricultureloans.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Agriculture Loans</p>
                                 </div>
@@ -436,16 +456,16 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
+
+                                        <input type="radio" name="radio" />
                                         <img src="/images/investorownedproperties.png" />
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Investor Owned Properties</p>
                                 </div>
@@ -453,27 +473,27 @@ export default function Form() {
                         </div>
 
                         <div className="loan-type-section">
-                            
+
                             <div className="loan-type">
 
                                 <div className="loan-type-select">
                                     <div className="loan-type-contain">
-                                        
-                                        <input type="radio"   name="radio" />
-                                        
+
+                                        <input type="radio" name="radio" />
+
                                         <img src="/images/lineofcredit.png" />
-                                            
+
                                         <a><img src="/images/help.png" /></a>
-                                    
+
                                     </div>
                                     <p>Line of Credit</p>
                                 </div>
                             </div>
                         </div>
-                
+
                     </section>
                 </div>
-                
+
                 <div className="space"></div>
 
                 <div className="finance-list">
@@ -481,18 +501,18 @@ export default function Form() {
                     <p className="loan-step">Step 2</p>
                     <h3 className="loan-head">How much do you want to borrow?</h3>
                     <p className="loan-describe">Use the slider to select your loan amount or enter an amount in the text field.</p>
-                    
+
                     <section className="loan-amount">
 
                         <div className="dvImageTextBox">
                             <img src="/images/dollar.png" className="leftimage" />
-                            <input name="TextBox1" type="text" id="TextBox1" value="175,000"/>
+                            <input name="TextBox1" type="number" id="TextBox1" />
                             <img src="/images/pen.png" className="rightimage" />
                         </div>
                         <br />
                         <hr />
                         <div className="loan-interest">
-                           
+
                             <div className="interest-rates">
                                 <h3>$1,942</h3>
                                 <p>Monthly payment</p>
@@ -525,56 +545,92 @@ export default function Form() {
                     <h3 className="loan-head">Tell us a bit about you</h3>
                     <section className="loan-amount">
 
-                        <form action ="form2">
+                        <form onSubmit={handleSubmit(onSubmitForm)} action="form2">
                             <section>
                                 <div className="form-row-one">
-                                    
+
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel ">First Name <sup className="req">*</sup></label>
-                                        <input id="firstname" className="textbox" type="text" autoComplete="fname" placeholder="Enter First Name" required />
+                                        <input
+                                            {...register("firstname", {
+                                                required: "true",
+                                                maxLength: {
+                                                    value: 20,
+                                                    message: "max length is 20"
+                                                }
+                                            })}
+                                            className="textbox" type="text" autoComplete="fname" placeholder="Enter First Name" required />
                                     </div>
-                                    
+
                                     <div className="form-group">
                                         <label htmlFor="fdba" className="formlabel">Last Name <sup className="req">*</sup></label>
-                                        <input id="firstname" className="textbox" type="text" autoComplete="fdba" placeholder="Enter Last Name" required />
+                                        <input
+                                            {...register("lastname", {
+                                                required: "true",
+                                                maxLength: {
+                                                    value: 20,
+                                                    message: "max length is 20"
+                                                }
+                                            })}
+                                            className="textbox" type="text" autoComplete="fdba" placeholder="Enter Last Name" required />
                                     </div>
                                 </div>
 
                                 <div className="form-row-one form-gap">
-                                    
+
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel">Telephone Number <sup className="req">*</sup></label>
-                                        <input id="address" className="textbox" type="text" autoComplete="fname" placeholder="Enter Telephone Number" required />
+                                        <input
+                                            {...register("telephone", {
+                                                required: "true",
+                                                maxLength: {
+                                                    value: 15,
+                                                    message: "max length is 15"
+                                                }
+                                            })}
+                                            className="textbox" type="number" autoComplete="fname" placeholder="Enter Telephone Number" required />
                                     </div>
-                                    
+
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel">Legal Business Name <sup className="req">*</sup></label>
-                                        <input id="suite" className="textbox" type="text" autoComplete="fname" placeholder="Enter Legal Business Name" required />
+                                        <input
+                                            {...register("legalbusinessname", {
+                                                required: "true",
+                                                maxLength: {
+                                                    value: 20,
+                                                    message: "max length is 20"
+                                                }
+                                            })}
+                                            className="textbox" type="text" autoComplete="fname" placeholder="Enter Legal Business Name" required />
                                     </div>
                                 </div>
 
                                 <div className="form-row-one form-gap">
-                                    
+
                                     <div className="form-group">
                                         <label htmlFor="fname" className="formlabel">How did you hear about us?</label>
-                                        <select id="cars" className="textbox">
+                                        <select
+                                            {...register("source")}
+                                            className="textbox">
                                             <option value="Select" >Select</option>
                                             <option value="saab">Saab</option>
                                             <option value="opel">Opel</option>
                                             <option value="audi">Audi</option>
                                         </select>
-                                   
+
                                     </div>
-                                    
+
                                 </div>
+
                             </section>
+                            <div className="form-row-button">
+                                <input type="submit" id="button" value="Check to Pre-Qualify" />
+                            </div>
+
                         </form>
                     </section>
                 </div>
 
-                <div className="form-row-button">
-                        <input type="submit"  id="button" value="Check to Pre-Qualify" />
-                </div>
 
             </Hero>
         </>
