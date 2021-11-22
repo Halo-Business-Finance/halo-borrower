@@ -147,7 +147,7 @@ const Hero = styled.div`
         box-sizing: border-box;
         min-height: 40px;
         text-align: center;
-        font-color: #333333;
+        color: #333333;
         font-weight: 600;
         font-size: 24px;
     }

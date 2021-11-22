@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import Mortage from '../components/mortage';
-import Rent from '../components/Rent';
+import Mortage from "../components/mortage";
+import Rent from "../components/Rent";
+import axios from "axios";
+
 
 const Hero = styled.div`
   display: flex;
@@ -161,7 +163,7 @@ const Hero = styled.div`
     border-radius: 4px;
     background-color: white;
   }
-/* 
+  /* 
   .rent {
     display: none;
   }
@@ -188,21 +190,74 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
-  const { register,  handleSubmit,   formState: { errors }, } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const [status, setStatus] = useState(0) ;
+  const [status, setStatus] = useState(0);
 
   const radioHandler = (status) => {
     setStatus(status);
   };
 
-  function onSubmitForm(values) {
-    console.log(values);
+  const onSubmitForm = async (values) => {
+    // console.log(values);
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer dEAC2qkkZesCHzXyMcNCk4WQnc5_BEbEc9iaXovE4RB5FSjfVFUqn7JGye1uj7NDBdwEox9lXoSlg9y862n2UaTK2ykb7cgaK5Ws2oyIjK-JAcmfxCOac7kmQ3NPF2vtK-8v43anmRsWpojXTkaQ7h78X0pB0VDRy_P3XiZ0dz8yUNpcJulWcLjOU1H9DfndD8HCkj7lqFCI08E9lyYFaWmspGAPb97KhrlFqfHkD6oBl3SMYXDt_TcV-9iTRBgBh-wfzqXS7EYMv6eVuhezT4M0-hcLMrEJEHQ7VJszJM-5r8fK-szoYJ7yrsd-dzsOI0TAtBwd3MoEQQ_-hwmiBNAbYqyZgGZoBMc9wcm8SdXvMy5MpwAnEHhoIBZh6oT7DCRjohGKl5IAxlbNNQCHn_8W3PO8_aY7Mg8uiER_0d1M-HM-IV_89r5nJyr3IvhwmxKN3a_OR39djfHoOhGDzn1XbRCqyZo6pVPXBIOX1ng42f0eOLK3Tl46nNtH6Esy_5fLDHDwbjAlmZ8U2evS3w'
+    }
+   
+    axios({
+      method: 'post',
+      url: 'http://75.126.149.253/api/borrower/add-business-financials',
+      headers: headers,
+      data: {       
+          // "id": "00000000-0000-0000-0000-000000000000",
+          "annualRevenuw": values.annual,
+          "monthlyPayrollExpenses": values.payroll,
+          "monthlyBusinessExpenses": values.expenses,
+          "dailyAverageBankBalance": values.dailybalance,
+          "outstandingLoanOrAdvance": true,
+          "ourstandingAdvancesLoanAmount": values.advanceloan,
+          "useOfFunds": values.funds,
+          "loanAmountRequested": values.amount,
+          "typeOfProperty": "Own",
+          "borrowerId": "4c3728a5-25aa-4b49-9c26-c9551e716275",
+          "mortageInformation": {
+            "monthlyMoratge": 0
+          },
+          "rentInformation": {
+            "monthlyRent": 0,
+            "landlordName": "string",
+            "leaseStartDate": "2021-11-22T06:39:28.564Z",
+            "leaseEndDate": "2021-11-22T06:39:28.564Z"
+          }
+      }, 
+      
+    })
+      
+      .then((response) => {
+        if (response.data.isSuccess) {
+          
+          console.log(response);
+          // Router.push('/form3');
+          console.log('test');
+        } else {
+          console.log(response);
+        }
+      }, (error) => {
+        console.log(error);
+      });
+
   }
+
   return (
     <>
       <Head>
-        <title>Form</title>
+        <title>Financial Information</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
@@ -226,9 +281,8 @@ export default function Form() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter Annual Business Revenue"
-                  {...register("annual", {
-                    required: "Required",
-                  })}
+                  {...register("annual")}
+                  required
                 />
               </div>
             </div>
@@ -279,7 +333,7 @@ export default function Form() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter Average Daily Bank Balance"
-                  {...register("payroll", {
+                  {...register("dailybalance", {
                     required: "Required",
                   })}
                   required
@@ -366,27 +420,42 @@ export default function Form() {
               </label>
               <div className="radio-four">
                 <div className="radio-container">
-                  <input type="radio" name="radio" className="own-click"  checked={status === 1} onClick={(e) => radioHandler(1)}/>
+                  <input
+                    type="radio"
+                    name="radio"
+                    className="own-click"
+                    defaultChecked={status === 1}
+                    onClick={(e) => radioHandler(1)}
+                  />
                   <label>Own</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" className="mortgage-click" checked={status === 2} onClick={(e) => radioHandler(2)}/>
+                  <input
+                    type="radio"
+                    name="radio"
+                    className="mortgage-click"
+                    defaultChecked={status === 2}
+                    onClick={(e) => radioHandler(2)}
+                  />
                   <label>Mortgage</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" className="rent-click" checked={status === 3} onClick={(e) => radioHandler(3)} />
+                  <input
+                    type="radio"
+                    name="radio"
+                    className="rent-click"
+                    defaultChecked={status === 3}
+                    onClick={(e) => radioHandler(3)}
+                  />
                   <label>Rent</label>
                 </div>
               </div>
             </div>
-            {status === 1 && ''}
-            {status === 2 && <Mortage /> }
+            {status === 1 && ""}
+            {status === 2 && <Mortage />}
             {status === 3 && <Rent />}
-            
-
-            
           </section>
 
           <div className="form-row-button">
