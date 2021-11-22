@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
 import axios from 'axios';
-import { createStore } from 'redux';
+import cookie from 'js-cookie';
+import Router from 'next/router';
+import Borrower from './borrower-apply';
+
 
 const Hero = styled.div`
 padding: 40px 20% 40px 20%;
@@ -129,15 +132,16 @@ background-color: #E5E5E5;
 
 `;
 
-
 export default function Form() {
-
-
+  
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
   const [aState, setA] = useState();
 
+  if(typeof cookie.get('loanTypeId') !== "undefined"){
 
+    // Router.push('/borrower-apply');
+  }
       
   const onSubmitForm = async (values) => {
     
@@ -145,29 +149,32 @@ export default function Form() {
       method: 'post',
       url: 'http://75.126.149.253/api/borrower/registration',
       data: {
-        loanTypeId: "b2795c5a-1779-4891-ac3d-9fff4cc12d3a",
-        amount: 1500,
+        loanTypeId:  cookie.get('loanTypeId'),
+        amount: cookie.get('amount'),
         borrowerInfo: {
-            firstName: "Ram",
-            lastName: "Charam",
-            phone: "0123456789",
-            businessName: "RamCharan",
-            source: 1
+            firstName: cookie.get('firstName'),
+            lastName: cookie.get('lastName'),
+            phone: cookie.get('phone'),
+            businessName: cookie.get('businessName'),
+            source: cookie.get('source')
           },
         account: {
             email: values.email,
             password: values.password,
           },
         applicationStarted: "2021-11-16T14:45:22.123Z",
-        borrowerState: "None"
+        borrowerState: "PreQualify"
       }
     })
 
     .then((response) => {
       if(response.data.isSuccess){
+
+        Cookies.remove('name')
+        
         console.log(response);
       }else{
-
+        console.log(response);
         setA(response.data.reason);
         return (
             <div>{aState}</div>
@@ -246,8 +253,6 @@ export default function Form() {
 
         </form>
       </Hero>
-
-
 
     </>
   );

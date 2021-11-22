@@ -97,6 +97,8 @@ const Hero = styled.div`
   }
 `;
 
+
+
 export default function Form({ email, userName, access_token, userid }) {
   const { register, handleSubmit, formState: { errors }, } = useForm();
 
@@ -113,9 +115,9 @@ export default function Form({ email, userName, access_token, userid }) {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
-
     axios.post('http://75.126.149.253/auth/token', params, config)
       .then((response) => {
+
         if (response.data.access_token != "") {
           const data = response.data
           try {
@@ -213,33 +215,3 @@ export default function Form({ email, userName, access_token, userid }) {
     </>
   );
 }
-
-
-// export function saveuserstoken(tokandata){
-//   localStorage.setItem('userDetails', JSON.stringify(tokandata));
-// }
-
-// export function getServerSideProps({ req, res }) {
-  
-//   return { props: { 
-//     //  userName: req.cookies.userName || "", 
-//      access_token: req.cookies.access_token || "", 
-//     //  userid: req.cookies.userid || ""
-//   } };
-
-// }
-
-//  export function savecookie (req, res) {
-//   res.setHeader(
-//     "Set-Cookie",
-//     cookie.serialize("token", req.body.token, {
-//       httpOnly: true,
-//       secure: process.env.NODE_ENV !== "development",
-//       maxAge: 60 * 60,
-//       sameSite: "strict",
-//       path: "/",
-//     })
-//   );
-//   res.statusCode = 200;
-//   res.json({ success: true });
-//  };

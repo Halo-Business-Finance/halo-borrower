@@ -32,8 +32,8 @@ const StyledLink = styled.a`
 
 const Navbar = (data) => {
 
-    if(cookie.get('access_token') != "" || cookie.get('userName') != "" || cookie.get('email') != "" || cookie.get('userid') != ""){
-
+    if(typeof cookie.get('access_token') !== "undefined" || typeof cookie.get('userName') !== "undefined" || typeof cookie.get('email') !== "undefined" || typeof cookie.get('userid') !== "undefined"){
+        console.log(cookie.get('access_token'));
         var token = cookie.get('access_token');
         
             const config = {
@@ -49,10 +49,7 @@ const Navbar = (data) => {
         
             try {
                 console.log(response)
-                // cookie.set("access_token", 'Bearer ' + response.data.access_token, { expires: 1 / 24 })
-                // cookie.set("userName", response.data.userName, { expires: 1 / 24 })
-                // cookie.set("email", response.data.Email, { expires: 1 / 24 })
-                // cookie.set("userid", response.data.userId, { expires: 1 / 24 })
+                
             } catch (err) {
               
             }
@@ -100,6 +97,13 @@ const Navbar = (data) => {
                             <Image src={Logo} height={128} width={77}
                                 alt="logo" />
                         </StyledLink>
+    
+                    </div>
+                    <div className="top-details">
+                    
+                        <Link href='/login' passHref>
+                            <StyledLink>Login</StyledLink>
+                        </Link>
     
                     </div>
                    

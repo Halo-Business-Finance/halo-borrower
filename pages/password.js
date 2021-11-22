@@ -9,10 +9,15 @@ const BusinessStyle = styled.div`
   background: #e5e5e5;
   padding: 10px;
 
+
   .main-style {
     width: 60%;
     padding: 12px;
-    background: #ffffff;
+
+    background: #FFFFFF;
+
+  
+
     border-radius: 10px;
     .header {
       h1 {
@@ -20,6 +25,74 @@ const BusinessStyle = styled.div`
         font-weight: bold;
       }
     }
+    .first-row{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        .first-name{
+            width: 45%;
+            label{
+                display: block;
+                font-size: 18px;
+                color: #5C5C5C;
+            }
+            .first-input{
+              display: inline;
+              
+            }
+            input{
+                width: 100%;
+                font-size: 18px;
+                padding: 8px;
+                border: 1px solid #adadad;
+                border-radius: 4px;
+               }
+
+        }
+        .last-name{
+            
+            width: 45%;
+            label{
+                display: block;
+                font-size: 18px;
+                color: #5C5C5C;
+            }
+            input{
+                width: 100%;
+    .first-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      .first-name {
+        width: 45%;
+        label {
+          display: block;
+          font-size: 18px;
+          font-weight: 600;
+          color: #5c5c5c;
+        }
+        input {
+          width: 100%;
+          padding: 10px 12px;
+          border: 1px solid #adadad;
+          border-radius: 4px;
+          ::placeholder {
+            font-size: 14px;
+            font-style: italic;
+            color: #adadad;
+          }
+        }
+      }
+      .last-name {
+        width: 45%;
+        label {
+          display: block;
+          font-size: 18px;
+          font-weight: 600;
+          color: #5c5c5c;
+        }
     .first-row {
       display: flex;
       flex-direction: column;
@@ -75,11 +148,37 @@ const BusinessStyle = styled.div`
         color: #adadad;
       }
     }
+                font-size: 18px;
+                padding: 8px;
+                border: 1px solid #adadad;
+                border-radius: 4px;
+               }
+        }
+    }
 
     .continue-button {
       display: flex;
       justify-content: center;
       align-items: center;
+      gap: 50px;
+    }
+  }
+  
+  .continue-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 12px 0;
+    margin-top: 5%;
+
+    .continue-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 12px 0;
+
       flex-direction: column;
       margin: 12px 0;
 

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import cookie from "cookie"
+import cookie from 'js-cookie';
 import Borrower from './borrower-apply';
-
 
 const Hero = styled.div`
   height: 90vh;
@@ -17,18 +16,27 @@ const Heading = styled.h1`
   font-weight: 900;
 `;
 
-export function parseCookies(req) {
-  return cookie.parse(req ? req.headers.cookie || "" : document.cookie)
-}
+
 
 export default function Home() {
   
-  // if (loggedIn) session.user = "John Doe";
-  
+  if(typeof cookie.get('access_token') !== "undefined" || typeof cookie.get('userName') !== "undefined" || typeof cookie.get('email') !== "undefined" || typeof cookie.get('userid') !== "undefined"){
 
-  return (
-    <>
-   <Borrower />
-    </>
-  );
+      console.log(cookie.get('access_token'))
+    
+      return (
+      <>
+    
+      </>
+    );
+  }
+  else{
+    return (
+      <>
+          <Borrower />   
+      </>
+    )
+    
+      
+  }
 }
