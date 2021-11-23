@@ -171,8 +171,8 @@ export default function Form() {
       if(response.data.isSuccess){
 
         // Cookies.remove('name')
-
-        console.log(response);
+        Router.push('/login');
+        // console.log(response);
       }else{
         console.log(response);
         setA(response.data.reason);
