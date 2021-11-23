@@ -116,8 +116,15 @@ export default function Form({ email, userName, access_token, userid }) {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }
-    axios.post('http://75.126.149.253/auth/token', params, config)
+    } 
+
+    let baseurl =  process.env.NEXT_PUBLIC_BASE_URL;
+
+    let login = process.env.NEXT_PUBLIC_BASE_URL + '/auth/token';
+
+    console.log(login);
+
+    axios.post(login, params, config)
       .then((response) => {
         // console.log(response);
         if ( response.data.access_token !== "" || response.data.access_token !== "undefined") {
@@ -131,7 +138,7 @@ export default function Form({ email, userName, access_token, userid }) {
               }
             }
 
-            axios.get('http://75.126.149.253/api/borrower/get-all-loan-requests', configo)
+            axios.get(process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/get-all-loan-requests', configo)
             .then((resone) => {
                 const user_data = resone.data.payload[0];
                 cookie.set("id", user_data.id, { expires: 1 / 24 })
