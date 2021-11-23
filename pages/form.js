@@ -164,7 +164,7 @@ export default function Form({ data }) {
 
     axios({
       method: "post",
-      url: "http://75.126.149.253/api/borrower/add-business-contact",
+      url:  process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-business-contact',
       data: {
         businessLegalName: values.businesslegalname,
         dba: values.dba,
@@ -195,7 +195,7 @@ export default function Form({ data }) {
   };
 
 
-  let url = "http://75.126.149.253/api/borrower/get-business-contact/" + cookie.get('id')
+  let url =  process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-business-contact' + cookie.get('id')
   axios({
     method: "GET",
     url: url ,
