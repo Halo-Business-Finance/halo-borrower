@@ -144,7 +144,6 @@ export default function Form() {
   }
       
   const onSubmitForm = async (values) => {
-
     
     axios({
       method: 'post',
@@ -169,18 +168,15 @@ export default function Form() {
     })
 
     .then((response) => {
+      console.log(response.data);
       if(response.data.isSuccess){
-
-        // Cookies.remove('name')
         Router.push('/login');
-        // console.log(response);
       }else{
         console.log(response);
         setA(response.data.reason);
         return (
             <div>{aState}</div>
         );
-        // console.log(response.data.reason);
       }
     }, (error) => {
       console.log(error);
