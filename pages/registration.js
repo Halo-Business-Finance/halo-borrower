@@ -144,10 +144,11 @@ export default function Form() {
   }
       
   const onSubmitForm = async (values) => {
+
     
     axios({
       method: 'post',
-      url: 'http://75.126.149.253/api/borrower/registration',
+      url: process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/registration',
       data: {
         loanTypeId:  cookie.get('loanTypeId'),
         amount: cookie.get('amount'),

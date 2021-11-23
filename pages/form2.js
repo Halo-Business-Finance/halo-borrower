@@ -181,7 +181,7 @@ export default function Form() {
    }
     axios({
       method: 'post',
-      url: 'http://75.126.149.253/api/borrower/add-business-info',
+      url: process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-business-info',
       data: {
         legalEntity: values.binfo,
         stateOfOrganization: values.organization,

@@ -221,7 +221,7 @@ export default function Form() {
    
     axios({
       method: 'post',
-      url: 'http://75.126.149.253/api/borrower/add-business-financials',
+      url: process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-business-financials',
       headers: headers,
       data: {       
           // "id": "00000000-0000-0000-0000-000000000000",
