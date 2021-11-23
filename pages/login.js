@@ -120,7 +120,7 @@ export default function Form({ email, userName, access_token, userid }) {
 
     let baseurl =  process.env.NEXT_PUBLIC_BASE_URL;
 
-    let login = process.env.NEXT_PUBLIC_BASE_URL + '/auth/token';
+    let login = baseurl + '/auth/token';
 
     console.log(login);
 
