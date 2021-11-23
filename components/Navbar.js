@@ -44,7 +44,7 @@ const Navbar = (data) => {
             }
 
 
-        axios.get('http://75.126.149.253/api/borrower/get-all-loan-requests',  config)
+        axios.get(process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/get-all-loan-requests',  config)
         .then((response) => {
         
             try {
