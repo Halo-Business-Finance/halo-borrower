@@ -2,7 +2,7 @@ import { useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import Mortage from "../components/mortage";
+import Mortage from "../components/Mortage";
 import Rent from "../components/Rent";
 import axios from "axios";
 import cookie from 'js-cookie';

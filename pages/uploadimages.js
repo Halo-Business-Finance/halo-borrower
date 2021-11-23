@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useCookies } from "react-cookie";
-import Router from 'next/router';
 
 const Hero = styled.div`
   display: flex;
@@ -129,7 +127,6 @@ export default function Form() {
 
   }
 
-  const [cookie, setCookie] = useCookies(["user"])
 
   // const onSubmitForm = async (values) => {
   //   axios({
