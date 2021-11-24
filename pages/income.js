@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 const Hero = styled.div`
 padding: 40px 5% 40px 5%;
+font-family: Mulish;
+
 
 
   background: #E5E5E5;

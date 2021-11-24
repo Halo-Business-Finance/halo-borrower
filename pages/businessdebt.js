@@ -5,7 +5,7 @@ const BusinessDebtStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Mullish;
+  font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
 
@@ -24,7 +24,7 @@ const BusinessDebtStyle = styled.div`
             h3 span{
                 color: #1B46B0; 
             }
-        }}
+        }
         .header-two {
             
             p{
@@ -57,7 +57,7 @@ const BusinessDebtStyle = styled.div`
         border: 2px solid #F3BA17;
         color: #F3BA17;
     }
-  }
+  
   
     .footer{
         .continue-button{
@@ -115,21 +115,21 @@ export default function Business() {
             </div>
           </header>
           <body>
-              <button className='button-one'>My business has debts</button>
-              <button>My business doesn’t have any debts</button>
+            <button className='button-one'>My business has debts</button>
+            <button>My business doesn’t have any debts</button>
           </body>
           <div className="footer">
-          <form action="/businessdebt2">
-           
-            <div className="continue-button">
-              <img src="/images/back.png" />
-              <input
-                type="submit"
-                href="form2"
-                id="button"
-                value="Upload to continue"
-              />
-            </div>
+            <form action="/businessdebt2">
+
+              <div className="continue-button">
+                <img src="/images/back.png" />
+                <input
+                  type="submit"
+                  href="form2"
+                  id="button"
+                  value="Upload to continue"
+                />
+              </div>
             </form>
 
             <div className="skip-link">

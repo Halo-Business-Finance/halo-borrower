@@ -6,6 +6,7 @@ import Router from 'next/router';
 import cookie from 'js-cookie';
 
 const Hero = styled.div`
+  font-family: Mulish;
   display: flex;
   justify-content: center;
   align-items: center;

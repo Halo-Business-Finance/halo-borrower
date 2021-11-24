@@ -5,7 +5,7 @@ const BusinessStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Mullish;
+  font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
 

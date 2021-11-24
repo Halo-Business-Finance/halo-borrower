@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const Hero = styled.div`
   display: flex;
+  font-family: Mulish;
   justify-content: center;
   align-items: center;
   background: #E5E5E5;
