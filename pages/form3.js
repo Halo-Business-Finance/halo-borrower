@@ -11,6 +11,8 @@ import Router from 'next/router';
 
 const Hero = styled.div`
   display: flex;
+  font-family: Mulish;
+
   justify-content: center;
   align-items: center;
   background: #e5e5e5;

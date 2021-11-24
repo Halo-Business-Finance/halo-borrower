@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 
 const Hero = styled.div`
   display: flex;
+  font-family: Mulish;
   justify-content: center;
   align-items: center;
   font-family: Mulish;

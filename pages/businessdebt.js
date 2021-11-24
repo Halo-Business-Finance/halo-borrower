@@ -58,7 +58,7 @@ const BusinessDebtStyle = styled.div`
         border: 2px solid #F3BA17;
         color: #F3BA17;
     }
-  }
+  
   
     .footer{
         .continue-button{
@@ -93,8 +93,9 @@ const BusinessDebtStyle = styled.div`
             }
         }    
         
-    }
+      }
   }
+}
 `;
 
 export default function Business() {
