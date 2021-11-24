@@ -229,7 +229,7 @@ export default function Form() {
                                     <th colSpan="3">Total</th>
                                     <th>$20000</th>
                                     <th>$20000</th>
-                                    <th colspan="6"></th>
+                                    <th colSpan="6"></th>
                                 </tr>
                             </table>
                             <div>
