@@ -20,22 +20,10 @@ const Hero = styled.div`
   }
 
   .textbox {
+    border-radius: 4px;
+    border: 1px solid #ededed;
     width: 100%;
     padding: 12px;
-  }
-
-  .radio-four {
-    column-count: 4;
-    width: 100%;
-    display: inline-block;
-    column-gap: 5%;
-  }
-
-  .radio-three {
-    column-count: 3;
-    width: 100%;
-    display: inline-block;
-    column-gap: 5%;
   }
 
   .radio-two {
@@ -65,9 +53,6 @@ const Hero = styled.div`
     width: 70%;
     column-count: 2;
   }
-  .form-data {
-    display: inline-block;
-  }
 
   .form-city {
     width: 40%;
@@ -84,12 +69,6 @@ const Hero = styled.div`
   .form-zip {
     width: 25%;
     display: inline-block;
-  }
-
-  .form-addess {
-    width: 60%;
-    display: inline-block;
-    margin-right: 5%;
   }
 
   .form-phone {
@@ -131,11 +110,6 @@ const Hero = styled.div`
 
   .formlabel {
     color: #5c5c5c;
-  }
-
-  .textbox {
-    border-radius: 4px;
-    border: 1px solid #ededed;
   }
 
   .form-gap {
@@ -278,8 +252,8 @@ export default function Form() {
   } = useForm();
 
   const onSubmitAssests = (data) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
   return (
     <>
       <Head>
