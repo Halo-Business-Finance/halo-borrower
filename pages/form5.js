@@ -74,7 +74,7 @@ export default function Form() {
     formState: { errors },
   } = useForm();
   const onSubmitForm = async (values) => {
-    Router.push('/form6');
+    Router.push('/informationindex');
   };
 
   return (
@@ -84,7 +84,7 @@ export default function Form() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
-        <form className="formstyle" action="form5"  onSubmit={handleSubmit(onSubmitForm)}>
+        <form className="formstyle"   onSubmit={handleSubmit(onSubmitForm)}>
           <section className="Form-design">
             <div className="form-head">
               <h2 className="heading">

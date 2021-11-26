@@ -195,7 +195,7 @@ export default function Form({ data }) {
   };
 
 
-  let url =  process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-business-contact' + cookie.get('id')
+  let url =  process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/get-business-contact/' + cookie.get('id')
   axios({
     method: "GET",
     url: url ,

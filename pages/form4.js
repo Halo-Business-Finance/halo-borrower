@@ -241,62 +241,62 @@ export default function Form() {
 
   const onSubmitForm = async (values) => {
     // console.log(values);
-    Router.push('/form5');
+    // Router.push('/form5');
     const headers = {
       "Content-Type": "application/json",
       'Authorization': 'Bearer' + ' ' + cookie.get('access_token')
     };
 
-    // let ownerdata = [{
-    //                 borrowerId: cookie.get('id'),
-    //                 fullName: values.fullname,
-    //                 dateOfBirth: values.dateofbirth,
-    //                 homeAddress: values.homeaddress,
-    //                 city: values.city,
-    //                 state: values.state,
-    //                 zipCode: values.zipcode,
-    //                 ssn: values.socialsecuritynumber,
-    //                 email: values.email,
-    //                 phoneNumber: values.mobile,
-    //                 ownershipPercentage: values.ownership,
-    //                 typeOfResident: values.personaldata,
-    //             },{
-    //               borrowerId: cookie.get('id'),
-    //               fullName: values.fullname,
-    //               dateOfBirth: values.dateofbirth,
-    //               homeAddress: values.homeaddress,
-    //               city: values.city,
-    //               state: values.state,
-    //               zipCode: values.zipcode,
-    //               ssn: values.socialsecuritynumber,
-    //               email: values.email,
-    //               phoneNumber: values.mobile,
-    //               ownershipPercentage: values.ownership,
-    //               typeOfResident: values.personaldata,
-    //             }
+    let ownerdata = [{
+                    borrowerId: cookie.get('id'),
+                    fullName: values.fullname,
+                    dateOfBirth: values.dateofbirth,
+                    homeAddress: values.homeaddress,
+                    city: values.city,
+                    state: values.state,
+                    zipCode: values.zipcode,
+                    ssn: values.socialsecuritynumber,
+                    email: values.email,
+                    phoneNumber: values.mobile,
+                    ownershipPercentage: values.ownership,
+                    typeOfResident: values.personaldata,
+                },{
+                  borrowerId: cookie.get('id'),
+                  fullName: values.fullname,
+                  dateOfBirth: values.dateofbirth,
+                  homeAddress: values.homeaddress,
+                  city: values.city,
+                  state: values.state,
+                  zipCode: values.zipcode,
+                  ssn: values.socialsecuritynumber,
+                  email: values.email,
+                  phoneNumber: values.mobile,
+                  ownershipPercentage: values.ownership,
+                  typeOfResident: values.personaldata,
+                }
 
-    //           ];
+              ];
 
-    // axios({
-    //   method: "post",
-    //   url: process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-owners',
-    //   headers: headers,
-    //   data: ownerdata
-    // })
-    // .then(
-    //   (response) => {
-    //     if (response.data.isSuccess) {
-    //       console.log(response);
-    //       Router.push("/form5");
-    //       console.log("test");
-    //     } else {
-    //       console.log(response);
-    //     }
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    axios({
+      method: "post",
+      url: process.env.NEXT_PUBLIC_BASE_URL + '/api/borrower/add-owners',
+      headers: headers,
+      data: ownerdata
+    })
+    .then(
+      (response) => {
+        if (response.data.isSuccess) {
+          console.log(response);
+          Router.push("/form6");
+          console.log("test");
+        } else {
+          console.log(response);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   };
   return (
     <>
