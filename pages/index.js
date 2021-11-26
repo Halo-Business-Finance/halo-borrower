@@ -3,6 +3,8 @@ import cookie from 'js-cookie';
 import Borrower from './borrower-apply';
 
 const Hero = styled.div`
+  font-family: Mulish;
+
   height: 90vh;
   display: flex;
   justify-content: center;

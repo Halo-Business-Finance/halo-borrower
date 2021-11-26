@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 const AccountinfoStyling = styled.div`
   display: flex;
@@ -11,15 +12,15 @@ const AccountinfoStyling = styled.div`
   .info-form {
     width: 60%;
     height: 48vh;
-    background: #FFFFFF;
+    background: #ffffff;
     padding: 12px;
     margin: 20px;
     border-radius: 10px;
 
     .header h2 {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333333;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333333;
     }
     .first-row {
       display: flex;
@@ -32,7 +33,7 @@ const AccountinfoStyling = styled.div`
         label {
           display: block;
           font-size: 18px;
-          color: #5C5C5C;
+          color: #5c5c5c;
           margin-bottom: 2px;
         }
         input {
@@ -42,8 +43,8 @@ const AccountinfoStyling = styled.div`
           border: 1px solid #adadad;
           border-radius: 4px;
           ::placeholder {
-                font-weight: 700;
-                color: #333333;
+            font-weight: 700;
+            color: #333333;
           }
         }
       }
@@ -57,7 +58,6 @@ const AccountinfoStyling = styled.div`
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      
 
       input {
         padding: 10px 32px;
@@ -74,31 +74,53 @@ const AccountinfoStyling = styled.div`
   }
 `;
 function Accountinfo() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmitForm = (data) => {
+    console.log(data)
+  }
   return (
     <>
       <AccountinfoStyling>
-        <form className="info-form">
+        <form className="info-form" onSubmit={handleSubmit(onSubmitForm)}>
           <div className="header">
             <h2>Contact Info</h2>
           </div>
           <div className="first-row">
             <div className="first-name">
               <label>First Name</label>
-              <input type="text" placeholder="John" />
+              <input type="text" placeholder="John" {...register("fname")} />
             </div>
             <div className="last-name">
               <label>Last Name</label>
-              <input type="text" placeholder="Doe" />
+              <input type="text" placeholder="Doe" {...register("lname")} />
             </div>
           </div>
           <div className="first-row">
             <div className="first-name">
               <label>Email Address</label>
-              <input type="email" id="email" name="email" placeholder='john.doe@gmail.com' />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="john.doe@gmail.com"
+                {...register("email")}
+              />
             </div>
             <div className="last-name">
               <label>Telephone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+123 456 45 45 467" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" />
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="+123 456 45 45 467"
+                // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                {...register("telephone")}
+              />
             </div>
           </div>
           <div className="save-button">

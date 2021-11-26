@@ -1,11 +1,11 @@
-import Head from "next/head";
+
 import styled from "styled-components";
 
 const BusinessStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Mullish;
+  font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
 
@@ -132,8 +132,14 @@ const BusinessStyle = styled.div`
 `;
 
 export default function Form() {
+
+
     return (
         <>
+        <Head>
+        <title>Business license</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
             <BusinessStyle>
                 <section className="main-style">
                     <header>

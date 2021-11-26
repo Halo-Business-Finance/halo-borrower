@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -38,7 +39,7 @@ const BusinessStyle = styled.div`
     }
     
   }
-  body{
+  .main-form{
      display: flex;
      flex-direction: column;
      gap: 2.5rem;
@@ -92,6 +93,7 @@ const BusinessStyle = styled.div`
             }
             p {
                 text-decoration-line: underline;
+                cursor: pointer;
             }
         }    
 
@@ -121,11 +123,17 @@ const BusinessStyle = styled.div`
 `;
 
 export default function Business() {
+  const {register, handleSubmit, formState: { errors }, } = useForm()
+
+const onSubmitForm = (datas) =>{
+  console.log(datas)
+}
+
   return (
     <>
       <BusinessStyle>
       <Head>
-                <title>Business Tax Returns</title>
+                <title>Business </title>
                 <link rel='icon' href='/favicon.ico' />
             </Head>
         <section className="main-style">
@@ -142,28 +150,29 @@ export default function Business() {
                 <p>Include all schedules and statements, We need all pages to give an accurate analysis.</p>
             </div>
           </header>
-          <body>
+          <form onSubmit={handleSubmit(onSubmitForm)}>
+          <div className="main-form">
               <section>
               <div className='column-one'>
                   <label>Business Tax Return 1</label>
-                  <input type="date" id="birthday" name="birthday" />
+                  <input type="date"  {...register("taxReturnOne")}  />
               </div>
               <div className='column-two'>
 
-                <input type="file" id="file" />
-                <label for="file" >Drag & Drop or click to upload files</label>
+                <input type="file" id="file"  {...register("fileOne")}/>
+                <label htmlFor="file" >Drag & Drop or click to upload files</label>
             
               </div>
               </section>
               <section>
               <div className='column-one'>
-                  <label>Business Tax Return 1</label>
-                  <input type="date" id="birthday" name="birthday" />
+                  <label>Business Tax Return 2</label>
+                  <input type="date"  {...register("taxReturnTwo")} />
               </div>
               <div className='column-two'>
                 
-                <input type="file" id="file" />
-                <label for="file" >Drag & Drop or click to upload files</label>
+                <input type="file" id="file"  {...register("fileTwo")}/>
+                <label htmlFor="file" >Drag & Drop or click to upload files</label>
               </div>
               </section>
               <section>
@@ -171,8 +180,7 @@ export default function Business() {
                       <h6>Add Another Tax Return</h6>
                   </div>
               </section>
-          </body>
-          <form action="/businessdebt">
+          </div>
 
           <div className="continue-button">
                <input type="submit"  id="button" value="Upload to continue" />

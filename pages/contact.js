@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styled from 'styled-components';
 
 const Hero = styled.div`
+  font-family: Mulish;
   height: 90vh;
   display: flex;
   justify-content: center;

@@ -14,6 +14,8 @@ const Hero = styled.div`
   align-items: center;
   background: #e5e5e5;
   padding: 20px;
+  font-family: Mulish;
+
 
   .formstyle {
     width: 60%;
