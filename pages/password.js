@@ -9,14 +9,11 @@ const BusinessStyle = styled.div`
   background: #e5e5e5;
   padding: 10px;
 
-
   .main-style {
     width: 60%;
     padding: 12px;
 
-    background: #FFFFFF;
-
-  
+    background: #ffffff;
 
     border-radius: 10px;
     .header {
@@ -25,152 +22,63 @@ const BusinessStyle = styled.div`
         font-weight: bold;
       }
     }
-    .first-row{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        .first-name{
-            width: 45%;
-            label{
-                display: block;
-                font-size: 18px;
-                color: #5C5C5C;
-            }
-            .first-input{
-              display: inline;
-              
-            }
-            input{
-                width: 100%;
-                font-size: 18px;
-                padding: 8px;
-                border: 1px solid #adadad;
-                border-radius: 4px;
-               }
+    .first-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      .first-name {
+        width: 45%;
+        label {
+          display: block;
+          font-size: 18px;
+          color: #5c5c5c;
+        }
+        input {
+          width: 100%;
+          font-size: 18px;
+          padding: 8px;
+          border: 1px solid #adadad;
+          border-radius: 4px;
+          ::placeholder{
+         font-style: italic;
+         color: #ADADAD;
+        }
+        }
+      }
+      .last-name {
+        width: 45%;
+        label {
+          display: block;
+          font-size: 18px;
+          color: #5c5c5c;
+        }
+        input {
+          width: 100%;
+          font-size: 18px;
+          padding: 8px;
+          border: 1px solid #adadad;
+          border-radius: 4px;
+          ::placeholder{
+         font-style: italic;
+         color: #ADADAD;
+        }
 
-        }
-        .last-name{
-            
-            width: 45%;
-            label{
-                display: block;
-                font-size: 18px;
-                color: #5C5C5C;
-            }
-            input{
-                width: 100%;
-    .first-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      .first-name {
-        width: 45%;
-        label {
-          display: block;
-          font-size: 18px;
-          font-weight: 600;
-          color: #5c5c5c;
-        }
-        input {
-          width: 100%;
-          padding: 10px 12px;
-          border: 1px solid #adadad;
-          border-radius: 4px;
-          ::placeholder {
-            font-size: 14px;
-            font-style: italic;
-            color: #adadad;
-          }
-        }
-      }
-      .last-name {
-        width: 45%;
-        label {
-          display: block;
-          font-size: 18px;
-          font-weight: 600;
-          color: #5c5c5c;
-        }
-    .first-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      .first-name {
-        width: 45%;
-        label {
-          display: block;
-          font-size: 18px;
-          font-weight: 600;
-          color: #5c5c5c;
-        }
-        input {
-          width: 100%;
-          padding: 10px 12px;
-          border: 1px solid #adadad;
-          border-radius: 4px;
-          ::placeholder {
-            font-size: 14px;
-            font-style: italic;
-            color: #adadad;
-          }
-        }
-      }
-      .last-name {
-        width: 45%;
-        label {
-          display: block;
-          font-size: 18px;
-          font-weight: 600;
-          color: #5c5c5c;
-        }
-        input {
-          width: 100%;
-          padding: 10px 12px;
-          border: 1px solid #adadad;
-          border-radius: 4px;
-          ::placeholder {
-            font-size: 14px;
-            font-style: italic;
-            color: #adadad;
-          }
         }
       }
     }
     .second-row ul {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      li {
-        color: #adadad;
-      }
-    }
-                font-size: 18px;
-                padding: 8px;
-                border: 1px solid #adadad;
-                border-radius: 4px;
-               }
-        }
-    }
-
-    .continue-button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 50px;
-    }
-  }
-  
-  .continue-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 12px 0;
-    margin-top: 5%;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+           
+            li {
+              color: #adadad;
+              font-size: 18px;
+              padding: 8px;
+            }
+          }
 
     .continue-button {
       display: flex;
@@ -178,10 +86,6 @@ const BusinessStyle = styled.div`
       align-items: center;
       flex-direction: column;
       margin: 12px 0;
-
-      flex-direction: column;
-      margin: 12px 0;
-
       input {
         padding: 10px 32px;
         font-size: 16px;
@@ -189,16 +93,19 @@ const BusinessStyle = styled.div`
         background: #f3ba17;
         border-radius: 8px;
         border: none;
+      
       }
-      p {
-        text-decoration-line: underline;
-      }
+      
     }
   }
 `;
 
 export default function Form() {
-  const {register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   function onSubmitForm(values) {
     console.log(values);
   }
@@ -209,35 +116,27 @@ export default function Form() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <BusinessStyle>
-        <form className="main-style" onSubmit={ handleSubmit(onSubmitForm)}>
+        <form className="main-style" onSubmit={handleSubmit(onSubmitForm)}>
           <div className="header">
             <h1>New Password</h1>
           </div>
           <div className="first-row">
             <div className="first-name">
               <label>New Password</label>
-              <input 
-              {...register("password", {
-                required: "required",
-                minLength: {
-                  value: 8,
-                  message: "min length is 8"
-                },
-                validate: (value) => {
-                  [
-                    /[a-z]/,
-                    /[A-Z]/,
-                    /[0-9]/,
-                    /[^a-zA-Z0-9]/
-                  ]
-                }
-              })}
-
-                
-              
-                type="text"  
-                placeholder="Enter new password here" 
-                />
+              <input
+                {...register("password", {
+                  required: "required",
+                  minLength: {
+                    value: 8,
+                    message: "min length is 8",
+                  },
+                  validate: (value) => {
+                    [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/];
+                  },
+                })}
+                type="text"
+                placeholder="Enter new password here"
+              />
             </div>
             <div className="last-name">
               <label>Confirm New Password</label>
