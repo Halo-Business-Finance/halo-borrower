@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
 
 const BusinessStyle = styled.div`
 	display: flex;
@@ -38,7 +39,7 @@ const BusinessStyle = styled.div`
 			}
 		}
 
-		body {
+		.main-section {
 			display: flex;
 			flex-direction: column;
 			gap: 2rem;
@@ -144,6 +145,12 @@ const BusinessStyle = styled.div`
 `;
 
 export default function ProfitLoss() {
+
+	const {register, handleSubmit, formState: {errors}} = useForm();
+
+	const onSubmitForm = (data) => {
+		console.log(data)
+	}
 	return (
 		<>
 			<Head>
@@ -152,7 +159,8 @@ export default function ProfitLoss() {
 			</Head>
 			<BusinessStyle>
 				<section className="main-style">
-					<header>
+					<form onSubmit={handleSubmit(onSubmitForm)}>
+						<header>
 						<div className="header-one">
 							<h1>Profit & Loss Statement</h1>
 							<p>
@@ -164,29 +172,30 @@ export default function ProfitLoss() {
 						</div>
 					</header>
 
-					<body>
+					<div className="main-section">
 						<section>
 							<div className="column-one">
 								<label>2020 Profit & Loss Statement</label>
 							</div>
 							<div className="column-two">
 								<img src="/images/upload.png" />
-								<input type="file" id="file" />
-								<label for="file">Drag & Drop or click to upload files</label>
+								<input type="file" {...register("statement")}  />
+								<label htmlFor="file">Drag & Drop or click to upload files</label>
 							</div>
 						</section>
-					</body>
+					</div>
 					<div className="footer">
-						<form action="/balancesheet">
+						
 							<div className="continue-button">
 								<img src="/images/back.png" />
 								<input type="submit" id="button" value="Upload to continue" />
 							</div>
-						</form>
+						
 						<div className="skip-link">
 							<p>Skip</p>
 						</div>
 					</div>
+					</form>
 				</section>
 			</BusinessStyle>
 		</>

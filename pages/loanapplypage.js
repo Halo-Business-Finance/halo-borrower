@@ -25,7 +25,7 @@ const Hero = styled.div`
 	}
 
 	.right {
-		float: right;
+		/* float: right; */
 		display: inline-block;
 	}
 

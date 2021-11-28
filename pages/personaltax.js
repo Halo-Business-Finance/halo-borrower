@@ -1,5 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+
 
 const PersonalStyle = styled.div`
 	display: flex;
@@ -54,7 +56,7 @@ const PersonalStyle = styled.div`
 		}
 
 		//body section css
-		body {
+		.main-section {
 			display: flex;
 			flex-direction: column;
 			gap: 2rem;
@@ -159,6 +161,11 @@ const PersonalStyle = styled.div`
 `;
 
 export default function PersonalForm() {
+	const {register, handleSubmit, formState: {errors}} = useForm();
+	
+	const onSubmitForm = (data) => {
+		console.log(data);
+	}
 	return (
 		<>
 			<Head>
@@ -167,6 +174,7 @@ export default function PersonalForm() {
 			</Head>
 			<PersonalStyle>
 				<section className="main-style">
+				 <form onSubmit={handleSubmit(onSubmitForm)} >
 					<div>
 						<header>
 							<div className="header-one">
@@ -185,27 +193,27 @@ export default function PersonalForm() {
 								</div>
 							</div>
 						</header>
-						<body>
+						<div className="main-section">
 							<section>
 								<div className="column-one">
 									<label>Business Tax Return 1</label>
-									<input type="date" id="business" name="fbusiness" />
+									<input type="date" id="business" {...register("taxReturnDateOne")} />
 								</div>
 								<div className="column-two">
 									<img src="/images/upload.png" />
-									<input type="file" id="file" />
+									<input type="file" id="file" {...register("fileOne")} />
 									<label>Drag & Drop or click to upload files</label>
 								</div>
 							</section>
 							<section>
 								<div className="column-one">
 									<label>Business Tax Return 2</label>
-									<input type="date" id="business" name="sbusiness" />
+									<input type="date" {...register("taxReturnDateTwo")}  />
 								</div>
 								<div className="column-two">
 									<img src="/images/upload.png" />
-									<input type="file" id="file" />
-									<label for="file">Drag & Drop or click to upload files</label>
+									<input type="file" {...register("fileTwo")} />
+									<label htmlFor="file">Drag & Drop or click to upload files</label>
 								</div>
 							</section>
 							<section>
@@ -213,7 +221,7 @@ export default function PersonalForm() {
 									<h6>Add Another Tax Return</h6>
 								</div>
 							</section>
-						</body>
+						</div>
 					</div>
 
 					<div className="footer">
@@ -230,6 +238,7 @@ export default function PersonalForm() {
 							<p>Skip</p>
 						</div>
 					</div>
+					</form>
 				</section>
 			</PersonalStyle>
 		</>
