@@ -2,6 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import RegisterNav from "../components/RegisterNav";
+import axios from "axios";
 
 const Hero = styled.div`
 	padding: 40px 5% 40px 5%;
@@ -208,9 +209,35 @@ const Hero = styled.div`
 export default function Information() {
 	const { register, handleSubmit } = useForm();
 
-	const onSubmit = (values) => {
-		console.log(values);
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: "Bearer" + " " ,
 	};
+
+	const onSubmitForm = async (values) => {
+		
+		axios({
+			method: "post",
+			url:
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+			data: {
+				
+			},
+			headers: headers,
+		}).then(
+			(response) => {
+				if (response.data.isSuccess) {
+					Router.push("/");
+				} else {
+					console.log(response);
+				}
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
 
 	return (
 		<>
@@ -291,7 +318,7 @@ export default function Information() {
 				<form
 					className="formstyle"
 					action="information2"
-					onSubmit={handleSubmit(onSubmit)}
+					onSubmit={handleSubmit(onSubmitForm)}
 				>
 					<section className="Form-design">
 						<div className="form-head">

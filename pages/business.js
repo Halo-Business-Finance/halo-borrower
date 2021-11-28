@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const BusinessStyle = styled.div`
 	display: flex;
@@ -123,9 +124,36 @@ export default function Business() {
 		formState: { errors },
 	} = useForm();
 
-	const onSubmitForm = (datas) => {
-		console.log(datas);
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: "Bearer" + " " ,
 	};
+
+	const onSubmitForm = async (values) => {
+		
+
+		axios({
+			method: "post",
+			url:
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+			data: {
+				
+			},
+			headers: headers,
+		}).then(
+			(response) => {
+				if (response.data.isSuccess) {
+					Router.push("");
+				} else {
+					console.log(response);
+				}
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
 
 	return (
 		<>

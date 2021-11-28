@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Hero = styled.div`
 	display: flex;
@@ -123,9 +124,36 @@ export default function Form() {
 		formState: { errors },
 	} = useForm();
 
-	const SubmitForm = (data) => {
-		console.log(data);
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: "Bearer" + " " ,
 	};
+
+	const onSubmitForm = async (values) => {
+		
+
+		axios({
+			method: "post",
+			url:
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-business-contact",
+			data: {
+				
+			},
+			headers: headers,
+		}).then(
+			(response) => {
+				if (response.data.isSuccess) {
+					Router.push("/form2");
+				} else {
+					console.log(response);
+				}
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
 	return (
 		<>
 			<Head>
@@ -133,7 +161,7 @@ export default function Form() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-				<form className="formstyle" onSubmit={handleSubmit(SubmitForm)}>
+				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
 					<section className="Form-design">
 						<div className="form-head">
 							<h2 className="heading">

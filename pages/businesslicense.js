@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import axios from "axios";
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -128,9 +129,36 @@ const BusinessStyle = styled.div`
 export default function BusinessLincense() {
 	const {register, handleSubmit, formState: {errors}} = useForm();
 
-	const onSubmitForm = (data) => {
-		console.log(data)
-	}
+  const headers = {
+		"Content-Type": "application/json",
+		Authorization: "Bearer" + " " ,
+	};
+
+	const onSubmitForm = async (values) => {
+
+
+		axios({
+			method: "post",
+			url:
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+			data: {
+			
+			},
+			headers: headers,
+		}).then(
+			(response) => {
+				if (response.data.isSuccess) {
+					Router.push("/");
+				} else {
+					console.log(response);
+				}
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
+
   return (
     <>
       <Head>
