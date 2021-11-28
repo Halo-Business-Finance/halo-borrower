@@ -1,5 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import RegisterNav from "../components/RegisterNav";
 
 const Hero = styled.div`
 	padding: 40px 5% 40px 5%;
@@ -203,7 +205,13 @@ const Hero = styled.div`
 	}
 `;
 
-export default function Form() {
+export default function Information() {
+	const { register, handleSubmit } = useForm();
+
+	const onSubmit = (values) => {
+		console.log(values);
+	};
+
 	return (
 		<>
 			<Head>
@@ -280,7 +288,11 @@ export default function Form() {
 				<br />
 				<br />
 
-				<form className="formstyle" action="information2">
+				<form
+					className="formstyle"
+					action="information2"
+					onSubmit={handleSubmit(onSubmit)}
+				>
 					<section className="Form-design">
 						<div className="form-head">
 							<h2 className="heading">Personal Information</h2>
@@ -295,6 +307,9 @@ export default function Form() {
 									Applicant Name
 								</label>
 								<input
+									{...register("applicationname", {
+										required: "true",
+									})}
 									id="firstname"
 									className="textbox"
 									type="text"
@@ -308,9 +323,12 @@ export default function Form() {
 									Business phone
 								</label>
 								<input
+									{...register("businessphone1", {
+										required: "true",
+									})}
 									id="firstname"
 									className="textbox"
-									type="text"
+									type="number"
 									autoComplete="fdba"
 									placeholder="XXX-XXX-XXXX"
 									required
@@ -321,9 +339,12 @@ export default function Form() {
 						<div className="form-row-one form-gap">
 							<div className="form-group form-addess">
 								<label htmlFor="fname" className="formlabel">
-									Business of Employer
+									Business of Employeer
 								</label>
 								<input
+									{...register("businessofemployeer", {
+										required: "true",
+									})}
 									id="address"
 									className="textbox"
 									type="text"
@@ -337,9 +358,12 @@ export default function Form() {
 									Date of Birth
 								</label>
 								<input
+									{...register("dateofbirth1", {
+										required: "true",
+									})}
 									id="suite"
 									className="textbox"
-									type="text"
+									type="date"
 									autoComplete="fname"
 									placeholder="MM-DD-YYYY"
 									required
@@ -353,6 +377,9 @@ export default function Form() {
 									Co-Applicant Name
 								</label>
 								<input
+									{...register("co-applicantname", {
+										required: "true",
+									})}
 									id="city"
 									className="textbox"
 									type="text"
@@ -366,9 +393,12 @@ export default function Form() {
 									Business Phone
 								</label>
 								<input
+									{...register("businessphone2", {
+										required: "true",
+									})}
 									id="state"
 									className="textbox"
-									type="text"
+									type="number"
 									autoComplete="fname"
 									placeholder="XXX-XXX-XXXX"
 									required
@@ -382,6 +412,7 @@ export default function Form() {
 									Business of Employeer
 								</label>
 								<input
+									{...register("businesofemployeer")}
 									id="employer"
 									className="textbox"
 									type="text"
@@ -395,9 +426,12 @@ export default function Form() {
 									Date of Birth
 								</label>
 								<input
+									{...register("dateofbirth2", {
+										required: "true",
+									})}
 									id="dob"
 									className="textbox"
-									type="text"
+									type="date"
 									autoComplete="fname"
 									placeholder="MM-DD-YYYY"
 									required
@@ -411,7 +445,10 @@ export default function Form() {
 									Residence Address
 								</label>
 								<input
-									id="website"
+									{...register("residenceaddress", {
+										required: "true",
+									})}
+									id="address"
 									className="textbox"
 									type="text"
 									autoComplete="fname"
@@ -424,6 +461,9 @@ export default function Form() {
 									City
 								</label>
 								<input
+									{...register("city", {
+										required: "true",
+									})}
 									id="city"
 									className="textbox"
 									type="text"
@@ -440,6 +480,9 @@ export default function Form() {
 									State
 								</label>
 								<input
+									{...register("state", {
+										required: "true",
+									})}
 									id="state"
 									className="textbox"
 									type="text"
@@ -453,9 +496,12 @@ export default function Form() {
 									Zip Code
 								</label>
 								<input
+									{...register("zipcode", {
+										required: "true",
+									})}
 									id="zipcode"
 									className="textbox"
-									type="text"
+									type="number"
 									autoComplete="fname"
 									placeholder="Enter Zip Code"
 									required
@@ -466,9 +512,12 @@ export default function Form() {
 									Residence Phone
 								</label>
 								<input
+									{...register("residencephone", {
+										required: "true",
+									})}
 									id="tele"
 									className="textbox"
-									type="text"
+									type="number"
 									autoComplete="fname"
 									placeholder="(XXX)-(XXX)-(XXXX)"
 									required
@@ -481,30 +530,54 @@ export default function Form() {
 							</label>
 							<div className="radio-one">
 								<div className="radio-container">
-									<input type="radio" name="radio" />
+									<input
+										type="radio"
+										name="radio"
+										{...register("partner", {
+											required: "true",
+										})}
+									/>
 
 									<label>Yes</label>
 								</div>
 
 								<div className="radio-container">
-									<input type="radio" name="radio" />
+									<input
+										type="radio"
+										name="radio"
+										{...register("partner", {
+											required: "true",
+										})}
+									/>
 									<label>No</label>
 								</div>
 							</div>
 						</div>
-						<div className="form-row">
+						<div className="form-row form-gap">
 							<label htmlFor="inform" className="formlabel">
 								Do you have a will?
 							</label>
 							<div className="radio-two">
 								<div className="radio-third">
 									<div className="">
-										<input type="radio" name="radio" />
+										<input
+											type="radio"
+											name="radio"
+											{...register("will", {
+												required: "true",
+											})}
+										/>
 										<label>Yes</label>
 									</div>
 
 									<div className="">
-										<input type="radio" name="radio" />
+										<input
+											type="radio"
+											name="radio"
+											{...register("will", {
+												required: "true",
+											})}
+										/>
 										<label>No</label>
 									</div>
 								</div>
@@ -514,6 +587,9 @@ export default function Form() {
 										Name of executor
 									</label>
 									<input
+										{...register("executor", {
+											required: "true",
+										})}
 										id="website"
 										className="textbox"
 										type="text"
