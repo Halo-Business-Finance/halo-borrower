@@ -1,33 +1,33 @@
-import Head from 'next/head';
-import styled from 'styled-components';
+import Head from "next/head";
+import styled from "styled-components";
 
 const Hero = styled.div`
   display: flex;
   font-family: Mulish;
   justify-content: center;
   align-items: center;
-  background: #E5E5E5;
+  background: #e5e5e5;
   padding: 20px;
-  .formstyle{
+  .formstyle {
     width: 85%;
-    background: #F8F8FF;
+    background: #f8f8ff;
     border-radius: 10px;
   }
-  .Form-design{
+  .Form-design {
     padding: 30px 30px 30px 30px;
-  }  
-  .form-row-one{
-    width:100%;
-    display:inline-block;
-    border: 2px solid  rgba(27, 70, 176, 1);
-    border-radius: 6px ;
+  }
+  .form-row-one {
+    width: 100%;
+    display: inline-block;
+    border: 2px solid rgba(27, 70, 176, 1);
+    border-radius: 6px;
     padding: 4px 10px;
   }
-  .form-row-one p{
-      color: rgba(27, 70, 176, 1);
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 150%;
+  .form-row-one p {
+    color: rgba(27, 70, 176, 1);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
   }
   table {
     font-family: Mulish;
@@ -38,58 +38,60 @@ const Hero = styled.div`
     border-collapse: collapse;
     width: 100%;
   }
-  td, th {
-    border: 1px solid #DDDDDD;
+  td,
+  th {
+    border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
   }
-  tr:nth-child(odd) {
-    background-color: #DDDDDD;
+  tbody:nth-child(odd) {
+    background-color: #F5F5F5;
+
   }
-  .form-head{
-    display:inline-block;
-    width:100%;
+  .form-head {
+    display: inline-block;
+    width: 100%;
   }
-  .active{
-    color:#1B46B0;
-    display:inline;
+  .active {
+    color: #1b46b0;
+    display: inline;
   }
-  .heading{
-    display:inline;
-    float:left;
+  .heading {
+    display: inline;
+    float: left;
   }
-  .heading-step{
-    display:inline;
-    color:#ADADAD;
-    display:inline;
-    float:right;
+  .heading-step {
+    display: inline;
+    color: #adadad;
+    display: inline;
+    float: right;
   }
-  .formlabel{
-    color: #5C5C5C;
+  .formlabel {
+    color: #5c5c5c;
   }
-  .textbox{
+  .textbox {
     border-radius: 4px;
-    border: 1px solid #EDEDED;
+    border: 1px solid #ededed;
   }
-  .form-gap{
-    margin-top:20px;
+  .form-gap {
+    margin-top: 20px;
   }
-  input[type=submit]{
-    background-color: #F3BA17;
+  input[type="submit"] {
+    background-color: #f3ba17;
     border: none;
     color: black;
     font-weight: 600;
-    border-radius:8px;
+    border-radius: 8px;
     padding: 14px 30px;
     text-decoration: none;
     cursor: pointer;
   }
-  .form-row-button{
-    width:100%;
-    justify-content:center;
+  .form-row-button {
+    width: 100%;
+    justify-content: center;
     align-items: center;
     display: flex;
-    margin:20px 0px 20px 0px;
+    margin: 20px 0px 20px 0px;
   }
 `;
 export default function Form() {
@@ -97,149 +99,177 @@ export default function Form() {
     <>
       <Head>
         <title>Form</title>
-        <link rel='icon' href='/favicon.ico' />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero>
-        <form className="formstyle" action="form2">
+        <form className="formstyle" >
           <section className="Form-design">
             <div className="form-head">
               <h2 className="heading">Schedule of Assets Pledged</h2>
-              <h2 className="heading-step"><p className="active">Step 6 </p> / 7</h2>
+              <h2 className="heading-step">
+                <p className="active">Step 6 </p> / 7
+              </h2>
             </div>
 
             <div className="form-gap table-form">
               <table>
-                <tr>
-                  <th colSpan="2">Lender Name & Address</th>
-                  <th>Loan Date</th>
-                  <th>Original Loan Amount</th>
-                  <th>Present Balance</th>
-                  <th>Interest Rate</th>
-                  <th>Monthly Payment</th>
-                  <th>Collateral/Security</th>
-                  <th>Balloon?(Y/N)</th>
-                  <th>Loan Current?(Y/N)</th>
-                  <th>Refi?(Y/N)</th>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td>2464 Royal Ln. Mesa, New Jersey 45463</td>
-                  <td>12/15/2016</td>
-                  <td>$10000</td>
-                  <td>$10000</td>
-                  <td>12%</td>
-                  <td>$5000</td>
-                  <td>$50000</td>
-                  <td>Y</td>
-                  <td>N</td>
-                  <td>N</td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td>2464 Royal Ln. Mesa, New Jersey 45463</td>
-                  <td>12/15/2016</td>
-                  <td>$10000</td>
-                  <td>$10000</td>
-                  <td>12%</td>
-                  <td>$5000</td>
-                  <td>$50000</td>
-                  <td>Y</td>
-                  <td>N</td>
-                  <td>N</td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <input type="checkbox" />
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
+                <tbody>
+                  <tr>
+                    <th colSpan="2">Lender Name & Address</th>
+                    <th>Loan Date</th>
+                    <th>Original Loan Amount</th>
+                    <th>Present Balance</th>
+                    <th>Interest Rate</th>
+                    <th>Monthly Payment</th>
+                    <th>Collateral/Security</th>
+                    <th>Balloon?(Y/N)</th>
+                    <th>Loan Current?(Y/N)</th>
+                    <th>Refi?(Y/N)</th>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" /></td>              
+					<td>2464 Royal Ln. Mesa, New Jersey 45463</td>
+                    <td>12/15/2016</td>
+                    <td>$10000</td>
+                    <td>$10000</td>
+                    <td>12%</td>
+                    <td>$5000</td>
+                    <td>$50000</td>
+                    <td>Y</td>
+                    <td>N</td>
+                    <td>N</td>
+                  </tr>
+                </tbody>
 
-                                    <th colSpan="3">Total</th>
-                                    <th>$20000</th>
-                                    <th>$20000</th>
-                                    <th colSpan="6"></th>
-                                </tr>
-                            </table>
-                            <div>
-                                <img src="images/plus.png" />
-                                Add More Row
-                                <img src="images/delete.png" />
-                                Remove Row
-                            </div>
+                <tbody>
+                  <tr>
+				  	<td><input type="checkbox" /></td>              
+                    <td>2464 Royal Ln. Mesa, New Jersey 45463</td>
+                    <td>12/15/2016</td>
+                    <td>$10000</td>
+                    <td>$10000</td>
+                    <td>12%</td>
+                    <td>$5000</td>
+                    <td>$50000</td>
+                    <td>Y</td>
+                    <td>N</td>
+                    <td>N</td>
+                  </tr>
+                </tbody>
 
+                <tbody>
+					<tr>
+					<td><input type="checkbox" /></td>              
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr>
+				  	<td><input type="checkbox" /></td>              
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr>
+				  	<td><input type="checkbox" /></td>              
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr>
+				 	<td><input type="checkbox" /></td>              
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr>
+				  	<td><input type="checkbox" /></td>              
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr>
+				  	<td><input type="checkbox" /></td>              
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+
+                <tbody>
+                  <tr>
+                    <th colSpan="3">Total</th>
+                    <th>$20000</th>
+                    <th>$20000</th>
+                    <th colSpan="6"></th>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <img src="images/plus.png" />
+                Add More Row
+                <img src="images/delete.png" />
+                Remove Row
+              </div>
             </div>
           </section>
           <div className="form-row-button">
