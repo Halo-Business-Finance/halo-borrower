@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import React, { useState } from 'react';
 
 const Hero = styled.div`
   font-family: Mulish;
@@ -248,8 +249,9 @@ export default function Form({ data }) {
                   type="text"
                   autoComplete="businesslegalname"
                   placeholder="Enter Business Legal Name"
-                  
+                  value={this.state.numberOfGuests}
                   {...register("businesslegalname", {
+                    
                     required: "Required",
                    
                   })}
