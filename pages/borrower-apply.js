@@ -225,6 +225,9 @@ const Hero = styled.div`
   }
 `;
 
+
+
+
 export default function Form() {
   const { register, handleSubmit } = useForm();
 

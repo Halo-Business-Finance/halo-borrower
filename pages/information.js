@@ -204,6 +204,11 @@ const Hero = styled.div`
 		color: #1b46b0;
 		font-size: 14px;
 	}
+	input::-webkit-outer-spin-button,
+  	input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 export default function Information() {

@@ -143,12 +143,27 @@ const Hero = styled.div`
 	}
 `;
 
+const defaultValues = {
+	businesslegalname: "onehorn",
+	dba:"sahajpasal",
+	address: "Bharatpur-7",
+	suite: "staff",
+	city: "Chitwan",
+	state: "bagmati",
+	zipcode: "4420",
+	phone: 9865034683,
+	website: "onehornsolutions.com",
+	
+  };
+
 export default function Form({ data }) {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
+	} = useForm({defaultValues});
+
+
 
 	const headers = {
 		"Content-Type": "application/json",
