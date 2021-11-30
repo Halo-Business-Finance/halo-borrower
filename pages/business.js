@@ -126,19 +126,14 @@ export default function Business() {
 
 	const headers = {
 		"Content-Type": "application/json",
-		Authorization: "Bearer" + " " ,
+		Authorization: "Bearer" + " ",
 	};
 
 	const onSubmitForm = async (values) => {
-		
-
 		axios({
 			method: "post",
-			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
-			data: {
-				
-			},
+			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+			data: {},
 			headers: headers,
 		}).then(
 			(response) => {
@@ -153,7 +148,6 @@ export default function Business() {
 			}
 		);
 	};
-
 
 	return (
 		<>
