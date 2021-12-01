@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Router from "next/router";
 import cookie from "js-cookie";
+import { useState } from "react";
 
 const Hero = styled.div`
 	font-family: Mulish;
@@ -163,6 +164,7 @@ export default function Form({ data }) {
 		formState: { errors },
 	} = useForm({defaultValues});
 
+	const [firstName, setFirstName] = useState("");
 
 
 	const headers = {
@@ -171,10 +173,7 @@ export default function Form({ data }) {
 	};
 
 	const onSubmitForm = async (values) => {
-		// const headers = {
-		//   'Content-Type': 'application/json',
-		//   'Authorization': 'Bearer' + ' ' + cookie.get('access_token')
-		// }
+
 
 		axios({
 			method: "post",
@@ -218,6 +217,9 @@ export default function Form({ data }) {
 		headers: headers,
 	}).then(
 		(respo) => {
+
+			const [firstName, setFirstName] = useState("ram ji panta");
+			
 			if (respo.data.isSuccess) {
 				console.log(respo.data.payload.businessLegalName);
 			} else {
@@ -225,6 +227,7 @@ export default function Form({ data }) {
 			}
 		},
 		(error) => {
+
 			console.log(error);
 		}
 	);
@@ -257,6 +260,8 @@ export default function Form({ data }) {
 									id="firstname"
 									className="textbox"
 									type="text"
+									onChange={e => setFirstName(e.target.value)}
+									value={firstName}
 									autoComplete="businesslegalname"
 									placeholder="Enter Business Legal Name"
 									{...register("businesslegalname", {
