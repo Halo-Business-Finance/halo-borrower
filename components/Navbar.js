@@ -74,7 +74,7 @@ const Navbar = (data) => {
 					</div>
 					<div className="top-details">
 						<Link href="/" passHref>
-							<StyledLink>Phone:</StyledLink>
+							<StyledLink>Phone: </StyledLink>
 						</Link>
 						<Link href="/form" passHref>
 							<StyledLink>{username}</StyledLink>

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Router from "next/router";
 import cookie from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Hero = styled.div`
 	font-family: Mulish;
@@ -144,28 +144,13 @@ const Hero = styled.div`
 	}
 `;
 
-const defaultValues = {
-	businesslegalname: "onehorn",
-	dba:"sahajpasal",
-	address: "Bharatpur-7",
-	suite: "staff",
-	city: "Chitwan",
-	state: "bagmati",
-	zipcode: "4420",
-	phone: 9865034683,
-	website: "onehornsolutions.com",
-	
-  };
 
 export default function Form({ data }) {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm({defaultValues});
-
-	const [firstName, setFirstName] = useState("");
-
+	} = useForm({});
 
 	const headers = {
 		"Content-Type": "application/json",
@@ -173,7 +158,6 @@ export default function Form({ data }) {
 	};
 
 	const onSubmitForm = async (values) => {
-
 
 		axios({
 			method: "post",
@@ -207,6 +191,11 @@ export default function Form({ data }) {
 		);
 	};
 
+	const [consumer, getConsumer] = useState({});
+
+
+	useEffect(() => { 
+
 	let url =
 		process.env.NEXT_PUBLIC_BASE_URL +
 		"/api/borrower/get-business-contact/" +
@@ -217,20 +206,22 @@ export default function Form({ data }) {
 		headers: headers,
 	}).then(
 		(respo) => {
+			console.log(respo.data.payload);
 
-			const [firstName, setFirstName] = useState("ram ji panta");
+			getConsumer(respo.data.payload);
 			
-			if (respo.data.isSuccess) {
-				console.log(respo.data.payload.businessLegalName);
-			} else {
-				console.log(respo);
-			}
 		},
 		(error) => {
 
 			console.log(error);
 		}
 	);
+	},[]);
+
+	function handleChange(event) {
+		getConsumer(event.target.value);
+	  }
+
 
 	return (
 		<>
@@ -260,8 +251,7 @@ export default function Form({ data }) {
 									id="firstname"
 									className="textbox"
 									type="text"
-									onChange={e => setFirstName(e.target.value)}
-									value={firstName}
+									defaultValue={consumer.businessLegalName} 
 									autoComplete="businesslegalname"
 									placeholder="Enter Business Legal Name"
 									{...register("businesslegalname", {
@@ -277,6 +267,7 @@ export default function Form({ data }) {
 									id="firstname"
 									className="textbox"
 									type="text"
+									defaultValue={consumer.dba} 
 									autoComplete="fdba"
 									placeholder="Enter DBA"
 									{...register("dba", {
@@ -295,6 +286,7 @@ export default function Form({ data }) {
 									id="address"
 									className="textbox"
 									type="text"
+									defaultValue={consumer.address} 
 									autoComplete="fname"
 									placeholder="Enter Address"
 									{...register("address", {
@@ -311,6 +303,8 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
+									defaultValue={consumer.suite} 
+
 									placeholder="Enter Suite/FL"
 									{...register("suite", {
 										required: "Required",
@@ -330,6 +324,8 @@ export default function Form({ data }) {
 									type="text"
 									autoComplete="fname"
 									placeholder="Enter City"
+									defaultValue={consumer.city} 
+
 									{...register("city", {
 										required: "Required",
 									})}
@@ -345,6 +341,8 @@ export default function Form({ data }) {
 									type="text"
 									autoComplete="fname"
 									placeholder="Select State"
+									defaultValue={consumer.state} 
+
 									{...register("state", {
 										required: "Required",
 									})}
@@ -360,6 +358,8 @@ export default function Form({ data }) {
 									type="number"
 									autoComplete="fname"
 									placeholder="Enter Zip Code"
+									defaultValue={consumer.zipcode} 
+
 									{...register("zipcode", {
 										required: "Required",
 									})}
@@ -377,6 +377,8 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
+									defaultValue={consumer.phone} 
+
 									placeholder="(XXX)-(XXX)-(XXXX)"
 									{...register("phone", {
 										required: "Required",
@@ -392,6 +394,8 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
+									defaultValue={consumer.website} 
+
 									placeholder="Enter Website"
 									{...register("website", {
 										required: "Required",
