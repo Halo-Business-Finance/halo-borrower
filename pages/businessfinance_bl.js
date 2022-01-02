@@ -135,14 +135,14 @@ export default function BusinessLincense() {
 	};
 
 	const onSubmitForm = async (values) => {
-
-
+      console.log(values)
+   
 		axios({
 			method: "post",
 			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/upload-business-license/",
 			data: {
-			
+          
 			},
 			headers: headers,
 		}).then(
@@ -213,7 +213,7 @@ export default function BusinessLincense() {
               />
             </div>
             <div className="skip-link">
-              <p>Skip</p>
+            <a href="/hometest">Skip</a>
             </div>
           </div>
 		  </form>

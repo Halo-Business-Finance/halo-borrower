@@ -1,5 +1,11 @@
 import Head from "next/head";
 import styled from "styled-components";
+import cookie from "js-cookie";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import NavMenu from "../components/NavMenu";
+import router from "next/router";
+import { useForm } from "react-hook-form";
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
@@ -30,6 +36,8 @@ const Hero = styled.div`
 
   .button-step {
     /* float: right; */
+    float: right;
+
     padding: 5px 20px 5px 20px;
     text-align: center;
     font-weight: 700;
@@ -46,6 +54,8 @@ const Hero = styled.div`
 
   .button-time {
     /* float: right; */
+    float: right;
+
     line-height: 30px;
     padding: 5px 20px 5px 20px;
     cursor: pointer;
@@ -237,22 +247,91 @@ const Hero = styled.div`
     font-size: 16px;
     color: #adadad;
   }
+  .owner-list{
+	  margin-top: 10px ;
+  }
 `;
 
-export default function Form() {
+export default function informationindex() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [details, setDetails] = useState([]);
+  const [owners, setOwners] = useState([]);
+
+  const headersone = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer" + " " + cookie.get("access_token"),
+  };
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer" + " " + cookie.get("access_token"),
+  };
+
+  const urlone =
+    process.env.NEXT_PUBLIC_BASE_URL +
+    "api/borrower/get-loan-request/" +
+    cookie.get("loan_request_id");
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: urlone,
+      headers: headersone,
+    }).then(
+      (respo) => {
+        setDetails(respo.data.payload);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+
+  const url =
+    process.env.NEXT_PUBLIC_BASE_URL +
+    "/api/borrower/get-owners/" +
+    cookie.get("loan_request_id");
+
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: url,
+      headers: headers,
+    }).then(
+      (response) => {
+        console.log(response.data.payload);
+        setOwners(response.data.payload);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+
+  const onSubmitForm = async (values) => {
+    // console.log(values);
+    cookie.set("ownerId", values.ownerid, {
+      expires: 1 / 24,
+    });
+    router.push("/personalfinance_pi");
+  };
+
   return (
     <>
       <Head>
         <title>Borrower Section</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavMenu />
       <Hero>
         <div className="top-borrower">
           <div className="top-heading">
             <div className="progress-title">Loan Application Overview</div>
             <div className="progress-button">
               <a href="#" className="progress-button" id="progress-button">
-                {" "}
                 <span>View your loans</span>
               </a>
             </div>
@@ -275,7 +354,7 @@ export default function Form() {
           <div className="top-heading">
             <div>
               <span className="dot"></span>
-              <span className="inprogress">In process</span>
+              <span className="inprogress">{details.loanRequestStatus}</span>
               <p>Your application in review by lender.</p>
             </div>
 
@@ -284,8 +363,8 @@ export default function Form() {
                 <img src="/images/SBA7ALoan.png" className="sba-image" />
 
                 <div className="sba-details">
-                  <p className="sba-detail-title">SBA 7A Loan</p>
-                  <p className="sba-detail-amount">$175,000</p>
+                  <p className="sba-detail-title">{details.loanTypeName}</p>
+                  <p className="sba-detail-amount">$ {details.amount} </p>
                 </div>
               </div>
 
@@ -294,14 +373,18 @@ export default function Form() {
                   <span className="application-detail-title">
                     Application Started
                   </span>
-                  <p className="application-detail-details">6/1/2020</p>
+                  <p className="application-detail-details">
+                    {details.applicationStarted}
+                  </p>
                 </div>
 
                 <div className="app-details-2">
                   <span className="application-detail-title">
                     Application Number
                   </span>
-                  <p className="application-detail-details">5286211</p>
+                  <p className="application-detail-details">
+                    {details.applicationNumber}
+                  </p>
                 </div>
               </div>
             </div>
@@ -324,15 +407,13 @@ export default function Form() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/form">
-                    {" "}
+                  <a href="/prequlaify_bci">
                     <span>Next step</span>
                   </a>
                 </div>
 
                 <div className="button-time">
                   <a href="#" id="button-time-icon">
-                    {" "}
                     <span>5 minutes</span>
                   </a>
                 </div>
@@ -357,8 +438,7 @@ export default function Form() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/">
-                    {" "}
+                  <a href="/businessfinance_btr">
                     <span>Next step</span>
                   </a>
                 </div>
@@ -390,21 +470,54 @@ export default function Form() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/information">
-                    {" "}
+                  <a href="/personalfinance_pi">
                     <span>Next step</span>
                   </a>
                 </div>
 
                 <div className="button-time">
-                  <a href="#" id="button-time-icon">
-                    {" "}
+                  <a href="" id="button-time-icon">
                     <span>5 minutes</span>
                   </a>
                 </div>
               </div>
             </div>
           </div>
+
+		  <div className="finance-list">
+		  {owners.map((owner, ownerdetails) => {
+              return (
+                <form onClick={handleSubmit(onSubmitForm)} key={owner.id}>
+                  <div className="sba-header-container owner-list">
+                    <div className="finance-container-one">
+                      <img src="/images/financials.png" className="sba-image" />
+
+                      <div className="sba-details">
+                        <p className="finance-detail-title">{owner.fullName}</p>
+                        <p className="finance-detail-detail">
+                          {owner.homeAddress}
+                          <input
+                            type="hidden"
+                            defaultValue={owner.id}
+                            {...register("ownerid")}
+                          />
+                        </p>
+                      </div>
+                    </div>
+                    <div className="finance-container-two">
+                      <div className="button-step">
+                        <a href="/personalfinance_pi">
+                          <span>Continue</span>
+                        </a>
+                      </div>
+                    </div>
+                   
+                  </div>
+                </form>
+              );
+            })}
+		  </div>
+
         </div>
       </Hero>
     </>

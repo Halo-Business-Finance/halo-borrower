@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import NavMenu from "../components/NavMenu";
 
 const Hero = styled.div`
 	display: flex;
@@ -67,17 +68,19 @@ const Hero = styled.div`
 export default function Form() {
 	return (
 		<>
+			<NavMenu />
+
 			<Head>
 				<title>Form</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-				<form className="formstyle" action="/form5">
+				<form className="formstyle" action="/loanallapplications">
 					<section className="Form-design">
 						<div className="form-head">
 							<h2 className="heading">Borrower Authorization</h2>
 							<h2 className="heading-step">
-								<p className="active">Step 3</p> /3
+								<p className="active">Step 2</p> /3
 							</h2>
 						</div>
 

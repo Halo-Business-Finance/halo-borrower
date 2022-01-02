@@ -98,7 +98,7 @@ const Hero = styled.div`
 	}
 `;
 
-export default function Form({ email, userName, access_token, userid }) {
+export default function Login({ email, userName, access_token, userid }) {
 	const {
 		register,
 		handleSubmit,
@@ -127,12 +127,10 @@ export default function Form({ email, userName, access_token, userid }) {
 
 		axios.post(login, params, config).then(
 			(response) => {
-				// console.log(response);
 				if (
 					response.data.access_token !== "" ||
 					response.data.access_token !== "undefined"
 				) {
-					// const data = response.data
 					try {
 						const configo = {
 							headers: {
@@ -159,7 +157,7 @@ export default function Form({ email, userName, access_token, userid }) {
 								});
 								cookie.set("email", response.data.Email, { expires: 1 / 24 });
 								cookie.set("userid", response.data.userId, { expires: 1 / 24 });
-								Router.push("/form");
+								Router.push("/loanallapplications");
 							}),
 							(error) => {
 								setA("Username or Password Incorrect");

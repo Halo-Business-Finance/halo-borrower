@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import cookie from "js-cookie";
 import Borrower from "./borrower-apply";
+import LoansApplications from "./loanallapplications";
 
 const Hero = styled.div`
 	font-family: Mulish;
@@ -20,18 +21,16 @@ const Heading = styled.h1`
 
 export default function Home() {
 	if (
-		typeof cookie.get("access_token") !== "undefined" ||
-		typeof cookie.get("userName") !== "undefined" ||
-		typeof cookie.get("email") !== "undefined" ||
-		typeof cookie.get("userid") !== "undefined"
+		typeof cookie.get("access_token") == "undefined" ||
+		typeof cookie.get("userName") == "undefined" ||
+		typeof cookie.get("email") == "undefined" ||
+		typeof cookie.get("userid") == "undefined"
 	) {
-		// console.log(cookie.get('access_token'))
-
-		return <></>;
-	} else {
+		return <Borrower />
+	}  else {
 		return (
 			<>
-				<Borrower />
+				<LoansApplications />
 			</>
 		);
 	}

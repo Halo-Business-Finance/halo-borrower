@@ -1,8 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
-import Router from "next/router";
-import cookie from "js-cookie";
-import { useForm } from "react-hook-form";
+import NavMenu from "../components/NavMenu";
 
 const Hero = styled.div`
 	display: flex;
@@ -68,38 +66,16 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm();
-	const onSubmitForm = async (values) => {
-		Router.push("/informationindex");
-	};
-
 	return (
 		<>
+			<NavMenu />
+
 			<Head>
 				<title>Form</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
-					<section className="Form-design">
-						<div className="form-head">
-							<h2 className="heading">Credit Rating for (Owner 1)</h2>
-							<h2 className="heading-step">
-								<p className="active">Step 2</p> /3
-							</h2>
-						</div>
-
-						<img className="scrollimage" src="images/sliderone.jpg" />
-					</section>
-
-					<div className="form-row-button">
-						<input type="submit" id="button" value="Continue" />
-					</div>
-				</form>
+				
 			</Hero>
 		</>
 	);

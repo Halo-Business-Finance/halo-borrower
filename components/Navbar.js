@@ -54,7 +54,6 @@ const Navbar = (data) => {
 			.then(
 				(response) => {
 					try {
-						// console.log(response)
 					} catch (err) {}
 				},
 				(error) => {
@@ -74,14 +73,13 @@ const Navbar = (data) => {
 					</div>
 					<div className="top-details">
 						<Link href="/" passHref>
-							<StyledLink>Phone: </StyledLink>
+							<StyledLink>Phone</StyledLink>
 						</Link>
-						<Link href="/form" passHref>
+						<Link href="/" passHref>
 							<StyledLink>{username}</StyledLink>
 						</Link>
-					</div>
+					</div> 
 				</Nav>
-				<NavMenu />
 			</>
 		);
 	} else {
@@ -94,9 +92,7 @@ const Navbar = (data) => {
 						</StyledLink>
 					</div>
 					<div className="top-details">
-						<Link href="/login" passHref>
-							<StyledLink>Login</StyledLink>
-						</Link>
+						<a href="/login">Login</a>
 					</div>
 				</Nav>
 			</>

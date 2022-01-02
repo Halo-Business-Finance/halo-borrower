@@ -1,7 +1,9 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import cookie from "js-cookie";
 import axios from "axios";
+import ProGressTracker from "../components/PfTracker";
 
 
 const PersonalStyle = styled.div`
@@ -159,6 +161,120 @@ const PersonalStyle = styled.div`
       vertical-align: middle;
     }
   }
+
+  .meter {
+    margin-top: 20px;
+    box-sizing: content-box;
+    height: 10px;
+    position: relative;
+    background: #ededed;
+    border-radius: 25px;
+  }
+
+  .meter > span {
+    display: block;
+    height: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #1b46b0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .meter span {
+    width: 10%;
+  }
+
+  .pi span {
+    width: 100%;
+  }
+  .gi span {
+    width: 100%;
+  }
+  .is span {
+    width: 100%;
+  }
+  .cl span {
+    width: 100%;
+  }
+
+ 
+
+
+  .progress-tracker {
+		width: 100%;
+		display: inline-flex;
+		flex-wrap: wrap;
+		gap: 2%;
+	}
+
+	.progress-form {
+		width: 10%;
+		// min-height:100px;
+		// background-color:red;
+	}
+
+	.progress-form {
+		font-weight: 700;
+		color: #1b46b0;
+		font-size: 14px;
+	}
+	.mainrow {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 30px;
+		margin-top: 15px;
+	}
+
+	.addrow {
+		align-items: center;
+	}
+	.removerow {
+		align-items: center;
+	}
+	.place {
+		display: inline;
+		justify-content: flex-start;
+		width: 9%;
+		margin-right: 7px;
+	}
+  .meter span {
+		width: 10%;
+	}
+
+	.pi span {
+		width: 100%;
+	}
+	.gi span {
+		width: 100%;
+	}
+	.is span {
+		width: 100%;
+	}
+	.cl span {
+		width: 100%;
+	}
+	.bs span {
+		width: 100%;
+	}
+	.soap span {
+		width: 100%;
+	}
+
+  .bds span {
+		width: 100%;
+	}
+	.meter-link {
+		float: right;
+		font-weight: 500;
+		font-size: 14px;
+		color: #1b46b0;
+		text-decoration: underline;
+	}
+    
 `;
 
 export default function PersonalForm() {
@@ -170,13 +286,13 @@ export default function PersonalForm() {
 
   const headers = {
     "Content-Type": "application/json",
-    Authorization: "Bearer" + " ",
+    Authorization: "Bearer" + " "  + cookie.get("access_token"),
   };
 
   const onSubmitForm = async (values) => {
     axios({
       method: "post",
-      url: process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+      url: process.env.NEXT_PUBLIC_BASE_URL + "/api/personalFinance/upload-personal-tax-returns",
       data: {},
       headers: headers,
     }).then(
@@ -193,13 +309,18 @@ export default function PersonalForm() {
     );
   };
 
+
+
   return (
     <>
       <Head>
         <title>Personal Tax</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <PersonalStyle>
+      <ProGressTracker />
+
         <section className="main-style">
           <form onSubmit={handleSubmit(onSubmitForm)}>
             <div>
@@ -211,19 +332,12 @@ export default function PersonalForm() {
                     give an accurate analysis.
                   </p>
                 </div>
-                <div className="header-two">
-                  <h3>What year did John Smith most recently file taxes?</h3>
-                  <div className="buttons">
-                    <button>2019</button>
-                    <button className="mid-button">2018</button>
-                    <button>Before 2018</button>
-                  </div>
-                </div>
+               
               </header>
               <div className="main-section">
                 <section>
                   <div className="column-one">
-                    <label>Business Tax Return 1</label>
+                    <label>Personal Tax Return 1</label>
                     <input
                       type="date"
                       id="business"
@@ -238,7 +352,7 @@ export default function PersonalForm() {
                 </section>
                 <section>
                   <div className="column-one">
-                    <label>Business Tax Return 2</label>
+                    <label>Personal Tax Return 2</label>
                     <input type="date" {...register("taxReturnDateTwo")} />
                   </div>
                   <div className="column-two">
@@ -262,7 +376,6 @@ export default function PersonalForm() {
                 <img src="/images/back.png" />
                 <input
                   type="submit"
-                  href="form2"
                   id="button"
                   value="Upload to continue"
                 />

@@ -2,6 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import NavMenu from "../components/NavMenu";
 
 const BusinessDebtStyle = styled.div`
 	display: flex;
@@ -56,7 +57,7 @@ const BusinessDebtStyle = styled.div`
 				border: 2px solid #f3ba17;
 				color: #f3ba17;
 			}
-
+		}
 			.footer {
 				.continue-button {
 					display: flex;
@@ -88,7 +89,7 @@ const BusinessDebtStyle = styled.div`
 					}
 				}
 			}
-		}
+		
 	}
 `;
 
@@ -110,7 +111,7 @@ export default function Business() {
 		axios({
 			method: "post",
 			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
 			data: {
 				
 			
@@ -119,7 +120,7 @@ export default function Business() {
 		}).then(
 			(response) => {
 				if (response.data.isSuccess) {
-					Router.push("");
+					Router.push("businessfinance_pls");
 				} else {
 					console.log(response);
 				}
@@ -137,11 +138,12 @@ export default function Business() {
 				<title>Business Debt</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+			<NavMenu />
 			<BusinessDebtStyle>
 				<section className="main-style">
 					<header>
 						<div className="header-one">
-							<h1>Business Tax returns</h1>
+							<h1>Your Business Debts</h1>
 							<h3>
 								<span> Step 1 </span> / 2
 							</h3>
@@ -181,7 +183,7 @@ export default function Business() {
 							</div>
 
 							<div className="skip-link">
-								<p>Skip</p>
+								<a href="/businessfinance_pls">Skip</a>
 							</div>
 						</div>
 					</form>

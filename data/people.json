@@ -1,0 +1,17 @@
+[
+    {
+        "lendername": "anish",
+
+        "loandate": "2052-12-12",
+		"originalloanamount": "3000",
+		"presentbalance": "1500",
+		"interestrate": "5%",
+		"monthlypayment": "300",
+		"colletral": "500",
+		"balloon": "Y",
+		"loancurrent": "N",
+		"refi": "N"
+    }
+    
+   
+]

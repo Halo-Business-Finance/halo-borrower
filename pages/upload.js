@@ -2,6 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import NavMenu from "../components/NavMenu";
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -171,6 +172,7 @@ export default function Upload() {
         <title>Upload</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavMenu />
       <BusinessStyle>
         <section className="main-style">
           <header>

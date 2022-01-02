@@ -1,17 +1,19 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import cookie from "js-cookie";
 import axios from "axios";
+import ProGressTracker from "../components/PfTracker";
+import NavMenu from "../components/NavMenu";
 
 const Hero = styled.div`
   padding: 40px 5% 40px 5%;
-
   background: #e5e5e5;
   font-family: Mulish;
 
   .formstyle {
     margin-left: 20%;
-
     width: 60%;
     background: #f8f8ff;
     border-radius: 10px;
@@ -100,9 +102,11 @@ const Hero = styled.div`
 
   .form-row-button {
     width: 100%;
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin: 20px 0px 20px 0px;
   }
 
@@ -178,113 +182,86 @@ export default function InformationTwo() {
   } = useForm();
 
   const headers = {
-		"Content-Type": "application/json",
-		Authorization: "Bearer" + " " ,
-	};
+    "Content-Type": "application/json",
+    Authorization: "Bearer" + " " + cookie.get("access_token"),
+  };
 
-	const onSubmitForm = async (values) => {
-		// const headers = {
-		//   'Content-Type': 'application/json',
-		//   'Authorization': 'Bearer' + ' ' + cookie.get('access_token')
-		// }
+  const onSubmitForm = async (values) => {
+    console.log(values);
+    axios({
+      method: "post",
+      url:
+        process.env.NEXT_PUBLIC_BASE_URL +
+        "add-update-personal-general-info/",
+      data: {
+        id: cookie.get("id"),
+        ownerId: cookie.get("ownerId"),
+        assetsPledged: values.assets,
+        defendants: values.legal,
+        usCitizen: values.citizen,
+        personalBankAccount: values.bankAccount,
+        everDeclaredBankruptcy: values.bankruptcy,
+      },
+      headers: headers,
+    }).then(
+      (response) => {
+        if (response.data.isSuccess) {
+          Router.push("/personalfinance_is");
+        } else {
+          console.log(response);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
-		axios({
-			method: "post",
-			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/",
-			data: {
-				
-			},
-			headers: headers,
-		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					Router.push("/");
-				} else {
-					console.log(response);
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
+  const [consumer, getConsumer] = useState({});
+
+  useEffect(() => {
+    let url =
+      process.env.NEXT_PUBLIC_BASE_URL +
+      "/get-personal-general-info/" +
+      cookie.get("ownerId");
+    axios({
+      method: "GET",
+      url: url,
+      headers: headers,
+    }).then(
+      (response) => {
+        console.log(response.data.payload);
+        if (response.data.payload == null) {
+          // cookie.set("id", "", { expires: 5 / 24 });
+          let dataempty = {
+            assetsPledged: "",
+            defendants: "",
+            usCitizen: "",
+            personalBankAccount: "",
+            everDeclaredBankruptcy: "",
+          };
+          getConsumer(dataempty);
+        } else {
+          // cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
+          getConsumer(response.data.payload);
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+
 
   return (
     <>
       <Head>
-        <title>Information</title>
+        <title>General Information</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+     <NavMenu />
       <Hero>
-        <section className="progress-tracker">
-          <div className="progress-form">
-            <h3>Personal Information</h3>
-            <div className="meter pi">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>General Information</h3>
-            <div className="meter gi">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>
-              Income
-              <br />
-              Source
-            </h3>
-            <div className="meter is">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>Contigent Liabilities</h3>
-            <div className="meter cl">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>
-              Balance
-              <br /> Sheet
-            </h3>
-            <div className="meter bs">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>Schedule of Assets Pledged</h3>
-            <div className="meter soap">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>Business Debt Schedule</h3>
-            <div className="meter bds">
-              <span></span>
-            </div>
-          </div>
-
-          <div className="progress-form">
-            <h3>Personal Tax Returns(100%)</h3>
-            <div className="meter ptr">
-              <span></span>
-            </div>
-          </div>
-        </section>
-        <br />
-        <br />
-        <br />
-        <br />
+        <ProGressTracker />
 
         <form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
           <section className="form-design">
@@ -301,12 +278,24 @@ export default function InformationTwo() {
               </label>
               <div className="radio-two">
                 <div className="radio-container">
-                  <input type="radio" name="radio" {...register("assets")} />
+                  <input
+                    type="radio"
+                    name="assets"
+                    value="Yes"
+                    defaultValue={consumer.assetsPledged}
+                    {...register("assets")}
+                  />
                   <label>Yes</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" {...register("assets")} />
+                  <input
+                    type="radio"
+                    name="assets"
+                    value="No"
+                    defaultValue={consumer.assetsPledged}
+                    {...register("assets")}
+                  />
                   <label>No</label>
                 </div>
               </div>
@@ -318,12 +307,22 @@ export default function InformationTwo() {
               </label>
               <div className="radio-two">
                 <div className="radio-container">
-                  <input type="radio" name="radio" {...register("legal")} />
+                  <input
+                    type="radio"
+                    value="Yes"
+                    defaultValue={consumer.defendants}
+                    {...register("legal")}
+                  />
                   <label>Yes</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" {...register("legal")} />
+                  <input
+                    type="radio"
+                    value="No"
+                    defaultValue={consumer.defendants}
+                    {...register("legal")}
+                  />
                   <label>No</label>
                 </div>
               </div>
@@ -335,12 +334,24 @@ export default function InformationTwo() {
               </label>
               <div className="radio-two">
                 <div className="radio-container">
-                  <input type="radio" name="radio" {...register("citizen")} />
+                  <input
+                    type="radio"
+                    name="citizen"
+                    value="Yes"
+                    defaultValue={consumer.usCitizen}
+                    {...register("citizen")}
+                  />
                   <label>Yes</label>
                 </div>
 
                 <div className="radio-container">
-                  <input type="radio" name="radio" {...register("citizen")} />
+                  <input
+                    type="radio"
+                    name="citizen"
+                    value="No"
+                    defaultValue={consumer.usCitizen}
+                    {...register("citizen")}
+                  />
                   <label>No</label>
                 </div>
               </div>
@@ -357,6 +368,7 @@ export default function InformationTwo() {
                   type="text"
                   autoComplete="fsoo"
                   placeholder="Enter State of Organization"
+                  defaultValue={consumer.personalBankAccount}
                   {...register("bankAccount")}
                   required
                 />
@@ -373,6 +385,8 @@ export default function InformationTwo() {
                   <input
                     type="radio"
                     name="radio"
+                    value="Yes"
+                    defaultValue={consumer.everDeclaredBankruptcy}
                     {...register("bankruptcy")}
                   />
                   <label>Yes</label>
@@ -382,6 +396,8 @@ export default function InformationTwo() {
                   <input
                     type="radio"
                     name="radio"
+                    value="No"
+                    defaultValue={consumer.everDeclaredBankruptcy}
                     {...register("bankruptcy")}
                   />
                   <label>No</label>
@@ -392,6 +408,7 @@ export default function InformationTwo() {
 
           <div className="form-row-button">
             <input type="submit" href="" id="button" value="Continue" />
+            <a href="/personalfinance_is">Skip</a>
           </div>
         </form>
       </Hero>

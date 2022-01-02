@@ -2,59 +2,71 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const Nav = styled.nav`
-	height: 60px;
-	background: #1b46b0;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	align-items: center;
-	color: #ffffff99;
+  height: 60px;
+  background: #1b46b0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  color: #ffffff99;
 
-	.Document {
-		background: #f3ba17;
-		padding: 5px 20px;
-		color: #33333399;
-	}
+  .Document {
+    background: #f3ba17;
+    padding: 5px 20px;
+    color: #33333399;
+  }
+ 
 `;
 
-const StyledLink = styled.a``;
+// .nav-link a {
+//   text-decoration: none;
+//   color: white;
+//   padding: 10px;
+//   background-color: #FFCF00;
+//   &[aria-current] {
+//     background-color: green;
+//  }
+const StyledLink = styled.a`
+  
+`;
 
 const NavMenu = (email, userName, access_token, userid) => {
-	return (
-		<Nav>
-			<div>
-				<Link href="/form" passHref>
-					<StyledLink>Pre-qualify</StyledLink>
-				</Link>
-			</div>
-			<div>
-				<Link href="/business" passHref>
-					<StyledLink>Business Financials</StyledLink>
-				</Link>
-			</div>
-			<div>
-				<Link href="/information" passHref>
-					<StyledLink>Personal Financials</StyledLink>
-				</Link>
-			</div>
-			<div>
-				<Link href="/upload" passHref>
-					<StyledLink>Documents</StyledLink>
-				</Link>
-			</div>
-		</Nav>
-	);
+  return (
+    <Nav>
+      <div>
+        <Link href="/prequlaify_bci" passHref>
+          <StyledLink>Pre-qualify</StyledLink>
+        </Link>
+      </div>
+      <div>
+        <Link href="/businessfinance_btr" passHref>
+          <StyledLink>Business Financials</StyledLink>
+        </Link>
+      </div>
+      <div>
+        <Link href="/personalfinance_pi" passHref>
+          <StyledLink>Personal Financials</StyledLink>
+        </Link>
+      </div>
+      <div>
+        <Link href="/upload" passHref>
+          <StyledLink>Documents</StyledLink>
+        </Link>
+      </div>
+    </Nav>
+  );
 };
 
 export default NavMenu;
 
+
 export function getServerSideProps({ req, res }) {
-	return {
-		props: {
-			email: req.cookies.email || "",
-			userName: req.cookies.userName || "",
-			access_token: req.cookies.access_token || "",
-			userid: req.cookies.userid || "",
-		},
-	};
+  return {
+    props: {
+      email: req.cookies.email || "",
+      userName: req.cookies.userName || "",
+      access_token: req.cookies.access_token || "",
+      userid: req.cookies.userid || "",
+    },
+  };
 }

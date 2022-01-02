@@ -5,6 +5,9 @@ import axios from "axios";
 import Router from "next/router";
 import cookie from "js-cookie";
 import { useEffect, useState } from "react";
+import Login from "./login";
+import NavMenu from "../components/NavMenu";
+
 
 const Hero = styled.div`
 	font-family: Mulish;
@@ -142,10 +145,18 @@ const Hero = styled.div`
 		display: flex;
 		margin: 20px 0px 20px 0px;
 	}
+	input::-webkit-outer-spin-button,
+  	input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 
+
+
 export default function Form({ data }) {
+	
 	const {
 		register,
 		handleSubmit,
@@ -159,76 +170,125 @@ export default function Form({ data }) {
 
 	const onSubmitForm = async (values) => {
 
+		if(cookie.get("id") == "") {
+		
+
+			axios({
+				method: "post",
+				url:
+					process.env.NEXT_PUBLIC_BASE_URL + "api/borrower/add-update-business-contact" ,
+				data: {
+
+					businessLegalName: values.businesslegalname,
+					dba: values.dba,
+					address: values.address,
+					suite: values.suite,
+					city: values.city,
+					state: values.state,
+					zipCode: values.zipcode,
+					businessPhone: values.phone,
+					website: values.website,
+					// id: cookie.get("id"),
+					borrowerId: cookie.get("loan_request_id"),
+				},
+				headers: headers,
+			}).then(
+				(response) => {
+					if (response.data.isSuccess) {
+						Router.push("/prequlaify_bi");
+					} else {
+						console.log(response);
+					}
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		}else{
+			axios({
+				method: "post",
+				url:
+					process.env.NEXT_PUBLIC_BASE_URL + "api/borrower/add-update-business-contact" ,
+				data: {
+
+					businessLegalName: values.businesslegalname,
+					dba: values.dba,
+					address: values.address,
+					suite: values.suite,
+					city: values.city,
+					state: values.state,
+					zipCode: values.zipcode,
+					businessPhone: values.phone,
+					website: values.website,
+					id: cookie.get("id"),
+					borrowerId: cookie.get("loan_request_id"),
+				},
+				headers: headers,
+			}).then(
+				(response) => {
+					if (response.data.isSuccess) {
+						Router.push("/prequlaify_bi");
+					} else {
+						console.log(response);
+					}
+				},
+				(error) => {
+					console.log(error);
+				}
+			);
+		}
+	};
+
+	const [consumer, getConsumer] = useState({});
+
+	useEffect(() => { 
+		let url =
+			process.env.NEXT_PUBLIC_BASE_URL +
+			"/api/borrower/get-business-contact/" +
+			cookie.get("loan_request_id");
 		axios({
-			method: "post",
-			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-business-contact",
-			data: {
-				businessLegalName: values.businesslegalname,
-				dba: values.dba,
-				address: values.address,
-				suite: values.suite,
-				city: values.city,
-				state: values.state,
-				zipCode: values.zipcode,
-				businessPhone: values.phone,
-				website: values.website,
-				userId: cookie.get("userid"),
-				borrowerId: cookie.get("id"),
-			},
+			method: "GET",
+			url: url,
 			headers: headers,
 		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					Router.push("/form2");
-				} else {
-					console.log(response);
-				}
+			(respo) => {
+				console.log(respo.data.payload);
+				if(respo.data.payload == null){
+					cookie.set("id","", { expires: 5 / 24 });
+					let dataempty = {
+						businessLegalName: "",
+						dba: "",
+						address: "",
+						suite: "",
+						city: "",
+						state: "",
+						zipCode: "",
+						businessPhone: "",
+						website: "",
+					}
+					getConsumer(dataempty);
+		  		}else{
+					cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
+					getConsumer(respo.data.payload);
+		  		}
 			},
 			(error) => {
 				console.log(error);
 			}
 		);
-	};
-
-	const [consumer, getConsumer] = useState({});
-
-
-	useEffect(() => { 
-
-	let url =
-		process.env.NEXT_PUBLIC_BASE_URL +
-		"/api/borrower/get-business-contact/" +
-		cookie.get("id");
-	axios({
-		method: "GET",
-		url: url,
-		headers: headers,
-	}).then(
-		(respo) => {
-			console.log(respo.data.payload);
-
-			getConsumer(respo.data.payload);
-			
-		},
-		(error) => {
-
-			console.log(error);
-		}
-	);
 	},[]);
 
 	function handleChange(event) {
 		getConsumer(event.target.value);
-	  }
-
+	}
 
 	return (
 		<>
 			<Head>
-				<title>Form </title>
+				<title>Business Contact Information </title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
+				<NavMenu />
 			<Hero>
 				{/* <div className="error">
               <p>{aState}</p>
@@ -248,7 +308,6 @@ export default function Form({ data }) {
 									Business Legal Name
 								</label>
 								<input
-									id="firstname"
 									className="textbox"
 									type="text"
 									defaultValue={consumer.businessLegalName} 
@@ -264,7 +323,6 @@ export default function Form({ data }) {
 									DBA
 								</label>
 								<input
-									id="firstname"
 									className="textbox"
 									type="text"
 									defaultValue={consumer.dba} 
@@ -358,7 +416,7 @@ export default function Form({ data }) {
 									type="number"
 									autoComplete="fname"
 									placeholder="Enter Zip Code"
-									defaultValue={consumer.zipcode} 
+									defaultValue={consumer.zipCode} 
 
 									{...register("zipcode", {
 										required: "Required",
@@ -377,7 +435,7 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
-									defaultValue={consumer.phone} 
+									defaultValue={consumer.businessPhone} 
 
 									placeholder="(XXX)-(XXX)-(XXXX)"
 									{...register("phone", {
@@ -406,7 +464,7 @@ export default function Form({ data }) {
 					</section>
 
 					<div className="form-row-button">
-						<input type="submit" href="form2" id="button" value="Continue" />
+						<input type="submit" id="button" value="Continue" />
 					</div>
 				</form>
 			</Hero>

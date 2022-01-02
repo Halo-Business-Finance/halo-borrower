@@ -161,15 +161,15 @@ export default function ProfitLoss() {
     axios({
       method: "post",
       url:
-        process.env.NEXT_PUBLIC_BASE_URL + "/api/",
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/ /business-finance/upload-business-profit-and-loss/",
       data: {
-
+      
 	  },
       headers: headers,
     }).then(
       (response) => {
         if (response.data.isSuccess) {
-          Router.push("/");
+          Router.push("/businessfinance_bs");
         } else {
           console.log(response);
         }
@@ -223,7 +223,7 @@ export default function ProfitLoss() {
               </div>
 
               <div className="skip-link">
-                <p>Skip</p>
+              <a href="/businessfinance_bs">Skip</a>
               </div>
             </div>
           </form>
