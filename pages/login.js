@@ -5,7 +5,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
-import Link from "next/link";
 
 const Hero = styled.div`
 	display: flex;
@@ -53,7 +52,8 @@ const Hero = styled.div`
 	}
 
 	.heading {
-		text-align: center;
+		display: inline;
+		float: left;
 	}
 
 	.heading-step {
@@ -95,13 +95,6 @@ const Hero = styled.div`
 		justify-content: center;
 		align-items: center;
 		display: flex;
-	}
-	& .login-description {
-		text-align: center;
-	}
-	& .login-link {
-		color: blue;
-		font-weight: 700;
 	}
 `;
 
@@ -254,14 +247,6 @@ export default function Login({ email, userName, access_token, userid }) {
 					<div className="form-row-button">
 						<input type="submit" id="button" value="Log In" />
 					</div>
-					<p className="login-description">
-						{" "}
-						Don't have an account?{" "}
-						<Link href="/registration"><a  className="login-link">
-							Register
-						</a>
-						</Link>
-					</p>
 				</form>
 			</Hero>
 		</>

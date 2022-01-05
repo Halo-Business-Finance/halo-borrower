@@ -278,7 +278,7 @@ export default function Form() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
+				<form onSubmit={handleSubmit(onSubmitForm)} >
 					{/* <div className="finance-list">
 						<p className="loan-step">Step 1</p>
 						<h3 className="loan-head">Which type of loan do you prefer?</h3>
@@ -368,8 +368,8 @@ export default function Form() {
 					</div> */}
 
 					<CRE />
-					<BLOAN />
-					<PROPERTYCRE />
+					{/* <BLOAN />
+					<PROPERTYCRE /> */}
 
 					<div className="space"></div>
 					{/* 
