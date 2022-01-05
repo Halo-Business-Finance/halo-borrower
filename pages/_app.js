@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import "../styles/globals.css";
 import "nprogress/nprogress.css";
 import dynamic from 'next/dynamic'
-
+import 'antd/dist/antd.css';
 export default function App({ Component, pageProps }) {
 
 const ProgressBar = dynamic(

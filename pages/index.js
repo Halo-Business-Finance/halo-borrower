@@ -3,6 +3,7 @@ import cookie from "js-cookie";
 import Borrower from "./borrower-apply";
 import LoansApplications from "./loanallapplications";
 
+
 const Hero = styled.div`
 	font-family: Mulish;
 
