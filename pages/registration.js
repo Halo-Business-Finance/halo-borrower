@@ -1,307 +1,286 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import cookie from "js-cookie";
 import Router from "next/router";
 import Borrower from "./borrower-apply";
 
 const Hero = styled.div`
-  padding: 40px 20% 40px 20%;
-  font-family: Mulish;
-  background-color: #e5e5e5;
+	padding: 40px 20% 40px 20%;
+	font-family: Mulish;
+	background-color: #e5e5e5;
 
-  .formstyle {
-    background: #fff;
-    border-radius: 10px;
-    padding: 0px 0px 20px 0px;
-  }
+	.formstyle {
+		background: #fff;
+		border-radius: 10px;
+		padding: 0px 0px 20px 0px;
+	}
 
-  .Form-design {
-    padding: 30px 30px 20px 30px;
-  }
+	.Form-design {
+		padding: 30px 30px 20px 30px;
+	}
 
-  .textbox {
-    width: 100%;
-    padding: 12px;
-  }
+	.textbox {
+		width: 100%;
+		padding: 12px;
+	}
 
-  .form-group {
-    margin-bottom: 10px;
-  }
+	.form-row-one {
+		column-count: 2;
+		width: 100%;
+		display: inline-block;
+		column-gap: 5%;
+	}
 
-  .form-head {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
+	.form-head {
+		display: inline-block;
+		width: 100%;
+		text-align: center;
+	}
 
-  .heading {
-    font-weight: 700;
-    color: #333333;
-  }
-  .form-row-one {
-    width: 60%;
-    margin-top: 5%;
-    margin-left: 20%;
-  }
+	.heading {
+		font-weight: 700;
+		color: #333333;
+	}
 
-  .formlabel {
-    color: #5c5c5c;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 10px;
-  }
+	.formlabel {
+		color: #5c5c5c;
+		font-weight: 600;
+		font-size: 16px;
+		line-height: 10px;
+	}
 
-  .textbox {
-    border-radius: 4px;
-    border: 2px solid #ededed;
-  }
+	.textbox {
+		border-radius: 4px;
+		border: 2px solid #ededed;
+	}
 
-  .textbox ::placeholder {
-    color: #adadad;
-    opacity: 1;
-    font-style: italic;
-  }
+	.textbox ::placeholder {
+		color: #adadad;
+		opacity: 1;
+		font-style: italic;
+	}
 
-  input[type="submit"] {
-    background-color: #f3ba17;
-    border: none;
-    color: #333333;
-    font-weight: 700;
-    border-radius: 8px;
-    padding: 14px 30px;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 18px;
-  }
+	input[type="submit"] {
+		background-color: #f3ba17;
+		border: none;
+		color: #333333;
+		font-weight: 700;
+		border-radius: 8px;
+		padding: 14px 30px;
+		text-decoration: none;
+		cursor: pointer;
+		font-size: 18px;
+	}
 
-  .form-row-button {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
+	.form-row-button {
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		display: flex;
+	}
 
-  .req {
-    color: red;
-    font-size: 14px;
-  }
+	.req {
+		color: red;
+		font-size: 14px;
+	}
 
-  .register-description {
-    font-size: 16px;
-    color: #5c5c5c;
-    font-weight: 400;
-  }
+	.register-description {
+		font-size: 16px;
+		color: #5c5c5c;
+		font-weight: 400;
+	}
 
-  .reg-head {
-    width: 100%;
-    background-color: #1b46b0;
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-    line-height: 10px;
-    margin-bottom: 20px;
-  }
+	.reg-head {
+		width: 100%;
+		background-color: #1b46b0;
+		color: #fff;
+		text-align: center;
+		padding: 20px;
+		line-height: 10px;
+		margin-bottom: 20px;
+	}
 
-  .reg-head p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 16px;
-    line-height: 10px;
-  }
+	.reg-head p {
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 16px;
+		line-height: 10px;
+	}
 
-  .login-link {
-    color: blue;
-    font-weight: 700;
-  }
+	.login-link {
+		color: blue;
+		font-weight: 700;
+	}
 
-  .register-description {
-    text-align: center;
-  }
+	.register-description {
+		text-align: center;
+	}
 
-  .error {
-    text-align: center;
-  }
+	.error {
+		text-align: center;
+	}
 
-  p {
-    color: #dc3545;
-    padding: 10px 10px 10px 10px;
-  }
+	.error p {
+		color: #dc3545;
+		padding: 10px 10px 10px 10px;
+	}
 `;
 
+
 export default function Form() {
-  const {
-    register,
-    handleSubmit,
-    getValues,
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
-    formState: { errors },
-  } = useForm();
+	const [aState, setA] = useState();
 
-  const [aState, setA] = useState();
+	if (typeof cookie.get("loanTypeId") !== "undefined") {
+		// Router.push('/borrower-apply');
+	}
 
-  const onSubmitForm = async (values) => {
-    axios({
-      method: "post",
-      url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/register",
-      data: {
-        loanTypeId: cookie.get("loanTypeId"),
-        // amount: cookie.get("amount"),
-        // borrowerInfo: {
-        //   firstName: cookie.get("firstName"),
-        //   lastName: cookie.get("lastName"),
-        //   phone: cookie.get("phone"),
-        //   businessName: cookie.get("businessName"),
-        //   source: cookie.get("source"),
-        // },
+	const onSubmitForm = async (values) => {
+		axios({
+			method: "post",
+			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/registration",
+			data: {
+				loanTypeId: cookie.get("loanTypeId"),
+				amount: cookie.get("amount"),
+				borrowerInfo: {
+					firstName: cookie.get("firstName"),
+					lastName: cookie.get("lastName"),
+					phone: cookie.get("phone"),
+					businessName: cookie.get("businessName"),
+					source: cookie.get("source"),
+				},
+				account: {
+					email: values.email,
+					password: values.password,
+				},
+				applicationStarted: "2021-11-16T14:45:22.123Z",
+				borrowerState: "PreQualify",
+			},
+		}).then(
+			(response) => {
+				console.log(response.data);
+				if (response.data.isSuccess) {
+					Router.push("/login");
+				} else {
+					console.log(response);
+					setA(response.data.reason);
+					return <div>{aState}</div>;
+				}
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
 
-        account: {
-          email: values.email,
-          password: values.password,
-          confirmPassword: values.confirm_password,
-        },
-        // applicationStarted: "2021-11-16T14:45:22.123Z",
-        // borrowerState: "PreQualify",
-      },
-    }).then(
-      (response) => {
-        // console.log(response.data);
-        if (response.data.isSuccess) {
-          Router.push("/login");
-        } else {
-          console.log(response);
-          setA(response.data.reason);
-          //   return <div>{aState}</div>;
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  };
+	return (
+		<>
+			<Head>
+				<title>Registration</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<Hero>
+				<section className="reg-head">
+					<h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
+					<p>Get started now by filling out the loan application below</p>
+				</section>
 
-  return (
-    <>
-      <Head>
-        <title>Registration</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Hero>
-        <section className="reg-head">
-          <h3>Soft Credit Check - No Upfront Fees - Apply Online</h3>
-          <p>Get started now by filling out the loan application below</p>
-        </section>
+				<form
+					className="formstyle"
+					action="/login"
+					onSubmit={handleSubmit(onSubmitForm)}
+				>
+					<section className="Form-design">
+						<div className="form-head">
+							<h2 className="heading">Continue to Enroll</h2>
+						</div>
 
-        <form
-          className="formstyle"
-          action="/login"
-          onSubmit={handleSubmit(onSubmitForm)}
-        >
-          <section className="Form-design">
-            <div className="form-head">
-              <h2 className="heading">Continue to Enroll</h2>
-            </div>
+						<div className="error">
+							<p>{aState}</p>
+						</div>
 
-            <div className="error">{/* <p>{aState}</p> */}</div>
+						<div className="form-row-one">
+							<div className="form-group">
+								<label htmlFor="emal" className="formlabel ">
+									Email Address<sup className="req">*</sup>
+								</label>
+								<input
+									{...register("email", {
+										required: "required",
+										pattern: {
+											value: /\S+@\S+\.\S+/,
+											message: "Entered value does not match email format",
+										},
+									})}
+									id="email"
+									className="textbox"
+									type="email"
+									autoComplete="fname"
+									placeholder="Enter your email address"
+									required
+								/>
+								{errors.email && (
+									<span role="alert">{errors.email.message}</span>
+								)}
+							</div>
 
-            <div className="form-row-one">
-              <div className="form-group">
-                <label htmlFor="email" className="formlabel ">
-                  Email Address<sup className="req">*</sup>
-                </label>
-                <input
-                  {...register("email", {
-                    required: "required",
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: "Entered value does not match email format",
-                    },
-                  })}
-                  className="textbox"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="Enter your email address"
-                  required
-                />
-                {errors.email && (
-                  <span role="alert">{errors.email.message}</span>
-                )}
-              </div>
+							<div className="form-group">
+								<label htmlFor="password" className="formlabel">
+									Password<sup className="req">*</sup>
+								</label>
+								<input
+									{...register("password", {
+										required: "required",
+										minLength: {
+											value: 5,
+											message: "min length is 5",
+										},
+									})}
+									id="password"
+									className="textbox"
+									type="password"
+									autoComplete="fdba"
+									placeholder="Enter your password"
+									required
+								/>
+								{errors.password && (
+									<span role="alert">{errors.password.message}</span>
+								)}
+							</div>
+						</div>
 
-              <div className="form-group">
-                <label htmlFor="password" className="formlabel">
-                  Password<sup className="req">*</sup>
-                </label>
-                <input
-                  {...register("password", {
-                    required: "required",
-                    minLength: {
-                      value: 5,
-                      message: "min length is 5",
-                    },
-                  })}
-                  className="textbox"
-                  type="password"
-                  autoComplete="fdba"
-                  placeholder="Enter your password"
-                  required
-                />
-                {errors.password && (
-                  <span role="alert">{errors.password.message}</span>
-                )}
-              </div>
-              <div className="form-group">
-                <label htmlFor="confirm_password" className="formlabel">
-                  Confirm Password<sup className="req">*</sup>
-                </label>
-                <input
-                  className="textbox"
-                  type="password"
-                  placeholder="Re-enter your password"
-                  {...register("confirm_password", {
-                    validate: (value) => {
-                      // value is from confirm and watch will return value from password
+						<p className="register-description">
+							{" "}
+							By clicking “Register”, you consent to receive calls and emails
+							from Halo Business Finance. You acknowledge that no purchase of
+							credit or services is contingent upon such consent and acknowledge
+							that you have read Halo Business Finance’s Application Agreement
+							and Halo Business Finance’s privacy policy. You understand that
+							you may opt-out of receiving communications of your choice from
+							Halo Business Finance as provided in the privacy policy.
+						</p>
+					</section>
 
-                      if (value === getValues("password")) {
-                        return true;
-                      } else {
-                        return <span>Confirm Password fields don't match</span>;
-                      }
-                    },
-                  })}
-                />
-                {errors.confirm_password && (
-                  <p>{errors.confirm_password.message}</p>
-                )}
-              </div>
-            </div>
+					<div className="form-row-button">
+						<input type="submit" id="button" value="Register" />
+					</div>
 
-            <p className="register-description">
-              {" "}
-              By clicking “Register”, you consent to receive calls and emails
-              from Halo Business Finance. You acknowledge that no purchase of
-              credit or services is contingent upon such consent and acknowledge
-              that you have read Halo Business Finance's Application Agreement
-              and Halo Business Finance's privacy policy. You understand that
-              you may opt-out of receiving communications of your choice from
-              Halo Business Finance as provided in the privacy policy.
-            </p>
-          </section>
-
-          <div className="form-row-button">
-            <input type="submit" id="button" value="Register" />
-          </div>
-
-          <p className="register-description">
-            {" "}
-            already have an account?{" "}
-            <a href="/login" className="login-link">
-              login
-            </a>
-          </p>
-        </form>
-      </Hero>
-    </>
-  );
+					<p className="register-description">
+						{" "}
+						already have an account?{" "}
+						<a href="/login" className="login-link">
+							login
+						</a>
+					</p>
+				</form>
+			</Hero>
+		</>
+	);
 }

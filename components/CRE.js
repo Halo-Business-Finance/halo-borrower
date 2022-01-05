@@ -41,6 +41,10 @@ const Hero = styled.div`
 		border-right-style: hidden;
 		border-left-style: hidden;
 	}
+
+	.loan-type-contain img {
+		max-width: 80px !important;
+	}
 	.outline:focus {
 		outline: none;
 	}
@@ -49,52 +53,13 @@ const Hero = styled.div`
 export default function CRE() {
 	const [formstep, setFormstep] = React.useState(0);
 
-	const { register, handleSubmit } = useForm();
-
-	const [details, setDetails] = useState([]);
-
-	const headers = {
-		"Content-Type": "application/json",
-	};
-
-	const url = process.env.NEXT_PUBLIC_BASE_URL + "/api/loan-type/get-all";
-
-	useEffect(() => {
-		axios({
-			method: "GET",
-			url: url,
-			headers: headers,
-		}).then(
-			(respo) => {
-				console.log(respo.data.payload);
-				setDetails(respo.data.payload);
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	}, []);
-
-	const onSubmitForm = async (data) => {
-		cookie.set("loanTypeId", data.loantypeid, {
-			expires: 1 / 24,
-		});
-		cookie.set("amount", data.amount, { expires: 1 / 24 });
-		cookie.set("firstName", data.firstName, { expires: 1 / 24 });
-		cookie.set("lastName", data.lastName, { expires: 1 / 24 });
-		cookie.set("phone", data.phone, { expires: 1 / 24 });
-		cookie.set("businessName", data.businessName, { expires: 1 / 24 });
-		cookie.set("source", data.source, { expires: 1 / 24 });
-		Router.push("/registration");
-	};
-
 	const completeFormStep = () => {
 		setFormstep(formstep + 1);
 	};
 	return (
 		<div>
 			<Hero>
-				{formstep === 0 && (
+				{/* {formstep === 0 && (
 					<div className="finance-list">
 						<p className="loan-step">Step 1</p>
 						<h3 className="loan-head">Which type of loan do you prefer?</h3>
@@ -128,7 +93,7 @@ export default function CRE() {
 							})}
 						</section>
 					</div>
-				)}
+				)} */}
 
 				{formstep === 1 && (
 					<>

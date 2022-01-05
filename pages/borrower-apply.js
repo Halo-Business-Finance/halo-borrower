@@ -235,6 +235,11 @@ export default function Form() {
 	const { register, handleSubmit } = useForm();
 
 	const [details, setDetails] = useState([]);
+	const [status, setStatus] = useState(0);
+
+	const radioHandler = (status) => {
+		setStatus(status);
+	};
 
 	const headers = {
 		"Content-Type": "application/json",
@@ -278,42 +283,90 @@ export default function Form() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-				<form onSubmit={handleSubmit(onSubmitForm)} >
-					{/* <div className="finance-list">
+				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
+					<div className="finance-list">
 						<p className="loan-step">Step 1</p>
 						<h3 className="loan-head">Which type of loan do you prefer?</h3>
 						<p className="loan-describe">Please select one to continue</p>
 
 						<section className="loans-types">
-							{details.map((datai, dataname) => {
+							{/* {details.map((datai, dataname) => {
 								const base_url =
 									process.env.NEXT_PUBLIC_BASE_URL + datai.thumbnail;
-								return (
-									<div className="loan-type-section">
-										<div className="loan-type">
-											<div className="loan-type-select">
-												<div className="loan-type-contain first">
-													<input
-														type="radio"
-														name="loantypeid"
-														value={datai.id}
-														{...register("loantypeid")}
-													/>
-													<img src={base_url} />
-													<a>
-														<img src="/images/help.png" />
-													</a>
-												</div>
-												<p>{datai.loanTitle}</p>
-											</div>
+								return ( */}
+							<div className="loan-type-section">
+								<div className="loan-type">
+									<div className="loan-type-select">
+										<div className="loan-type-contain first">
+											<input
+												type="radio"
+												name="radio"
+												className="own-click"
+												value="0"
+												defaultChecked={status === 1}
+												onClick={(e) => radioHandler(1)}
+											/>
+											<img src="/images/SBA7ALoan.png" />
+											<a>
+												<img src="/images/help.png" />
+											</a>
 										</div>
+										{/* <p>{datai.loanTitle}</p> */}
 									</div>
-								);
-							})}
+								</div>
+							</div>
+							{/* );
+							})} */}
+							<div className="loan-type-section">
+								<div className="loan-type">
+									<div className="loan-type-select">
+										<div className="loan-type-contain first">
+											<input
+												type="radio"
+												name="radio"
+												className="own-click"
+												value="1"
+												defaultChecked={status === 2}
+												onClick={(e) => radioHandler(2)}
+											/>
+											<img src="/images/sba504loan.png" />
+											<a>
+												<img src="/images/help.png" />
+											</a>
+										</div>
+										{/* <p>{datai.loanTitle}</p> */}
+									</div>
+								</div>
+							</div>
+							<div className="loan-type-section">
+								<div className="loan-type">
+									<div className="loan-type-select">
+										<div className="loan-type-contain first">
+											<input
+												type="radio"
+												name="radio"
+												className="own-click"
+												value="2"
+												defaultChecked={status === 3}
+												onClick={(e) => radioHandler(3)}
+											/>
+											<img src="/images/invoicefactoring.png" />
+											<a>
+												<img src="/images/help.png" />
+											</a>
+										</div>
+										{/* <p>{datai.loanTitle}</p> */}
+									</div>
+								</div>
+							</div>
 						</section>
-					</div> */}
+					</div>
 
 					<div className="space"></div>
+
+					{status === 1 && <CRE />}
+					{status === 2 && <BLOAN />}
+					{status === 3 && <PROPERTYCRE />}
 
 					{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
@@ -367,8 +420,8 @@ export default function Form() {
 						</section>
 					</div> */}
 
-					<CRE />
-					{/* <BLOAN />
+					{/* <CRE />
+					<BLOAN />
 					<PROPERTYCRE /> */}
 
 					<div className="space"></div>
