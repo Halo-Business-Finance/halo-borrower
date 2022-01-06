@@ -51,11 +51,17 @@ const Hero = styled.div`
 `;
 
 export default function CRE() {
+
+	const [propertyState, setPropertyState] = useState('');
 	const [formstep, setFormstep] = React.useState(0);
 
 	const completeFormStep = () => {
 		setFormstep(formstep + 1);
 	};
+	const onChange= (e) => {
+setPropertyState(e.target.value)
+	}
+console.log(propertyState);
 	return (
 		<div>
 			<Hero>
@@ -229,16 +235,16 @@ export default function CRE() {
 									Owner Occupied or Investment Property
 								</div>
 								<div className="term">
-									<input type="radio" name="occupied" value="Yes" />
-									<label className="radio">Yes</label>
+									<input onChange={onChange} type="radio" name="occupied" value="Owner" />
+									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="occupied" value="No" />
-									<label className="radio">No</label>
+									<input onChange={onChange} type="radio" name="occupied" value="Investment" />
+									<label className="radio">Investment</label>
 								</div>
 							</div>
 						</section>
-						<section>
+						{<section>
 							<div className="goal">
 								<div className="cast">
 									Will You Occupy 51% or more of the space
@@ -252,7 +258,7 @@ export default function CRE() {
 									<label className="radio">No</label>
 								</div>
 							</div>
-						</section>
+						</section>}
 						<section>
 							<div className="goal">
 								<div className="cast">How many Tenants or Units</div>
