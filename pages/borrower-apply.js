@@ -297,7 +297,9 @@ export default function Form() {
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
+								
 										<div className="loan-type-contain first">
+											
 											<input
 												type="radio"
 												name="radio"
@@ -306,11 +308,15 @@ export default function Form() {
 												defaultChecked={status === 1}
 												onClick={(e) => radioHandler(1)}
 											/>
+										
 											<img src="/images/SBA7ALoan.png" />
+											
 											<a>
 												<img src="/images/help.png" />
 											</a>
+											
 										</div>
+										<strong>Refinance CRE</strong>
 										{/* <p>{datai.loanTitle}</p> */}
 									</div>
 								</div>
@@ -334,6 +340,7 @@ export default function Form() {
 												<img src="/images/help.png" />
 											</a>
 										</div>
+										<strong>Bridge Loan</strong>
 										{/* <p>{datai.loanTitle}</p> */}
 									</div>
 								</div>
@@ -355,6 +362,7 @@ export default function Form() {
 												<img src="/images/help.png" />
 											</a>
 										</div>
+										<strong>Purchase CRE</strong>
 										{/* <p>{datai.loanTitle}</p> */}
 									</div>
 								</div>

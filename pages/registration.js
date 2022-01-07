@@ -6,6 +6,7 @@ import axios from "axios";
 import cookie from "js-cookie";
 import Router from "next/router";
 import Borrower from "./borrower-apply";
+import Link from "next/link";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -159,6 +160,7 @@ export default function Form() {
 				account: {
 					email: values.email,
 					password: values.password,
+					phone:values.phone,
 				},
 				applicationStarted: "2021-11-16T14:45:22.123Z",
 				borrowerState: "PreQualify",
@@ -254,7 +256,34 @@ export default function Form() {
 									<span role="alert">{errors.password.message}</span>
 								)}
 							</div>
+							
 						</div>
+						<div className="form-group">
+							<br/>
+							<br/>
+								<label htmlFor="phone" className="formlabel">
+									Phone<sup className="req">*</sup>
+								</label>
+								<input
+									{...register("phone", {
+										required: "required",
+										// minLength: {
+										// 	value: 10,
+										// 	message: "min length is 10",
+										// },
+									})}
+									id="phone"
+									className="textbox"
+									type="tel"
+									autoComplete="fdba"
+									placeholder="Enter your phone number"
+									required
+								/>
+								{errors.phone && (
+									<span role="alert">{errors.phone.message}</span>
+								)}
+							</div>
+							
 
 						<p className="register-description">
 							{" "}
@@ -274,10 +303,11 @@ export default function Form() {
 
 					<p className="register-description">
 						{" "}
-						already have an account?{" "}
-						<a href="/login" className="login-link">
-							login
+						Already have an account?{" "}
+						<Link href="/login"><a  className="login-link">
+							Login
 						</a>
+						</Link>
 					</p>
 				</form>
 			</Hero>

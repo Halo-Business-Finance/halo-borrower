@@ -209,7 +209,7 @@ export default function PROPERTYCRE() {
 				)}
 				{formstep === 2 && (
 					<>
-					{propertyState=='Owner'?<section>
+					{propertyState=='Owner'&&<section>
 						<div className="goal">
 							<div className="cast">
 								Will You Occupy 51% or more of the space
@@ -223,7 +223,7 @@ export default function PROPERTYCRE() {
 								<label className="radio">No</label>
 							</div>
 						</div>
-					</section>:
+					</section>}
 					<>
 						<section>
 							<div className="goal">
@@ -284,10 +284,9 @@ export default function PROPERTYCRE() {
 							</div>
 						</section>
 						</>
-						}
 					</>
 				)}
-				{(formstep === 3&&propertyState=='Investment') && (
+				{formstep === 3&& (
 					<>
 						<section>
 							<div className="goal">
@@ -306,12 +305,13 @@ export default function PROPERTYCRE() {
 						<div className="goal">
 							<div className="cast">If So, When?</div>
 							<div className="term">
-								<input onChange={(e)=> onFormChange(e,'bankruptcyYear')} 
-									className="outline"
-									type="number"
-									placeholder="Your answer"
-								/>
-							</div>
+									<input onChange={(e)=> onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="0" />
+									<label className="radio">Less than 7 years</label>
+								</div>
+								<div className="term">
+									<input  onChange={(e)=> onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="10" />
+									<label className="radio">7 or More than 7 years</label>
+								</div>
 						</div>
 					</section>}
 						<section>

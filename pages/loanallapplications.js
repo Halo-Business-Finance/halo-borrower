@@ -285,9 +285,10 @@ export default function LoansApplications() {
 												<div className="loan-type-select">
 													<div className="loan-type-contain first-img">
 														{/* value= {datai.id} */}
+														
 														<img src={base_url} onClick={toggle} />
 													</div>
-													<p>{datai.loanTitle} </p>
+													<p>datai.loanTitle </p>
 												</div>
 											</div>
 										</div>
