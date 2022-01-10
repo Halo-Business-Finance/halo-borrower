@@ -7,6 +7,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { notification } from "antd";
+import { RadioGroup, RadioButton } from "react-radio-buttons";
 
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
@@ -304,14 +305,22 @@ export default function PROPERTYCRE() {
 {formValues.bankruptcy=='Yes'&&	<section>
 						<div className="goal">
 							<div className="cast">If So, When?</div>
-							<div className="term">
+							<RadioGroup onChange={(e)=> onFormChange(e,'bankruptcyYear')} vertical>
+  <RadioButton value="apple">
+    Apple
+  </RadioButton>
+  <RadioButton value="orange">
+    Orange
+  </RadioButton>
+  </RadioGroup>
+							{/* <div className="term">
 									<input onChange={(e)=> onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="0" />
 									<label className="radio">Less than 7 years</label>
 								</div>
 								<div className="term">
 									<input  onChange={(e)=> onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="10" />
 									<label className="radio">7 or More than 7 years</label>
-								</div>
+								</div> */}
 						</div>
 					</section>}
 						<section>
