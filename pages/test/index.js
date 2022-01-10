@@ -5,9 +5,9 @@ import cookie from "js-cookie";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CRE from "../components/CRE";
-import BLOAN from "../components/BLOAN";
-import PROPERTYCRE from "../components/PROPERTYCRE";
+import CRE from "../../components/CRE";
+import BLOAN from "../../components/BLOAN";
+import PROPERTYCRE from "../../components/PROPERTYCRE";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -15,6 +15,7 @@ const Hero = styled.div`
 	background-color: #1B46B0;
 	height: 93.6vh;
 	& .loan-type-select{
+        padding: 15px 0px;
 		&:hover{
 			transform: scale(1.1); 
 		}
@@ -23,11 +24,11 @@ const Hero = styled.div`
 			text-align: center;
 			margin-top:5px;
 			font-family: Mulish;
-font-style: normal;
-font-weight: 800;
-font-size: 16px;
-line-height: 150%;
-color: #5C5C5C;
+            font-style: normal;
+            font-weight: 800;
+            font-size: 16px;
+            line-height: 150%;
+            color: #5C5C5C;
 		}
 	}
 
@@ -105,14 +106,21 @@ color: #5C5C5C;
 	}
 
 	.loans-types {
-		width: 100%;
+        max-width:800px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+		
+        
 	}
 
 	.loan-type-section {
-		display: inline-block;
-		min-width: 25%;
+		/* display: inline-block; */
+		max-width:230px ;
+        width: 100%;
 		// max-width: 25%;
-		padding: 0px 15px 0px 15px;
+		padding: 0px 15px 15px 15px;
 		vertical-align: top;
 		color: #5c5c5c;
 		font-weight: 800;
@@ -123,7 +131,7 @@ color: #5C5C5C;
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		border-radius: 5px;
-		padding: 10px 20px 10px 20px;
+		padding: 30px 20px 50px 20px;
 	}
 
 	.loan-step {
@@ -134,11 +142,12 @@ color: #5C5C5C;
 
 	.loan-head {
 		color: #333333;
-		font-weight: 700;
+		
 		font-family: Mulish;
 font-style: normal;
 font-weight: bold;
-font-size: 20px;
+font-size: 36px;
+text-align: center;
 line-height: 150%;
 margin-bottom: 2px;
 	}
@@ -149,8 +158,9 @@ margin-bottom: 2px;
 		font-family: Mulish;
 font-style: normal;
 font-weight: normal;
-font-size: 14px;
+font-size: 22px;
 line-height: 150%;
+text-align: center;
 
 	}
 
@@ -264,151 +274,151 @@ line-height: 150%;
 `;
 
 export default function Form() {
-	const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm();
 
-	const [details, setDetails] = useState([]);
-	const [status, setStatus] = useState(0);
+    const [details, setDetails] = useState([]);
+    const [status, setStatus] = useState(0);
 
-	const radioHandler = (status) => {
-		setStatus(status);
-	};
+    const radioHandler = (status) => {
+        setStatus(status);
+    };
 
-	const headers = {
-		"Content-Type": "application/json",
-	};
+    const headers = {
+        "Content-Type": "application/json",
+    };
 
-	const url = process.env.NEXT_PUBLIC_BASE_URL + "/api/loan-type/get-all";
+    const url = process.env.NEXT_PUBLIC_BASE_URL + "/api/loan-type/get-all";
 
-	useEffect(() => {
-		axios({
-			method: "GET",
-			url: url,
-			headers: headers,
-		}).then(
-			(respo) => {
-				console.log(respo.data.payload);
-				setDetails(respo.data.payload);
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	}, []);
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: url,
+            headers: headers,
+        }).then(
+            (respo) => {
+                console.log(respo.data.payload);
+                setDetails(respo.data.payload);
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }, []);
 
-	const onSubmitForm = async (data) => {
-		cookie.set("loanTypeId", data.loantypeid, {
-			expires: 1 / 24,
-		});
-		cookie.set("amount", data.amount, { expires: 1 / 24 });
-		cookie.set("firstName", data.firstName, { expires: 1 / 24 });
-		cookie.set("lastName", data.lastName, { expires: 1 / 24 });
-		cookie.set("phone", data.phone, { expires: 1 / 24 });
-		cookie.set("businessName", data.businessName, { expires: 1 / 24 });
-		cookie.set("source", data.source, { expires: 1 / 24 });
-		Router.push("/registration");
-	};
+    const onSubmitForm = async (data) => {
+        cookie.set("loanTypeId", data.loantypeid, {
+            expires: 1 / 24,
+        });
+        cookie.set("amount", data.amount, { expires: 1 / 24 });
+        cookie.set("firstName", data.firstName, { expires: 1 / 24 });
+        cookie.set("lastName", data.lastName, { expires: 1 / 24 });
+        cookie.set("phone", data.phone, { expires: 1 / 24 });
+        cookie.set("businessName", data.businessName, { expires: 1 / 24 });
+        cookie.set("source", data.source, { expires: 1 / 24 });
+        Router.push("/registration");
+    };
 
-	return (
-		<>
-			<Head>
-				<title>Borrower Section</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-			<Hero>
-				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
-					<div className="finance-list">
-						<p className="loan-step">Step 1</p>
-						<h3 className="loan-head">Which type of loan do you prefer?</h3>
-						<p className="loan-describe">Please select one to continue</p>
+    return (
+        <>
+            <Head>
+                <title>Borrower Section</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <Hero>
+                <form onSubmit={handleSubmit(onSubmitForm)} action="form2">
+                    <div className="finance-list">
+                        <p className="loan-step">Step 1</p>
+                        <h3 className="loan-head">Which type of loan do you prefer?</h3>
+                        <p className="loan-describe">Please select one to continue</p>
 
-						<section className="loans-types">
-							{/* {details.map((datai, dataname) => {
+                        <section className="loans-types">
+                            {/* {details.map((datai, dataname) => {
 								const base_url =
 									process.env.NEXT_PUBLIC_BASE_URL + datai.thumbnail;
 								return ( */}
-							<div className="loan-type-section">
-								<div className="loan-type">
-									<div className="loan-type-select">
+                            <div className="loan-type-section">
+                                <div className="loan-type">
+                                    <div className="loan-type-select">
 
-										<div onClick={(e) => radioHandler(1)} className={`loan-type-contain ${status == 1 && "first"}`}>
+                                        <div onClick={(e) => radioHandler(1)} className={`loan-type-contain ${status == 1 && "first"}`}>
 
-											<input
-												type="radio"
-												name="radio"
-												className="own-click"
-												value="0"
-												defaultChecked={status === 1}
-												onClick={(e) => radioHandler(1)}
-											/>
+                                            <input
+                                                type="radio"
+                                                name="radio"
+                                                className="own-click"
+                                                value="0"
+                                                defaultChecked={status === 1}
+                                                onClick={(e) => radioHandler(1)}
+                                            />
 
-											<img src="/loantypes/1.svg" />
+                                            <img src="/loantypes/1.svg" />
 
-											<a>
-												<img src="/images/help.png" />
-											</a>
+                                            <a>
+                                                <img src="/images/help.png" />
+                                            </a>
 
-										</div>
-										<strong>Refinance CRE</strong>
-										{/* <p>{datai.loanTitle}</p> */}
-									</div>
-								</div>
-							</div>
-							{/* );
+                                        </div>
+                                        <strong>Refinance CRE</strong>
+                                        {/* <p>{datai.loanTitle}</p> */}
+                                    </div>
+                                </div>
+                            </div>
+                            {/* );
 							})} */}
-							<div className="loan-type-section">
-								<div className="loan-type">
-									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(2)} className={`loan-type-contain ${status == 2 && "first"}`}>
-											<input
-												type="radio"
-												name="radio"
-												className="own-click"
-												value="1"
-												defaultChecked={status === 2}
-												onClick={(e) => radioHandler(2)}
-											/>
-											<img src="/images/sba504loan.png" />
-											<a>
-												<img src="/images/help.png" />
-											</a>
-										</div>
-										<strong>Bridge Loan</strong>
-										{/* <p>{datai.loanTitle}</p> */}
-									</div>
-								</div>
-							</div>
-							<div className="loan-type-section">
-								<div className="loan-type">
-									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(3)} className={`loan-type-contain ${status == 3 && "first"}`}>
-											<input
-												type="radio"
-												name="radio"
-												className="own-click"
-												value="2"
-												defaultChecked={status === 3}
-												onClick={(e) => radioHandler(3)}
-											/>
-											<img src="/images/invoicefactoring.png" />
-											<a>
-												<img src="/images/help.png" />
-											</a>
-										</div>
-										<strong>Purchase CRE</strong>
-										{/* <p>{datai.loanTitle}</p> */}
-									</div>
-								</div>
-							</div>
-						</section>
-					</div>
+                            <div className="loan-type-section">
+                                <div className="loan-type">
+                                    <div className="loan-type-select">
+                                        <div onClick={(e) => radioHandler(2)} className={`loan-type-contain ${status == 2 && "first"}`}>
+                                            <input
+                                                type="radio"
+                                                name="radio"
+                                                className="own-click"
+                                                value="1"
+                                                defaultChecked={status === 2}
+                                                onClick={(e) => radioHandler(2)}
+                                            />
+                                            <img src="/images/sba504loan.png" />
+                                            <a>
+                                                <img src="/images/help.png" />
+                                            </a>
+                                        </div>
+                                        <strong>Bridge Loan</strong>
+                                        {/* <p>{datai.loanTitle}</p> */}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="loan-type-section">
+                                <div className="loan-type">
+                                    <div className="loan-type-select">
+                                        <div onClick={(e) => radioHandler(3)} className={`loan-type-contain ${status == 3 && "first"}`}>
+                                            <input
+                                                type="radio"
+                                                name="radio"
+                                                className="own-click"
+                                                value="2"
+                                                defaultChecked={status === 3}
+                                                onClick={(e) => radioHandler(3)}
+                                            />
+                                            <img src="/images/invoicefactoring.png" />
+                                            <a>
+                                                <img src="/images/help.png" />
+                                            </a>
+                                        </div>
+                                        <strong>Purchase CRE</strong>
+                                        {/* <p>{datai.loanTitle}</p> */}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
 
-					{/* <div className="space"></div> */}
+                    {/* <div className="space"></div> */}
 
-					{status === 1 && <CRE />}
-					{status === 2 && <BLOAN />}
-					{status === 3 && <PROPERTYCRE />}
+                    {status === 1 && <CRE />}
+                    {status === 2 && <BLOAN />}
+                    {status === 3 && <PROPERTYCRE />}
 
-					{/* <div className="finance-list">
+                    {/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
 						<h3 className="loan-head">How much do you want to borrow?</h3>
 						<p className="loan-describe">
@@ -460,12 +470,12 @@ export default function Form() {
 						</section>
 					</div> */}
 
-					{/* <CRE />
+                    {/* <CRE />
 					<BLOAN />
 					<PROPERTYCRE /> */}
 
-					<div className="space"></div>
-					{/* 
+                    <div className="space"></div>
+                    {/* 
 					<div className="finance-list">
 						<p className="loan-step">Step 3</p>
 						<h3 className="loan-head">Tell us a bit about you</h3>
@@ -574,8 +584,8 @@ export default function Form() {
 							</div>
 						</section>
 					</div> */}
-				</form>
-			</Hero>
-		</>
-	);
+                </form>
+            </Hero>
+        </>
+    );
 }
