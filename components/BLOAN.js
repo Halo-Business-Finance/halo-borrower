@@ -6,6 +6,7 @@ import cookie from "js-cookie";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { notification } from "antd";
 
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
@@ -54,10 +55,31 @@ const Hero = styled.div`
 
 export default function BLOAN() {
 	const [formstep, setFormstep] = React.useState(0);
+	const [bridgeLoanData,setBridgeLoanData]=useState({
+		fundPlan:"",
+		refinance:"",
+		constructionAmount:""
+	})
 
 	const completeFormStep = () => {
 		setFormstep(formstep + 1);
 	};
+	console.log(bridgeLoanData)
+	const onChangeHandler=(name,e)=>{
+		
+   setBridgeLoanData({
+	   ...bridgeLoanData,
+	   [name]:e.target.value
+   })
+	}
+	useEffect(() => {
+		if(bridgeLoanData.constructionAmount=="1"){
+			notification.error({
+				message:"Disqualified"
+			})
+		}
+
+	},[bridgeLoanData.constructionAmount])
 	return (
 		<div>
 			<Hero>
@@ -69,33 +91,41 @@ export default function BLOAN() {
 									Tell us what you plan on using the funds for?
 								</div>
 								<div className="term">
-									<input type="radio" name="goal" value="purchase" />
+									<input 
+									onChange={(e)=>onChangeHandler("fundPlan",e)}
+									 type="radio" name="goal" value="purchase" />
 									<label className="radio">Purchase</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="goal" value="construct" />
+									<input
+									 onChange={(e)=>onChangeHandler("fundPlan",e)}
+									  type="radio" name="goal" value="construct" />
 									<label className="radio">Construction</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="goal" value="refinance" />
+									<input
+									 onChange={(e)=>onChangeHandler("fundPlan",e)}
+									  type="radio" name="goal" value="refinance" />
 									<label className="radio">Refinance</label>
 								</div>
 							</div>
 						</section>
-						<section>
+						{
+						bridgeLoanData.fundPlan!=="construct" &&
+						 <section>
 							<div className="goal">
 								<div className="cast">Refinance</div>
 								<div className="term">
-									<input type="radio" name="goal" value="refinance" />
-									<label className="radio">Cash Out</label>
+									<input onChange={(e)=>onChangeHandler("refinance",e)} type="radio" name="amount" value="cashout" />
+									<label className="radio">Cash out</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="goal" value="refinance" />
+									<input onChange={(e)=>onChangeHandler("refinance",e)} type="radio" name="amount" value="term" />
 									<label className="radio">Rate and Term</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{(bridgeLoanData.refinance !=="term") && <section>
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
@@ -106,8 +136,8 @@ export default function BLOAN() {
 									/>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{bridgeLoanData.fundPlan==="construct" && <section>
 							<div className="goal">
 								<div className="cast">Construction Amount </div>
 								<div className="term">
@@ -131,36 +161,36 @@ export default function BLOAN() {
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
-						</section>
+						</section>}
 					</>
 				)}
 				{formstep === 2 && (
 					<>
-						<section>
+						{bridgeLoanData.refinance==="term" && <section>
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="1" />
 									<label className="radio">25,000 - 250,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="2" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="3" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="4" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
-						</section>
+						</section>}
 						<section>
 							<div className="goal">
 								<div className="cast">Property Address</div>
