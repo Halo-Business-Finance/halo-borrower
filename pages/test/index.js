@@ -404,7 +404,7 @@ export default function Form() {
                                                 <img src="/images/help.png" />
                                             </a>
                                         </div>
-                                        <strong>Purchase of Proprty</strong>
+                                        <strong>Purchase of Property</strong>
                                         {/* <p>{datai.loanTitle}</p> */}
                                     </div>
                                 </div>
