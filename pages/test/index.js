@@ -12,8 +12,10 @@ import PROPERTYCRE from "../../components/PROPERTYCRE";
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
-	background-color: #1B46B0;
-	height: 93.6vh;
+	/* background-color: #1B46B0; */
+    background-image:linear-gradient(to bottom,rgba(27,69,176,1),rgba(243,186,23,.9));
+	min-height: 93.7vh;
+    height: 100%;
 	& .loan-type-select{
         padding: 15px 0px;
 		&:hover{
@@ -107,6 +109,7 @@ const Hero = styled.div`
 
 	.loans-types {
         max-width:800px;
+        min-height: 300px;
         width: 100%;
         margin: 0 auto;
         display: flex;
@@ -144,12 +147,12 @@ const Hero = styled.div`
 		color: #333333;
 		
 		font-family: Mulish;
-font-style: normal;
-font-weight: bold;
-font-size: 36px;
-text-align: center;
-line-height: 150%;
-margin-bottom: 2px;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 36px;
+        text-align: center;
+        line-height: 150%;
+        margin-bottom: 2px;
 	}
 
 	.loan-describe {
@@ -326,7 +329,7 @@ export default function Form() {
             </Head>
             <Hero>
                 <form onSubmit={handleSubmit(onSubmitForm)} action="form2">
-                    <div className="finance-list">
+                    {status==""&& <div className="finance-list">
                         <p className="loan-step">Step 1</p>
                         <h3 className="loan-head">Which type of loan do you prefer?</h3>
                         <p className="loan-describe">Please select one to continue</p>
@@ -410,7 +413,7 @@ export default function Form() {
                                 </div>
                             </div>
                         </section>
-                    </div>
+                    </div>}
 
                     {/* <div className="space"></div> */}
 
