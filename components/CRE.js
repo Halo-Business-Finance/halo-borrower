@@ -6,9 +6,10 @@ import cookie from "js-cookie";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { RadioGroup, RadioButton ,ReversedRadioButton} from 'react-radio-buttons';
 
 const Hero = styled.div`
-	padding: 40px 0% 40px 0%;
+	padding: 40px 40px 40px 40px;
 	font-family: Mulish;
 	background-color: #e5e5e5;
 
@@ -53,7 +54,7 @@ const Hero = styled.div`
 export default function CRE() {
 	const [formValues, setFormValues] = useState({tenants:'',bankruptcy:'',bankruptcyYear:'',downpayment:''});
 	const [propertyState, setPropertyState] = useState('');
-	const [formstep, setFormstep] = React.useState(0);
+	const [formstep, setFormstep] = React.useState(1);
 
 	const completeFormStep = () => {
 		setFormstep(formstep + 1);
@@ -123,6 +124,20 @@ export default function CRE() {
 
 				{formstep === 1 && (
 					<>
+					<RadioGroup  horizontal>
+  <RadioButton value="apple">
+    Apple
+  </RadioButton>
+  <RadioButton value="orange">
+    Orange
+  </RadioButton>
+  <RadioButton value="melon">
+    Melon
+  </RadioButton>
+  <ReversedRadioButton value="melon">
+    Melon
+  </ReversedRadioButton>
+</RadioGroup>
 						<section>
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
