@@ -58,7 +58,23 @@ export default function BLOAN() {
 	const [bridgeLoanData,setBridgeLoanData]=useState({
 		fundPlan:"",
 		refinance:"",
-		constructionAmount:""
+		cashOut:"",
+		constructionAmount:"",
+		rateTermAmount:"",
+		propertyAddress:"",
+		propertyType:"",
+		termRequest:"",
+		ownerOrInvestment:"",
+		occupy:"",
+		tenants:"",
+		dollar:"",
+		ownership:"",
+		lawsuit:"",
+		bankruptcy:"",
+		plan:"",
+		currentProperty:"",
+		stabilized:"",
+
 	})
 
 	const completeFormStep = () => {
@@ -129,7 +145,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
-									<input
+									<input onChange={(e)=>onChangeHandler("cashOut",e)}
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -141,23 +157,23 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Construction Amount </div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">25,000 - 250,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
@@ -170,23 +186,23 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="1" />
+									<input onChange={(e)=>onChangeHandler("rateTermAmount",e)} type="radio" name="amount" value="1" />
 									<label className="radio">25,000 - 250,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="2" />
+									<input onChange={(e)=>onChangeHandler("rateTermAmount",e)} type="radio" name="amount" value="2" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="3" />
+									<input onChange={(e)=>onChangeHandler("rateTermAmount",e)} type="radio" name="amount" value="3" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="4" />
+									<input onChange={(e)=>onChangeHandler("rateTermAmount",e)} type="radio" name="amount" value="4" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="5" />
+									<input onChange={(e)=>onChangeHandler("rateTermAmount",e)} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
@@ -195,7 +211,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Property Address</div>
 								<div className="term">
-									<input
+									<input onChange={(e)=>onChangeHandler("propertyAddress",e)}
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -209,27 +225,27 @@ export default function BLOAN() {
 									<div className="cast">Property Type</div>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Food / Beverage" />
+									<input onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Food / Beverage" />
 									<label className="radio">Food / Beverage</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Industrial" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Industrial" />
 									<label className="radio">Industrial</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Mixed Use" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Mixed Use" />
 									<label className="radio">Mixed Use</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Retail" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Retail" />
 									<label className="radio">Retail</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Office / Condo" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Office / Condo" />
 									<label className="radio">Office / Condo</label>
 								</div>
 								<div className="term">
-									<input
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)}
 										type="radio"
 										name="property"
 										value="Investment Property"
@@ -237,15 +253,15 @@ export default function BLOAN() {
 									<label className="radio">Investment Property</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Multi-Family" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Multi-Family" />
 									<label className="radio">Multi-Family</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Hospitality" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Hospitality" />
 									<label className="radio">Hospitality</label>
 								</div>
 								<div className="term">
-									<input
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)}
 										type="radio"
 										name="property"
 										value="Apartment Multi-Family"
@@ -253,11 +269,11 @@ export default function BLOAN() {
 									<label className="radio">Apartment Multi-Family</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Farm & Land" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Farm & Land" />
 									<label className="radio">Farm & Land</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="property" value="Other" />
+									<input  onChange={(e)=>onChangeHandler("propertyType",e)} type="radio" name="property" value="Other" />
 									<label className="radio">Other</label>
 									<input
 										className="other"
@@ -275,15 +291,15 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Term Requested </div>
 								<div className="term">
-									<input type="radio" name="term" value="term1" />
+									<input  onChange={(e)=>onChangeHandler("termRequest",e)} type="radio" name="term" value="term1" />
 									<label className="radio">3-12 Months</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="term" value="term2" />
+									<input onChange={(e)=>onChangeHandler("termRequest",e)} type="radio" name="term" value="term2" />
 									<label className="radio">12-24 Months</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="term" value="term3" />
+									<input onChange={(e)=>onChangeHandler("termRequest",e)} type="radio" name="term" value="term3" />
 									<label className="radio">24-36 Months</label>
 								</div>
 							</div>
@@ -294,12 +310,12 @@ export default function BLOAN() {
 									Owner Occupied or Investment Property
 								</div>
 								<div className="term">
-									<input type="radio" name="owner" value="prop" />
-									<label className="radio">Yes</label>
+									<input onChange={(e)=>onChangeHandler("ownerOrInvestment",e)} type="radio" name="owner" value="Owner" />
+									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="owner" value="prop2" />
-									<label className="radio">No</label>
+									<input onChange={(e)=>onChangeHandler("ownerOrInvestment",e)}  type="radio" name="owner" value="Owner" />
+									<label className="radio">Investment</label>
 								</div>
 							</div>
 						</section>
@@ -309,11 +325,11 @@ export default function BLOAN() {
 									Will You Occupy 51% or more of the space
 								</div>
 								<div className="term">
-									<input type="radio" name="more" value="Yes" />
+									<input onChange={(e)=>onChangeHandler("occupy",e)}  type="radio" name="more" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="more" value="No" />
+									<input onChange={(e)=>onChangeHandler("occupy",e)}  type="radio" name="more" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
@@ -322,7 +338,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">How many Tenants or Units</div>
 								<div className="term">
-									<input
+									<input onChange={(e)=>onChangeHandler("tenants",e)} 
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -338,23 +354,23 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Dollar Amount Wanted </div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("dollar",e)}  type="radio" name="amount" value="1" />
 									<label className="radio">25,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input  onChange={(e)=>onChangeHandler("dollar",e)} type="radio" name="amount" value="2" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input  onChange={(e)=>onChangeHandler("dollar",e)} type="radio" name="amount" value="3" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input  onChange={(e)=>onChangeHandler("dollar",e)} type="radio" name="amount" value="4" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input  onChange={(e)=>onChangeHandler("dollar",e)} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
@@ -363,19 +379,19 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Ownership Structure </div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input  onChange={(e)=>onChangeHandler("ownership",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">LLC</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("ownership",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">C-Corp</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("ownership",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">S-CORP</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("ownership",e)} type="radio" name="amount" value="dollar" />
 									<label className="radio">Partnership</label>
 								</div>
 							</div>
@@ -386,11 +402,11 @@ export default function BLOAN() {
 									Are you or the property involved in a Lawsuit
 								</div>
 								<div className="term">
-									<input type="radio" name="lawsuit" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("lawsuit",e)} type="radio" name="lawsuit" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="lawsuit" value="dollar2" />
+									<input onChange={(e)=>onChangeHandler("lawsuit",e)} type="radio" name="lawsuit" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
@@ -399,11 +415,11 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Ever File Bankruptcy?</div>
 								<div className="term">
-									<input type="radio" name="bankruptcy" value="Yes" />
+									<input onChange={(e)=>onChangeHandler("bankruptcy",e)} type="radio" name="bankruptcy" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="bankruptcy" value="No" />
+									<input onChange={(e)=>onChangeHandler("bankruptcy",e)} type="radio" name="bankruptcy" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
@@ -414,19 +430,19 @@ export default function BLOAN() {
 									How much do you plan on putting down?
 								</div>
 								<div className="term">
-									<input type="radio" name="putting" value="much" />
+									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="10" />
 									<label className="radio">10%</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="putting" value="much" />
+									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="20" />
 									<label className="radio">20%</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="putting" value="much" />
+									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="30" />
 									<label className="radio">30%</label>
 								</div>
 								<div className="term">
-									<input type="radio" name="putting" value="much" />
+									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="100" />
 									<label className="radio">More then 30%</label>
 								</div>
 							</div>
@@ -435,7 +451,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Current Property Value</div>
 								<div className="term">
-									<input
+									<input onChange={(e)=>onChangeHandler("currentProperty",e)}
 										className="outline"
 										type="text"
 										name="value"
@@ -448,7 +464,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Once Stabilized</div>
 								<div className="term">
-									<input
+									<input onChange={(e)=>onChangeHandler("stabilized",e)}
 										className="outline"
 										type="text"
 										name="stabilized"
