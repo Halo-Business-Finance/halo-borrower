@@ -354,14 +354,14 @@ export default function Form() {
                                                 onClick={(e) => radioHandler(1)}
                                             />
 
-                                            <img src="/loantypes/1.svg" />
+                                            <img src="/loantypes/refinance.svg" />
 
                                             <a>
                                                 <img src="/images/help.png" />
                                             </a>
 
                                         </div>
-                                        <strong>Refinance CRE</strong>
+                                        <strong>Refinance of Property</strong>
                                         {/* <p>{datai.loanTitle}</p> */}
                                     </div>
                                 </div>
@@ -380,7 +380,7 @@ export default function Form() {
                                                 defaultChecked={status === 2}
                                                 onClick={(e) => radioHandler(2)}
                                             />
-                                            <img src="/images/sba504loan.png" />
+                                               <img src="/loantypes/bridge.svg" />
                                             <a>
                                                 <img src="/images/help.png" />
                                             </a>
@@ -402,12 +402,12 @@ export default function Form() {
                                                 defaultChecked={status === 3}
                                                 onClick={(e) => radioHandler(3)}
                                             />
-                                            <img src="/images/invoicefactoring.png" />
+                                              <img src="/loantypes/purchase.svg" />
                                             <a>
                                                 <img src="/images/help.png" />
                                             </a>
                                         </div>
-                                        <strong>Purchase CRE</strong>
+                                        <strong>Purchase of Proprty</strong>
                                         {/* <p>{datai.loanTitle}</p> */}
                                     </div>
                                 </div>
