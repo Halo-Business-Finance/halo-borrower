@@ -101,9 +101,9 @@ export default function BLOAN() {
 	return (
 		<div>
 			<Hero>
-				{formstep === 1 && (
+			
 					<>
-						<section>
+						{formstep==1&&<section>
 							<div className="goal">
 								<div className="cast">
 									Tell us what you plan on using the funds for?
@@ -127,9 +127,10 @@ export default function BLOAN() {
 									<label className="radio">Refinance</label>
 								</div>
 							</div>
-						</section>
+						</section>}
+						
 						{
-						bridgeLoanData.fundPlan=="refinance" &&
+						(bridgeLoanData.fundPlan=="refinance"&& formstep==2) &&
 						 <section>
 							<div className="goal">
 								<div className="cast">Refinance</div>
@@ -143,7 +144,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-						{(bridgeLoanData.refinance =="cashout") && <section>
+						{(bridgeLoanData.refinance =="cashout" && formstep==3) && <section>
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
@@ -155,7 +156,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-						{bridgeLoanData.fundPlan==="construct" && <section>
+						{(bridgeLoanData.fundPlan==="construct"&& formstep==4) && <section>
 							<div className="goal">
 								<div className="cast">Construction Amount </div>
 								<div className="term">
@@ -181,10 +182,10 @@ export default function BLOAN() {
 							</div>
 						</section>}
 					</>
-				)}
-				{formstep === 2 && (
+				
+			
 					<>
-						{(bridgeLoanData.refinance==="term" || bridgeLoanData.fundPlan=="purchase") && <section>
+						{(bridgeLoanData.refinance==="term" || bridgeLoanData.fundPlan=="purchase" && formstep==5) && <section>
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
@@ -209,7 +210,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-						<section>
+						{formstep==6 &&<section>
 							<div className="goal">
 								<div className="cast">Years of Experience </div>
 								<div className="term">
@@ -226,7 +227,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						<section>
+						}
+						{formstep==7 &&<section>
 							<div className="goal">
 								<div className="cast">Property Address</div>
 								<div className="term">
@@ -238,7 +240,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						<section>
+						}
+						{formstep==8 &&<section>
 							<div className="goal">
 								<div>
 									<div className="cast">Property Type</div>
@@ -302,11 +305,11 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-					</>
-				)}
-				{formstep === 3 && (
+}					
+</>
+			
 					<>
-						<section>
+						{formstep==9 &&<section>
 							<div className="goal">
 								<div className="cast">Term Requested </div>
 								<div className="term">
@@ -323,7 +326,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						<section>
+						}
+						{formstep==10 &&<section>
 							<div className="goal">
 								<div className="cast">
 									Owner Occupied or Investment Property
@@ -338,7 +342,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						{bridgeLoanData.ownerOrInvestment=="Owner" && <section>
+						}
+						{(bridgeLoanData.ownerOrInvestment=="Owner" && formstep==10 ) && <section>
 							<div className="goal">
 								<div className="cast">
 									Will You Occupy 51% or more of the space
@@ -353,7 +358,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-						<section>
+						{formstep==11 &&<section>
 							<div className="goal">
 								<div className="cast">How many Tenants or Units</div>
 								<div className="term">
@@ -364,12 +369,11 @@ export default function BLOAN() {
 									/>
 								</div>
 							</div>
-						</section>
+						</section>}
 					</>
-				)}
-				{formstep === 4 && (
+				
 					<>
-						<section>
+						{formstep==12 &&<section>
 							<div className="goal">
 								<div className="cast">Dollar Amount Wanted </div>
 								<div className="term">
@@ -394,7 +398,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						<section>
+						}
+						{formstep==13 &&<section>
 							<div className="goal">
 								<div className="cast">Ownership Structure </div>
 								<div className="term">
@@ -415,7 +420,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						<section>
+						}
+						{formstep==14 &&<section>
 							<div className="goal">
 								<div className="cast">
 									Are you or the property involved in a Lawsuit
@@ -430,7 +436,8 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
-						<section>
+						}
+						{formstep==15 &&<section>
 							<div className="goal">
 								<div className="cast">Ever File Bankruptcy?</div>
 								<div className="term">
@@ -442,8 +449,8 @@ export default function BLOAN() {
 									<label className="radio">No</label>
 								</div>
 							</div>
-						</section>
-						{bridgeLoanData.bankruptcy=='Yes'&&	<section>
+						</section>}
+						{(bridgeLoanData.bankruptcy=='Yes'&& formstep==16)&&	<section>
 						<div className="goal">
 							<div className="cast">If So, When?</div>
 							
@@ -457,7 +464,7 @@ export default function BLOAN() {
 								</div>
 						</div>
 					</section>}
-						<section>
+						{formstep==16 &&<section>
 							<div className="goal">
 								<div className="cast">
 									How much do you plan on putting down?
@@ -479,8 +486,8 @@ export default function BLOAN() {
 									<label className="radio">More then 30%</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{formstep==17 &&<section>
 							<div className="goal">
 								<div className="cast">Current Property Value</div>
 								<div className="term">
@@ -492,8 +499,8 @@ export default function BLOAN() {
 									/>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{formstep==18 &&<section>
 							<div className="goal">
 								<div className="cast">Once Stabilized</div>
 								<div className="term">
@@ -505,9 +512,8 @@ export default function BLOAN() {
 									/>
 								</div>
 							</div>
-						</section>
+						</section>}
 					</>
-				)}
 
 				<button type="button" className="button" onClick={completeFormStep}>
 					Next Step
