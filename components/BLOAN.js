@@ -129,7 +129,7 @@ export default function BLOAN() {
 							</div>
 						</section>
 						{
-						bridgeLoanData.fundPlan!=="construct" &&
+						bridgeLoanData.fundPlan=="refinance" &&
 						 <section>
 							<div className="goal">
 								<div className="cast">Refinance</div>
@@ -143,7 +143,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-						{(bridgeLoanData.refinance !=="term") && <section>
+						{(bridgeLoanData.refinance =="cashout") && <section>
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
