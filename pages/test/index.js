@@ -109,7 +109,7 @@ const Hero = styled.div`
 
 	.loans-types {
         max-width:800px;
-        min-height: 300px;
+        /* min-height: 300px; */
         width: 100%;
         margin: 0 auto;
         display: flex;
