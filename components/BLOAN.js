@@ -71,6 +71,7 @@ export default function BLOAN() {
 		ownership:"",
 		lawsuit:"",
 		bankruptcy:"",
+		bankruptcyYear:"",
 		plan:"",
 		currentProperty:"",
 		stabilized:"",
@@ -89,13 +90,13 @@ export default function BLOAN() {
    })
 	}
 	useEffect(() => {
-		if(bridgeLoanData.constructionAmount=="1"){
+		if(bridgeLoanData.constructionAmount=="1" || bridgeLoanData.dollar=="1" ||bridgeLoanData.bankruptcyYear=="0" || (bridgeLoanData.plan=="10" ||bridgeLoanData.plan=='20')){
 			notification.error({
 				message:"Disqualified"
 			})
 		}
 
-	},[bridgeLoanData.constructionAmount])
+	},[bridgeLoanData.constructionAmount,bridgeLoanData.dollar,bridgeLoanData.bankruptcyYear,bridgeLoanData.plan])
 	return (
 		<div>
 			<Hero>
@@ -314,12 +315,12 @@ export default function BLOAN() {
 									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("ownerOrInvestment",e)}  type="radio" name="owner" value="Owner" />
+									<input onChange={(e)=>onChangeHandler("ownerOrInvestment",e)}  type="radio" name="owner" value="Investment" />
 									<label className="radio">Investment</label>
 								</div>
 							</div>
 						</section>
-						<section>
+						{bridgeLoanData.ownerOrInvestment=="Owner" && <section>
 							<div className="goal">
 								<div className="cast">
 									Will You Occupy 51% or more of the space
@@ -333,7 +334,7 @@ export default function BLOAN() {
 									<label className="radio">No</label>
 								</div>
 							</div>
-						</section>
+						</section>}
 						<section>
 							<div className="goal">
 								<div className="cast">How many Tenants or Units</div>
@@ -424,19 +425,33 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>
+						{bridgeLoanData.bankruptcy=='Yes'&&	<section>
+						<div className="goal">
+							<div className="cast">If So, When?</div>
+							
+							<div className="term">
+									<input onChange={(e)=> onChangeHandler('bankruptcyYear',e)} type="radio" name="bankruptcyYear" value="0" />
+									<label className="radio">Less than 7 years</label>
+								</div>
+								<div className="term">
+									<input  onChange={(e)=> onChangeHandler('bankruptcyYear',e)} type="radio" name="bankruptcyYear" value="10" />
+									<label className="radio">7 or More than 7 years</label>
+								</div>
+						</div>
+					</section>}
 						<section>
 							<div className="goal">
 								<div className="cast">
 									How much do you plan on putting down?
 								</div>
-								<div className="term">
+								{bridgeLoanData.bankruptcy=="Yes" && <div className="term">
 									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="10" />
 									<label className="radio">10%</label>
-								</div>
-								<div className="term">
+								</div>}
+								{bridgeLoanData.bankruptcy=="Yes" &&<div className="term">
 									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="20" />
 									<label className="radio">20%</label>
-								</div>
+								</div>}
 								<div className="term">
 									<input onChange={(e)=>onChangeHandler("plan",e)} type="radio" name="putting" value="30" />
 									<label className="radio">30%</label>
