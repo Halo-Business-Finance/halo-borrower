@@ -61,6 +61,7 @@ export default function BLOAN() {
 		cashOut:"",
 		constructionAmount:"",
 		rateTermAmount:"",
+		experience:"",
 		propertyAddress:"",
 		propertyType:"",
 		termRequest:"",
@@ -208,6 +209,23 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
+						<section>
+							<div className="goal">
+								<div className="cast">Years of Experience </div>
+								<div className="term">
+									<input  onChange={(e)=>onChangeHandler("experience",e)} type="radio" name="term" value="0" />
+									<label className="radio">1-3 Years of Experience</label>
+								</div>
+								<div className="term">
+									<input onChange={(e)=>onChangeHandler("experience",e)} type="radio" name="term" value="1" />
+									<label className="radio">3-5 Years Experience</label>
+								</div>
+								<div className="term">
+									<input onChange={(e)=>onChangeHandler("experience",e)} type="radio" name="term" value="2" />
+									<label className="radio">5+ Years Experience</label>
+								</div>
+							</div>
+						</section>
 						<section>
 							<div className="goal">
 								<div className="cast">Property Address</div>
