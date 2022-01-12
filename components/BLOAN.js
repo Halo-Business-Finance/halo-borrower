@@ -91,13 +91,13 @@ export default function BLOAN() {
    })
 	}
 	useEffect(() => {
-		if(bridgeLoanData.constructionAmount=="1" || bridgeLoanData.dollar=="1" ||bridgeLoanData.bankruptcyYear=="0" || (bridgeLoanData.plan=="10" ||bridgeLoanData.plan=='20')){
+		if(bridgeLoanData.constructionAmount=="1" || bridgeLoanData.dollar=="1" ||bridgeLoanData.bankruptcyYear=="0" || (bridgeLoanData.plan=="10" ||bridgeLoanData.plan=='20' ||bridgeLoanData.rateTermAmount=="1" )){
 			notification.error({
 				message:"Disqualified"
 			})
 		}
 
-	},[bridgeLoanData.constructionAmount,bridgeLoanData.dollar,bridgeLoanData.bankruptcyYear,bridgeLoanData.plan])
+	},[bridgeLoanData.constructionAmount,bridgeLoanData.dollar,bridgeLoanData.bankruptcyYear,bridgeLoanData.plan,bridgeLoanData.rateTermAmount])
 	return (
 		<div>
 			<Hero>
@@ -159,23 +159,23 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Construction Amount </div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="1" />
 									<label className="radio">25,000 - 250,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="2" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="3" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="4" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="dollar" />
+									<input onChange={(e)=>onChangeHandler("constructionAmount",e)} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
