@@ -184,7 +184,7 @@ export default function BLOAN() {
 				)}
 				{formstep === 2 && (
 					<>
-						{bridgeLoanData.refinance==="term" && <section>
+						{(bridgeLoanData.refinance==="term" || bridgeLoanData.fundPlan=="purchase") && <section>
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
