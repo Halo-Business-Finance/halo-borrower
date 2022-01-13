@@ -31,8 +31,9 @@ const Hero = styled.div`
 	.form-row-one {
 		column-count: 2;
 		width: 100%;
-		display: inline-block;
-		column-gap: 5%;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 15px;
 	}
 
 	.form-head {
@@ -146,7 +147,7 @@ export default function Form() {
 	const onSubmitForm = async (values) => {
 		axios({
 			method: "post",
-			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/registration",
+			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/register",
 			data: {
 				loanTypeId: cookie.get("loanTypeId"),
 				amount: cookie.get("amount"),
@@ -160,6 +161,7 @@ export default function Form() {
 				account: {
 					email: values.email,
 					password: values.password,
+					confirmPassword: values.confirmPassword,
 					phone:values.phone,
 				},
 				applicationStarted: "2021-11-16T14:45:22.123Z",
@@ -257,10 +259,32 @@ export default function Form() {
 								)}
 							</div>
 							
-						</div>
+						
 						<div className="form-group">
-							<br/>
-							<br/>
+								<label htmlFor="password" className="formlabel">
+									Confirm Password<sup className="req">*</sup>
+								</label>
+								<input
+									{...register("password", {
+										required: "required",
+										minLength: {
+											value: 5,
+											message: "min length is 5",
+										},
+									})}
+									id="password"
+									className="textbox"
+									type="password"
+									autoComplete="fdba"
+									placeholder="Retype your password"
+									required
+								/>
+								{errors.password && (
+									<span role="alert">{errors.password.message}</span>
+								)}
+							</div>
+							
+						<div className="form-group">
 								<label htmlFor="phone" className="formlabel">
 									Phone<sup className="req">*</sup>
 								</label>
@@ -282,6 +306,7 @@ export default function Form() {
 								{errors.phone && (
 									<span role="alert">{errors.phone.message}</span>
 								)}
+							</div>
 							</div>
 							
 

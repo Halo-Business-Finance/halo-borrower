@@ -112,8 +112,15 @@ export default function BLOAN() {
 	})
 
 	const completeFormStep = () => {
-		if(bridgeLoanData.bankruptcy=="Yes" && formstep==12){
-			setFormstep(14);
+		if(bridgeLoanData.bankruptcy=="No" && formstep==13){
+			setFormstep(15);
+			return
+		}
+		console.log(bridgeLoanData.ownerOrInvestment,formstep)
+		if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==7){
+			setFormstep(9);
+			console.log('hjh')
+			return
 		}
 		setFormstep(formstep + 1);
 
@@ -121,6 +128,15 @@ export default function BLOAN() {
 	const previousStep = () => {
 		if(bridgeLoanData.bankruptcy=="Yes" && formstep==12){
 			setFormstep(12);
+		}
+		if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==9){
+			setFormstep(7);
+			console.log('hjh')
+			return
+		}
+		if(bridgeLoanData.bankruptcy=="No" && formstep==15){
+			setFormstep(13);
+			return
 		}
 		setFormstep(formstep - 1)
 	}
@@ -244,7 +260,7 @@ export default function BLOAN() {
 
 
 				<>
-					{(bridgeLoanData.fundPlan == "purchase" || (["cashout","term"].includes(bridgeLoanData.refinance))&& formstep==2  ) 
+					{((bridgeLoanData.fundPlan == "purchase"&& formstep==2) || (["cashout","term"].includes(bridgeLoanData.refinance))&& formstep==2  ) 
 					&& <section>
 						<div className="goal">
 							<div className="cast">Rate and Term Amount </div>
@@ -447,7 +463,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{(bridgeLoanData.ownerOrInvestment == "Owner" && formstep == 10) && <section>
+					{(bridgeLoanData.ownerOrInvestment == "Owner" && formstep == 8) && <section>
 						<div className="goal">
 							<div className="cast">
 								Will You Occupy 51% or more of the space
@@ -466,7 +482,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 8 && <section>
+					{formstep == 9 && <section>
 						<div className="goal">
 							<div className="cast">How many Tenants or Units</div>
 							<div className="term">
@@ -483,7 +499,7 @@ export default function BLOAN() {
 				</>
 
 				<>
-					{formstep == 9 && <section>
+					{formstep == 10 && <section>
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
@@ -519,7 +535,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 10 && <section>
+					{formstep == 11 && <section>
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
@@ -548,7 +564,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 11 && <section>
+					{formstep == 12 && <section>
 						<div className="goal">
 							<div className="cast">
 								Are you or the property involved in a Lawsuit
@@ -566,7 +582,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 12 && <section>
+					{formstep == 13 && <section>
 						<div className="goal">
 							<div className="cast">Ever File Bankruptcy?</div>
 							<div className="term">
@@ -581,7 +597,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{(bridgeLoanData.bankruptcy == 'Yes' && formstep == 13) && <section>
+					{(bridgeLoanData.bankruptcy == 'Yes' && formstep == 14) && <section>
 						<div className="goal">
 							<div className="cast">If So, When?</div>
 
@@ -599,7 +615,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 14 && <section>
+					{formstep == 15 && <section>
 						<div className="goal">
 							<div className="cast">
 								How much do you plan on putting down?
@@ -624,7 +640,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 15 && <section>
+					{formstep == 16 && <section>
 						<div className="goal">
 							<div className="cast">Current Property Value</div>
 							<div className="term">
@@ -639,7 +655,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 16 && <section>
+					{formstep == 17 && <section>
 						<div className="goal">
 							<div className="cast">Once Stabilized</div>
 							<div className="term">
@@ -658,7 +674,7 @@ export default function BLOAN() {
 				<ButtonWrapper>
 
 					<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-					{formstep==16?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
+					{formstep==18?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>}
 				</ButtonWrapper>
