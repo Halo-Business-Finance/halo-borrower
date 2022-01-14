@@ -137,11 +137,11 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
 								<div className="term">
-									<input checked={bridgeLoanData.fundPlan == "purchase" ? true : false} onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="Cast Out Refinance" />
+									<input checked={formValues.goal == "CashOut" ? true : false} onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CashOut" />
 									<label className="radio">Cast Out Refinance</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="RateAndTerm" />
+									<input checked={formValues.goal == "RateAndTerm" ? true : false} onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="RateAndTerm" />
 									<label className="radio">Rate and Term only</label>
 								</div>
 							</div>
@@ -150,7 +150,9 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'cash')} 
+									<input 
+									value={formValues.cash}
+									onChange={(e)=> onFormChange(e,'cash')} 
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -166,15 +168,15 @@ export default function CRE() {
 									</div>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}  type="radio" name="years" value="1" />
+									<input checked={formValues.business == "1" ? true : false} onChange={(e)=> onFormChange(e,'business')}  type="radio" name="years" value="1" />
 									<label className="radio">Less than a year</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="2" />
+									<input  checked={formValues.business == "2" ? true : false} onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="2" />
 									<label className="radio">Less than 2 Years</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="3" />
+									<input  checked={formValues.business == "3" ? true : false} onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="3" />
 									<label className="radio">More then 2 Years</label>
 								</div>
 								<div className="term">
