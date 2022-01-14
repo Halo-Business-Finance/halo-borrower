@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {notification} from 'antd';
+import {Button, notification} from 'antd';
 import { useEffect, useState } from "react";
 
 const Hero = styled.div`
@@ -137,7 +137,7 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
 								<div className="term">
-									<input checked={formValues.goal == "CashOut" ? true : false} onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CashOut" />
+									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CashOut" />
 									<label className="radio">Cast Out Refinance</label>
 								</div>
 								<div className="term">
@@ -146,7 +146,7 @@ export default function CRE() {
 								</div>
 							</div>
 						</section>
-						<section>
+						{formValues.goal=="CashOut" &&<section>
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
@@ -159,7 +159,7 @@ export default function CRE() {
 									/>
 								</div>
 							</div>
-						</section>
+						</section>}
 						<section>
 							<div className="goal">
 								<div>
@@ -180,10 +180,10 @@ export default function CRE() {
 									<label className="radio">More then 2 Years</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}  
+									<input   checked={formValues.business == "InvestmentProperty" ? true : false} onChange={(e)=> onFormChange(e,'business')}  
 										type="radio"
 										name="years"
-										value="Investment Property"
+										value="InvestmentProperty"
 									/>
 									<label className="radio">Investment Property</label>
 								</div>
@@ -193,7 +193,7 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">Property Address</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'property')}  
+									<input 	value={formValues.property} onChange={(e)=> onFormChange(e,'property')}  
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -212,27 +212,27 @@ export default function CRE() {
 									<div className="cast">Property Type</div>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}   type="radio" name="property" value="FoodBeverage" />
+									<input checked={formValues.propertyType == "FoodBeverage" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}   type="radio" name="property" value="FoodBeverage" />
 									<label className="radio">Food / Beverage</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Industrial" />
+									<input checked={formValues.propertyType == "Industrial" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Industrial" />
 									<label className="radio">Industrial</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="MixedUse" />
+									<input checked={formValues.propertyType == "MixedUse" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="MixedUse" />
 									<label className="radio">Mixed Use</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Retail" />
+									<input checked={formValues.propertyType == "Retail" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Retail" />
 									<label className="radio">Retail</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="OfficeCondo" />
+									<input checked={formValues.propertyType == "OfficeCondo" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="OfficeCondo" />
 									<label className="radio">Office / Condo</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}   
+									<input checked={formValues.propertyType == "InvestmentProperty" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}   
 										type="radio"
 										name="property"
 										value="InvestmentProperty"
@@ -240,15 +240,15 @@ export default function CRE() {
 									<label className="radio">Investment Property</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="MultiFamily" />
+									<input checked={formValues.propertyType == "MultiFamily" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="MultiFamily" />
 									<label className="radio">Multi-Family</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Hospitality" />
+									<input checked={formValues.propertyType == "Hospitality" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Hospitality" />
 									<label className="radio">Hospitality</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}   
+									<input checked={formValues.propertyType == "ApartmentMultiFamily" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}   
 										type="radio"
 										name="property"
 										value="ApartmentMultiFamily"
@@ -256,7 +256,7 @@ export default function CRE() {
 									<label className="radio">Apartment Multi-Family</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="FarmLand" />
+									<input checked={formValues.propertyType == "FarmLand" ? true : false} onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="FarmLand" />
 									<label className="radio">Farm & Land</label>
 								</div>
 							</div>
@@ -267,11 +267,11 @@ export default function CRE() {
 									Owner Occupied or Investment Property
 								</div>
 								<div className="term">
-									<input onChange={onChange} type="radio" name="occupied" value="Owner" />
+									<input checked={formValues.property == "Owner" ? true : false} onChange={(e)=>onFormChange("property",e)}  type="radio" name="occupied" value="Owner" />
 									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
-									<input onChange={onChange} type="radio" name="occupied" value="Investment" />
+									<input checked={formValues.property == "Investment" ? true : false}   onChange={(e)=>onFormChange("property",e)} type="radio" name="occupied" value="Investment" />
 									<label className="radio">Investment</label>
 								</div>
 							</div>
@@ -282,11 +282,11 @@ export default function CRE() {
 									Will You Occupy 51% or more of the space
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'occupy')}    type="radio" name="more" value="Yes" />
+									<input checked={formValues.occupy == "Yes" ? true : false}    onChange={(e)=> onFormChange(e,'occupy')}    type="radio" name="more" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'occupy')}    type="radio" name="more" value="No" />
+									<input checked={formValues.occupy == "No" ? true : false}    onChange={(e)=> onFormChange(e,'occupy')}    type="radio" name="more" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
@@ -296,7 +296,7 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">How many Tenants or Units</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')}   
+									<input value={formValues.tenants} onChange={(e)=> onFormChange(e,'tenants')}   
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -316,23 +316,23 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">Dollar Amount Wanted </div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="1" />
+									<input checked={formValues.tenants == "1" ? true : false}     onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="1" />
 									<label className="radio">25,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="2" />
+									<input checked={formValues.tenants == "2" ? true : false}     onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="2" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="3" />
+									<input checked={formValues.tenants == "3" ? true : false}     onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="3" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="4" />
+									<input checked={formValues.tenants == "4" ? true : false}  onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="4" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="5" />
+									<input checked={formValues.tenants == "5" ? true : false}  onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
@@ -341,19 +341,19 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">Ownership Structure </div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="LLC" />
+									<input checked={formValues.ownership == "LLC" ? true : false} onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="LLC" />
 									<label className="radio">LLC</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="CCORP" />
+									<input checked={formValues.ownership == "CCORP" ? true : false} onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="CCORP" />
 									<label className="radio">C-Corp</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="SCORP" />
+									<input checked={formValues.ownership == "SCORP" ? true : false} onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="SCORP" />
 									<label className="radio">S-CORP</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="Partnership" />
+									<input checked={formValues.ownership == "Partnership" ? true : false} onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="Partnership" />
 									<label className="radio">Partnership</label>
 								</div>
 							</div>
@@ -362,11 +362,11 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">Ever File Bankruptcy?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'bankruptcy')} type="radio" name="bankruptcy" value="Yes" />
+									<input checked={formValues.bankruptcy == "Yes" ? true : false} onChange={(e)=> onFormChange(e,'bankruptcy')} type="radio" name="bankruptcy" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'bankruptcy')} type="radio" name="bankruptcy" value="No" />
+									<input checked={formValues.bankruptcy == "No" ? true : false} onChange={(e)=> onFormChange(e,'bankruptcy')} type="radio" name="bankruptcy" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
@@ -400,20 +400,20 @@ export default function CRE() {
 								<div className="cast">
 									How much do you plan on putting down?
 								</div>
-								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="10" />
+								{formValues.bankruptcy=="Yes"&&<div className="term">
+									<input checked={formValues.downpayment == "10" ? true : false} onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="10" />
 									<label className="radio">10%</label>
-								</div>
-								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="20" />
+								</div>}
+								{formValues.bankruptcy=='Yes'&&<div className="term">
+									<input checked={formValues.downpayment == "20" ? true : false} onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="20" />
 									<label className="radio">20%</label>
-								</div>
+								</div>}
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="30" />
+									<input checked={formValues.downpayment == "30" ? true : false} onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="30" />
 									<label className="radio">30%</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="100" />
+									<input checked={formValues.downpayment == "100" ? true : false} onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="100" />
 									<label className="radio">More then 30%</label>
 								</div>
 							</div>
@@ -424,11 +424,11 @@ export default function CRE() {
 									Do you have any other commercial properties?
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'commercial')}  type="radio" name="commercial" value="Yes" />
+									<input checked={formValues.commercial == "Yes" ? true : false} onChange={(e)=> onFormChange(e,'commercial')}  type="radio" name="commercial" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'commercial')}  type="radio" name="commercial" value="No" />
+									<input checked={formValues.commercial == "No" ? true : false} onChange={(e)=> onFormChange(e,'commercial')}  type="radio" name="commercial" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
@@ -545,10 +545,13 @@ export default function CRE() {
 						</section>
 					</div>
 				)} */}
-
+<Button size={"large"} disabled={formstep ==1} type="dashed" onClick={()=>setFormstep(formstep-1)}> 
+					Previous
+				</Button>
 				<button type="button" className="button" onClick={completeFormStep}>
 					Next Step
 				</button>
+				
 				{/* <input className="button" type="button" value="Next" /> */}
 			</Hero>
 		</div>
