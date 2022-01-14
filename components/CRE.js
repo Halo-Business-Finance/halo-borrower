@@ -1,14 +1,18 @@
 import React from "react";
-import styled from "styled-components";
-import {Button, notification} from 'antd';
+import styled,{keyframes} from "styled-components";
+import { Button, notification } from 'antd';
 import { useEffect, useState } from "react";
-
+import { zoomIn,fadeInRightBig } from 'react-animations';
+ 
+const bounceAnimation = keyframes`${zoomIn}`;
+const fadeAnimation=keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
 	padding: 40px 40px 40px 40px;
 	font-family: Mulish;
 	background-color: #e5e5e5;
 
 	.goal {
+		animation: 1s ${fadeAnimation};
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		border-radius: 10px;
@@ -17,12 +21,15 @@ const Hero = styled.div`
 	}
 	.button {
 		background-color: #f3ba17;
-		padding: 10px 20px 10px 20px;
+		
+		height: 40px;
+		margin-left: 8px;
 		margin-top: 20px;
 		border-radius: 5px;
 		font-size: 15px;
 	}
 	.cast {
+		animation: 2s ${bounceAnimation};
 		padding: 10px 10px 10px 10px;
 		font-size: 20px;
 	}
@@ -48,51 +55,76 @@ const Hero = styled.div`
 
 export default function CRE() {
 	const [formValues, setFormValues] = useState({
-		tenants:'',
-		bankruptcy:'',
-		bankruptcyYear:'',
-		downpayment:'',
-		goal:'',
-		cash:'',
-		business:'',
-		property:'',
-		propertyType:'',
-		occupy:'',
-		ownership:'',
-		commercial:'',
+		tenants: '',
+		bankruptcy: '',
+		bankruptcyYear: '',
+		downpayment: '',
+		goal: '',
+		cash: '',
+		business: '',
+		property: '',
+		propertyType: '',
+		occupy: '',
+		ownership: '',
+		commercial: '',
 	});
-	const [propertyState, setPropertyState] = useState('');
+	
 	const [formstep, setFormstep] = React.useState(1);
 
 	const completeFormStep = () => {
+		if(formValues.goal!=="CashOut" && formstep==1){
+			setFormstep(3);
+			return;
+		}
+		if(formValues.property !== 'Owner' && formstep==6){
+			setFormstep(8);
+			return;
+		}
+		if(formValues.bankruptcy !== 'Yes' && formstep ==11){
+			setFormstep(13);
+			return;
+		}
 		setFormstep(formstep + 1);
 	};
-	const onChange= (e) => {
-		setPropertyState(e.target.value)
-			}
-		console.log(formValues.tenants);
-		const isUserDisqualified=()=> {
-			notification.error({
-				message:'Disqualified'
-			})	
+	const previousStep=()=>{
+		if(formValues.goal !=="CashOut" && formstep==3){
+			setFormstep(1);
+			return;
 		}
-		const onFormChange = (e,name) => {
-			setFormValues({
-				...formValues,
-				[name]:e.target.value
+		if(formValues.property !== 'Owner' && formstep==8){
+			setFormstep(6);
+			return;
+		}
+		if(formValues.bankruptcy !== 'Yes' && formstep ==13){
+			setFormstep(11);
+			return;
+		}
+		setFormstep(formstep - 1);
+	}
 
-			})
-		}
-		useEffect(() => {
-			if(formValues.tenants=='1'|| formValues.bankruptcyYear=="0"){
+	const isUserDisqualified = () => {
+		notification.error({
+			message: 'Disqualified'
+		})
+	}
+	const onFormChange = (e, name) => {
+		setFormValues({
+			...formValues,
+			[name]: e.target.value
+
+		})
+	}
+	useEffect(() => {
+		if (formValues.tenants == '1' || formValues.bankruptcyYear == "0") {
 			isUserDisqualified()
-			}
-			if(formValues.downpayment!=''&& Number(formValues.downpayment)<20){
-			isUserDisqualified()	
-			}
-		},[formValues.tenants,formValues.bankruptcyYear,formValues.downpayment])
+		}
+		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
+			isUserDisqualified()
+		}
+	}, [formValues.tenants, formValues.bankruptcyYear, formValues.downpayment])
 	return (
 		<div>
+			{formstep}
 			<Hero>
 				{/* {formstep === 0 && (
 					<div className="finance-list">
@@ -130,27 +162,27 @@ export default function CRE() {
 					</div>
 				)} */}
 
-				{formstep === 1 && (
+				
 					<>
 					
-						<section>
+						{formstep==1 && <section>
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CashOut" />
+									<input onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="CashOut" />
 									<label className="radio">Cast Out Refinance</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="RateAndTerm" />
+									<input onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="RateAndTerm" />
 									<label className="radio">Rate and Term only</label>
 								</div>
 							</div>
-						</section>
-						{formValues.goal=="CashOut" &&<section>
+						</section>}
+						{(formValues.goal == "CashOut" && formstep==2) && <section>
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'cash')} 
+									<input onChange={(e) => onFormChange(e, 'cash')}
 										className="outline"
 										type="text"
 										placeholder="Your answer"
@@ -158,7 +190,7 @@ export default function CRE() {
 								</div>
 							</div>
 						</section>}
-						<section>
+						{ formstep==3 && <section>
 							<div className="goal">
 								<div>
 									<div className="cast">
@@ -166,71 +198,69 @@ export default function CRE() {
 									</div>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}  type="radio" name="years" value="1" />
+									<input onChange={(e) => onFormChange(e, 'business')} type="radio" name="years" value="1" />
 									<label className="radio">Less than a year</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="2" />
+									<input onChange={(e) => onFormChange(e, 'business')} type="radio" name="years" value="2" />
 									<label className="radio">Less than 2 Years</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="3" />
+									<input onChange={(e) => onFormChange(e, 'business')} type="radio" name="years" value="3" />
 									<label className="radio">More then 2 Years</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}  
+									<input onChange={(e) => onFormChange(e, 'business')}
 										type="radio"
 										name="years"
-										value="Investment Property"
+										value="InvestmentProperty"
 									/>
 									<label className="radio">Investment Property</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{formstep==4 && <section>
 							<div className="goal">
 								<div className="cast">Property Address</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'property')}  
+									<input onChange={(e) => onFormChange(e, 'property')}
 										className="outline"
 										type="text"
 										placeholder="Your answer"
 									/>
 								</div>
 							</div>
-						</section>
+						</section>}
 					</>
-				)}
-
-				{formstep === 2 && (
+				
 					<>
-						<section>
+						{formstep==5 && <section>
 							<div className="goal">
 								<div>
 									<div className="cast">Property Type</div>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}   type="radio" name="property" value="FoodBeverage" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="FoodBeverage" />
 									<label className="radio">Food / Beverage</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Industrial" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="Industrial" />
 									<label className="radio">Industrial</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="MixedUse" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="MixedUse" />
 									<label className="radio">Mixed Use</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Retail" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="Retail" />
 									<label className="radio">Retail</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="OfficeCondo" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="OfficeCondo" />
 									<label className="radio">Office / Condo</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}   
+									<input onChange={(e) => onFormChange(e, 'propertyType')}
 										type="radio"
 										name="property"
 										value="InvestmentProperty"
@@ -238,15 +268,15 @@ export default function CRE() {
 									<label className="radio">Investment Property</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="MultiFamily" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="MultiFamily" />
 									<label className="radio">Multi-Family</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="Hospitality" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="Hospitality" />
 									<label className="radio">Hospitality</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}   
+									<input onChange={(e) => onFormChange(e, 'propertyType')}
 										type="radio"
 										name="property"
 										value="ApartmentMultiFamily"
@@ -254,185 +284,182 @@ export default function CRE() {
 									<label className="radio">Apartment Multi-Family</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'propertyType')}    type="radio" name="property" value="FarmLand" />
+									<input onChange={(e) => onFormChange(e, 'propertyType')} type="radio" name="property" value="FarmLand" />
 									<label className="radio">Farm & Land</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+
+						{formstep==6 && <section>
 							<div className="goal">
 								<div className="cast">
 									Owner Occupied or Investment Property
 								</div>
 								<div className="term">
-									<input onChange={onChange} type="radio" name="occupied" value="Owner" />
+									<input onChange={(e)=>onFormChange(e,"property")} type="radio" name="occupied" value="Owner" />
 									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
-									<input onChange={onChange} type="radio" name="occupied" value="Investment" />
+									<input onChange={(e)=>onFormChange(e,"property")} type="radio" name="occupied" value="Investment" />
 									<label className="radio">Investment</label>
 								</div>
 							</div>
-						</section>
-						{ propertyState=='Owner'?<section>
+						</section>}
+						{(formValues.property == 'Owner' && formstep==7) && <section>
 							<div className="goal">
 								<div className="cast">
 									Will You Occupy 51% or more of the space
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'occupy')}    type="radio" name="more" value="Yes" />
+									<input onChange={(e) => onFormChange(e, 'occupy')} type="radio" name="more" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'occupy')}    type="radio" name="more" value="No" />
+									<input onChange={(e) => onFormChange(e, 'occupy')} type="radio" name="more" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
-						</section>:
-						<>
-						<section>
-							<div className="goal">
-								<div className="cast">How many Tenants or Units</div>
-								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')}   
-										className="outline"
-										type="text"
-										placeholder="Your answer"
-									/>
-								</div>
-							</div>
-						</section>
+						</section> 
+}
+							
+								{formstep==8 && <section>
+									<div className="goal">
+										<div className="cast">How many Tenants or Units</div>
+										<div className="term">
+											<input onChange={(e) => onFormChange(e, 'tenants')}
+												className="outline"
+												type="text"
+												placeholder="Your answer"
+											/>
+										</div>
+									</div>
+								</section>}
+							
+						
 					</>
-					}
-					</>
-				)}
 				
-
-				{formstep === 3 && (
 					<>
-						<section>
+						{formstep==9 && <section>
 							<div className="goal">
 								<div className="cast">Dollar Amount Wanted </div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="1" />
+									<input onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="1" />
 									<label className="radio">25,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="2" />
+									<input onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="2" />
 									<label className="radio">250,000 - 1,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="3" />
+									<input onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="3" />
 									<label className="radio">1,000,000 - 5,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="4" />
+									<input onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="4" />
 									<label className="radio">5,000,000 - 25,000,000</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'tenants')} type="radio" name="amount" value="5" />
+									<input onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{formstep==10 && <section>
 							<div className="goal">
 								<div className="cast">Ownership Structure </div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="LLC" />
+									<input onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="LLC" />
 									<label className="radio">LLC</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="CCORP" />
+									<input onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="CCORP" />
 									<label className="radio">C-Corp</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="SCORP" />
+									<input onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="SCORP" />
 									<label className="radio">S-CORP</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'ownership')}    type="radio" name="amount" value="Partnership" />
+									<input onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="Partnership" />
 									<label className="radio">Partnership</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{formstep==11 && <section>
 							<div className="goal">
 								<div className="cast">Ever File Bankruptcy?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'bankruptcy')} type="radio" name="bankruptcy" value="Yes" />
+									<input onChange={(e) => onFormChange(e, 'bankruptcy')} type="radio" name="bankruptcy" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'bankruptcy')} type="radio" name="bankruptcy" value="No" />
+									<input onChange={(e) => onFormChange(e, 'bankruptcy')} type="radio" name="bankruptcy" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
-						</section>
+						</section>}
 					</>
-				)}
-
-				{formstep === 4 && (
+				
 					<>
-						{formValues.bankruptcy=='Yes'&&<section>
+						{(formValues.bankruptcy == 'Yes' && formstep ==12) && <section>
 							<div className="goal">
 								<div className="cast">If So, When?</div>
-								
-										<div className="term">
-								<input
-								checked={formValues.bankruptcyYear == "0" ? true : false}
-								onChange={(e) => onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="0" />
-								<label className="radio">Less than 7 years</label>
-							</div>
-							<div className="term">
-								<input
-								checked={formValues.bankruptcyYear == "10" ? true : false}
-								onChange={(e) => onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="10" />
-								<label className="radio">7 or More than 7 years</label>
-							</div>
-								
+
+								<div className="term">
+									<input
+										checked={formValues.bankruptcyYear == "0" ? true : false}
+										onChange={(e) => onFormChange(e, 'bankruptcyYear')} type="radio" name="bankruptcyYear" value="0" />
+									<label className="radio">Less than 7 years</label>
+								</div>
+								<div className="term">
+									<input
+										checked={formValues.bankruptcyYear == "10" ? true : false}
+										onChange={(e) => onFormChange(e, 'bankruptcyYear')} type="radio" name="bankruptcyYear" value="10" />
+									<label className="radio">7 or More than 7 years</label>
+								</div>
+
 							</div>
 						</section>}
-						<section>
+						{ formstep==13 && <section>
 							<div className="goal">
 								<div className="cast">
 									How much do you plan on putting down?
 								</div>
-								{formValues.bankruptcy=="Yes"&&<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="10" />
+								{formValues.bankruptcy == "Yes" && <div className="term">
+									<input onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="10" />
 									<label className="radio">10%</label>
 								</div>}
-								{formValues.bankruptcy=='Yes'&&<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="20" />
+								{formValues.bankruptcy == 'Yes' && <div className="term">
+									<input onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="20" />
 									<label className="radio">20%</label>
 								</div>}
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="30" />
+									<input onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="30" />
 									<label className="radio">30%</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="100" />
+									<input onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="100" />
 									<label className="radio">More then 30%</label>
 								</div>
 							</div>
-						</section>
-						<section>
+						</section>}
+						{formstep==14 && <section>
 							<div className="goal">
 								<div className="cast">
 									Do you have any other commercial properties?
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'commercial')}  type="radio" name="commercial" value="Yes" />
+									<input onChange={(e) => onFormChange(e, 'commercial')} type="radio" name="commercial" value="Yes" />
 									<label className="radio">Yes</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'commercial')}  type="radio" name="commercial" value="No" />
+									<input onChange={(e) => onFormChange(e, 'commercial')} type="radio" name="commercial" value="No" />
 									<label className="radio">No</label>
 								</div>
 							</div>
-						</section>
+						</section>}
 					</>
-				)}
+			
 				{/* {formstep === 5 && (
 					<div className="finance-list">
 						<p className="loan-step">Step 3</p>
@@ -543,13 +570,13 @@ export default function CRE() {
 						</section>
 					</div>
 				)} */}
-<Button size={"large"} disabled={formstep ==1} type="dashed" onClick={()=>setFormstep(formstep-1)}> 
+				<Button size={"large"} disabled={formstep == 1} type="dashed" onClick={previousStep}>
 					Previous
 				</Button>
-				<button type="button" className="button" onClick={completeFormStep}>
+				<button disabled={formstep==14} type="button" className="button" onClick={completeFormStep}>
 					Next Step
 				</button>
-				
+
 				{/* <input className="button" type="button" value="Next" /> */}
 			</Hero>
 		</div>
