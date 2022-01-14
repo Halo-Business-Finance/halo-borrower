@@ -137,7 +137,7 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CastOut" />
+									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CashOut" />
 									<label className="radio">Cast Out Refinance</label>
 								</div>
 								<div className="term">
@@ -146,7 +146,7 @@ export default function CRE() {
 								</div>
 							</div>
 						</section>
-						<section>
+						{formValues.goal=="CashOut" &&<section>
 							<div className="goal">
 								<div className="cast">If Cash Out, How much?</div>
 								<div className="term">
@@ -157,7 +157,7 @@ export default function CRE() {
 									/>
 								</div>
 							</div>
-						</section>
+						</section>}
 						<section>
 							<div className="goal">
 								<div>
@@ -398,14 +398,14 @@ export default function CRE() {
 								<div className="cast">
 									How much do you plan on putting down?
 								</div>
-								<div className="term">
+								{formValues.bankruptcy=="Yes"&&<div className="term">
 									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="10" />
 									<label className="radio">10%</label>
-								</div>
-								<div className="term">
+								</div>}
+								{formValues.bankruptcy=='Yes'&&<div className="term">
 									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="20" />
 									<label className="radio">20%</label>
-								</div>
+								</div>}
 								<div className="term">
 									<input onChange={(e)=> onFormChange(e,'downpayment')} type="radio" name="putting" value="30" />
 									<label className="radio">30%</label>
