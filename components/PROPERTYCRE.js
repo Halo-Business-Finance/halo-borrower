@@ -316,22 +316,14 @@ export default function PROPERTYCRE() {
 {formValues.bankruptcy=='Yes'&&	<section>
 						<div className="goal">
 							<div className="cast">If So, When?</div>
-							<RadioGroup onChange={(e)=> onFormChange(e,'bankruptcyYear')} vertical>
-  <RadioButton value="apple">
-    Apple
-  </RadioButton>
-  <RadioButton value="orange">
-    Orange
-  </RadioButton>
-  </RadioGroup>
-							{/* <div className="term">
+							<div className="term">
 									<input onChange={(e)=> onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="0" />
 									<label className="radio">Less than 7 years</label>
 								</div>
 								<div className="term">
 									<input  onChange={(e)=> onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="10" />
 									<label className="radio">7 or More than 7 years</label>
-								</div> */}
+								</div>
 						</div>
 					</section>}
 						<section>

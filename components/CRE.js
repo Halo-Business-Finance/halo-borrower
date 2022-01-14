@@ -155,7 +155,7 @@ export default function CRE() {
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="Cast Out Refinance" />
+									<input checked={bridgeLoanData.fundPlan == "purchase" ? true : false} onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="Cast Out Refinance" />
 									<label className="radio">Cast Out Refinance</label>
 								</div>
 								<div className="term">
