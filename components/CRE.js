@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {notification} from 'antd';
+import {Button, notification} from 'antd';
 import { useEffect, useState } from "react";
 
 const Hero = styled.div`
@@ -543,10 +543,13 @@ export default function CRE() {
 						</section>
 					</div>
 				)} */}
-
+<Button size={"large"} disabled={formstep ==1} type="dashed" onClick={()=>setFormstep(formstep-1)}> 
+					Previous
+				</Button>
 				<button type="button" className="button" onClick={completeFormStep}>
 					Next Step
 				</button>
+				
 				{/* <input className="button" type="button" value="Next" /> */}
 			</Hero>
 		</div>
