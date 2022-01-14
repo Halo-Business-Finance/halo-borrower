@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
-import { useForm } from "react-hook-form";
-import cookie from "js-cookie";
-import Router from "next/router";
+import {notification} from 'antd';
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { RadioGroup, RadioButton ,ReversedRadioButton} from 'react-radio-buttons';
 
 const Hero = styled.div`
 	padding: 40px 40px 40px 40px;
@@ -89,7 +84,7 @@ export default function CRE() {
 			})
 		}
 		useEffect(() => {
-			if(formValues.tenants=='1'||(formValues.bankruptcyYear!=''&& formValues.bankruptcyYear<7)){
+			if(formValues.tenants=='1'|| formValues.bankruptcyYear=="0"){
 			isUserDisqualified()
 			}
 			if(formValues.downpayment!=''&& Number(formValues.downpayment)<20){
@@ -137,29 +132,16 @@ export default function CRE() {
 
 				{formstep === 1 && (
 					<>
-					<RadioGroup  horizontal>
-  <RadioButton value="apple">
-    Apple
-  </RadioButton>
-  <RadioButton value="orange">
-    Orange
-  </RadioButton>
-  <RadioButton value="melon">
-    Melon
-  </RadioButton>
-  <ReversedRadioButton value="melon">
-    Melon
-  </ReversedRadioButton>
-</RadioGroup>
+					
 						<section>
 							<div className="goal">
 								<div className="cast">What is your goal?</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="Cast Out Refinance" />
+									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="CastOut" />
 									<label className="radio">Cast Out Refinance</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="Rate and Term only" />
+									<input onChange={(e)=> onFormChange(e,'goal')}  type="radio" name="goal" value="RateAndTerm" />
 									<label className="radio">Rate and Term only</label>
 								</div>
 							</div>
@@ -184,15 +166,15 @@ export default function CRE() {
 									</div>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}  type="radio" name="years" value="Less than a year" />
+									<input onChange={(e)=> onFormChange(e,'business')}  type="radio" name="years" value="1" />
 									<label className="radio">Less than a year</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="Less than 2 Years" />
+									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="2" />
 									<label className="radio">Less than 2 Years</label>
 								</div>
 								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="More then 2 Years" />
+									<input onChange={(e)=> onFormChange(e,'business')}   type="radio" name="years" value="3" />
 									<label className="radio">More then 2 Years</label>
 								</div>
 								<div className="term">
@@ -395,13 +377,20 @@ export default function CRE() {
 						{formValues.bankruptcy=='Yes'&&<section>
 							<div className="goal">
 								<div className="cast">If So, When?</div>
-								<div className="term">
-									<input onChange={(e)=> onFormChange(e,'bankruptcyYear')} 
-										className="outline"
-										type="text"
-										placeholder="Your answer"
-									/>
-								</div>
+								
+										<div className="term">
+								<input
+								checked={formValues.bankruptcyYear == "0" ? true : false}
+								onChange={(e) => onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="0" />
+								<label className="radio">Less than 7 years</label>
+							</div>
+							<div className="term">
+								<input
+								checked={formValues.bankruptcyYear == "10" ? true : false}
+								onChange={(e) => onFormChange(e,'bankruptcyYear')} type="radio" name="bankruptcyYear" value="10" />
+								<label className="radio">7 or More than 7 years</label>
+							</div>
+								
 							</div>
 						</section>}
 						<section>
@@ -444,9 +433,9 @@ export default function CRE() {
 						</section>
 					</>
 				)}
-				{formstep === 5 && (
+				{/* {formstep === 5 && (
 					<div className="finance-list">
-						{/* <p className="loan-step">Step 3</p> */}
+						<p className="loan-step">Step 3</p>
 						<h3 className="loan-head">Tell us a bit about you</h3>
 						<section className="loan-amount">
 							<section>
@@ -548,12 +537,12 @@ export default function CRE() {
 									</div>
 								</div>
 							</section>
-							{/* <div className="form-row-button">
+							<div className="form-row-button">
 								<input type="submit" id="button" value="Check to Pre-Qualify" />
-							</div> */}
+							</div>
 						</section>
 					</div>
-				)}
+				)} */}
 
 				<button type="button" className="button" onClick={completeFormStep}>
 					Next Step
