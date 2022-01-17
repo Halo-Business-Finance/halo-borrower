@@ -2,13 +2,13 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import axios from "axios";
+
 import cookie from "js-cookie";
-import Router from "next/router";
-import Borrower from "./borrower-apply";
+
 import Link from "next/link";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { API } from "../utils/api";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -162,49 +162,15 @@ export default function Form() {
 console.log('err',errors)
 	const [aState, setA] = useState();
 
-	if (typeof cookie.get("loanTypeId") !== "undefined") {
-		// Router.push('/borrower-apply');
+
+	const onSubmitForm = async (data) => {
+		try {
+			await API.post("/api/borrower/register",data)
+		} catch (error) {
+			console.log('hi',error)
+		}
 	}
 
-	const onSubmitForm = async (values) => {
-		axios({
-			method: "post",
-			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/register",
-			data: {
-				loanTypeId: cookie.get("loanTypeId"),
-				amount: cookie.get("amount"),
-				borrowerInfo: {
-					firstName: cookie.get("firstName"),
-					lastName: cookie.get("lastName"),
-					phone: cookie.get("phone"),
-					businessName: cookie.get("businessName"),
-					source: cookie.get("source"),
-				},
-				account: {
-					email: values.email,
-					password: values.password,
-					confirmPassword: values.confirmPassword,
-					phone:values.phone,
-				},
-				applicationStarted: "2021-11-16T14:45:22.123Z",
-				borrowerState: "PreQualify",
-			},
-		}).then(
-			(response) => {
-				console.log(response.data);
-				if (response.data.isSuccess) {
-					Router.push("/login");
-				} else {
-					console.log(response);
-					setA(response.data.reason);
-					return <div>{aState}</div>;
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
 
 	return (
 		<>
