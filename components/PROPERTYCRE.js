@@ -208,7 +208,7 @@ export default function PROPERTYCRE() {
 									Owner Occupied or Investment Property
 								</div>
 								<div className="term">
-									<input onChange={onChange} type="radio" name="occupied" value="Owner" />
+									<input onChange={onChange}  type="radio" name="occupied" value="Owner" />
 									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
