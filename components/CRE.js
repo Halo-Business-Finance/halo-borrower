@@ -298,11 +298,11 @@ export default function CRE() {
 									Owner Occupied or Investment Property
 								</div>
 								<div className="term">
-									<input checked={formValues.property == "Owner" ? true : false} onChange={(e)=>onFormChange("property",e)}  type="radio" name="occupied" value="Owner" />
+									<input checked={formValues.property == "Owner" ? true : false} onChange={(e)=>onFormChange(e,"property")}  type="radio" name="occupied" value="Owner" />
 									<label className="radio">Owner</label>
 								</div>
 								<div className="term">
-									<input checked={formValues.property == "Investment" ? true : false}   onChange={(e)=>onFormChange("property",e)} type="radio" name="occupied" value="Investment" />
+									<input checked={formValues.property == "Investment" ? true : false}   onChange={(e)=>onFormChange(e,"property",e)} type="radio" name="occupied" value="Investment" />
 									<label className="radio">Investment</label>
 								</div>
 							</div>

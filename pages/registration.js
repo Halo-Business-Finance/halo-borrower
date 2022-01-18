@@ -2,11 +2,13 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
-import axios from "axios";
+
 import cookie from "js-cookie";
-import Router from "next/router";
-import Borrower from "./borrower-apply";
+
 import Link from "next/link";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import { API } from "../utils/api";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -128,61 +130,47 @@ const Hero = styled.div`
 		color: #dc3545;
 		padding: 10px 10px 10px 10px;
 	}
+	& .StyledError {
+		color: red;
+	}
 `;
 
 
 export default function Form() {
+	const validationSchema = Yup.object().shape({
+		email: Yup.string()
+		.required('Email is required')
+		.email('Invalid Email'),
+		phone: Yup.string()
+		.required('Phone is required')
+		.min(10, 'Phone must be at least 10 characters'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(6, 'Password must be at least 6 characters'),
+        confirmPassword: Yup.string()
+            .required('Confirm Password is required')
+            .oneOf([Yup.ref('password')], 'Passwords must match')
+            
+    });
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
-
+	} = useForm({
+		resolver: yupResolver(validationSchema)
+	});
+console.log('err',errors)
 	const [aState, setA] = useState();
 
-	if (typeof cookie.get("loanTypeId") !== "undefined") {
-		// Router.push('/borrower-apply');
+
+	const onSubmitForm = async (data) => {
+		try {
+			await API.post("/api/borrower/register",data)
+		} catch (error) {
+			console.log('hi',error)
+		}
 	}
 
-	const onSubmitForm = async (values) => {
-		axios({
-			method: "post",
-			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/register",
-			data: {
-				loanTypeId: cookie.get("loanTypeId"),
-				amount: cookie.get("amount"),
-				borrowerInfo: {
-					firstName: cookie.get("firstName"),
-					lastName: cookie.get("lastName"),
-					phone: cookie.get("phone"),
-					businessName: cookie.get("businessName"),
-					source: cookie.get("source"),
-				},
-				account: {
-					email: values.email,
-					password: values.password,
-					confirmPassword: values.confirmPassword,
-					phone:values.phone,
-				},
-				applicationStarted: "2021-11-16T14:45:22.123Z",
-				borrowerState: "PreQualify",
-			},
-		}).then(
-			(response) => {
-				console.log(response.data);
-				if (response.data.isSuccess) {
-					Router.push("/login");
-				} else {
-					console.log(response);
-					setA(response.data.reason);
-					return <div>{aState}</div>;
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
 
 	return (
 		<>
@@ -216,22 +204,36 @@ export default function Form() {
 									Email Address<sup className="req">*</sup>
 								</label>
 								<input
-									{...register("email", {
-										required: "required",
-										pattern: {
-											value: /\S+@\S+\.\S+/,
-											message: "Entered value does not match email format",
-										},
-									})}
+									{...register("email"
+										
+									)}
 									id="email"
 									className="textbox"
 									type="email"
 									autoComplete="fname"
 									placeholder="Enter your email address"
-									required
+									
 								/>
 								{errors.email && (
-									<span role="alert">{errors.email.message}</span>
+									<span className="StyledError" role="alert">{errors.email.message}</span>
+								)}
+							</div>
+							<div className="form-group">
+								<label htmlFor="phone" className="formlabel">
+									Phone<sup className="req">*</sup>
+								</label>
+								<input
+									{...register("phone" 
+									)}
+									id="phone"
+									className="textbox"
+									type="tel"
+									autoComplete="fdba"
+									placeholder="Enter your phone number"
+									
+								/>
+								{errors.phone && (
+									<span className="StyledError" role="alert">{errors.phone.message}</span>
 								)}
 							</div>
 
@@ -240,22 +242,17 @@ export default function Form() {
 									Password<sup className="req">*</sup>
 								</label>
 								<input
-									{...register("password", {
-										required: "required",
-										minLength: {
-											value: 5,
-											message: "min length is 5",
-										},
-									})}
+									{...register("password"
+									)}
 									id="password"
 									className="textbox"
 									type="password"
 									autoComplete="fdba"
 									placeholder="Enter your password"
-									required
+									
 								/>
 								{errors.password && (
-									<span role="alert">{errors.password.message}</span>
+									<span className="StyledError" role="alert">{errors.password.message}</span>
 								)}
 							</div>
 							
@@ -265,46 +262,16 @@ export default function Form() {
 									Confirm Password<sup className="req">*</sup>
 								</label>
 								<input
-									{...register("password", {
-										required: "required",
-										minLength: {
-											value: 5,
-											message: "min length is 5",
-										},
-									})}
+									{...register("confirmPassword"
+									)}
 									id="password"
 									className="textbox"
 									type="password"
 									autoComplete="fdba"
 									placeholder="Retype your password"
-									required
 								/>
 								{errors.password && (
-									<span role="alert">{errors.password.message}</span>
-								)}
-							</div>
-							
-						<div className="form-group">
-								<label htmlFor="phone" className="formlabel">
-									Phone<sup className="req">*</sup>
-								</label>
-								<input
-									{...register("phone", {
-										required: "required",
-										// minLength: {
-										// 	value: 10,
-										// 	message: "min length is 10",
-										// },
-									})}
-									id="phone"
-									className="textbox"
-									type="tel"
-									autoComplete="fdba"
-									placeholder="Enter your phone number"
-									required
-								/>
-								{errors.phone && (
-									<span role="alert">{errors.phone.message}</span>
+									<span className="StyledError" role="alert">{errors.password.message}</span>
 								)}
 							</div>
 							</div>

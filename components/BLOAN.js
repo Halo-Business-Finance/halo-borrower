@@ -85,6 +85,7 @@ const StyledButton = styled(Button)`
 `;
 
 export default function BLOAN() {
+	const [isDisqualified, setDisqualified] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
 	const [bridgeLoanData, setBridgeLoanData] = useState({
 		fundPlan: "",
@@ -154,6 +155,11 @@ export default function BLOAN() {
 			notification.error({
 				message: "Disqualified"
 			})
+			setDisqualified(true)
+		}
+		else {
+			setDisqualified(false)
+
 		}
 
 	}, [bridgeLoanData.constructionAmount, bridgeLoanData.dollar, bridgeLoanData.bankruptcyYear, bridgeLoanData.plan, bridgeLoanData.rateTermAmount])
@@ -674,7 +680,7 @@ export default function BLOAN() {
 				<ButtonWrapper>
 
 					<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-					{formstep==18?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
+					{formstep==18?<Button type="primary">Submit</Button>:<Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>}
 				</ButtonWrapper>
