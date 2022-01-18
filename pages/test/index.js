@@ -8,6 +8,7 @@ import axios from "axios";
 import CRE from "../../components/CRE";
 import BLOAN from "../../components/BLOAN";
 import PROPERTYCRE from "../../components/PROPERTYCRE";
+import { WorkingCapitalForm } from "../../components/workingcapital";
 import { Franchaise } from "../../components/Organism/Franchise";
 import { Factoring } from "../../components/Organism/Factoring";
 
@@ -459,6 +460,28 @@ export default function Form() {
 									</div>
 								</div>
 							</div>
+							<div className="loan-type-section">
+								<div className="loan-type">
+									<div className="loan-type-select">
+										<div onClick={(e) => radioHandler(6)} className={`loan-type-contain ${status == 6 && "first"}`}>
+											<input
+												type="radio"
+												name="radio"
+												className="own-click"
+												value="2"
+												defaultChecked={status === 6}
+												onClick={(e) => radioHandler(6)}
+											/>
+											<img src="/loantypes/purchase.svg" />
+											<a>
+												<img src="/images/help.png" />
+											</a>
+										</div>
+										<strong>Working Capital</strong>
+										{/* <p>{datai.loanTitle}</p> */}
+									</div>
+								</div>
+							</div>
 						</section>
 					</div>}
 
@@ -469,6 +492,7 @@ export default function Form() {
 					{status === 3 && <PROPERTYCRE />}
 					{status === 4 && <Franchaise />}
 					{status === 5 && <Factoring/>}
+					{status === 6 && <WorkingCapitalForm/>}
 
 					{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>

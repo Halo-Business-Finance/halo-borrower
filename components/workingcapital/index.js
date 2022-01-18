@@ -1,6 +1,11 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import { useEffect, useState } from "react";
+import { Button, notification } from "antd";
+import { zoomIn,fadeInRightBig } from 'react-animations';
+ 
+const bounceAnimation = keyframes`${zoomIn}`;
+const fadeAnimation=keyframes`${fadeInRightBig}`;
 
 
 const Hero = styled.div`
@@ -9,6 +14,7 @@ const Hero = styled.div`
 	background-color: #e5e5e5;
 
     & 	.goal {
+		animation: 1s ${fadeAnimation};
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		border-radius: 10px;
@@ -16,6 +22,7 @@ const Hero = styled.div`
 		margin-top: 20px;
 	}
     & .cast {
+		animation: 2s ${bounceAnimation};
 		padding: 10px 10px 10px 10px;
 		font-size: 20px;
 	}
@@ -32,7 +39,7 @@ const Hero = styled.div`
     & .radio {
 		margin-left: 15px;
 	}
-	& .input {
+	& input {
 		border-top-style: hidden;
 		border-right-style: hidden;
 		border-left-style: hidden;
@@ -47,8 +54,41 @@ const Hero = styled.div`
 		outline: none;
 	}
 `;
+const ButtonWrapper = styled.div`
+display: flex;
+gap:10px;
+margin-top:20px;
+& .ant-btn-primary {
+	height: 48px;
+	background: #F3BA17;
+	border-color:#F3BA17 ;
+	border-radius: 8px;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+	color: #333333;
+}
+& .ant-btn-dashed{
+	height: 48px;
+	background-color:#1B46B0;
+	color:#fff;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+	border-radius: 8px;
+}
+`;
+const StyledButton = styled(Button)`
+
+`;
 
 const WorkingCapitalForm = () => {
+	const [isDisqualified, setDisqualified] = useState(false);
+	const [formstep, setFormstep] = React.useState(1);
     const[workingCapitalData,setWorkingCapitalData] = useState({
         bankruptcy: "",
 		bankruptcyYear: "",
@@ -61,6 +101,35 @@ const WorkingCapitalForm = () => {
 		ownership: "",
 		creditScore: "",
     })
+	const completeFormStep = () => {
+		// if(workingCapitalData.bankruptcy=="No" && formstep==13){
+		// 	setFormstep(15);
+		// 	return
+		// }
+		// console.log(bridgeLoanData.ownerOrInvestment,formstep)
+		// if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==7){
+		// 	setFormstep(9);
+		// 	console.log('hjh')
+		// 	return
+		// }
+		setFormstep(formstep + 1);
+
+	};
+	const previousStep = () => {
+		// if(bridgeLoanData.bankruptcy=="Yes" && formstep==12){
+		// 	setFormstep(12);
+		// }
+		// if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==9){
+		// 	setFormstep(7);
+		// 	console.log('hjh')
+		// 	return
+		// }
+		// if(bridgeLoanData.bankruptcy=="No" && formstep==15){
+		// 	setFormstep(13);
+		// 	return
+		// }
+		setFormstep(formstep - 1)
+	}
     const onChangeHandler = (name, e) => {
 
 		setWorkingCapitalData({
@@ -68,9 +137,24 @@ const WorkingCapitalForm = () => {
 			[name]: e.target.value
 		})
 	}
+	// useEffect(() => {
+	// 	if (bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
+	// 		notification.error({
+	// 			message: "Disqualified"
+	// 		})
+	// 		setDisqualified(true)
+	// 	}
+	// 	else {
+	// 		setDisqualified(false)
+
+	// 	}
+
+	// }, [bridgeLoanData.constructionAmount, bridgeLoanData.dollar, bridgeLoanData.bankruptcyYear, bridgeLoanData.plan, bridgeLoanData.rateTermAmount])
     return (
         <div>
             <Hero>
+			<>
+				{formstep == 1 && <section>
               
                 <div className="goal">
 							<div className="cast">Ever File Bankruptcy?</div>
@@ -85,6 +169,9 @@ const WorkingCapitalForm = () => {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						</section>}
+						{formstep == 2 &&
+
 						<div className="goal">
 							<div className="cast">If So, When?</div>
 
@@ -100,7 +187,8 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="10" />
 								<label className="radio">5 or More than 5 years</label>
 							</div>
-						</div>
+						</div>}
+						{formstep==3 &&
                         <div className="goal">
 							<div className="cast">Annual Revenue </div>
 							<div className="term">
@@ -133,7 +221,8 @@ const WorkingCapitalForm = () => {
 									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - $100,000,000</label>
 							</div>
-						</div>
+						</div>}
+						{formstep==4 &&
                         <div className="goal">
 							<div>
 								<div className="cast">What area of business are you in?</div>
@@ -211,7 +300,8 @@ const WorkingCapitalForm = () => {
 									onChange={(e) => onChangeHandler("businessType", e)} type="radio" name="property" value="GasStation" />
 								<label className="radio">Gas Station</label>
 							</div>
-                            </div>
+                            </div>}
+							{formstep==5 &&
                             <div className="goal">
 							<div className="cast">Use of Proceeds  </div>
 							<div className="term">
@@ -226,7 +316,8 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler("proceeds", e)} type="radio" name="amount" value="otherUse" />
 								<label className="radio">Other Use</label>
 							</div>
-                            </div>
+                            </div>}
+							{formstep==6 &&
 							<div className="goal">
 							<div className="cast">If Other use, Please Specify</div>
 							<div className="term">
@@ -238,7 +329,8 @@ const WorkingCapitalForm = () => {
 									placeholder="Your answer"
 								/>
 							</div>
-						</div>
+						</div>}
+						{formstep==7 &&
 						<div className="goal">
 							<div className="cast">Loan Term Requested  </div>
 							<div className="term">
@@ -257,7 +349,8 @@ const WorkingCapitalForm = () => {
 								<input checked={workingCapitalData.termRequest == "term3" ? true : false} onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term3" />
 								<label className="radio">7-10 Years</label>
 							</div>
-						</div>
+							</div>}
+							{formstep==8 &&
 						<div className="goal">
 							<div className="cast">What is your credit score look like?  </div>
 							<div className="term">
@@ -283,7 +376,8 @@ const WorkingCapitalForm = () => {
 								<label className="radio">680-740</label>
 							</div>
 							
-						</div>
+						</div>}
+						{formstep==9 &&
 						<div className="goal">
 							<div className="cast">
 							Is this a Franchise?
@@ -299,7 +393,8 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler("franchise", e)} type="radio" name="franchise" value="No" />
 								<label className="radio">No</label>
 							</div>
-						</div>
+						</div>}
+						{formstep==10 &&
 						<div className="goal">
 							<div className="cast">Loan Request Amount?  </div>
 							<div className="term">
@@ -332,7 +427,8 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
-						</div>
+						</div>}
+						{formstep==11 &&
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
@@ -359,6 +455,15 @@ const WorkingCapitalForm = () => {
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
+						}
+						</>
+						<ButtonWrapper>
+
+<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
+{formstep==18?<Button type="primary">Submit</Button>:<Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+	Next Step
+</Button>}
+</ButtonWrapper>
 						
                          
 						
@@ -370,4 +475,4 @@ const WorkingCapitalForm = () => {
     );
 }
 
-export default WorkingCapitalForm;
+export  {WorkingCapitalForm};
