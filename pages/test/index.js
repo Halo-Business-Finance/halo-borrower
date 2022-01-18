@@ -8,6 +8,7 @@ import axios from "axios";
 import CRE from "../../components/CRE";
 import BLOAN from "../../components/BLOAN";
 import PROPERTYCRE from "../../components/PROPERTYCRE";
+import { WorkingCapitalForm } from "../../components/workingcapital";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -420,6 +421,7 @@ export default function Form() {
                     {status === 1 && <CRE />}
                     {status === 2 && <BLOAN />}
                     {status === 3 && <PROPERTYCRE />}
+					{status === 3 && <WorkingCapitalForm />}
 
                     {/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
