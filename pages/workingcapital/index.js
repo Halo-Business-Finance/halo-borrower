@@ -55,6 +55,11 @@ const WorkingCapitalForm = () => {
         annualRevenue: "",
         businessType: "",
         proceeds: "",
+		termRequest: "",
+		franchise: "",
+		loanAmount: "",
+		ownership: "",
+		creditScore: "",
     })
     const onChangeHandler = (name, e) => {
 
@@ -222,6 +227,138 @@ const WorkingCapitalForm = () => {
 								<label className="radio">Other Use</label>
 							</div>
                             </div>
+							<div className="goal">
+							<div className="cast">If Other use, Please Specify</div>
+							<div className="term">
+								<input
+								value={workingCapitalData.proceeds}
+								onChange={(e) => onChangeHandler("proceeds", e)}
+									className="outline"
+									type="text"
+									placeholder="Your answer"
+								/>
+							</div>
+						</div>
+						<div className="goal">
+							<div className="cast">Loan Term Requested  </div>
+							<div className="term">
+								<input 
+								checked={workingCapitalData.termRequest == "term1" ? true : false}
+								onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term1" />
+								<label className="radio">3-24 Months</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.termRequest == "term2" ? true : false}
+								onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term2" />
+								<label className="radio">2-5 Years</label>
+							</div>
+							<div className="term">
+								<input checked={workingCapitalData.termRequest == "term3" ? true : false} onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term3" />
+								<label className="radio">7-10 Years</label>
+							</div>
+						</div>
+						<div className="goal">
+							<div className="cast">What is your credit score look like?  </div>
+							<div className="term">
+								<input 
+								checked={workingCapitalData.creditScore == "score1" ? true : false}
+								onChange={(e) => onChangeHandler("creditScore", e)} type="radio" name="score" value="score1" />
+								<label className="radio">579 or Less</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.creditScore == "score2" ? true : false}
+								onChange={(e) => onChangeHandler("creditScore", e)} type="radio" name="score" value="score2" />
+								<label className="radio">580-620</label>
+							</div>
+							<div className="term">
+								<input checked={workingCapitalData.creditScore == "score3" ? true : false} 
+								onChange={(e) => onChangeHandler("creditScore", e)} type="radio" name="score" value="score3" />
+								<label className="radio">620-680</label>
+							</div>
+							<div className="term">
+								<input checked={workingCapitalData.creditScore == "score4" ? true : false} 
+								onChange={(e) => onChangeHandler("creditScore", e)} type="radio" name="score" value="score4" />
+								<label className="radio">680-740</label>
+							</div>
+							
+						</div>
+						<div className="goal">
+							<div className="cast">
+							Is this a Franchise?
+							</div>
+							<div className="term">
+								<input checked={workingCapitalData.franchise == "Yes" ? true : false} 
+								onChange={(e) => onChangeHandler("franchise", e)} type="radio" name="franchise" value="Yes" />
+								<label className="radio">Yes</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.franchise == "No" ? true : false}
+								onChange={(e) => onChangeHandler("franchise", e)} type="radio" name="franchise" value="No" />
+								<label className="radio">No</label>
+							</div>
+						</div>
+						<div className="goal">
+							<div className="cast">Loan Request Amount?  </div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.loanAmount == "1" ? true : false}
+								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="1" />
+								<label className="radio">25,000</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.loanAmount == "2" ? true : false}
+								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="2" />
+								<label className="radio">250,000 - 1,000,000</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.loanAmount == "3" ? true : false}
+								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="3" />
+								<label className="radio">1,000,000 - 5,000,000</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.loanAmount == "4" ? true : false}
+								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="4" />
+								<label className="radio">5,000,000 - 25,000,000</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.loanAmount == "5" ? true : false}
+								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="5" />
+								<label className="radio">25,000,000 - 100,000,000</label>
+							</div>
+						</div>
+						<div className="goal">
+							<div className="cast">Ownership Structure </div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.ownership == "LLC" ? true : false}
+								onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="LLC" />
+								<label className="radio">LLC</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.ownership == "CCORP" ? true : false}
+								onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="CCORP" />
+								<label className="radio">C-Corp</label>
+							</div>
+							<div className="term">
+								<input
+								checked={workingCapitalData.ownership == "SCORP" ? true : false}
+								onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="SCORP" />
+								<label className="radio">S-CORP</label>
+							</div>
+							<div className="term">
+								<input checked={workingCapitalData.ownership == "Partnership" ? true : false}
+								 onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="Partnership" />
+								<label className="radio">Partnership</label>
+							</div>
+						</div>
 						
                          
 						
