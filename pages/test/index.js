@@ -428,7 +428,7 @@ export default function Form() {
 												defaultChecked={status === 4}
 												onClick={(e) => radioHandler(4)}
 											/>
-											<img src="/loantypes/purchase.svg" />
+											<img src="/loantypes/businessterm.svg" />
 											<a>
 												<img src="/images/help.png" />
 											</a>
@@ -451,7 +451,7 @@ export default function Form() {
 												defaultChecked={status === 5}
 												onClick={(e) => radioHandler(5)}
 											/>
-											<img src="/loantypes/purchase.svg" />
+											<img src="/loantypes/sba.svg" />
 											<a>
 												<img src="/images/help.png" />
 											</a>
@@ -473,7 +473,7 @@ export default function Form() {
 												defaultChecked={status === 6}
 												onClick={(e) => radioHandler(6)}
 											/>
-											<img src="/loantypes/purchase.svg" />
+											<img src="/loantypes/shorttermbusiness.svg" />
 											<a>
 												<img src="/images/help.png" />
 											</a>
