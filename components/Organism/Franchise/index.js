@@ -97,8 +97,8 @@ export const Franchaise = () => {
         ownership: '',
         bankruptcy: '',
         bankruptcyYear: '',
-        LoanAmountRequested:"",
-        LoanTermRequested:"",
+        LoanAmountRequested: "",
+        LoanTermRequested: "",
 
 
         downpayment: '',
@@ -134,7 +134,12 @@ export const Franchaise = () => {
 
         setFormstep(formstep - 1);
     }
-
+    useEffect(() => {
+        if (formValues.businessYear == "0") {
+            notification.error({ message: "Disqualified" })
+        }
+    },
+        [formValues.businessYear])
 
     return (
         <div>
@@ -143,16 +148,16 @@ export const Franchaise = () => {
                 {formstep == 1 && <section>
                     <div className="goal">
                         <div className="cast">Years in Business?</div>
-                        <div className="term">
+                        {/* <div className="term">
                             <input onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="0" />
                             <label className="radio">Cast Out Refinance</label>
-                        </div>
+                        </div> */}
                         <div className="term">
-                            <input checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="1" />
+                            <input checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="0" />
                             <label className="radio">Less than a Year</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="0" />
+                            <input checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="1" />
                             <label className="radio">1-2 Years</label>
                         </div>
                         <div className="term">
@@ -275,7 +280,7 @@ export const Franchaise = () => {
                 {formstep == 6 && <section>
                     <div className="goal">
                         <div className="cast">
-                        Loan Term Requested 
+                            Loan Term Requested
                         </div>
                         <div className="term">
                             <input checked={formValues.LoanTermRequested == "3to24Month" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="3to24Month" />
