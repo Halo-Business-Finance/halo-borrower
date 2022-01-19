@@ -21,8 +21,10 @@ const Hero = styled.div`
     height: 100%;
 	& .loan-type-select{
         padding: 15px 0px;
+	
 		&:hover{
 			transform: scale(1.1); 
+			
 		}
 		& strong{
 			display: block;
@@ -63,6 +65,13 @@ const Hero = styled.div`
 		border-radius: 8px;
 		padding: 5px;
 		cursor: pointer;
+		
+		&:hover{
+			border-top: 2px solid #F3BA17 ;
+			border-left: 2px solid #1B46B0 ;
+			border-right: 2px solid #F3BA17 ;
+			border-bottom: 2px solid #1B46B0 ;
+		}
 	}
 
 	.first {
@@ -121,6 +130,7 @@ const Hero = styled.div`
 		
         
 	}
+	
 
 	.loan-type-section {
 		/* display: inline-block; */
@@ -197,6 +207,7 @@ text-align: center;
 		color: #333333;
 		font-weight: 600;
 		font-size: 24px;
+		
 	}
 	.dvImageTextBox .rightimage {
 		position: absolute;
