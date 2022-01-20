@@ -1,8 +1,9 @@
 import React from 'react';
 import styled, { keyframes } from "styled-components";
-import { Button, notification } from 'antd';
+import { Button, Modal, notification, Progress } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
+import { Disqulaified } from '../Disqualify';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -10,6 +11,12 @@ const Hero = styled.div`
 	padding: 40px 40px 40px 40px;
 	font-family: Mulish;
 	background-color: #e5e5e5;
+   
+    & .progress{
+        display: flex;
+        width: 100%;
+        justify-content:flex-end;
+    }
 
 	.goal {
 		animation: 1s ${fadeAnimation};
@@ -54,6 +61,7 @@ const Hero = styled.div`
 `;
 const ButtonWrapper = styled.div`
 display: flex;
+align-items: center;
 gap:10px;
 margin-top:20px;
 & .ant-btn-primary {
@@ -84,6 +92,7 @@ const StyledButton = styled(Button)`
 
 `;
 
+
 export const Franchaise = () => {
     const [formstep, setFormstep] = React.useState(1);
     const [formValues, setFormValues] = useState({
@@ -111,6 +120,9 @@ export const Franchaise = () => {
 
         commercial: '',
     });
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+
     const onFormChange = (e, name) => {
         setFormValues({
             ...formValues,
@@ -135,16 +147,19 @@ export const Franchaise = () => {
         setFormstep(formstep - 1);
     }
     useEffect(() => {
-        if (formValues.businessYear == "0") {
-            notification.error({ message: "Disqualified" })
+        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579") {
+
+            setIsModalVisible(true)
         }
     },
-        [formValues.businessYear])
+        [formValues.businessYear, formValues.annualRevenue, formValues.creditScore])
 
     return (
         <div>
+
             {formstep}
             <Hero>
+
                 {formstep == 1 && <section>
                     <div className="goal">
                         <div className="cast">Years in Business?</div>
@@ -302,19 +317,19 @@ export const Franchaise = () => {
                             What is your credit score look like?
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange("creditScore", e)} type="radio" name="occupied" value="579" />
+                            <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="579" />
                             <label className="radio">579 or Less</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "580_620" ? true : false} onChange={(e) => onFormChange("creditScore", e)} type="radio" name="occupied" value="580_620" />
+                            <input checked={formValues.creditScore == "580_620" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="580_620" />
                             <label className="radio">580-620</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "620_680" ? true : false} onChange={(e) => onFormChange("creditScore", e)} type="radio" name="occupied" value="620_680" />
+                            <input checked={formValues.creditScore == "620_680" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="620_680" />
                             <label className="radio">620-680</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange("creditScore", e)} type="radio" name="occupied" value="680_740" />
+                            <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="680_740" />
                             <label className="radio">680-740</label>
                         </div>
                     </div>
@@ -414,9 +429,23 @@ export const Franchaise = () => {
                     {((formstep == 11 && formValues.bankruptcy == "No") || formstep == 12) ? <Button type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
                         Next Step
                     </Button>}
+                    <Progress
+                        className={"progress"}
+                        width={60}
+                        type="circle"
+                        strokeWidth="10"
+                        strokeColor={{
+                            '0%': '#108ee9',
+                            '100%': '#87d068',
+                        }}
+                        percent={Math.ceil(((formstep == 1 ? 0 : formstep) / 12) * 100)}
+                    />
                 </ButtonWrapper>
-
+                <Modal visible={isModalVisible} footer={null}>
+                    <Disqulaified />
+                </Modal>
             </Hero>
+
         </div>
     )
 }

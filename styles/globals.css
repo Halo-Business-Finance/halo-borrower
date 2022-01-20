@@ -14,15 +14,9 @@ a {
   box-sizing: border-box;
 }
 
-.loan-type-contain {
-  border-top-color: #60daaa;
-  border-right-color: #60daaa;
-  -webkit-transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
-  transition: width 0.25s ease-out, height 0.25s ease-out 0.25s;
+.ant-modal-wrap{
+  background: rgba(0,0,0,0.6) !important;
 }
-.loan-type-contain:hover::after {
-  border-bottom-color: #60daaa;
-  border-left-color: #60daaa;
-  -webkit-transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
-  transition: border-color 0s ease-out 0.5s, width 0.25s ease-out 0.5s, height 0.25s ease-out 0.75s;
+.ant-modal-close-x{
+  display: none !important;
 }
