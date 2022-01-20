@@ -341,11 +341,11 @@ export const Franchaise = () => {
                             Is this a SBA Loan?
                         </div>
                         <div className="term">
-                            <input checked={formValues.SBALoan == "Yes" ? true : false} onChange={(e) => onFormChange("SBALoan", e)} type="radio" name="occupied" value="Yes" />
+                            <input checked={formValues.SBALoan == "Yes" ? true : false} onChange={(e) => onFormChange(e, "SBALoan")} type="radio" name="occupied" value="Yes" />
                             <label className="radio">Yes</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.SBALoan == "No" ? true : false} onChange={(e) => onFormChange("SBALoan", e)} type="radio" name="occupied" value="No" />
+                            <input checked={formValues.SBALoan == "No" ? true : false} onChange={(e) => onFormChange(e, "SBALoan")} type="radio" name="occupied" value="No" />
                             <label className="radio">No</label>
                         </div>
                     </div>
