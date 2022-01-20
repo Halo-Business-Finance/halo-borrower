@@ -147,12 +147,12 @@ export const Franchaise = () => {
         setFormstep(formstep - 1);
     }
     useEffect(() => {
-        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579") {
+        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear=="0") {
 
             setIsModalVisible(true)
         }
     },
-        [formValues.businessYear, formValues.annualRevenue, formValues.creditScore])
+        [formValues.businessYear, formValues.annualRevenue, formValues.creditScore,formValues.bankruptcyYear])
 
     return (
         <div>
@@ -438,7 +438,7 @@ export const Franchaise = () => {
                             '0%': '#108ee9',
                             '100%': '#87d068',
                         }}
-                        percent={Math.ceil(((formstep == 1 ? 0 : formstep) / 12) * 100)}
+                        percent={Math.ceil(((formstep == 1 ? 0:formValues.bankruptcy=="No"?12:formstep) / 12) * 100)}
                     />
                 </ButtonWrapper>
                 <Modal visible={isModalVisible} footer={null}>
