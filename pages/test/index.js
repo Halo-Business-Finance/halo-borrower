@@ -16,7 +16,7 @@ const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
 	/* background-color: #1B46B0; */
-    background-image:linear-gradient(to bottom,rgba(27,69,176,1),rgba(243,186,23,.9));
+    background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
 	min-height: 93.7vh;
     height: 100%;
 	& .loan-type-select{
@@ -146,7 +146,7 @@ const Hero = styled.div`
 
 	.finance-list {
 		background-color: white;
-		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+		box-shadow: rgba(0, 0, 0, 0.5) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 		border-radius: 5px;
 		padding: 30px 20px 50px 20px;
 	}

@@ -6,11 +6,15 @@ import NavMenu from "./NavMenu";
 import React, { useState } from "react";
 import cookie from "js-cookie";
 import axios from "axios";
+import { Button } from "antd";
+import { useRouter } from 'next/router';
 
 const Nav = styled.nav`
-	height: 60px;
-
+	height: 70px;
+	padding :0px 20px;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 	display: flex;
+	width: 100%;
 	justify-content: space-between;
 	align-items: center;
 	color: #000000;
@@ -29,6 +33,7 @@ const StyledLink = styled.a`
 `;
 
 const Navbar = (data) => {
+	const router = useRouter();
 	if (
 		typeof cookie.get("access_token") !== "undefined" ||
 		typeof cookie.get("userName") !== "undefined" ||
@@ -48,13 +53,13 @@ const Navbar = (data) => {
 		axios
 			.get(
 				process.env.NEXT_PUBLIC_BASE_URL +
-					"/api/borrower/get-all-loan-requests",
+				"/api/borrower/get-all-loan-requests",
 				config
 			)
 			.then(
 				(response) => {
 					try {
-					} catch (err) {}
+					} catch (err) { }
 				},
 				(error) => {
 					console.log(error);
@@ -78,7 +83,7 @@ const Navbar = (data) => {
 						<Link href="/" passHref>
 							<StyledLink>{username}</StyledLink>
 						</Link>
-					</div> 
+					</div>
 				</Nav>
 			</>
 		);
@@ -88,11 +93,11 @@ const Navbar = (data) => {
 				<Nav>
 					<div className="logo">
 						<StyledLink>
-							<Image src={Logo} height={128} width={77} alt="logo" />
+							<Image src={Logo} alt="logo" />
 						</StyledLink>
 					</div>
 					<div className="top-details">
-						<a href="/login">Login</a>
+						<Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button>
 					</div>
 				</Nav>
 			</>
