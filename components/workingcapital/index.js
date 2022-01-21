@@ -92,6 +92,7 @@ const WorkingCapitalForm = () => {
     const[workingCapitalData,setWorkingCapitalData] = useState({
         bankruptcy: "",
 		bankruptcyYear: "",
+		businessYear: "",
         annualRevenue: "",
         businessType: "",
         proceeds: "",
@@ -137,19 +138,19 @@ const WorkingCapitalForm = () => {
 			[name]: e.target.value
 		})
 	}
-	// useEffect(() => {
-	// 	if (bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
-	// 		notification.error({
-	// 			message: "Disqualified"
-	// 		})
-	// 		setDisqualified(true)
-	// 	}
-	// 	else {
-	// 		setDisqualified(false)
+	useEffect(() => {
+		if ( workingCapitalData.bankruptcyYear == "0"|| workingCapitalData.businessYear == "0"|| workingCapitalData.annualRevenue == "1"|| workingCapitalData.creditScore == "score1") {
+			notification.error({
+				message: "Disqualified"
+			})
+			setDisqualified(true)
+		}
+		else {
+			setDisqualified(false)
 
-	// 	}
+		}
 
-	// }, [bridgeLoanData.constructionAmount, bridgeLoanData.dollar, bridgeLoanData.bankruptcyYear, bridgeLoanData.plan, bridgeLoanData.rateTermAmount])
+	}, [workingCapitalData.bankruptcyYear, workingCapitalData.businessYear, workingCapitalData.annualRevenue, workingCapitalData.creditScore])
     return (
         <div>
             <Hero>
@@ -170,7 +171,7 @@ const WorkingCapitalForm = () => {
 							</div>
 						</div>
 						</section>}
-						{formstep == 2 &&
+						{(workingCapitalData.bankruptcy == 'Yes' &&formstep == 2) && <section>
 
 						<div className="goal">
 							<div className="cast">If So, When?</div>
@@ -187,8 +188,26 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="10" />
 								<label className="radio">5 or More than 5 years</label>
 							</div>
-						</div>}
-						{formstep==3 &&
+						</div></section>}
+						{formstep == 3 && <section>
+                    <div className="goal">
+                        <div className="cast">How long have you been in Business? </div>
+
+                        {workingCapitalData.bankruptcy == "Yes" && <div className="term">
+                            <input checked={workingCapitalData.businessYear == "0" ? true : false} onChange={(e) => onChangeHandler('businessYear', e)} type="radio" name="goal" value="0" />
+                            <label className="radio">0 - 1 Years</label>
+                        </div>}
+                        <div className="term">
+                            <input checked={workingCapitalData.businessYear == "1" ? true : false} onChange={(e) => onChangeHandler('businessYear', e)} type="radio" name="goal" value="1" />
+                            <label className="radio">1 - 2 Years</label>
+                        </div>
+                        <div className="term">
+                            <input checked={workingCapitalData.businessYear == "2" ? true : false} onChange={(e) => onChangeHandler('businessYear', e)} type="radio" name="goal" value="2" />
+                            <label className="radio">2+ Years</label>
+                        </div>
+                    </div>
+                </section>}
+						{formstep==4 && <section>
                         <div className="goal">
 							<div className="cast">Annual Revenue </div>
 							<div className="term">
@@ -221,8 +240,10 @@ const WorkingCapitalForm = () => {
 									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - $100,000,000</label>
 							</div>
-						</div>}
-						{formstep==4 &&
+						</div>
+						</section>
+						}
+						{formstep==5 &&
                         <div className="goal">
 							<div>
 								<div className="cast">What area of business are you in?</div>
@@ -301,7 +322,7 @@ const WorkingCapitalForm = () => {
 								<label className="radio">Gas Station</label>
 							</div>
                             </div>}
-							{formstep==5 &&
+							{formstep==6 &&
                             <div className="goal">
 							<div className="cast">Use of Proceeds  </div>
 							<div className="term">
@@ -317,7 +338,7 @@ const WorkingCapitalForm = () => {
 								<label className="radio">Other Use</label>
 							</div>
                             </div>}
-							{formstep==6 &&
+							{formstep==7 &&
 							<div className="goal">
 							<div className="cast">If Other use, Please Specify</div>
 							<div className="term">
@@ -330,7 +351,7 @@ const WorkingCapitalForm = () => {
 								/>
 							</div>
 						</div>}
-						{formstep==7 &&
+						{formstep==8 &&
 						<div className="goal">
 							<div className="cast">Loan Term Requested  </div>
 							<div className="term">
@@ -350,7 +371,7 @@ const WorkingCapitalForm = () => {
 								<label className="radio">7-10 Years</label>
 							</div>
 							</div>}
-							{formstep==8 &&
+							{formstep==9 && <section>
 						<div className="goal">
 							<div className="cast">What is your credit score look like?  </div>
 							<div className="term">
@@ -376,8 +397,10 @@ const WorkingCapitalForm = () => {
 								<label className="radio">680-740</label>
 							</div>
 							
-						</div>}
-						{formstep==9 &&
+						</div>
+						</section>
+						}
+						{formstep==10 &&
 						<div className="goal">
 							<div className="cast">
 							Is this a Franchise?
@@ -394,7 +417,7 @@ const WorkingCapitalForm = () => {
 								<label className="radio">No</label>
 							</div>
 						</div>}
-						{formstep==10 &&
+						{formstep==11 &&
 						<div className="goal">
 							<div className="cast">Loan Request Amount?  </div>
 							<div className="term">
@@ -428,7 +451,7 @@ const WorkingCapitalForm = () => {
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
 						</div>}
-						{formstep==11 &&
+						{formstep==12 &&
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
@@ -460,7 +483,7 @@ const WorkingCapitalForm = () => {
 						<ButtonWrapper>
 
 <StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-{formstep==18?<Button type="primary">Submit</Button>:<Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+{formstep==13?<Button type="primary">Submit</Button>:<Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 	Next Step
 </Button>}
 </ButtonWrapper>
