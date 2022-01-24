@@ -79,10 +79,10 @@ const Hero = styled.div`
 	}
 
 	input[type="radio"]:after {
-		width: 15px;
-		height: 15px;
-		border-radius: 15px;
-		top: -2px;
+		width: 25px;
+		height: 25px;
+		border-radius: 25px;
+		top: -3px;
 		left: -1px;
 		position: relative;
 		background-color: #d9d9d9;
@@ -93,17 +93,17 @@ const Hero = styled.div`
 	}
 
 	input[type="radio"]:checked:after {
-		 width: 15px;
-		height: 15px;
-		border-radius: 15px;
-		top: -2px;
+		 width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		top: -3px;
 		left: -1px;
 		position: relative;
-		background-color: #f3ba17;
+		background-color: blue;
 		content: "";
 		display: inline-block;
 		visibility: visible;
-		border: 5px solid #c4c4c4;
+		border: 6px solid #c4c4c4;
 	}
 
 	.loan-type-contain img {

@@ -1,9 +1,13 @@
 import React from 'react';
 import styled, { keyframes } from "styled-components";
-import { Button, Modal, notification, Progress } from 'antd';
+import { Button, Form, Modal, notification, Progress } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Disqualify';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -44,7 +48,7 @@ const Hero = styled.div`
 		margin: 10px 10px 10px 10px;
 	}
 	.radio {
-		margin-left: 15px;
+		margin-left: 25px;
 	}
 	input {
 		border-top-style: hidden;
@@ -91,10 +95,32 @@ margin-top:20px;
 const StyledButton = styled(Button)`
 
 `;
+const ErrorMessage = styled.p`
+color:red;
+`;
 
 
 export const Franchaise = () => {
     const [formstep, setFormstep] = React.useState(1);
+
+    const { register, handleSubmit, trigger, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
+    const [error, setErrors] = useState({
+        businessYear: '',
+        annualRevenue: "",
+        AreaOfBusiness: '',
+        useOfProceeds: '',
+        specifiedOtherUse: "",
+        SBALoan: '',
+        creditScore: "",
+        ownership: '',
+        bankruptcy: '',
+        bankruptcyYear: '',
+        LoanAmountRequested: "",
+        LoanTermRequested: "",
+    });
+
     const [formValues, setFormValues] = useState({
         businessYear: '',
         annualRevenue: "",
@@ -108,29 +134,81 @@ export const Franchaise = () => {
         bankruptcyYear: '',
         LoanAmountRequested: "",
         LoanTermRequested: "",
-
-
-        downpayment: '',
-        goal: '',
-        cash: '',
-        business: '',
-
-
-        occupy: '',
-
-        commercial: '',
     });
     const [isModalVisible, setIsModalVisible] = useState(false);
 
 
     const onFormChange = (e, name) => {
+
         setFormValues({
             ...formValues,
             [name]: e.target.value
 
         })
+
     }
-    const completeFormStep = () => {
+
+
+    console.log(errors);
+    const completeFormStep = async (e) => {
+        e.preventDefault();
+        await trigger();
+
+        if (formstep == 1 && formValues.businessYear == "") {
+            setErrors({ ...formValues, businessYear: "Error" });
+            return;
+        }
+        else if (formstep == 2 && formValues.annualRevenue == "") {
+            setErrors({ ...formValues, annualRevenue: "Error" });
+            return;
+        }
+        else if (formstep == 3 && formValues.AreaOfBusiness == "") {
+            setErrors({ ...formValues, AreaOfBusiness: "Error" });
+            return;
+        }
+
+        else if (formstep == 4 && formValues.useOfProceeds == "") {
+            setErrors({ ...formValues, useOfProceeds: "Error" });
+            return;
+        }
+        else if (formstep == 5 && formValues.specifiedOtherUse == "" && formValues.useOfProceeds == "OtherUse") {
+            setErrors({ ...formValues, specifiedOtherUse: "Error" });
+            return;
+        }
+        else if (formstep == 6 && formValues.LoanTermRequested == "") {
+            setErrors({ ...formValues, LoanTermRequested: "Error" });
+            return;
+        }
+        else if (formstep == 7 && formValues.creditScore == "") {
+            setErrors({ ...formValues, creditScore: "Error" });
+            return;
+        }
+        else if (formstep == 8 && formValues.SBALoan == "") {
+            setErrors({ ...formValues, SBALoan: "Error" });
+            return;
+        }
+        else if (formstep == 9 && formValues.LoanAmountRequested == "") {
+            setErrors({ ...formValues, LoanAmountRequested: "Error" });
+            return;
+        }
+        else if (formstep == 10 && formValues.ownership == "") {
+            setErrors({ ...formValues, ownership: "Error" });
+            return;
+        }
+        else if (formstep == 11 && formValues.bankruptcy == "") {
+            setErrors({ ...formValues, bankruptcy: "Error" });
+            return;
+        }
+        else if (formstep == 12 && formValues.bankruptcyYear == "" && formValues.bankruptcy == "yes") {
+            setErrors({ ...formValues, bankruptcyYear: "Error" });
+            return;
+        }
+
+
+
+
+
+
         if (formValues.useOfProceeds !== "OtherUse" && formstep == 4) {
             setFormstep(6);
             return;
@@ -138,7 +216,8 @@ export const Franchaise = () => {
 
         setFormstep(formstep + 1);
     };
-    const previousStep = () => {
+    const previousStep = (e) => {
+        e.preventDefault();
         if (formValues.useOfProceeds !== "OtherUse" && formstep == 6) {
             setFormstep(4);
             return;
@@ -146,19 +225,27 @@ export const Franchaise = () => {
 
         setFormstep(formstep - 1);
     }
+
     useEffect(() => {
-        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear=="0") {
+        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
 
             setIsModalVisible(true)
         }
     },
-        [formValues.businessYear, formValues.annualRevenue, formValues.creditScore,formValues.bankruptcyYear])
+        [formValues.businessYear, formValues.annualRevenue, formValues.creditScore, formValues.bankruptcyYear])
 
     return (
         <div>
+            <Progress
+                strokeColor={{
+                    '0%': '#108ee9',
+                    '100%': '#87d068',
+                }}
+                percent={Math.ceil(((formstep == 1 ? 0 : formValues.bankruptcy == "No" ? 12 : formstep) / 12) * 100)}
 
-            {formstep}
+            />
             <Hero>
+
 
                 {formstep == 1 && <section>
                     <div className="goal">
@@ -168,18 +255,21 @@ export const Franchaise = () => {
                             <label className="radio">Cast Out Refinance</label>
                         </div> */}
                         <div className="term">
-                            <input checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="0" />
+                            <input {...register("businessYear", { required: true })} checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="0" />
                             <label className="radio">Less than a Year</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="1" />
+                            <input {...register("businessYear", { required: true })} checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="1" />
                             <label className="radio">1-2 Years</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.businessYear == "2" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="2" />
+                            <input {...register("businessYear", { required: true })} checked={formValues.businessYear == "2" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="2" />
                             <label className="radio">2+ Years</label>
                         </div>
                     </div>
+
+                    <ErrorMessage>{error.businessYear && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {formstep == 2 && <section>
                     <div className="goal">
@@ -205,6 +295,8 @@ export const Franchaise = () => {
                             <label className="radio">25,000,000 - 100,000,000</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.annualRevenue && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {formstep == 3 && <section>
                     <div className="goal">
@@ -264,6 +356,7 @@ export const Franchaise = () => {
                             <label className="radio">GasStation</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.AreaOfBusiness && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {formstep == 4 && <section>
                     <div className="goal">
@@ -279,6 +372,7 @@ export const Franchaise = () => {
                             <label className="radio">Other Use</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.useOfProceeds && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {(formstep == 5 && formValues.useOfProceeds == "OtherUse") && <section>
                     <div className="goal">
@@ -291,6 +385,7 @@ export const Franchaise = () => {
                             />
                         </div>
                     </div>
+                    <ErrorMessage>{error.specifiedOtherUse && "Please Enter"}</ErrorMessage>
                 </section>}
                 {formstep == 6 && <section>
                     <div className="goal">
@@ -310,6 +405,7 @@ export const Franchaise = () => {
                             <label className="radio">7-10 Years</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.LoanTermRequested && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {formstep == 7 && <section>
                     <div className="goal">
@@ -333,6 +429,7 @@ export const Franchaise = () => {
                             <label className="radio">680-740</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.creditScore && "Please select to continue"}</ErrorMessage>
                 </section>}
 
                 {formstep == 8 && <section>
@@ -349,6 +446,7 @@ export const Franchaise = () => {
                             <label className="radio">No</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.SBALoan && "Please select to continue"}</ErrorMessage>
                 </section>}
 
                 {formstep == 9 && <section>
@@ -375,6 +473,7 @@ export const Franchaise = () => {
                             <label className="radio">25,000,000 - 100,000,000</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {formstep == 10 && <section>
                     <div className="goal">
@@ -396,6 +495,7 @@ export const Franchaise = () => {
                             <label className="radio">Partnership</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.ownership && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {formstep == 11 && <section>
                     <div className="goal">
@@ -409,6 +509,7 @@ export const Franchaise = () => {
                             <label className="radio">No</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.bankruptcy && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {(formstep == 12 && formValues.bankruptcy == "Yes") && <section>
                     <div className="goal">
@@ -422,28 +523,20 @@ export const Franchaise = () => {
                             <label className="radio">Over 5 Years</label>
                         </div>
                     </div>
+                    <ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
                 </section>}
                 <ButtonWrapper>
 
-                    <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-                    {((formstep == 11 && formValues.bankruptcy == "No") || formstep == 12) ? <Button type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+                    {formstep > 1 && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+                    {((formstep == 11 && formValues.bankruptcy == "No") || formstep == 12) ? <Button type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
                         Next Step
                     </Button>}
-                    <Progress
-                        className={"progress"}
-                        width={60}
-                        type="circle"
-                        strokeWidth="10"
-                        strokeColor={{
-                            '0%': '#108ee9',
-                            '100%': '#87d068',
-                        }}
-                        percent={Math.ceil(((formstep == 1 ? 0:formValues.bankruptcy=="No"?12:formstep) / 12) * 100)}
-                    />
+
                 </ButtonWrapper>
                 <Modal visible={isModalVisible} footer={null}>
                     <Disqulaified />
                 </Modal>
+
             </Hero>
 
         </div>
