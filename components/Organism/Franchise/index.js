@@ -150,7 +150,10 @@ export const Franchaise = () => {
 
     const completeFormStep = async (e) => {
         e.preventDefault();
-       
+        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
+
+            setIsModalVisible(true)
+        }
 
         if (formstep == 1 && formValues.businessYear == "") {
             setErrors({ ...formValues, businessYear: "Error" });
@@ -224,13 +227,6 @@ export const Franchaise = () => {
         setFormstep(formstep - 1);
     }
 
-    useEffect(() => {
-        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
-
-            setIsModalVisible(true)
-        }
-    },
-        [formValues.businessYear, formValues.annualRevenue, formValues.creditScore, formValues.bankruptcyYear])
 
     return (
         <div>
