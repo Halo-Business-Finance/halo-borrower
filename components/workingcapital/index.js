@@ -96,6 +96,7 @@ const WorkingCapitalForm = () => {
         annualRevenue: "",
         businessType: "",
         proceeds: "",
+		otheruse: "",
 		termRequest: "",
 		franchise: "",
 		loanAmount: "",
@@ -103,32 +104,28 @@ const WorkingCapitalForm = () => {
 		creditScore: "",
     })
 	const completeFormStep = () => {
-		// if(workingCapitalData.bankruptcy=="No" && formstep==13){
-		// 	setFormstep(15);
-		// 	return
-		// }
-		// console.log(bridgeLoanData.ownerOrInvestment,formstep)
-		// if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==7){
-		// 	setFormstep(9);
-		// 	console.log('hjh')
-		// 	return
-		// }
+		if (workingCapitalData.bankruptcy=="No" && formstep==1){
+		setFormstep(3)
+		return;	
+		}
+		if (workingCapitalData.proceeds=="businessExpansion" && formstep==6){
+			setFormstep(8)
+			return;	
+			}
+		
 		setFormstep(formstep + 1);
 
 	};
 	const previousStep = () => {
-		// if(bridgeLoanData.bankruptcy=="Yes" && formstep==12){
-		// 	setFormstep(12);
-		// }
-		// if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==9){
-		// 	setFormstep(7);
-		// 	console.log('hjh')
-		// 	return
-		// }
-		// if(bridgeLoanData.bankruptcy=="No" && formstep==15){
-		// 	setFormstep(13);
-		// 	return
-		// }
+		if (workingCapitalData.bankruptcy=="No" && formstep==3){
+			setFormstep(1)
+			return;	
+			}
+			if (workingCapitalData.proceeds=="businessExpansion" && formstep==8){
+				setFormstep(6)
+				return;	
+				}
+		
 		setFormstep(formstep - 1)
 	}
     const onChangeHandler = (name, e) => {
@@ -143,11 +140,7 @@ const WorkingCapitalForm = () => {
 			notification.error({
 				message: "Disqualified"
 			})
-			setDisqualified(true)
-		}
-		else {
-			setDisqualified(false)
-
+			
 		}
 
 	}, [workingCapitalData.bankruptcyYear, workingCapitalData.businessYear, workingCapitalData.annualRevenue, workingCapitalData.creditScore])
@@ -193,10 +186,10 @@ const WorkingCapitalForm = () => {
                     <div className="goal">
                         <div className="cast">How long have you been in Business? </div>
 
-                        {workingCapitalData.bankruptcy == "Yes" && <div className="term">
+                         <div className="term">
                             <input checked={workingCapitalData.businessYear == "0" ? true : false} onChange={(e) => onChangeHandler('businessYear', e)} type="radio" name="goal" value="0" />
                             <label className="radio">0 - 1 Years</label>
-                        </div>}
+                        </div>
                         <div className="term">
                             <input checked={workingCapitalData.businessYear == "1" ? true : false} onChange={(e) => onChangeHandler('businessYear', e)} type="radio" name="goal" value="1" />
                             <label className="radio">1 - 2 Years</label>
@@ -343,8 +336,8 @@ const WorkingCapitalForm = () => {
 							<div className="cast">If Other use, Please Specify</div>
 							<div className="term">
 								<input
-								value={workingCapitalData.proceeds}
-								onChange={(e) => onChangeHandler("proceeds", e)}
+								value={workingCapitalData.otheruse}
+								onChange={(e) => onChangeHandler("otheruse", e)}
 									className="outline"
 									type="text"
 									placeholder="Your answer"

@@ -3,6 +3,7 @@ import styled,{keyframes} from "styled-components";
 import { Button, notification } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn,fadeInRightBig } from 'react-animations';
+
  
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation=keyframes`${fadeInRightBig}`;
@@ -52,8 +53,26 @@ const Hero = styled.div`
 		outline: none;
 	}
 `;
+const ErrorMessage = styled.p`
+color:red;
+`;
 
 export default function CRE() {
+	const [error, setErrors] = useState({
+		tenants: '',
+		bankruptcy: '',
+		bankruptcyYear: '',
+		downpayment: '',
+		goal: '',
+		cash: '',
+		business: '',
+		property: '',
+		propertyType: '',
+		occupy: '',
+		ownership: '',
+		commercial: '',
+	});
+
 	const [formValues, setFormValues] = useState({
 		tenants: '',
 		bankruptcy: '',
