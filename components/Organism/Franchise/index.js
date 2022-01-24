@@ -153,6 +153,7 @@ export const Franchaise = () => {
         if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
 
             setIsModalVisible(true)
+            return;
         }
 
         if (formstep == 1 && formValues.businessYear == "") {
