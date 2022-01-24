@@ -150,7 +150,7 @@ export const Franchaise = () => {
 
     const completeFormStep = async (e) => {
         e.preventDefault();
-        await trigger();
+       
 
         if (formstep == 1 && formValues.businessYear == "") {
             setErrors({ ...formValues, businessYear: "Error" });
