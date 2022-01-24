@@ -103,9 +103,7 @@ color:red;
 export const Franchaise = () => {
     const [formstep, setFormstep] = React.useState(1);
 
-    const { register, handleSubmit, trigger, formState: { errors } } = useForm({
-        resolver: yupResolver(schema),
-    });
+
     const [error, setErrors] = useState({
         businessYear: '',
         annualRevenue: "",
@@ -149,7 +147,7 @@ export const Franchaise = () => {
     }
 
 
-    console.log(errors);
+
     const completeFormStep = async (e) => {
         e.preventDefault();
         await trigger();
@@ -255,15 +253,15 @@ export const Franchaise = () => {
                             <label className="radio">Cast Out Refinance</label>
                         </div> */}
                         <div className="term">
-                            <input {...register("businessYear", { required: true })} checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="0" />
+                            <input checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="0" />
                             <label className="radio">Less than a Year</label>
                         </div>
                         <div className="term">
-                            <input {...register("businessYear", { required: true })} checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="1" />
+                            <input checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="1" />
                             <label className="radio">1-2 Years</label>
                         </div>
                         <div className="term">
-                            <input {...register("businessYear", { required: true })} checked={formValues.businessYear == "2" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="2" />
+                            <input checked={formValues.businessYear == "2" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" value="2" />
                             <label className="radio">2+ Years</label>
                         </div>
                     </div>
