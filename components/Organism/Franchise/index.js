@@ -157,52 +157,52 @@ export const Franchaise = () => {
         }
 
         if (formstep == 1 && formValues.businessYear == "") {
-            setErrors({ ...formValues, businessYear: "Error" });
+            setErrors({ ...error, businessYear: "Error" });
             return;
         }
         else if (formstep == 2 && formValues.annualRevenue == "") {
-            setErrors({ ...formValues, annualRevenue: "Error" });
+            setErrors({ ...error, annualRevenue: "Error" });
             return;
         }
         else if (formstep == 3 && formValues.AreaOfBusiness == "") {
-            setErrors({ ...formValues, AreaOfBusiness: "Error" });
+            setErrors({ ...error, AreaOfBusiness: "Error" });
             return;
         }
 
         else if (formstep == 4 && formValues.useOfProceeds == "") {
-            setErrors({ ...formValues, useOfProceeds: "Error" });
+            setErrors({ ...error, useOfProceeds: "Error" });
             return;
         }
         else if (formstep == 5 && formValues.specifiedOtherUse == "" && formValues.useOfProceeds == "OtherUse") {
-            setErrors({ ...formValues, specifiedOtherUse: "Error" });
+            setErrors({ ...error, specifiedOtherUse: "Error" });
             return;
         }
         else if (formstep == 6 && formValues.LoanTermRequested == "") {
-            setErrors({ ...formValues, LoanTermRequested: "Error" });
+            setErrors({ ...error, LoanTermRequested: "Error" });
             return;
         }
         else if (formstep == 7 && formValues.creditScore == "") {
-            setErrors({ ...formValues, creditScore: "Error" });
+            setErrors({ ...error, creditScore: "Error" });
             return;
         }
         else if (formstep == 8 && formValues.SBALoan == "") {
-            setErrors({ ...formValues, SBALoan: "Error" });
+            setErrors({ ...error, SBALoan: "Error" });
             return;
         }
         else if (formstep == 9 && formValues.LoanAmountRequested == "") {
-            setErrors({ ...formValues, LoanAmountRequested: "Error" });
+            setErrors({ ...error, LoanAmountRequested: "Error" });
             return;
         }
         else if (formstep == 10 && formValues.ownership == "") {
-            setErrors({ ...formValues, ownership: "Error" });
+            setErrors({ ...error, ownership: "Error" });
             return;
         }
         else if (formstep == 11 && formValues.bankruptcy == "") {
-            setErrors({ ...formValues, bankruptcy: "Error" });
+            setErrors({ ...error, bankruptcy: "Error" });
             return;
         }
         else if (formstep == 12 && formValues.bankruptcyYear == "" && formValues.bankruptcy == "yes") {
-            setErrors({ ...formValues, bankruptcyYear: "Error" });
+            setErrors({ ...error, bankruptcyYear: "Error" });
             return;
         }
 

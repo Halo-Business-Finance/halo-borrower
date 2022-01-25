@@ -84,6 +84,9 @@ margin-top:20px;
 const StyledButton = styled(Button)`
 
 `;
+const ErrorMessage = styled.p`
+color:red;
+`;
 
 export const Factoring = () => {
     const [formstep, setFormstep] = React.useState(1);
@@ -91,11 +94,11 @@ export const Factoring = () => {
     const [formValues, setFormValues] = useState({
         businessYear: '',
         invoiceReceivables: "",
-        AreaOfBusiness: '',
         payableTerms: "",
+        AreaOfBusiness: '',
         useOfProceeds: '',
         specifiedOtherUse: "",
-        annualRevenue: "",
+        LoanTermRequested: "",
         creditScore: "",
         franchiseCompany: "",
         LoanAmountRequested: "",
@@ -108,11 +111,11 @@ export const Factoring = () => {
     const [errors, setErrors] = useState({
         businessYear: '',
         invoiceReceivables: "",
-        AreaOfBusiness: '',
         payableTerms: "",
+        AreaOfBusiness: '',
         useOfProceeds: '',
         specifiedOtherUse: "",
-        annualRevenue: "",
+        LoanTermRequested: "",
         creditScore: "",
         franchiseCompany: "",
         LoanAmountRequested: "",
@@ -128,13 +131,62 @@ export const Factoring = () => {
             [name]: e.target.value
 
         })
+        setErrors({...errors,[name]:""})
     }
     const completeFormStep = () => {
         if (formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
             setIsModalVisible(true);
         }
         if (formstep == 1 && formValues.businessYear == "") {
-            setErrors({ ...formValues, businessYear: "Error" });
+            setErrors({ ...errors, businessYear: "Error" });
+            return;
+        }
+        if (formstep == 2 && formValues.invoiceReceivables == "") {
+            setErrors({ ...errors, invoiceReceivables: "Error" });
+            return;
+        }
+        if (formstep == 3 && formValues.payableTerms == "") {
+            setErrors({ ...errors, payableTerms: "Error" });
+            return;
+        }
+        if (formstep == 4 && formValues.AreaOfBusiness == "") {
+            setErrors({ ...errors, AreaOfBusiness: "Error" });
+            return;
+        }
+        if (formstep == 5 && formValues.useOfProceeds == "") {
+            setErrors({ ...errors, AreaOfBusiness: "Error" });
+            return;
+        }
+        if (formstep == 6 && formValues.useOfProceeds == "OtherUse" && formValues.specifiedOtherUse == "") {
+            setErrors({ ...errors, specifiedOtherUse: "Error" });
+            return;
+        }
+        if (formstep == 7 && formValues.LoanTermRequested == "") {
+            setErrors({ ...errors, specifiedOtherUse: "Error" });
+            return;
+        }
+        if (formstep == 8 && formValues.creditScore == "") {
+            setErrors({ ...errors, creditScore: "Error" });
+            return;
+        }
+        if (formstep == 9 && formValues.franchiseCompany == "") {
+            setErrors({ ...errors, franchiseCompany: "Error" });
+            return;
+        }
+        if (formstep == 10 && formValues.LoanAmountRequested == "") {
+            setErrors({ ...errors, LoanAmountRequested: "Error" });
+            return;
+        }
+        if (formstep == 11 && formValues.ownership == "") {
+            setErrors({ ...errors, ownership: "Error" });
+            return;
+        }
+        if (formstep == 12 && formValues.bankruptcy == "") {
+            setErrors({ ...errors, bankruptcy: "Error" });
+            return;
+        }
+        if (formstep == 13 && formValues.bankruptcy == "Yes" && formValues.bankruptcyYear == "") {
+            setErrors({ ...errors, bankruptcy: "Error" });
             return;
         }
         if (formValues.useOfProceeds !== "OtherUse" && formstep == 5) {
@@ -175,6 +227,8 @@ export const Factoring = () => {
                             <label className="radio">2+ Years</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.businessYear && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {formstep == 2 && <section>
                     <div className="goal">
@@ -189,6 +243,8 @@ export const Factoring = () => {
                             <label className="radio">Receivables</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.invoiceReceivables && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {formstep == 3 && <section>
                     <div className="goal">
@@ -219,6 +275,9 @@ export const Factoring = () => {
                         </div>
 
                     </div>
+                    <ErrorMessage>{errors.payableTerms && "Please select to continue"}</ErrorMessage>
+
+
                 </section>}
                 {formstep == 4 && <section>
                     <div className="goal">
@@ -278,6 +337,9 @@ export const Factoring = () => {
                             <label className="radio">GasStation</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.AreaOfBusiness && "Please select to continue"}</ErrorMessage>
+
+
                 </section>}
                 {formstep == 5 && <section>
                     <div className="goal">
@@ -293,6 +355,9 @@ export const Factoring = () => {
                             <label className="radio">Other Use</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.useOfProceeds && "Please select to continue"}</ErrorMessage>
+
+
                 </section>}
                 {(formstep == 6 && formValues.useOfProceeds == "OtherUse") && <section>
                     <div className="goal">
@@ -305,6 +370,9 @@ export const Factoring = () => {
                             />
                         </div>
                     </div>
+                    <ErrorMessage>{errors.specifiedOtherUse && "Please enter"}</ErrorMessage>
+
+
                 </section>}
                 {formstep == 7 && <section>
                     <div className="goal">
@@ -324,6 +392,9 @@ export const Factoring = () => {
                             <label className="radio">7-10 Years</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.LoanTermRequested && "Please select to continue"}</ErrorMessage>
+
+
                 </section>}
                 {formstep == 8 && <section>
                     <div className="goal">
@@ -347,6 +418,8 @@ export const Factoring = () => {
                             <label className="radio">680-740</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.creditScore && "Please select to continue"}</ErrorMessage>
+
                 </section>}
 
                 {formstep == 9 && <section>
@@ -363,6 +436,8 @@ export const Factoring = () => {
                             <label className="radio">No</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.franchiseCompany && "Please select to continue"}</ErrorMessage>
+
                 </section>}
 
                 {formstep == 10 && <section>
@@ -389,6 +464,8 @@ export const Factoring = () => {
                             <label className="radio">25,000,000 - 100,000,000</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {formstep == 11 && <section>
                     <div className="goal">
@@ -410,6 +487,8 @@ export const Factoring = () => {
                             <label className="radio">Partnership</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.ownership && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {formstep == 12 && <section>
                     <div className="goal">
@@ -423,6 +502,8 @@ export const Factoring = () => {
                             <label className="radio">No</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.bankruptcy && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 {(formstep == 13 && formValues.bankruptcy == "Yes") && <section>
                     <div className="goal">
@@ -436,6 +517,8 @@ export const Factoring = () => {
                             <label className="radio">Over 2 Years</label>
                         </div>
                     </div>
+                    <ErrorMessage>{errors.bankruptcyYear && "Please select to continue"}</ErrorMessage>
+
                 </section>}
                 <ButtonWrapper>
 

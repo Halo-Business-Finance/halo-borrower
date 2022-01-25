@@ -53,6 +53,9 @@ const Hero = styled.div`
 		outline: none;
 	}
 `;
+const ErrorMessage = styled.p`
+color:red;
+`;
 
 export default function CRE() {
 	const [isModalVisible, setIsModalVisible] = useState(false);
