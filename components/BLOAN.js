@@ -6,7 +6,8 @@ import cookie from "js-cookie";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, notification } from "antd";
+import { Button, Modal, notification } from "antd";
+import { Disqulaified } from "./Organism/Disqualify";
 
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
@@ -86,6 +87,7 @@ const StyledButton = styled(Button)`
 
 export default function BLOAN() {
 	const [isDisqualified, setDisqualified] = useState(false);
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
 	const [bridgeLoanData, setBridgeLoanData] = useState({
 		fundPlan: "",
@@ -96,7 +98,7 @@ export default function BLOAN() {
 		experience: "",
 		propertyAddress: "",
 		propertyType: "",
-		propertyTypeOther:"",
+		propertyTypeOther: "",
 		termRequest: "",
 		ownerOrInvestment: "",
 		occupy: "",
@@ -113,12 +115,17 @@ export default function BLOAN() {
 	})
 
 	const completeFormStep = () => {
-		if(bridgeLoanData.bankruptcy=="No" && formstep==13){
+		if (bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
+			setIsModalVisible(true);
+			return;
+
+		}
+		if (bridgeLoanData.bankruptcy == "No" && formstep == 13) {
 			setFormstep(15);
 			return
 		}
-		console.log(bridgeLoanData.ownerOrInvestment,formstep)
-		if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==7){
+		console.log(bridgeLoanData.ownerOrInvestment, formstep)
+		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 7) {
 			setFormstep(9);
 			console.log('hjh')
 			return
@@ -127,21 +134,21 @@ export default function BLOAN() {
 
 	};
 	const previousStep = () => {
-		if(bridgeLoanData.bankruptcy=="Yes" && formstep==12){
+		if (bridgeLoanData.bankruptcy == "Yes" && formstep == 12) {
 			setFormstep(12);
 		}
-		if(bridgeLoanData.ownerOrInvestment=="Investment" && formstep==9){
+		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 9) {
 			setFormstep(7);
 			console.log('hjh')
 			return
 		}
-		if(bridgeLoanData.bankruptcy=="No" && formstep==15){
+		if (bridgeLoanData.bankruptcy == "No" && formstep == 15) {
 			setFormstep(13);
 			return
 		}
 		setFormstep(formstep - 1)
 	}
-	console.log(bridgeLoanData)
+
 	const onChangeHandler = (name, e) => {
 
 		setBridgeLoanData({
@@ -151,16 +158,8 @@ export default function BLOAN() {
 	}
 
 	useEffect(() => {
-		if (bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
-			notification.error({
-				message: "Disqualified"
-			})
-			setDisqualified(true)
-		}
-		else {
-			setDisqualified(false)
 
-		}
+
 
 	}, [bridgeLoanData.constructionAmount, bridgeLoanData.dollar, bridgeLoanData.bankruptcyYear, bridgeLoanData.plan, bridgeLoanData.rateTermAmount])
 	return (
@@ -227,7 +226,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{(bridgeLoanData.fundPlan === "construct" && formstep==2) && <section>
+					{(bridgeLoanData.fundPlan === "construct" && formstep == 2) && <section>
 						<div className="goal">
 							<div className="cast">Construction Amount </div>
 							<div className="term">
@@ -266,40 +265,40 @@ export default function BLOAN() {
 
 
 				<>
-					{((bridgeLoanData.fundPlan == "purchase"&& formstep==2) || (["cashout","term"].includes(bridgeLoanData.refinance))&& formstep==2  ) 
-					&& <section>
-						<div className="goal">
-							<div className="cast">Rate and Term Amount </div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.rateTermAmount == "1" ? true : false}
-									onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="1" />
-								<label className="radio">25,000 - 250,000</label>
+					{((bridgeLoanData.fundPlan == "purchase" && formstep == 2) || (["cashout", "term"].includes(bridgeLoanData.refinance)) && formstep == 2)
+						&& <section>
+							<div className="goal">
+								<div className="cast">Rate and Term Amount </div>
+								<div className="term">
+									<input
+										checked={bridgeLoanData.rateTermAmount == "1" ? true : false}
+										onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="1" />
+									<label className="radio">25,000 - 250,000</label>
+								</div>
+								<div className="term">
+									<input
+										checked={bridgeLoanData.rateTermAmount == "2" ? true : false}
+										onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="2" />
+									<label className="radio">250,000 - 1,000,000</label>
+								</div>
+								<div className="term">
+									<input
+										checked={bridgeLoanData.rateTermAmount == "3" ? true : false}
+										onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="3" />
+									<label className="radio">1,000,000 - 5,000,000</label>
+								</div>
+								<div className="term">
+									<input
+										checked={bridgeLoanData.rateTermAmount == "4" ? true : false}
+										onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="4" />
+									<label className="radio">5,000,000 - 25,000,000</label>
+								</div>
+								<div className="term">
+									<input checked={bridgeLoanData.rateTermAmount == "5" ? true : false} onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="5" />
+									<label className="radio">25,000,000 - 100,000,000</label>
+								</div>
 							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.rateTermAmount == "2" ? true : false}
-									onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="2" />
-								<label className="radio">250,000 - 1,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.rateTermAmount == "3" ? true : false}
-									onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="3" />
-								<label className="radio">1,000,000 - 5,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.rateTermAmount == "4" ? true : false}
-									onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="4" />
-								<label className="radio">5,000,000 - 25,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={bridgeLoanData.rateTermAmount == "5" ? true : false} onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="5" />
-								<label className="radio">25,000,000 - 100,000,000</label>
-							</div>
-						</div>
-					</section>}
+						</section>}
 					{formstep == 3 && <section>
 						<div className="goal">
 							<div className="cast">Years of Experience </div>
@@ -416,7 +415,7 @@ export default function BLOAN() {
 								<input
 									className="other"
 									type="text"
-									checked={bridgeLoanData.propertyTypeOther }
+									checked={bridgeLoanData.propertyTypeOther}
 									onChange={(e) => onChangeHandler("propertyTypeOther", e)}
 								// placeholder="Your answer"
 								/>
@@ -431,15 +430,15 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Term Requested </div>
 							<div className="term">
-								<input 
-								checked={bridgeLoanData.termRequest == "term1" ? true : false}
-								onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term1" />
+								<input
+									checked={bridgeLoanData.termRequest == "term1" ? true : false}
+									onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term1" />
 								<label className="radio">3-12 Months</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.termRequest == "term2" ? true : false}
-								onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term2" />
+									checked={bridgeLoanData.termRequest == "term2" ? true : false}
+									onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term2" />
 								<label className="radio">12-24 Months</label>
 							</div>
 							<div className="term">
@@ -456,14 +455,14 @@ export default function BLOAN() {
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.ownerOrInvestment == "Owner" ? true : false}
-								onChange={(e) => onChangeHandler("ownerOrInvestment", e)} type="radio" name="owner" value="Owner" />
+									checked={bridgeLoanData.ownerOrInvestment == "Owner" ? true : false}
+									onChange={(e) => onChangeHandler("ownerOrInvestment", e)} type="radio" name="owner" value="Owner" />
 								<label className="radio">Owner</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.ownerOrInvestment == "Investment" ? true : false}
-								 onChange={(e) => onChangeHandler("ownerOrInvestment", e)} type="radio" name="owner" value="Investment" />
+									checked={bridgeLoanData.ownerOrInvestment == "Investment" ? true : false}
+									onChange={(e) => onChangeHandler("ownerOrInvestment", e)} type="radio" name="owner" value="Investment" />
 								<label className="radio">Investment</label>
 							</div>
 						</div>
@@ -476,14 +475,14 @@ export default function BLOAN() {
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.occupy == "Yes" ? true : false}
-								onChange={(e) => onChangeHandler("occupy", e)} type="radio" name="more" value="Yes" />
+									checked={bridgeLoanData.occupy == "Yes" ? true : false}
+									onChange={(e) => onChangeHandler("occupy", e)} type="radio" name="more" value="Yes" />
 								<label className="radio">Yes</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.occupy == "No" ? true : false}
-								onChange={(e) => onChangeHandler("occupy", e)} type="radio" name="more" value="No" />
+									checked={bridgeLoanData.occupy == "No" ? true : false}
+									onChange={(e) => onChangeHandler("occupy", e)} type="radio" name="more" value="No" />
 								<label className="radio">No</label>
 							</div>
 						</div>
@@ -493,8 +492,8 @@ export default function BLOAN() {
 							<div className="cast">How many Tenants or Units</div>
 							<div className="term">
 								<input
-								value={bridgeLoanData.tenants}
-								onChange={(e) => onChangeHandler("tenants", e)}
+									value={bridgeLoanData.tenants}
+									onChange={(e) => onChangeHandler("tenants", e)}
 									className="outline"
 									type="text"
 									placeholder="Your answer"
@@ -510,32 +509,32 @@ export default function BLOAN() {
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.dollar == "1" ? true : false}
-								onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="1" />
+									checked={bridgeLoanData.dollar == "1" ? true : false}
+									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="1" />
 								<label className="radio">25,000</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.dollar == "2" ? true : false}
-								onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="2" />
+									checked={bridgeLoanData.dollar == "2" ? true : false}
+									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="2" />
 								<label className="radio">250,000 - 1,000,000</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.dollar == "3" ? true : false}
-								onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="3" />
+									checked={bridgeLoanData.dollar == "3" ? true : false}
+									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="3" />
 								<label className="radio">1,000,000 - 5,000,000</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.dollar == "4" ? true : false}
-								onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="4" />
+									checked={bridgeLoanData.dollar == "4" ? true : false}
+									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="4" />
 								<label className="radio">5,000,000 - 25,000,000</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.dollar == "5" ? true : false}
-								onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="5" />
+									checked={bridgeLoanData.dollar == "5" ? true : false}
+									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
 						</div>
@@ -546,25 +545,25 @@ export default function BLOAN() {
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.ownership == "LLC" ? true : false}
-								onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="LLC" />
+									checked={bridgeLoanData.ownership == "LLC" ? true : false}
+									onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="LLC" />
 								<label className="radio">LLC</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.ownership == "CCORP" ? true : false}
-								onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="CCORP" />
+									checked={bridgeLoanData.ownership == "CCORP" ? true : false}
+									onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="CCORP" />
 								<label className="radio">C-Corp</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.ownership == "SCORP" ? true : false}
-								onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="SCORP" />
+									checked={bridgeLoanData.ownership == "SCORP" ? true : false}
+									onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="SCORP" />
 								<label className="radio">S-CORP</label>
 							</div>
 							<div className="term">
 								<input checked={bridgeLoanData.ownership == "Partnership" ? true : false}
-								 onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="Partnership" />
+									onChange={(e) => onChangeHandler("ownership", e)} type="radio" name="amount" value="Partnership" />
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
@@ -581,8 +580,8 @@ export default function BLOAN() {
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.lawsuit == "No" ? true : false}
-								onChange={(e) => onChangeHandler("lawsuit", e)} type="radio" name="lawsuit" value="No" />
+									checked={bridgeLoanData.lawsuit == "No" ? true : false}
+									onChange={(e) => onChangeHandler("lawsuit", e)} type="radio" name="lawsuit" value="No" />
 								<label className="radio">No</label>
 							</div>
 						</div>
@@ -592,13 +591,13 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Ever File Bankruptcy?</div>
 							<div className="term">
-								<input checked={bridgeLoanData.bankruptcy == "Yes" ? true : false}  onChange={(e) => onChangeHandler("bankruptcy", e)} type="radio" name="bankruptcy" value="Yes" />
+								<input checked={bridgeLoanData.bankruptcy == "Yes" ? true : false} onChange={(e) => onChangeHandler("bankruptcy", e)} type="radio" name="bankruptcy" value="Yes" />
 								<label className="radio">Yes</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.bankruptcy == "No" ? true : false}
-								onChange={(e) => onChangeHandler("bankruptcy", e)} type="radio" name="bankruptcy" value="No" />
+									checked={bridgeLoanData.bankruptcy == "No" ? true : false}
+									onChange={(e) => onChangeHandler("bankruptcy", e)} type="radio" name="bankruptcy" value="No" />
 								<label className="radio">No</label>
 							</div>
 						</div>
@@ -609,14 +608,14 @@ export default function BLOAN() {
 
 							<div className="term">
 								<input
-								checked={bridgeLoanData.bankruptcyYear == "0" ? true : false}
-								onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="0" />
+									checked={bridgeLoanData.bankruptcyYear == "0" ? true : false}
+									onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="0" />
 								<label className="radio">Less than 7 years</label>
 							</div>
 							<div className="term">
 								<input
-								checked={bridgeLoanData.bankruptcyYear == "10" ? true : false}
-								onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="10" />
+									checked={bridgeLoanData.bankruptcyYear == "10" ? true : false}
+									onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="10" />
 								<label className="radio">7 or More than 7 years</label>
 							</div>
 						</div>
@@ -628,8 +627,8 @@ export default function BLOAN() {
 							</div>
 							{bridgeLoanData.bankruptcy == "Yes" && <div className="term">
 								<input
-								checked={bridgeLoanData.plan == "10" ? true : false}
-								onChange={(e) => onChangeHandler("plan", e)} type="radio" name="putting" value="10" />
+									checked={bridgeLoanData.plan == "10" ? true : false}
+									onChange={(e) => onChangeHandler("plan", e)} type="radio" name="putting" value="10" />
 								<label className="radio">10%</label>
 							</div>}
 							{bridgeLoanData.bankruptcy == "Yes" && <div className="term">
@@ -650,9 +649,9 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Current Property Value</div>
 							<div className="term">
-								<input 
-								value={bridgeLoanData.currentProperty}
-								onChange={(e) => onChangeHandler("currentProperty", e)}
+								<input
+									value={bridgeLoanData.currentProperty}
+									onChange={(e) => onChangeHandler("currentProperty", e)}
 									className="outline"
 									type="text"
 									name="value"
@@ -665,9 +664,9 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Once Stabilized</div>
 							<div className="term">
-								<input 
-								value={bridgeLoanData.stabilized}
-								onChange={(e) => onChangeHandler("stabilized", e)}
+								<input
+									value={bridgeLoanData.stabilized}
+									onChange={(e) => onChangeHandler("stabilized", e)}
 									className="outline"
 									type="text"
 									name="stabilized"
@@ -679,13 +678,16 @@ export default function BLOAN() {
 				</>
 				<ButtonWrapper>
 
-					<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-					{formstep==18?<Button type="primary">Submit</Button>:<Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+					<StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
+					{formstep == 18 ? <Button type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>}
 				</ButtonWrapper>
 
 			</Hero>
+			<Modal visible={isModalVisible} footer={null}>
+				<Disqulaified />
+			</Modal>
 		</div>
 	);
 }

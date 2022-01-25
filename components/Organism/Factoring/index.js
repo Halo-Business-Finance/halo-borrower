@@ -1,8 +1,9 @@
 import React from 'react';
 import styled, { keyframes } from "styled-components";
-import { Button, notification } from 'antd';
+import { Button, Modal, notification } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
+import { Disqulaified } from '../Disqualify';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -86,22 +87,40 @@ const StyledButton = styled(Button)`
 
 export const Factoring = () => {
     const [formstep, setFormstep] = React.useState(1);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const [formValues, setFormValues] = useState({
         businessYear: '',
         invoiceReceivables: "",
         AreaOfBusiness: '',
-        payableTerms:"",
+        payableTerms: "",
         useOfProceeds: '',
         specifiedOtherUse: "",
         annualRevenue: "",
         creditScore: "",
-        franchiseCompany:"",
+        franchiseCompany: "",
         LoanAmountRequested: "",
         ownership: '',
         bankruptcy: '',
         bankruptcyYear: '',
 
-        
+
+    });
+    const [errors, setErrors] = useState({
+        businessYear: '',
+        invoiceReceivables: "",
+        AreaOfBusiness: '',
+        payableTerms: "",
+        useOfProceeds: '',
+        specifiedOtherUse: "",
+        annualRevenue: "",
+        creditScore: "",
+        franchiseCompany: "",
+        LoanAmountRequested: "",
+        ownership: '',
+        bankruptcy: '',
+        bankruptcyYear: '',
+
+
     });
     const onFormChange = (e, name) => {
         setFormValues({
@@ -111,6 +130,13 @@ export const Factoring = () => {
         })
     }
     const completeFormStep = () => {
+        if (formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
+            setIsModalVisible(true);
+        }
+        if (formstep == 1 && formValues.businessYear == "") {
+            setErrors({ ...formValues, businessYear: "Error" });
+            return;
+        }
         if (formValues.useOfProceeds !== "OtherUse" && formstep == 5) {
             setFormstep(7);
             return;
@@ -305,19 +331,19 @@ export const Factoring = () => {
                             What is your credit score look like?
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e,"creditScore",)} type="radio" name="occupied" value="579" />
+                            <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e, "creditScore",)} type="radio" name="occupied" value="579" />
                             <label className="radio">579 or Less</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "580_620" ? true : false} onChange={(e) => onFormChange(e,"creditScore")} type="radio" name="occupied" value="580_620" />
+                            <input checked={formValues.creditScore == "580_620" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="580_620" />
                             <label className="radio">580-620</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "620_680" ? true : false} onChange={(e) => onFormChange(e,"creditScore")} type="radio" name="occupied" value="620_680" />
+                            <input checked={formValues.creditScore == "620_680" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="620_680" />
                             <label className="radio">620-680</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e,"creditScore")} type="radio" name="occupied" value="680_740" />
+                            <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="680_740" />
                             <label className="radio">680-740</label>
                         </div>
                     </div>
@@ -326,14 +352,14 @@ export const Factoring = () => {
                 {formstep == 9 && <section>
                     <div className="goal">
                         <div className="cast">
-                        Is this a Franchise Company?
+                            Is this a Franchise Company?
                         </div>
                         <div className="term">
-                            <input checked={formValues.franchiseCompany == "Yes" ? true : false} onChange={(e) => onFormChange(e,"franchiseCompany")} type="radio" name="occupied" value="Yes" />
+                            <input checked={formValues.franchiseCompany == "Yes" ? true : false} onChange={(e) => onFormChange(e, "franchiseCompany")} type="radio" name="occupied" value="Yes" />
                             <label className="radio">Yes</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.franchiseCompany == "No" ? true : false} onChange={(e) => onFormChange(e,"franchiseCompany")} type="radio" name="occupied" value="No" />
+                            <input checked={formValues.franchiseCompany == "No" ? true : false} onChange={(e) => onFormChange(e, "franchiseCompany")} type="radio" name="occupied" value="No" />
                             <label className="radio">No</label>
                         </div>
                     </div>
@@ -403,11 +429,11 @@ export const Factoring = () => {
                         <div className="cast">If Yes, tells us when?</div>
                         <div className="term">
                             <input checked={formValues.bankruptcyYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'bankruptcyYear')} type="radio" name="bankruptcy" value="0" />
-                            <label className="radio">Less Than 5 Years</label>
+                            <label className="radio">Less Than 2 Years</label>
                         </div>
                         <div className="term">
                             <input checked={formValues.bankruptcyYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'bankruptcyYear')} type="radio" name="bankruptcy" value="1" />
-                            <label className="radio">Over 5 Years</label>
+                            <label className="radio">Over 2 Years</label>
                         </div>
                     </div>
                 </section>}
@@ -420,6 +446,9 @@ export const Factoring = () => {
                 </ButtonWrapper>
 
             </Hero>
+            <Modal visible={isModalVisible} footer={null}>
+                <Disqulaified />
+            </Modal>
         </div>
     )
 }

@@ -206,11 +206,6 @@ export const Franchaise = () => {
             return;
         }
 
-
-
-
-
-
         if (formValues.useOfProceeds !== "OtherUse" && formstep == 4) {
             setFormstep(6);
             return;
