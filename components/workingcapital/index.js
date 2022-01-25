@@ -1,8 +1,9 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
 import { useEffect, useState } from "react";
-import { Button, notification } from "antd";
+import { Button, Modal, notification } from "antd";
 import { zoomIn,fadeInRightBig } from 'react-animations';
+import { Disqulaified } from '../Organism/Disqualify';
  
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation=keyframes`${fadeInRightBig}`;
@@ -85,10 +86,27 @@ margin-top:20px;
 const StyledButton = styled(Button)`
 
 `;
+const ErrorMessage = styled.p`
+color:red;
+`;
 
 const WorkingCapitalForm = () => {
 	const [isDisqualified, setDisqualified] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
+	const [error, setErrors] = useState({
+		bankruptcy: "",
+		bankruptcyYear: "",
+		businessYear: "",
+        annualRevenue: "",
+        businessType: "",
+        proceeds: "",
+		otheruse: "",
+		termRequest: "",
+		creditScore: "",
+		franchise: "",
+		loanAmount: "",
+		ownership: "",
+		});
     const[workingCapitalData,setWorkingCapitalData] = useState({
         bankruptcy: "",
 		bankruptcyYear: "",
@@ -103,7 +121,63 @@ const WorkingCapitalForm = () => {
 		ownership: "",
 		creditScore: "",
     })
+	const [isModalVisible, setIsModalVisible] = useState(false);
 	const completeFormStep = () => {
+		if ( workingCapitalData.bankruptcyYear == "0"|| workingCapitalData.businessYear == "0"|| workingCapitalData.annualRevenue == "1"|| workingCapitalData.creditScore == "score1") {
+			setIsModalVisible(true)
+            return;
+			
+		}
+		if (formstep == 1 && workingCapitalData.bankruptcy == "") {
+            setErrors({ ...error, bankruptcy: "Error" });
+            return;
+        }
+		else if (formstep == 2 && workingCapitalData.bankruptcyYear == "" && workingCapitalData.bankruptcy == "Yes") {
+            setErrors({ ...error, bankruptcyYear: "Error" });
+            return;
+        }
+		else if (formstep == 3 && workingCapitalData.businessYear == "") {
+            setErrors({ ...error, businessYear: "Error" });
+            return;
+        }
+		else if (formstep == 4 && workingCapitalData.annualRevenue == "") {
+            setErrors({ ...error, annualRevenue: "Error" });
+            return;
+        }
+		else if (formstep == 5 && workingCapitalData.businessType == "") {
+            setErrors({ ...error, businessType: "Error" });
+            return;
+        }
+		else if (formstep == 6 && workingCapitalData.proceeds == "") {
+            setErrors({ ...error, proceeds: "Error" });
+            return;
+        }
+		else if (formstep == 7 && workingCapitalData.otheruse == "" && workingCapitalData.proceeds == "otherUse") {
+            setErrors({ ...error, otheruse: "Error" });
+            return;
+        }
+		else if (formstep == 8 && workingCapitalData.termRequest == "") {
+            setErrors({ ...error, termRequest: "Error" });
+            return;
+        }
+		else if (formstep == 9 && workingCapitalData.creditScore == "") {
+            setErrors({ ...error, creditScore: "Error" });
+            return;
+        }
+		else if (formstep == 10 && workingCapitalData.franchise == "") {
+            setErrors({ ...error, franchise: "Error" });
+            return;
+        }
+		else if (formstep == 11 && workingCapitalData.loanAmount == "") {
+            setErrors({ ...error, loanAmount: "Error" });
+            return;
+        }
+		else if (formstep == 12 && workingCapitalData.ownership == "") {
+            setErrors({ ...error, ownership: "Error" });
+            return;
+        }
+
+
 		if (workingCapitalData.bankruptcy=="No" && formstep==1){
 		setFormstep(3)
 		return;	
@@ -134,16 +208,11 @@ const WorkingCapitalForm = () => {
 			...workingCapitalData,
 			[name]: e.target.value
 		})
+		setErrors({
+			...error,
+			[name]: ""
+		})
 	}
-	useEffect(() => {
-		if ( workingCapitalData.bankruptcyYear == "0"|| workingCapitalData.businessYear == "0"|| workingCapitalData.annualRevenue == "1"|| workingCapitalData.creditScore == "score1") {
-			notification.error({
-				message: "Disqualified"
-			})
-			
-		}
-
-	}, [workingCapitalData.bankruptcyYear, workingCapitalData.businessYear, workingCapitalData.annualRevenue, workingCapitalData.creditScore])
     return (
         <div>
             <Hero>
@@ -163,6 +232,7 @@ const WorkingCapitalForm = () => {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.bankruptcy && "Please select to continue"}</ErrorMessage>
 						</section>}
 						{(workingCapitalData.bankruptcy == 'Yes' &&formstep == 2) && <section>
 
@@ -181,7 +251,9 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="10" />
 								<label className="radio">5 or More than 5 years</label>
 							</div>
-						</div></section>}
+						</div>
+						<ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
+						</section>}
 						{formstep == 3 && <section>
                     <div className="goal">
                         <div className="cast">How long have you been in Business? </div>
@@ -199,6 +271,7 @@ const WorkingCapitalForm = () => {
                             <label className="radio">2+ Years</label>
                         </div>
                     </div>
+					<ErrorMessage>{error.businessYear && "Please select to continue"}</ErrorMessage>
                 </section>}
 						{formstep==4 && <section>
                         <div className="goal">
@@ -234,9 +307,10 @@ const WorkingCapitalForm = () => {
 								<label className="radio">25,000,000 - $100,000,000</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.annualRevenue && "Please select to continue"}</ErrorMessage>
 						</section>
 						}
-						{formstep==5 &&
+						{formstep==5 && <section>
                         <div className="goal">
 							<div>
 								<div className="cast">What area of business are you in?</div>
@@ -314,8 +388,11 @@ const WorkingCapitalForm = () => {
 									onChange={(e) => onChangeHandler("businessType", e)} type="radio" name="property" value="GasStation" />
 								<label className="radio">Gas Station</label>
 							</div>
-                            </div>}
-							{formstep==6 &&
+                            </div>
+							<ErrorMessage>{error.businessType && "Please select to continue"}</ErrorMessage>
+							</section>
+							}
+							{formstep==6 && <section>
                             <div className="goal">
 							<div className="cast">Use of Proceeds  </div>
 							<div className="term">
@@ -330,8 +407,11 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler("proceeds", e)} type="radio" name="amount" value="otherUse" />
 								<label className="radio">Other Use</label>
 							</div>
-                            </div>}
-							{formstep==7 &&
+                            </div>
+							<ErrorMessage>{error.proceeds && "Please select to continue"}</ErrorMessage>
+							</section>
+							}
+							{formstep==7 && <section>
 							<div className="goal">
 							<div className="cast">If Other use, Please Specify</div>
 							<div className="term">
@@ -343,8 +423,11 @@ const WorkingCapitalForm = () => {
 									placeholder="Your answer"
 								/>
 							</div>
-						</div>}
-						{formstep==8 &&
+							</div>
+							<ErrorMessage>{error.otheruse && "Please Enter"}</ErrorMessage>
+						</section>
+						}
+						{formstep==8 && <section>
 						<div className="goal">
 							<div className="cast">Loan Term Requested  </div>
 							<div className="term">
@@ -363,7 +446,10 @@ const WorkingCapitalForm = () => {
 								<input checked={workingCapitalData.termRequest == "term3" ? true : false} onChange={(e) => onChangeHandler("termRequest", e)} type="radio" name="term" value="term3" />
 								<label className="radio">7-10 Years</label>
 							</div>
-							</div>}
+							</div>
+							<ErrorMessage>{error.termRequest && "Please select to continue"}</ErrorMessage>
+							</section>
+							}
 							{formstep==9 && <section>
 						<div className="goal">
 							<div className="cast">What is your credit score look like?  </div>
@@ -391,9 +477,10 @@ const WorkingCapitalForm = () => {
 							</div>
 							
 						</div>
+						<ErrorMessage>{error.creditScore && "Please select to continue"}</ErrorMessage>
 						</section>
 						}
-						{formstep==10 &&
+						{formstep==10 && <section>
 						<div className="goal">
 							<div className="cast">
 							Is this a Franchise?
@@ -409,8 +496,11 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler("franchise", e)} type="radio" name="franchise" value="No" />
 								<label className="radio">No</label>
 							</div>
-						</div>}
-						{formstep==11 &&
+						</div>
+						<ErrorMessage>{error.franchise && "Please select to continue"}</ErrorMessage>
+						</section>
+						}
+						{formstep==11 && <section>
 						<div className="goal">
 							<div className="cast">Loan Request Amount?  </div>
 							<div className="term">
@@ -443,8 +533,11 @@ const WorkingCapitalForm = () => {
 								onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
-						</div>}
-						{formstep==12 &&
+						</div>
+						<ErrorMessage>{error.loanAmount && "Please select to continue"}</ErrorMessage>
+						</section>
+						}
+						{formstep==12 && <section>
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
@@ -471,15 +564,19 @@ const WorkingCapitalForm = () => {
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.ownership && "Please select to continue"}</ErrorMessage>
+						</section>
 						}
 						</>
 						<ButtonWrapper>
-
-<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-{formstep==13?<Button type="primary">Submit</Button>:<Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+						{formstep > 1 &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{formstep==12?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
 	Next Step
 </Button>}
 </ButtonWrapper>
+<Modal visible={isModalVisible} footer={null}>
+                    <Disqulaified />
+                </Modal>
 						
                          
 						
