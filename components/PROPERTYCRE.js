@@ -115,9 +115,6 @@ export default function PROPERTYCRE() {
 
 		})
 	}
-	useEffect(() => {
-
-	}, [formValues.tenants, formValues.bankruptcyYear, formValues.downpayment])
 	return (
 		<div>
 			{formstep}

@@ -215,11 +215,11 @@ export const Factoring = () => {
                         <div className="cast">How long have you been in Business? </div>
 
                         <div className="term">
-                            <input checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="1" />
+                            <input checked={formValues.businessYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="0" />
                             <label className="radio">0 - 1 Years</label>
                         </div>
                         <div className="term">
-                            <input checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="0" />
+                            <input checked={formValues.businessYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'businessYear')} type="radio" name="goal" value="1" />
                             <label className="radio">1 - 2 Years</label>
                         </div>
                         <div className="term">

@@ -86,6 +86,10 @@ margin-top:20px;
 const StyledButton = styled(Button)`
 
 `;
+const ErrorMessage = styled.div`
+color:red;
+
+`;
 
 export default function BLOAN() {
 	const [isDisqualified, setDisqualified] = useState(false);
@@ -150,16 +154,16 @@ export default function BLOAN() {
 			setFormstep(2);
 			return;
 		}
-		if(bridgeLoanData.fundPlan=="cashout" && formstep==1){
+		if (bridgeLoanData.fundPlan == "cashout" && formstep == 1) {
 			setFormstep(3);
 			return;
 
-		}if(bridgeLoanData.fundPlan=="purchase" && formstep==1){
+		} if (bridgeLoanData.fundPlan == "purchase" && formstep == 1) {
 			setFormstep(5);
 			return;
 		}
-	
-		if(bridgeLoanData.fundPlan=="construct" && formstep==1){
+
+		if (bridgeLoanData.fundPlan == "construct" && formstep == 1) {
 			setFormstep(4);
 			return;
 		}
@@ -291,7 +295,7 @@ export default function BLOAN() {
 		<div>
 
 			<Hero>
-{formstep}
+				{formstep}
 				<>
 					{formstep == 1 && <section>
 						<div className="goal">
@@ -318,6 +322,7 @@ export default function BLOAN() {
 								<label className="radio">Refinance</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>
 					</section>}
 
 					{
@@ -336,6 +341,8 @@ export default function BLOAN() {
 									<label className="radio">Rate and Term</label>
 								</div>
 							</div>
+							<ErrorMessage>{errors.refinance && "Please select one to continue"}</ErrorMessage>
+
 						</section>}
 					{(bridgeLoanData.refinance == "cashout" && formstep == 3) && <section>
 						<div className="goal">
@@ -350,6 +357,8 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{errors.cashOut && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 					{(bridgeLoanData.fundPlan === "construct" && formstep == 4) && <section>
 						<div className="goal">
@@ -385,6 +394,8 @@ export default function BLOAN() {
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.constructionAmount && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 				</>
 
@@ -423,6 +434,8 @@ export default function BLOAN() {
 									<label className="radio">25,000,000 - 100,000,000</label>
 								</div>
 							</div>
+							<ErrorMessage>{errors.rateTermAmount && "Please select one to continue"}</ErrorMessage>
+
 						</section>}
 					{formstep == 6 && <section>
 						<div className="goal">
@@ -446,6 +459,8 @@ export default function BLOAN() {
 								<label className="radio">5+ Years Experience</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.experience && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 					{formstep == 7 && <section>
@@ -459,6 +474,8 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{errors.propertyAddress && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 					{formstep == 8 && <section>
@@ -546,6 +563,8 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{errors.propertyTypeOther && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 				</>
@@ -591,6 +610,8 @@ export default function BLOAN() {
 								<label className="radio">Investment</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.ownerOrInvestment && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 					{(bridgeLoanData.ownerOrInvestment == "Owner" && formstep == 11) && <section>
@@ -611,6 +632,7 @@ export default function BLOAN() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.occupy && "Please select one to continue"}</ErrorMessage>
 					</section>}
 					{formstep == 12 && <section>
 						<div className="goal">
@@ -625,6 +647,8 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{errors.tenants && "Please enter"}</ErrorMessage>
+
 					</section>}
 				</>
 
@@ -663,6 +687,8 @@ export default function BLOAN() {
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.dollar && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 					{formstep == 14 && <section>
@@ -692,6 +718,8 @@ export default function BLOAN() {
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.ownership && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 					{formstep == 15 && <section>
@@ -710,6 +738,8 @@ export default function BLOAN() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.lawsuit && "Please select one to continue"}</ErrorMessage>
+
 					</section>
 					}
 					{formstep == 16 && <section>
@@ -726,6 +756,8 @@ export default function BLOAN() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.bankruptcy && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 					{(bridgeLoanData.bankruptcy == 'Yes' && formstep == 17) && <section>
 						<div className="goal">
@@ -744,6 +776,8 @@ export default function BLOAN() {
 								<label className="radio">7 or More than 7 years</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.bankruptcyYear && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 					{formstep == 18 && <section>
 						<div className="goal">
@@ -769,6 +803,8 @@ export default function BLOAN() {
 								<label className="radio">More then 30%</label>
 							</div>
 						</div>
+						<ErrorMessage>{errors.plan && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 					{formstep == 19 && <section>
 						<div className="goal">
@@ -784,6 +820,8 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{errors.currentProperty && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 					{formstep == 20 && <section>
 						<div className="goal">
@@ -799,6 +837,8 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{errors.stabilized && "Please select one to continue"}</ErrorMessage>
+
 					</section>}
 				</>
 				<ButtonWrapper>
