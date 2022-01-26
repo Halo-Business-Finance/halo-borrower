@@ -91,7 +91,7 @@ export default function BLOAN() {
 	const [isDisqualified, setDisqualified] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
-	const [errros, setErrors] = useState({
+	const [errors, setErrors] = useState({
 		fundPlan: "",
 		refinance: "",
 		cashOut: "",
@@ -146,8 +146,21 @@ export default function BLOAN() {
 			return;
 
 		}
-		if (bridgeLoanData.fundPlan !== "refinance" && formstep == 1) {
+		if (bridgeLoanData.fundPlan == "refinance" && formstep == 1) {
+			setFormstep(2);
+			return;
+		}
+		if(bridgeLoanData.fundPlan=="cashout" && formstep==1){
 			setFormstep(3);
+			return;
+
+		}if(bridgeLoanData.fundPlan=="purchase" && formstep==1){
+			setFormstep(5);
+			return;
+		}
+	
+		if(bridgeLoanData.fundPlan=="construct" && formstep==1){
+			setFormstep(4);
 			return;
 		}
 		if (bridgeLoanData.ownerOrInvestment != "Owner" && formstep == 7) {
@@ -158,8 +171,90 @@ export default function BLOAN() {
 			setFormstep(15);
 			return
 		}
-		
-
+		if (formstep == 1 && bridgeLoanData.fundPlan == "") {
+			setErrors({ ...errors, fundPlan: "Error" });
+			return;
+		}
+		if (formstep == 2 && bridgeLoanData.refinance == "") {
+			setErrors({ ...errors, refinance: "Error" });
+			return;
+		}
+		if (formstep == 3 && bridgeLoanData.cashOut == "") {
+			setErrors({ ...errors, cashOut: "Error" });
+			return;
+		}
+		if (formstep == 4 && bridgeLoanData.constructionAmount == "") {
+			setErrors({ ...errors, constructionAmount: "Error" });
+			return;
+		}
+		if (formstep == 5 && bridgeLoanData.rateTermAmount == "") {
+			setErrors({ ...errors, rateTermAmount: "Error" });
+			return;
+		}
+		if (formstep == 6 && bridgeLoanData.experience == "") {
+			setErrors({ ...errors, experience: "Error" });
+			return;
+		}
+		if (formstep == 7 && bridgeLoanData.propertyAddress == "") {
+			setErrors({ ...errors, propertyAddress: "Error" });
+			return;
+		}
+		if (formstep == 8 && bridgeLoanData.propertyType == "") {
+			setErrors({ ...errors, propertyType: "Error" });
+			return;
+		}
+		if (formstep == 9 && bridgeLoanData.propertyTypeOther == "") {
+			setErrors({ ...errors, propertyTypeOther: "Error" });
+			return;
+		}
+		if (formstep == 10 && bridgeLoanData.termRequest == "") {
+			setErrors({ ...errors, termRequest: "Error" });
+			return;
+		}
+		if (formstep == 11 && bridgeLoanData.ownerOrInvestment == "") {
+			setErrors({ ...errors, ownerOrInvestment: "Error" });
+			return;
+		}
+		if (formstep == 12 && bridgeLoanData.occupy == "") {
+			setErrors({ ...errors, occupy: "Error" });
+			return;
+		}
+		if (formstep == 13 && bridgeLoanData.tenants == "") {
+			setErrors({ ...errors, tenants: "Error" });
+			return;
+		}
+		if (formstep == 14 && bridgeLoanData.dollar == "") {
+			setErrors({ ...errors, dollar: "Error" });
+			return;
+		}
+		if (formstep == 15 && bridgeLoanData.ownership == "") {
+			setErrors({ ...errors, ownership: "Error" });
+			return;
+		}
+		if (formstep == 16 && bridgeLoanData.lawsuit == "") {
+			setErrors({ ...errors, lawsuit: "Error" });
+			return;
+		}
+		if (formstep == 17 && bridgeLoanData.bankruptcy == "") {
+			setErrors({ ...errors, bankruptcy: "Error" });
+			return;
+		}
+		if (formstep == 17 && bridgeLoanData.bankruptcyYear == "") {
+			setErrors({ ...errors, bankruptcyYear: "Error" });
+			return;
+		}
+		if (formstep == 18 && bridgeLoanData.plan == "") {
+			setErrors({ ...errors, plan: "Error" });
+			return;
+		}
+		if (formstep == 19 && bridgeLoanData.currentProperty == "") {
+			setErrors({ ...errors, currentProperty: "Error" });
+			return;
+		}
+		if (formstep == 20 && bridgeLoanData.stabilized == "") {
+			setErrors({ ...errors, stabilized: "Error" });
+			return;
+		}
 		setFormstep(formstep + 1);
 
 	};
@@ -196,7 +291,7 @@ export default function BLOAN() {
 		<div>
 
 			<Hero>
-
+{formstep}
 				<>
 					{formstep == 1 && <section>
 						<div className="goal">
@@ -242,7 +337,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-					{(bridgeLoanData.refinance == "cashout" && formstep == 2) && <section>
+					{(bridgeLoanData.refinance == "cashout" && formstep == 3) && <section>
 						<div className="goal">
 							<div className="cast">If Cash Out, How much?</div>
 							<div className="term">
@@ -256,7 +351,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{(bridgeLoanData.fundPlan === "construct" && formstep == 2) && <section>
+					{(bridgeLoanData.fundPlan === "construct" && formstep == 4) && <section>
 						<div className="goal">
 							<div className="cast">Construction Amount </div>
 							<div className="term">
@@ -295,7 +390,7 @@ export default function BLOAN() {
 
 
 				<>
-					{((bridgeLoanData.fundPlan == "purchase" && formstep == 2) || (["cashout", "term"].includes(bridgeLoanData.refinance)) && formstep == 2)
+					{((bridgeLoanData.fundPlan == "purchase" && formstep == 5) || (["cashout", "term"].includes(bridgeLoanData.refinance)) && formstep == 2)
 						&& <section>
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
@@ -329,7 +424,7 @@ export default function BLOAN() {
 								</div>
 							</div>
 						</section>}
-					{formstep == 3 && <section>
+					{formstep == 6 && <section>
 						<div className="goal">
 							<div className="cast">Years of Experience </div>
 							<div className="term">
@@ -353,7 +448,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 4 && <section>
+					{formstep == 7 && <section>
 						<div className="goal">
 							<div className="cast">Property Address</div>
 							<div className="term">
@@ -366,7 +461,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 5 && <section>
+					{formstep == 8 && <section>
 						<div className="goal">
 							<div>
 								<div className="cast">Property Type</div>
@@ -456,7 +551,7 @@ export default function BLOAN() {
 				</>
 
 				<>
-					{formstep == 6 && <section>
+					{formstep == 9 && <section>
 						<div className="goal">
 							<div className="cast">Term Requested </div>
 							<div className="term">
@@ -478,7 +573,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 7 && <section>
+					{formstep == 10 && <section>
 						<div className="goal">
 							<div className="cast">
 								Owner Occupied or Investment Property
@@ -498,7 +593,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{(bridgeLoanData.ownerOrInvestment == "Owner" && formstep == 8) && <section>
+					{(bridgeLoanData.ownerOrInvestment == "Owner" && formstep == 11) && <section>
 						<div className="goal">
 							<div className="cast">
 								Will You Occupy 51% or more of the space
@@ -517,7 +612,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 9 && <section>
+					{formstep == 12 && <section>
 						<div className="goal">
 							<div className="cast">How many Tenants or Units</div>
 							<div className="term">
@@ -534,7 +629,7 @@ export default function BLOAN() {
 				</>
 
 				<>
-					{formstep == 10 && <section>
+					{formstep == 13 && <section>
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
@@ -570,7 +665,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 11 && <section>
+					{formstep == 14 && <section>
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
@@ -599,7 +694,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 12 && <section>
+					{formstep == 15 && <section>
 						<div className="goal">
 							<div className="cast">
 								Are you or the property involved in a Lawsuit
@@ -617,7 +712,7 @@ export default function BLOAN() {
 						</div>
 					</section>
 					}
-					{formstep == 13 && <section>
+					{formstep == 16 && <section>
 						<div className="goal">
 							<div className="cast">Ever File Bankruptcy?</div>
 							<div className="term">
@@ -632,7 +727,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{(bridgeLoanData.bankruptcy == 'Yes' && formstep == 14) && <section>
+					{(bridgeLoanData.bankruptcy == 'Yes' && formstep == 17) && <section>
 						<div className="goal">
 							<div className="cast">If So, When?</div>
 
@@ -650,7 +745,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 15 && <section>
+					{formstep == 18 && <section>
 						<div className="goal">
 							<div className="cast">
 								How much do you plan on putting down?
@@ -675,7 +770,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 16 && <section>
+					{formstep == 19 && <section>
 						<div className="goal">
 							<div className="cast">Current Property Value</div>
 							<div className="term">
@@ -690,7 +785,7 @@ export default function BLOAN() {
 							</div>
 						</div>
 					</section>}
-					{formstep == 17 && <section>
+					{formstep == 20 && <section>
 						<div className="goal">
 							<div className="cast">Once Stabilized</div>
 							<div className="term">
@@ -709,7 +804,7 @@ export default function BLOAN() {
 				<ButtonWrapper>
 
 					{formstep != 1 && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 18 ? <Button type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+					{formstep == 20 ? <Button type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>}
 				</ButtonWrapper>
