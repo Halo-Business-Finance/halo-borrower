@@ -1,19 +1,19 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-import { useForm } from "react-hook-form";
-import cookie from "js-cookie";
-import Router from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, notification } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
+import { fadeIn } from 'react-animations';
+const zoomAnimation = keyframes`${fadeIn}`;
 
 const Hero = styled.div`
-	padding: 40px 0% 40px 0%;
+	padding: 40px 30px 40px 30px;
 	font-family: Mulish;
-	background-color: #e5e5e5;
-
+	background-color: #fff;
+    min-height: 300px;
+	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 	.goal {
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -54,6 +54,8 @@ const Hero = styled.div`
 	}
 `;
 const ButtonWrapper = styled.div`
+
+animation: 1s ${zoomAnimation};
 display: flex;
 gap:10px;
 margin-top:20px;
@@ -89,6 +91,30 @@ export default function BLOAN() {
 	const [isDisqualified, setDisqualified] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
+	const [errros, setErrors] = useState({
+		fundPlan: "",
+		refinance: "",
+		cashOut: "",
+		constructionAmount: "",
+		rateTermAmount: "",
+		experience: "",
+		propertyAddress: "",
+		propertyType: "",
+		propertyTypeOther: "",
+		termRequest: "",
+		ownerOrInvestment: "",
+		occupy: "",
+		tenants: "",
+		dollar: "",
+		ownership: "",
+		lawsuit: "",
+		bankruptcy: "",
+		bankruptcyYear: "",
+		plan: "",
+		currentProperty: "",
+		stabilized: "",
+
+	})
 	const [bridgeLoanData, setBridgeLoanData] = useState({
 		fundPlan: "",
 		refinance: "",
@@ -120,27 +146,36 @@ export default function BLOAN() {
 			return;
 
 		}
-		if (bridgeLoanData.bankruptcy == "No" && formstep == 13) {
+		if (bridgeLoanData.fundPlan !== "refinance" && formstep == 1) {
+			setFormstep(3);
+			return;
+		}
+		if (bridgeLoanData.ownerOrInvestment != "Owner" && formstep == 7) {
+			setFormstep(9);
+			return;
+		}
+		if (bridgeLoanData.bankruptcy !== "Yes" && formstep == 13) {
 			setFormstep(15);
 			return
 		}
-		console.log(bridgeLoanData.ownerOrInvestment, formstep)
-		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 7) {
-			setFormstep(9);
-			console.log('hjh')
-			return
-		}
+		
+
 		setFormstep(formstep + 1);
 
 	};
 	const previousStep = () => {
+		if (bridgeLoanData.fundPlan !== "refinance" && formstep == 3) {
+			setFormstep(1);
+			return;
+		}
 		if (bridgeLoanData.bankruptcy == "Yes" && formstep == 12) {
 			setFormstep(12);
+			return;
 		}
-		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 9) {
+		if (bridgeLoanData.ownerOrInvestment != "Owner" && formstep == 9) {
 			setFormstep(7);
-			console.log('hjh')
-			return
+
+			return;
 		}
 		if (bridgeLoanData.bankruptcy == "No" && formstep == 15) {
 			setFormstep(13);
@@ -157,14 +192,9 @@ export default function BLOAN() {
 		})
 	}
 
-	useEffect(() => {
-
-
-
-	}, [bridgeLoanData.constructionAmount, bridgeLoanData.dollar, bridgeLoanData.bankruptcyYear, bridgeLoanData.plan, bridgeLoanData.rateTermAmount])
 	return (
 		<div>
-			{formstep}
+
 			<Hero>
 
 				<>
@@ -678,7 +708,7 @@ export default function BLOAN() {
 				</>
 				<ButtonWrapper>
 
-					<StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
+					{formstep != 1 && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
 					{formstep == 18 ? <Button type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>}
