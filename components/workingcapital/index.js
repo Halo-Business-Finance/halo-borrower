@@ -91,7 +91,6 @@ color:red;
 `;
 
 const WorkingCapitalForm = () => {
-	const [isDisqualified, setDisqualified] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
 	const [error, setErrors] = useState({
 		bankruptcy: "",

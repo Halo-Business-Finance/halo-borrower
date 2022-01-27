@@ -55,40 +55,136 @@ const Hero = styled.div`
 		outline: none;
 	}
 `;
+const ButtonWrapper = styled.div`
+display: flex;
+gap:10px;
+margin-top:20px;
+& .ant-btn-primary {
+	height: 48px;
+	background: #F3BA17;
+	border-color:#F3BA17 ;
+	border-radius: 8px;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+	color: #333333;
+}
+& .ant-btn-dashed{
+	height: 48px;
+	background-color:#1B46B0;
+	color:#fff;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+	border-radius: 8px;
+}
+`;
+const StyledButton = styled(Button)`
+
+`;
+const ErrorMessage = styled.p`
+color:red;
+`;
 
 
 export default function PROPERTYCRE() {
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [formValues, setFormValues] = useState({
-		tenants: '',
-		bankruptcy: '',
-		bankruptcyYear: '',
-		downpayment: '',
+	const [error, setErrors] = useState({
 		business: '',
 		property: '',
 		propertyType: '',
 		propertyState:"",
 		occupy: '',
+		tenants: '',
+		amount: '',
 		ownership: '',
+		bankruptcy: '',
+		bankruptcyYear: '',
+		downpayment: '',
 		commercial: '',
 	});
-	// const [propertyState, setPropertyState] = useState('');
+	const [formValues, setFormValues] = useState({
+		business: '',
+		property: '',
+		propertyType: '',
+		propertyState:"",
+		occupy: '',
+		tenants: '',
+		amount: '',
+		ownership: '',
+		bankruptcy: '',
+		bankruptcyYear: '',
+		downpayment: '',
+		commercial: '',
+	});
 	const [formstep, setFormstep] = React.useState(1);
 
 	const completeFormStep = () => {
-		if (formValues.tenants == '1' || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
-			isUserDisqualified();
-			return;
+		if (formValues.amount == '1' || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
+			setIsModalVisible(true)
+            return;
 		}
 		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
-			isUserDisqualified();
-			return;
+			setIsModalVisible(true)
+            return;
 		}
+		if (formstep == 1 && formValues.business == "") {
+            setErrors({ ...error, business: "Error" });
+            return;
+        }
+		else if (formstep == 2 && formValues.property == "" ) {
+            setErrors({ ...error, property: "Error" });
+            return;
+        }
+		else if (formstep == 3 && formValues.propertyType == "" ) {
+            setErrors({ ...error, propertyType: "Error" });
+            return;
+        }
+		else if (formstep == 4 && formValues.propertyState == "" ) {
+            setErrors({ ...error, propertyState: "Error" });
+            return;
+        }
+		else if (formstep == 5 && formValues.occupy == "" ) {
+            setErrors({ ...error, occupy: "Error" });
+            return;
+        }
+		else if (formstep == 6 && formValues.tenants == "" ) {
+            setErrors({ ...error, tenants: "Error" });
+            return;
+        }
+		else if (formstep == 7 && formValues.amount == "" ) {
+            setErrors({ ...error, amount: "Error" });
+            return;
+        }
+		else if (formstep == 8 && formValues.ownership == "" ) {
+            setErrors({ ...error, ownership: "Error" });
+            return;
+        }
+		else if (formstep == 9 && formValues.bankruptcy == "" ) {
+            setErrors({ ...error, bankruptcy: "Error" });
+            return;
+        }
+		else if (formstep == 10 && formValues.bankruptcyYear == "" ) {
+            setErrors({ ...error, bankruptcyYear: "Error" });
+            return;
+        }
+		else if (formstep == 11 && formValues.downpayment == "" ) {
+            setErrors({ ...error, downpayment: "Error" });
+            return;
+        }
+		else if (formstep == 12 && formValues.commercial == "" ) {
+            setErrors({ ...error, commercial: "Error" });
+            return;
+        }
 
-		if (formstep === 4 && formValues.propertyState !== 'Owner') {
-			setFormstep(6);
-			return;
-		}
+		if (formValues.propertyState=="Investment" && formstep==4){
+			setFormstep(6)
+			return;	
+			}
 		if (formstep == 9 && formValues.bankruptcy !== 'Yes') {
 			setFormstep(11);
 			return;
@@ -96,11 +192,15 @@ export default function PROPERTYCRE() {
 		setFormstep(formstep + 1);
 	};
 
-	const onPreviousForm = () => {
-		if (formstep === 6 && formValues.propertyState !== 'Owner') {
-			setFormstep(4);
-			return;
-		}
+	const previousStep = () => {
+		if (formValues.propertyState=="Investment" && formstep==6){
+			setFormstep(4)
+			return;	
+			}
+			if (formstep == 11 && formValues.bankruptcy !== 'Yes') {
+				setFormstep(9);
+				return;
+			}
 		setFormstep(formstep - 1);
 	}
 	
@@ -113,6 +213,10 @@ export default function PROPERTYCRE() {
 			...formValues,
 			[name]: e.target.value
 
+		})
+		setErrors({
+			...error,
+			[name]: ""
 		})
 	}
 	return (
@@ -149,6 +253,7 @@ export default function PROPERTYCRE() {
 								<label className="radio">Investment Property</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.business && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
 				{formstep === 2 &&
@@ -163,6 +268,7 @@ export default function PROPERTYCRE() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{error.property && "Please Enter"}</ErrorMessage>
 					</section>
 				}
 				{formstep === 3 &&
@@ -224,9 +330,10 @@ export default function PROPERTYCRE() {
 								<label className="radio">Gas Station</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.propertyType && "Please select to continue"}</ErrorMessage>
 					</section>
-				}{
-					formstep === 4 &&
+				}
+				{formstep === 4 &&
 
 					<section>
 						<div className="goal">
@@ -242,13 +349,11 @@ export default function PROPERTYCRE() {
 								<label className="radio">Investment</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.propertyState && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
-
-
-
-
-				{(formstep === 5 && formValues.propertyType == 'Owner') && <section>
+				{(formValues.propertyState == 'Owner' &&formstep == 5) &&
+				 <section>
 					<div className="goal">
 						<div className="cast">
 							Will You Occupy 51% or more of the space
@@ -262,6 +367,7 @@ export default function PROPERTYCRE() {
 							<label className="radio">No</label>
 						</div>
 					</div>
+					<ErrorMessage>{error.occupy && "Please select to continue"}</ErrorMessage>
 				</section>}
 				{formstep == 6 &&
 					<section>
@@ -275,6 +381,7 @@ export default function PROPERTYCRE() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{error.tenants && "Please Enter"}</ErrorMessage>
 					</section>
 				}
 				{
@@ -284,26 +391,27 @@ export default function PROPERTYCRE() {
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
-								<input checked={formValues.tenants == "1" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="1" />
+								<input checked={formValues.amount == "1" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="1" />
 								<label className="radio">25,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "2" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="2" />
+								<input checked={formValues.amount == "2" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="2" />
 								<label className="radio">250,000 - 1,000,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "3" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="3" />
+								<input checked={formValues.amount == "3" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="3" />
 								<label className="radio">1,000,000 - 5,000,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "4" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="4" />
+								<input checked={formValues.amount == "4" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="4" />
 								<label className="radio">5,000,000 - 25,000,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "5" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="5" />
+								<input checked={formValues.amount == "5" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.amount && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
 				{
@@ -329,6 +437,7 @@ export default function PROPERTYCRE() {
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.ownership && "Please select to continue"}</ErrorMessage>
 					</section>
 
 				}
@@ -346,6 +455,7 @@ export default function PROPERTYCRE() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.bankruptcy && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
 				{(formstep == 10 && formValues.bankruptcy == 'Yes') && <section>
@@ -360,6 +470,7 @@ export default function PROPERTYCRE() {
 							<label className="radio">7 or More than 7 years</label>
 						</div>
 					</div>
+					<ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
 				</section>
 				}
 				{formstep == 11 &&
@@ -385,6 +496,7 @@ export default function PROPERTYCRE() {
 								<label className="radio">More then 30%</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
 				{formstep == 12 &&
@@ -402,22 +514,20 @@ export default function PROPERTYCRE() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.commercial && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
-				<br/>
-				<Space>
-					<Button size="large" type="ghost" onClick={onPreviousForm}>
-						Previous
-					</Button>
-					<Button size="large"  className="button" onClick={completeFormStep}>
-						Next Step
-					</Button>
-				</Space>
-
-			</Hero>
-			<Modal visible={isModalVisible} footer={null}>
+				<ButtonWrapper>
+						{formstep > 1 &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{formstep==12?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
+	Next Step
+</Button>}
+</ButtonWrapper>
+<Modal visible={isModalVisible} footer={null}>
 				<Disqulaified />
 			</Modal>
+			</Hero>
+
 		</div>
 	);
 }
