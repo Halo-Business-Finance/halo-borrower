@@ -3,10 +3,12 @@ import styled, { keyframes } from "styled-components";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Modal, notification } from "antd";
+import { Alert, Button, Modal, notification, Progress } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
-import { fadeIn } from 'react-animations';
+import { fadeIn ,zoomIn,fadeInRightBig} from 'react-animations';
 const zoomAnimation = keyframes`${fadeIn}`;
+const zoomInAnimation=keyframes`${zoomIn}`;
+const fadeAnimation = keyframes`${fadeInRightBig}`;
 
 const Hero = styled.div`
 	padding: 40px 30px 40px 30px;
@@ -15,6 +17,7 @@ const Hero = styled.div`
     min-height: 300px;
 	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 	.goal {
+		animation: 1s ${fadeAnimation};
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		border-radius: 10px;
@@ -29,6 +32,7 @@ const Hero = styled.div`
 		font-size: 15px;
 	}
 	.cast {
+		animation: 2s ${zoomInAnimation};
 		padding: 10px 10px 10px 10px;
 		font-size: 20px;
 	}
@@ -87,7 +91,9 @@ const StyledButton = styled(Button)`
 
 `;
 const ErrorMessage = styled.div`
+animation: 1s ${zoomInAnimation};
 color:red;
+margin-top: 10px;
 
 `;
 
@@ -154,22 +160,34 @@ export default function BLOAN() {
 			setFormstep(2);
 			return;
 		}
-		
+		if (bridgeLoanData.cashOut !== "" && formstep == 3) {
+			setFormstep(6);
+			return
+		}
+
 		if (bridgeLoanData.fundPlan == "purchase" && formstep == 1 || (bridgeLoanData.refinance == "term" && formstep == 2)) {
 			setFormstep(5);
 			return;
 		}
+		if (formstep == 4 && bridgeLoanData.fundPlan !== "purchase" && bridgeLoanData.refinance !== "term") {
+			setFormstep(6);
+			return;
+		}
+		// if (formstep == 4) {
+		// 	setFormstep(6);
+		// 	return;
+		// }
 
 		if (bridgeLoanData.fundPlan == "construct" && formstep == 1) {
 			setFormstep(4);
 			return;
 		}
-		// if (bridgeLoanData.ownerOrInvestment != "Owner" && formstep == 7) {
-		// 	setFormstep(9);
-		// 	return;
-		// }
-		if (bridgeLoanData.bankruptcy !== "Yes" && formstep == 13) {
-			setFormstep(15);
+		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 10) {
+			setFormstep(12);
+			return;
+		}
+		if (bridgeLoanData.bankruptcy == "No" && formstep == 16) {
+			setFormstep(18);
 			return
 		}
 		if (formstep == 1 && bridgeLoanData.fundPlan == "") {
@@ -188,7 +206,7 @@ export default function BLOAN() {
 			setErrors({ ...errors, constructionAmount: "Error" });
 			return;
 		}
-		if (formstep == 5 && bridgeLoanData.rateTermAmount == "" && ( bridgeLoanData.refinance == "term" || bridgeLoanData.fundPlan == "purchase")) {
+		if (formstep == 5 && bridgeLoanData.rateTermAmount == "" && (bridgeLoanData.refinance == "term" || bridgeLoanData.fundPlan == "purchase")) {
 			setErrors({ ...errors, rateTermAmount: "Error" });
 			return;
 		}
@@ -204,7 +222,7 @@ export default function BLOAN() {
 			setErrors({ ...errors, propertyType: "Error" });
 			return;
 		}
-		if (formstep == 8 && bridgeLoanData.propertyType=="Other" && bridgeLoanData.propertyTypeOther == "") {
+		if (formstep == 8 && bridgeLoanData.propertyType == "Other" && bridgeLoanData.propertyTypeOther == "") {
 			setErrors({ ...errors, propertyTypeOther: "Error" });
 			return;
 		}
@@ -264,25 +282,41 @@ export default function BLOAN() {
 			setFormstep(1);
 			return;
 		}
-		if (bridgeLoanData.fundPlan == "cashout" && formstep == 3) {
-			setFormstep(1);
-			return;
+		if (bridgeLoanData.cashOut !== "" && formstep == 6) {
+			setFormstep(3);
+			return
+		}
 
-		} if (bridgeLoanData.fundPlan == "purchase" && formstep == 5 || (bridgeLoanData.refinance == "term" && formstep == 2)) {
-			setFormstep(1);
+		if (bridgeLoanData.fundPlan == "purchase" && formstep == 5 || (bridgeLoanData.refinance == "term" && formstep == 5)) {
+
+			if (bridgeLoanData.fundPlan == 'purchase') {
+				setFormstep(1);
+				return;
+			} else {
+				setFormstep(2);
+				return;
+			}
+
+		}
+		if (formstep == 6 && bridgeLoanData.fundPlan !== "purchase" && bridgeLoanData.refinance !== "term") {
+			setFormstep(4);
 			return;
 		}
+		// if (formstep == 4) {
+		// 	setFormstep(6);
+		// 	return;
+		// }
 
 		if (bridgeLoanData.fundPlan == "construct" && formstep == 4) {
 			setFormstep(1);
 			return;
 		}
-		if (bridgeLoanData.ownerOrInvestment != "Owner" && formstep == 9) {
-			setFormstep(7);
+		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 12) {
+			setFormstep(10);
 			return;
 		}
-		if (bridgeLoanData.bankruptcy !== "Yes" && formstep == 15) {
-			setFormstep(13);
+		if (bridgeLoanData.bankruptcy == "No" && formstep == 18) {
+			setFormstep(16);
 			return
 		}
 		setFormstep(formstep - 1)
@@ -293,14 +327,22 @@ export default function BLOAN() {
 		setBridgeLoanData({
 			...bridgeLoanData,
 			[name]: e.target.value
-		})
+		});
+		setErrors({ ...errors, [name]: "" })
 	}
-
+console.log(bridgeLoanData)
 	return (
 		<div>
 
 			<Hero>
-				{formstep}
+			<Progress
+                strokeColor={{
+                    '0%': '#108ee9',
+                    '100%': '#87d068',
+                }}
+                percent={Math.ceil((formstep/20)*100)}
+
+            />
 				<>
 					{formstep == 1 && <section>
 						<div className="goal">
@@ -327,7 +369,7 @@ export default function BLOAN() {
 								<label className="radio">Refinance</label>
 							</div>
 						</div>
-						<ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>
+								{errors.fundPlan &&<ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>}
 					</section>}
 
 					{
@@ -590,7 +632,7 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
-						<ErrorMessage>{(errors.propertyType && bridgeLoanData.propertyType !=="Other") &&  "Please select one to continue"}{(errors.propertyTypeOther && bridgeLoanData.propertyType =="Other") && "please enter"}</ErrorMessage>
+						<ErrorMessage>{(errors.propertyType && bridgeLoanData.propertyType !== "Other") && "Please select one to continue"}{(errors.propertyTypeOther && bridgeLoanData.propertyType == "Other") && "please enter"}</ErrorMessage>
 
 					</section>
 					}
@@ -619,7 +661,7 @@ export default function BLOAN() {
 						</div>
 						<ErrorMessage>{errors.termRequest && "Please select one to continue"}</ErrorMessage>
 
-			
+
 					</section>
 					}
 					{formstep == 10 && <section>
@@ -829,7 +871,7 @@ export default function BLOAN() {
 								<label className="radio">30%</label>
 							</div>
 							<div className="term">
-								<input checked={bridgeLoanData.plan == "40" ? true : false} onChange={(e) => onChangeHandler("plan", e)} type="radio" name="putting" value="100" />
+								<input checked={bridgeLoanData.plan == "100" ? true : false} onChange={(e) => onChangeHandler("plan", e)} type="radio" name="putting" value="100" />
 								<label className="radio">More then 30%</label>
 							</div>
 						</div>
@@ -850,7 +892,7 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
-						<ErrorMessage>{errors.currentProperty && "Please select one to continue"}</ErrorMessage>
+						<ErrorMessage>{errors.currentProperty && "Please enter"}</ErrorMessage>
 
 					</section>}
 					{formstep == 20 && <section>
@@ -867,7 +909,7 @@ export default function BLOAN() {
 								/>
 							</div>
 						</div>
-						<ErrorMessage>{errors.stabilized && "Please select one to continue"}</ErrorMessage>
+						<ErrorMessage>{errors.stabilized && "Please enter"}</ErrorMessage>
 
 					</section>}
 				</>

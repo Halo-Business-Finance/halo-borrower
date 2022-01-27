@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, {keyframes} from "styled-components";
 import { useEffect, useState } from "react";
-import { Button, Modal, notification } from "antd";
+import { Button, Modal, notification, Progress } from "antd";
 import { zoomIn,fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Organism/Disqualify';
  
@@ -12,7 +12,10 @@ const fadeAnimation=keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
 	font-family: Mulish;
-	background-color: #e5e5e5;
+	background-color: #fff;
+    min-height: 300px;
+	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+	padding: 24px;
 
     & 	.goal {
 		animation: 1s ${fadeAnimation};
@@ -88,6 +91,7 @@ const StyledButton = styled(Button)`
 `;
 const ErrorMessage = styled.p`
 color:red;
+margin-top: 10px;
 `;
 
 const WorkingCapitalForm = () => {
@@ -214,6 +218,14 @@ const WorkingCapitalForm = () => {
 	}
     return (
         <div>
+			<Progress
+                strokeColor={{
+                    '0%': '#108ee9',
+                    '100%': '#87d068',
+                }}
+                percent={Math.ceil((formstep/12)*100)}
+
+            />
             <Hero>
 			<>
 				{formstep == 1 && <section>
