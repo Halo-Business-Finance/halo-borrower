@@ -55,6 +55,7 @@ const Hero = styled.div`
 `;
 const ErrorMessage = styled.p`
 color:red;
+
 `;
 
 export default function CRE() {

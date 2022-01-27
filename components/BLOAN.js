@@ -3,10 +3,12 @@ import styled, { keyframes } from "styled-components";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, Modal, notification } from "antd";
+import { Alert, Button, Modal, notification, Progress } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
-import { fadeIn } from 'react-animations';
+import { fadeIn ,zoomIn,fadeInRightBig} from 'react-animations';
 const zoomAnimation = keyframes`${fadeIn}`;
+const zoomInAnimation=keyframes`${zoomIn}`;
+const fadeAnimation = keyframes`${fadeInRightBig}`;
 
 const Hero = styled.div`
 	padding: 40px 30px 40px 30px;
@@ -15,6 +17,7 @@ const Hero = styled.div`
     min-height: 300px;
 	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 	.goal {
+		animation: 1s ${fadeAnimation};
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		border-radius: 10px;
@@ -29,6 +32,7 @@ const Hero = styled.div`
 		font-size: 15px;
 	}
 	.cast {
+		animation: 2s ${zoomInAnimation};
 		padding: 10px 10px 10px 10px;
 		font-size: 20px;
 	}
@@ -87,7 +91,9 @@ const StyledButton = styled(Button)`
 
 `;
 const ErrorMessage = styled.div`
+animation: 1s ${zoomInAnimation};
 color:red;
+margin-top: 10px;
 
 `;
 
@@ -163,10 +169,14 @@ export default function BLOAN() {
 			setFormstep(5);
 			return;
 		}
-		if (formstep == 4) {
+		if (formstep == 4 && bridgeLoanData.fundPlan !== "purchase" && bridgeLoanData.refinance !== "term") {
 			setFormstep(6);
 			return;
 		}
+		// if (formstep == 4) {
+		// 	setFormstep(6);
+		// 	return;
+		// }
 
 		if (bridgeLoanData.fundPlan == "construct" && formstep == 1) {
 			setFormstep(4);
@@ -268,7 +278,6 @@ export default function BLOAN() {
 
 	};
 	const previousStep = () => {
-
 		if (bridgeLoanData.fundPlan == "refinance" && formstep == 2) {
 			setFormstep(1);
 			return;
@@ -279,20 +288,24 @@ export default function BLOAN() {
 		}
 
 		if (bridgeLoanData.fundPlan == "purchase" && formstep == 5 || (bridgeLoanData.refinance == "term" && formstep == 5)) {
-			setFormstep(5);
-			if (fundPlan == "purchase") {
+
+			if (bridgeLoanData.fundPlan == 'purchase') {
 				setFormstep(1);
 				return;
 			} else {
 				setFormstep(2);
 				return;
 			}
+
+		}
+		if (formstep == 6 && bridgeLoanData.fundPlan !== "purchase" && bridgeLoanData.refinance !== "term") {
+			setFormstep(4);
 			return;
 		}
-		if (bridgeLoanData.bankruptcy == "No" && formstep == 18) {
-			setFormstep(16);
-			return
-		}
+		// if (formstep == 4) {
+		// 	setFormstep(6);
+		// 	return;
+		// }
 
 		if (bridgeLoanData.fundPlan == "construct" && formstep == 4) {
 			setFormstep(1);
@@ -301,7 +314,12 @@ export default function BLOAN() {
 		if (bridgeLoanData.ownerOrInvestment == "Investment" && formstep == 12) {
 			setFormstep(10);
 			return;
-		} setFormstep(formstep - 1)
+		}
+		if (bridgeLoanData.bankruptcy == "No" && formstep == 18) {
+			setFormstep(16);
+			return
+		}
+		setFormstep(formstep - 1)
 	}
 
 	const onChangeHandler = (name, e) => {
@@ -312,12 +330,19 @@ export default function BLOAN() {
 		});
 		setErrors({ ...errors, [name]: "" })
 	}
-
+console.log(bridgeLoanData)
 	return (
 		<div>
 
 			<Hero>
-				{formstep}
+			<Progress
+                strokeColor={{
+                    '0%': '#108ee9',
+                    '100%': '#87d068',
+                }}
+                percent={Math.ceil((formstep/20)*100)}
+
+            />
 				<>
 					{formstep == 1 && <section>
 						<div className="goal">
@@ -344,7 +369,7 @@ export default function BLOAN() {
 								<label className="radio">Refinance</label>
 							</div>
 						</div>
-						<ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>
+								{errors.fundPlan &&<ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>}
 					</section>}
 
 					{
