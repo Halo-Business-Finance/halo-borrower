@@ -33,7 +33,7 @@ line-height: 150%;
 
 
 export const Success = () => {
-  const router = useRouter
+ 
   return (
     <MainWrapper>
       <img src="/success.svg" />
@@ -41,6 +41,6 @@ export const Success = () => {
       <p>
         Based on your selections, you qualify for a loan up to [MAX DOLLAR AMOUNT FROM THE SELECTED LOAN AMOUNT]
       </p>
-      <Button onClick={() => router.push("/test")} type="primary">Back To Home</Button>
+      <Button onClick={() =>window.location.assign("/test")} type="primary">Back To Home</Button>
     </MainWrapper>);
 };
