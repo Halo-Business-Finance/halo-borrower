@@ -11,7 +11,7 @@ import PROPERTYCRE from "../../components/PROPERTYCRE";
 import { WorkingCapitalForm } from "../../components/workingcapital";
 import { Franchaise } from "../../components/Organism/Franchise";
 import { Factoring } from "../../components/Organism/Factoring";
-
+import { useRouter } from 'next/router';
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
@@ -293,9 +293,10 @@ text-align: center;
 
 export default function Form() {
 	const { register, handleSubmit } = useForm();
-
 	const [details, setDetails] = useState([]);
 	const [status, setStatus] = useState(0);
+	const router = useRouter();
+
 
 	const radioHandler = (status) => {
 		setStatus(status);
@@ -306,6 +307,12 @@ export default function Form() {
 	};
 
 	const url = process.env.NEXT_PUBLIC_BASE_URL + "/api/loan-type/get-all";
+	useEffect(() => {
+		if (router?.query?.id) {
+			setStatus(router.query.id)
+		}
+
+	}, [router.query])
 
 	useEffect(() => {
 		axios({
@@ -358,7 +365,7 @@ export default function Form() {
 								<div className="loan-type">
 									<div className="loan-type-select">
 
-										<div onClick={(e) => radioHandler(1)} className={`loan-type-contain ${status == 1 && "first"}`}>
+										<div onClick={(e) => router.push({ pathname: "/user", query: { id: 1 } })} className={`loan-type-contain ${status == 1 && "first"}`}>
 
 											<input
 												type="radio"
@@ -386,7 +393,7 @@ export default function Form() {
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(2)} className={`loan-type-contain ${status == 2 && "first"}`}>
+										<div onClick={(e) => router.push({ pathname: "/user", query: { id: 2 } })} className={`loan-type-contain ${status == 2 && "first"}`}>
 											<input
 												type="radio"
 												name="radio"
@@ -408,7 +415,7 @@ export default function Form() {
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(3)} className={`loan-type-contain ${status == 3 && "first"}`}>
+										<div onClick={(e) => router.push({ pathname: "/user", query: { id: 3 } })} className={`loan-type-contain ${status == 3 && "first"}`}>
 											<input
 												type="radio"
 												name="radio"
@@ -430,7 +437,7 @@ export default function Form() {
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(4)} className={`loan-type-contain ${status == 4 && "first"}`}>
+										<div onClick={(e) => router.push({ pathname: "/user", query: { id: 4 } })} className={`loan-type-contain ${status == 4 && "first"}`}>
 											<input
 												type="radio"
 												name="radio"
@@ -453,7 +460,7 @@ export default function Form() {
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(5)} className={`loan-type-contain ${status == 5 && "first"}`}>
+										<div onClick={(e) => router.push({ pathname: "/user", query: { id: 5 } })} className={`loan-type-contain ${status == 5 && "first"}`}>
 											<input
 												type="radio"
 												name="radio"
@@ -475,7 +482,7 @@ export default function Form() {
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
-										<div onClick={(e) => radioHandler(6)} className={`loan-type-contain ${status == 6 && "first"}`}>
+										<div onClick={(e) => router.push({ pathname: "/user", query: { id: 6 } })} className={`loan-type-contain ${status == 6 && "first"}`}>
 											<input
 												type="radio"
 												name="radio"
@@ -499,12 +506,12 @@ export default function Form() {
 
 					{/* <div className="space"></div> */}
 
-					{status === 1 && <CRE />}
-					{status === 2 && <BLOAN />}
-					{status === 3 && <PROPERTYCRE />}
-					{status === 4 && <Franchaise />}
-					{status === 5 && <Factoring/>}
-					{status === 6 && <WorkingCapitalForm/>}
+					{status == 1 && <CRE />}
+					{status == 2 && <BLOAN />}
+					{status == 3 && <PROPERTYCRE />}
+					{status == 4 && <Franchaise />}
+					{status == 5 && <Factoring />}
+					{status == 6 && <WorkingCapitalForm />}
 
 					{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>

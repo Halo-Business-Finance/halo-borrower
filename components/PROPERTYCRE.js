@@ -2,18 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 import { useForm } from "react-hook-form";
-import cookie from "js-cookie";
-import Router from "next/router";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Button, Modal, notification, Progress, Space } from "antd";
-import { RadioGroup, RadioButton } from "react-radio-buttons";
+
+import {  useState } from "react";
+
+import { Button, Modal, Progress, Space } from "antd";
+
 import { Disqulaified } from "./Organism/Disqualify";
 
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
 	font-family: Mulish;
-	background-color: #e5e5e5;
+	
 	background-color: #fff;
     min-height: 300px;
 	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;

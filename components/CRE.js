@@ -4,6 +4,7 @@ import { Button, Modal, notification } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from "./Organism/Disqualify";
+import { UserForm } from "./Organism/UserForm";
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -130,7 +131,7 @@ export default function CRE() {
 
 	return (
 		<div>
-			{formstep}
+		
 			<Hero>
 				{/* {formstep === 0 && (
 					<div className="finance-list">
