@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from "styled-components";
 import { Button, Typography } from 'antd';
+import { useRouter } from 'next/router';
 
 const { Title } = Typography;
 
@@ -32,13 +33,14 @@ line-height: 150%;
 
 
 export const Disqulaified = () => {
+  const router = useRouter
   return (
     <MainWrapper>
       <img src="/decline.svg" />
       <Title level={4}>Try again in future</Title>
       <p>
-      We are sorry, but Halo Business Finance isn't able to move forward with your loan request at this time. Please try again in the future.
+        We are sorry, but Halo Business Finance isn't able to move forward with your loan request at this time. Please try again in the future.
       </p>
-      <Button onClick={()=>window.location.reload()} type="primary">Continue</Button>
+      <Button onClick={() => router.push("/test")} type="primary">Continue</Button>
     </MainWrapper>);
 };
