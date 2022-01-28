@@ -143,6 +143,10 @@ export const Franchaise = () => {
             [name]: e.target.value
 
         })
+        setErrors({
+			...error,
+			[name]: ""
+		})
 
     }
 
