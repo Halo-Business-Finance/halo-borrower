@@ -158,7 +158,7 @@ export const Factoring = () => {
             return;
         }
         if (formstep == 5 && formValues.useOfProceeds == "") {
-            setErrors({ ...errors, AreaOfBusiness: "Error" });
+            setErrors({ ...errors, useOfProceeds: "Error" });
             return;
         }
         if (formstep == 6 && formValues.useOfProceeds == "OtherUse" && formValues.specifiedOtherUse == "") {

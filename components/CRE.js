@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Button, Modal, notification } from 'antd';
+import { Button, Modal, notification, Progress } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from "./Organism/Disqualify";
@@ -11,7 +11,10 @@ const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
 	padding: 40px 40px 40px 40px;
 	font-family: Mulish;
-	background-color: #e5e5e5;
+	background-color: #fff;
+    min-height: 300px;
+	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+	padding: 24px;
 
 	.goal {
 		animation: 1s ${fadeAnimation};
@@ -54,25 +57,76 @@ const Hero = styled.div`
 		outline: none;
 	}
 `;
+const ButtonWrapper = styled.div`
+display: flex;
+gap:10px;
+margin-top:20px;
+& .ant-btn-primary {
+	height: 48px;
+	background: #F3BA17;
+	border-color:#F3BA17 ;
+	border-radius: 8px;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+	color: #333333;
+}
+& .ant-btn-dashed{
+	height: 48px;
+	background-color:#1B46B0;
+	color:#fff;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 32px;
+	border-radius: 8px;
+}
+`;
+const StyledButton = styled(Button)`
+
+`;
 const ErrorMessage = styled.p`
+margin-top: 10px;
 color:red;
 
 `;
 
 export default function CRE() {
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [formValues, setFormValues] = useState({
-		tenants: '',
-		bankruptcy: '',
-		bankruptcyYear: '',
-		downpayment: '',
+	const [error, setErrors] = useState({
 		goal: '',
 		cash: '',
 		business: '',
-		property: '',
+		address: '',
 		propertyType: '',
+		property: '',
 		occupy: '',
+		tenants: '',
+		dollar: '',
 		ownership: '',
+		bankruptcy: '',
+		bankruptcyYear: '',
+		downpayment: '',
+		commercial: '',
+
+	});
+	const [formValues, setFormValues] = useState({
+		goal: '',
+		cash: '',
+		business: '',
+		address: '',
+		propertyType: '',
+		property: '',
+		occupy: '',
+		tenants: '',
+		dollar: '',
+		ownership: '',
+		bankruptcy: '',
+		bankruptcyYear: '',
+		downpayment: '',
 		commercial: '',
 	});
 
@@ -80,14 +134,75 @@ export default function CRE() {
 
 	const completeFormStep = () => {
 		if (formValues.tenants == '1' || formValues.bankruptcyYear == "0") {
-			isUserDisqualified();
+			setIsModalVisible(true)
+			return;
+		}
+		if (formValues.dollar == '1') {
+			setIsModalVisible(true)
 			return;
 		}
 		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
-			isUserDisqualified();
+			setIsModalVisible(true)
 			return;
 
 		}
+		if (formstep == 1 && formValues.goal == "") {
+            setErrors({ ...error, goal: "Error" });
+            return;
+        }
+		else if (formstep == 2 && formValues.cash == "" ) {
+            setErrors({ ...error, cash: "Error" });
+            return;
+        }
+		else if (formstep == 3 && formValues.business == "" ) {
+            setErrors({ ...error, business: "Error" });
+            return;
+        }
+		else if (formstep == 4 && formValues.address == "" ) {
+            setErrors({ ...error, address: "Error" });
+            return;
+        }
+		else if (formstep == 5 && formValues.propertyType == "" ) {
+            setErrors({ ...error, propertyType: "Error" });
+            return;
+        }
+		else if (formstep == 6 && formValues.property == "" ) {
+            setErrors({ ...error, property: "Error" });
+            return;
+        }
+		else if (formstep == 7 && formValues.occupy == "" ) {
+            setErrors({ ...error, occupy: "Error" });
+            return;
+        }
+		
+		else if (formstep == 8 && formValues.tenants == "" ) {
+            setErrors({ ...error, tenants: "Error" });
+            return;
+        }
+		else if (formstep == 9 && formValues.dollar == "" ) {
+            setErrors({ ...error, dollar: "Error" });
+            return;
+        }
+		else if (formstep == 10 && formValues.ownership == "" ) {
+            setErrors({ ...error, ownership: "Error" });
+            return;
+        }
+		else if (formstep == 11 && formValues.bankruptcy == "" ) {
+            setErrors({ ...error, bankruptcy: "Error" });
+            return;
+        }
+		else if (formstep == 12 && formValues.bankruptcyYear == "" ) {
+            setErrors({ ...error, bankruptcyYear: "Error" });
+            return;
+        }
+		else if (formstep == 13 && formValues.downpayment == "" ) {
+            setErrors({ ...error, downpayment: "Error" });
+            return;
+        }
+		else if (formstep == 14 && formValues.commercial == "" ) {
+            setErrors({ ...error, commercial: "Error" });
+            return;
+        }
 		if (formValues.goal !== "CashOut" && formstep == 1) {
 			setFormstep(3);
 			return;
@@ -127,11 +242,24 @@ export default function CRE() {
 			[name]: e.target.value
 
 		})
+		setErrors({
+			...error,
+			[name]: ""
+		})
 	}
 
 	return (
 		<div>
-		
+			  <Progress
+                strokeColor={{
+                    '0%': '#108ee9',
+                    '100%': '#87d068',
+                }}
+                percent={Math.ceil((formstep/14)*100)}
+
+            />
+
+
 			<Hero>
 				{/* {formstep === 0 && (
 					<div className="finance-list">
@@ -176,7 +304,7 @@ export default function CRE() {
 						<div className="goal">
 							<div className="cast">What is your goal?</div>
 							<div className="term">
-								<input onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="CashOut" />
+								<input checked={formValues.goal == "CashOut" ? true : false} onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="CashOut" />
 								<label className="radio">Cast Out Refinance</label>
 							</div>
 							<div className="term">
@@ -184,6 +312,7 @@ export default function CRE() {
 								<label className="radio">Rate and Term only</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.goal && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{(formValues.goal == "CashOut" && formstep == 2) && <section>
 						<div className="goal">
@@ -198,6 +327,7 @@ export default function CRE() {
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{error.cash && "Please Enter"}</ErrorMessage>
 					</section>}
 					{formstep == 3 && <section>
 						<div className="goal">
@@ -227,18 +357,20 @@ export default function CRE() {
 								<label className="radio">Investment Property</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.business && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{formstep == 4 && <section>
 						<div className="goal">
 							<div className="cast">Property Address</div>
 							<div className="term">
-								<input value={formValues.property} onChange={(e) => onFormChange(e, 'property')}
+								<input value={formValues.address} onChange={(e) => onFormChange(e, 'address')}
 									className="outline"
 									type="text"
 									placeholder="Your answer"
 								/>
 							</div>
 						</div>
+						<ErrorMessage>{error.address && "Please Enter"}</ErrorMessage>
 					</section>}
 				</>
 
@@ -297,6 +429,7 @@ export default function CRE() {
 								<label className="radio">Farm & Land</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.propertyType && "Please select to continue"}</ErrorMessage>
 					</section>}
 
 					{formstep == 6 && <section>
@@ -313,6 +446,7 @@ export default function CRE() {
 								<label className="radio">Investment</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.property && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{(formValues.property == 'Owner' && formstep == 7) && <section>
 						<div className="goal">
@@ -328,6 +462,7 @@ export default function CRE() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.occupy && "Please select to continue"}</ErrorMessage>
 					</section>
 					}
 					<>
@@ -342,6 +477,7 @@ export default function CRE() {
 									/>
 								</div>
 							</div>
+							<ErrorMessage>{error.tenants && "Please Enter"}</ErrorMessage>
 						</section>}
 					</>
 
@@ -352,26 +488,27 @@ export default function CRE() {
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
-								<input checked={formValues.tenants == "1" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="1" />
+								<input checked={formValues.dollar == "1" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="1" />
 								<label className="radio">25,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "2" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="2" />
+								<input checked={formValues.dollar == "2" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="2" />
 								<label className="radio">250,000 - 1,000,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "3" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="3" />
+								<input checked={formValues.dollar == "3" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="3" />
 								<label className="radio">1,000,000 - 5,000,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "4" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="4" />
+								<input checked={formValues.dollar == "4" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="4" />
 								<label className="radio">5,000,000 - 25,000,000</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.tenants == "5" ? true : false} onChange={(e) => onFormChange(e, 'tenants')} type="radio" name="amount" value="5" />
+								<input checked={formValues.dollar == "5" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{formstep == 10 && <section>
 						<div className="goal">
@@ -393,6 +530,7 @@ export default function CRE() {
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.ownership && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{formstep == 11 && <section>
 						<div className="goal">
@@ -406,6 +544,7 @@ export default function CRE() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.bankruptcy && "Please select to continue"}</ErrorMessage>
 					</section>}
 				</>
 
@@ -428,6 +567,7 @@ export default function CRE() {
 							</div>
 
 						</div>
+						<ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{formstep == 13 && <section>
 						<div className="goal">
@@ -451,6 +591,7 @@ export default function CRE() {
 								<label className="radio">More then 30%</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>}
 					{formstep == 14 && <section>
 						<div className="goal">
@@ -466,6 +607,7 @@ export default function CRE() {
 								<label className="radio">No</label>
 							</div>
 						</div>
+						<ErrorMessage>{error.commercial && "Please select to continue"}</ErrorMessage>
 					</section>}
 				</>
 
@@ -579,12 +721,12 @@ export default function CRE() {
 						</section>
 					</div>
 				)} */}
-				<Button size={"large"} disabled={formstep == 1} type="dashed" onClick={previousStep}>
-					Previous
-				</Button>
-				<button disabled={formstep == 14} type="button" className="button" onClick={completeFormStep}>
-					Next Step
-				</button>
+				<ButtonWrapper>
+						{formstep > 1 &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{formstep==14?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
+	Next Step
+</Button>}
+</ButtonWrapper>
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>
