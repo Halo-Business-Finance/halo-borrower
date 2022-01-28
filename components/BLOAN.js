@@ -151,7 +151,7 @@ export default function BLOAN() {
 	})
 
 	const completeFormStep = () => {
-		if (bridgeLoanData.cashOut == "1" && bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
+		if (bridgeLoanData.cashOut == "1" || bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
 			setIsModalVisible(true);
 			return;
 
@@ -169,7 +169,7 @@ export default function BLOAN() {
 			setFormstep(5);
 			return;
 		}
-		if (formstep == 4 && bridgeLoanData.fundPlan !== "purchase" && bridgeLoanData.refinance !== "term") {
+		if (formstep == 4 && bridgeLoanData.fundPlan !== "purchase" && bridgeLoanData.refinance !== "term" && bridgeLoanData.constructionAmount !== "") {
 			setFormstep(6);
 			return;
 		}
