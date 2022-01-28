@@ -1,14 +1,16 @@
 import React from "react";
-import styled from "styled-components";
+import styled,{keyframes} from "styled-components";
 
 import { useForm } from "react-hook-form";
 
 import {  useState } from "react";
 
 import { Button, Modal, Progress, Space } from "antd";
+import {zoomIn,fadeInRightBig} from 'react-animations'
 
 import { Disqulaified } from "./Organism/Disqualify";
-
+const bounceAnimation = keyframes`${zoomIn}`;
+const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
 	font-family: Mulish;
@@ -18,6 +20,7 @@ const Hero = styled.div`
 	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 	padding: 24px;
 	.goal {
+		animation: 1s ${fadeAnimation};
 		background-color: white;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 		border-radius: 10px;
@@ -33,6 +36,7 @@ const Hero = styled.div`
 		font-size: 15px;
 	}
 	.cast {
+		animation: 2s ${bounceAnimation};
 		padding: 10px 10px 10px 10px;
 		font-size: 20px;
 	}
