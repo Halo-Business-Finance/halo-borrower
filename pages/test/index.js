@@ -15,8 +15,8 @@ import { useRouter } from 'next/router';
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
-	/* background-color: #1B46B0; */
-    background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
+	background-color: #fff;
+    //  background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
 	min-height: 93.7vh;
     height: 100%;
 	& .loan-type-select{
