@@ -4,6 +4,7 @@ import { Button, Modal, notification, Progress } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Disqualify';
+import { Success } from '../Success';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -95,6 +96,7 @@ margin-top: 10px;
 export const Factoring = () => {
     const [formstep, setFormstep] = React.useState(1);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [showSucessModal, setshowSucessModal] = useState(false);
     const [formValues, setFormValues] = useState({
         businessYear: '',
         invoiceReceivables: "",
@@ -135,7 +137,7 @@ export const Factoring = () => {
             [name]: e.target.value
 
         })
-        setErrors({...errors,[name]:""})
+        setErrors({ ...errors, [name]: "" })
     }
     const completeFormStep = () => {
         if (formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
@@ -209,15 +211,15 @@ export const Factoring = () => {
         setFormstep(formstep - 1);
     }
 
-const formCount=formValues.bankruptcy=="Yes"?13:12;
+    const formCount = formValues.bankruptcy == "Yes" ? 13 : 12;
     return (
         <div>
-           <Progress
+            <Progress
                 strokeColor={{
                     '0%': '#108ee9',
                     '100%': '#87d068',
                 }}
-                percent={Math.ceil((formstep/formCount)*100)}
+                percent={Math.ceil((formstep / formCount) * 100)}
 
             />
             <Hero>
@@ -534,7 +536,11 @@ const formCount=formValues.bankruptcy=="Yes"?13:12;
                 <ButtonWrapper>
 
                     <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-                    {((formstep == 12 && formValues.bankruptcy == "No") || formstep == 13) ? <Button type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+                    {((formstep == 12 && formValues.bankruptcy == "No") || formstep == 13) ? <Button onClick={() => {
+
+                        setshowSucessModal(true)
+
+                    }} type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
                         Next Step
                     </Button>}
                 </ButtonWrapper>
@@ -542,6 +548,9 @@ const formCount=formValues.bankruptcy=="Yes"?13:12;
             </Hero>
             <Modal visible={isModalVisible} footer={null}>
                 <Disqulaified />
+            </Modal>
+            <Modal visible={showSucessModal} footer={null}>
+                <Success />
             </Modal>
         </div>
     )

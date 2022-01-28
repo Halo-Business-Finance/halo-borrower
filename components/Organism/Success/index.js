@@ -32,15 +32,15 @@ line-height: 150%;
 `;
 
 
-export const Disqulaified = () => {
-  const router = useRouter();
+export const Success = () => {
+  const router = useRouter
   return (
     <MainWrapper>
-      <img src="/decline.svg" />
-      <Title level={4}>Try again in future</Title>
+      <img src="/success.svg" />
+      <Title level={4}>Congratulations!</Title>
       <p>
-        We are sorry, but Halo Business Finance isn't able to move forward with your loan request at this time. Please try again in the future.
+        Based on your selections, you qualify for a loan up to [MAX DOLLAR AMOUNT FROM THE SELECTED LOAN AMOUNT]
       </p>
-      <Button onClick={() => router.push("/test")} type="primary">Continue</Button>
+      <Button onClick={() => router.push("/test")} type="primary">Back To Home</Button>
     </MainWrapper>);
 };
