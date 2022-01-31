@@ -6,24 +6,32 @@ import React, { useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 import Link from "next/link";
+import { Button } from "antd";
+import * as yup from 'yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Hero = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #e5e5e5;
+		/* background: #e5e5e5; */
 	padding: 20px;
 	font-family: Mulish;
+	margin-top: 120px;
+
+	& .ant-btn-primary {
+		min-width: 100%;
+	}
 
 	.formstyle {
-		width: 60%;
+		box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+
+		width: 40%;
 		background: #fff;
 		border-radius: 10px;
 		padding: 0px 20px 20px 20px;
 	}
-	.Form-design {
-		padding: 30px 30px 30px 30px;
-	}
+	
 
 	.textbox {
 		width: 100%;
@@ -34,11 +42,7 @@ const Hero = styled.div`
 		margin-top: 5%;
 	}
 
-	.form-row-one {
-		width: 60%;
-		margin-top: 5%;
-		margin-left: 20%;
-	}
+	
 
 	.formlabel {
 		color: #5c5c5c;
@@ -54,6 +58,9 @@ const Hero = styled.div`
 
 	.heading {
 		text-align: center;
+		padding-top: 30px;
+		font-size: 36px;
+		font-weight: 700;
 	}
 
 	.heading-step {
@@ -103,89 +110,37 @@ const Hero = styled.div`
 		color: blue;
 		font-weight: 700;
 	}
+	& .error{
+		color:red;
+	}
 `;
 
 export default function Login({ email, userName, access_token, userid }) {
+	const validationSchema = yup.object().shape({
+		username: yup.string()
+			.required('Email is required')
+			.email('Invalid Email'),
+
+		password: yup.string()
+			.required('Password is required')
+			.min(6, 'Password must be at least 6 characters'),
+
+
+	});
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm();
+	} = useForm({
+		mode: "all",
+		resolver: yupResolver(validationSchema)
+	});
 
-	const [aState, setA] = useState();
 
 	const onSubmitForm = async (values) => {
-		const params = new URLSearchParams();
-		params.append("username", values.username);
-		params.append("password", values.password);
-		params.append("grant_type", "password");
-
-		const config = {
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded",
-			},
-		};
-
-		let baseurl = process.env.NEXT_PUBLIC_BASE_URL;
-
-		let login = baseurl + "/auth/token";
-
-		console.log(login);
-
-		axios.post(login, params, config).then(
-			(response) => {
-				if (
-					response.data.access_token !== "" ||
-					response.data.access_token !== "undefined"
-				) {
-					try {
-						const configo = {
-							headers: {
-								Accept: "application/json",
-								Authorization: "Bearer" + " " + response.data.access_token,
-							},
-						};
-
-						axios
-							.get(
-								process.env.NEXT_PUBLIC_BASE_URL +
-									"/api/borrower/get-all-loan-requests",
-								configo
-							)
-							.then((resone) => {
-								const user_data = resone.data.payload[0];
-								cookie.set("id", user_data.id, { expires: 1 / 24 });
-								// console.log(response);
-								cookie.set("access_token", response.data.access_token, {
-									expires: 1 / 24,
-								});
-								cookie.set("userName", response.data.userName, {
-									expires: 1 / 24,
-								});
-								cookie.set("email", response.data.Email, { expires: 1 / 24 });
-								cookie.set("userid", response.data.userId, { expires: 1 / 24 });
-								Router.push("/loanallapplications");
-							}),
-							(error) => {
-								setA("Username or Password Incorrect");
-								return <div>{aState}</div>;
-								console.log(error);
-							};
-					} catch (err) {
-						console.log(err);
-					}
-				} else {
-					console.log(response);
-					setA(response);
-					return <div>{aState}</div>;
-				}
-			},
-			(error) => {
-				setA("Username or Password Incorrect");
-				return <div>{aState}</div>;
-				console.log(error);
-			}
-		);
+		
+		console.log(values);
+		
 	};
 
 	return (
@@ -200,9 +155,7 @@ export default function Login({ email, userName, access_token, userid }) {
 						<div className="form-head">
 							<h2 className="heading">Log In</h2>
 						</div>
-						<div className="error">
-							<p>{aState}</p>
-						</div>
+					
 
 						<div className="form-row-one form-gap">
 							<div className="form-name">
@@ -210,20 +163,14 @@ export default function Login({ email, userName, access_token, userid }) {
 									Email
 								</label>
 								<input
-									{...register("username", {
-										required: "required",
-										pattern: {
-											value: /\S+@\S+\.\S+/,
-											message: "Entered value does not match email format",
-										},
-									})}
+									{...register("username")}
 									className="textbox"
 									type="text"
 									autoComplete="fname"
 									placeholder="Enter your email address"
 								/>
-								{errors.email && (
-									<span role="alert">{errors.email.message}</span>
+								{errors.username && (
+									<span className="error" role="alert">{errors.username.message}</span>
 								)}
 							</div>
 							<div className="form-group form-dba">
@@ -231,33 +178,29 @@ export default function Login({ email, userName, access_token, userid }) {
 									Password
 								</label>
 								<input
-									{...register("password", {
-										required: "required",
-										minLength: {
-											value: 5,
-											message: "min length is 5",
-										},
-									})}
+									{...register("password")}
 									className="textbox"
 									type="password"
-									autoComplete="fdba"
+									
 									placeholder="Enter your password"
-									required
+								
 								/>
 								{errors.password && (
-									<span role="alert">{errors.password.message}</span>
+									<span className="error" role="alert">{errors.password.message}</span>
 								)}
 							</div>
 						</div>
 					</section>
-
+					<br />
 					<div className="form-row-button">
-						<input type="submit" id="button" value="Log In" />
+						<Button htmlType="submit" size="large" type="primary" >
+							Login
+						</Button>
 					</div>
 					<p className="login-description">
 						{" "}
 						Don't have an account?{" "}
-						<Link href="/registration"><a  className="login-link">
+						<Link href="/registration"><a className="login-link">
 							Register
 						</a>
 						</Link>
