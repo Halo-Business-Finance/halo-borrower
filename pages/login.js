@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Button } from "antd";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
+import { API } from "../utils/api";
 
 const Hero = styled.div`
 	display: flex;
@@ -17,7 +18,7 @@ const Hero = styled.div`
 		/* background: #e5e5e5; */
 	padding: 20px;
 	font-family: Mulish;
-	margin-top: 120px;
+	margin-top: 50px;
 
 	& .ant-btn-primary {
 		min-width: 100%;
@@ -138,8 +139,20 @@ export default function Login({ email, userName, access_token, userid }) {
 
 
 	const onSubmitForm = async (values) => {
-		
-		console.log(values);
+const data = {
+	"userName": values.username,
+	"password": values.password,
+  }	
+  try {
+	const response = await API.post('/auth/request-for-code',data)
+
+	console.log(response,'res')
+	  
+  } catch (error) {
+	  console.log(error)
+	  
+  }	
+
 		
 	};
 
