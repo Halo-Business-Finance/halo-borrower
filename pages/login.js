@@ -6,10 +6,11 @@ import React, { useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 import Link from "next/link";
-import { Button } from "antd";
+import { Button, notification } from "antd";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { API } from "../utils/api";
+import router from "next/router";
 
 const Hero = styled.div`
 	display: flex;
@@ -136,22 +137,27 @@ export default function Login({ email, userName, access_token, userid }) {
 		mode: "all",
 		resolver: yupResolver(validationSchema)
 	});
+	const[isLoading,setIsLoading] = useState(false);
 
 
 	const onSubmitForm = async (values) => {
+		setIsLoading(true)
 const data = {
 	"userName": values.username,
 	"password": values.password,
   }	
   try {
-	const response = await API.post('/auth/request-for-code',data)
+ await API.post('/auth/request-for-code',data)
+ notification.success({message:'Success', description:`Verification Code sent to ${data.userName}`})
+ router.push('/2fa')
 
-	console.log(response,'res')
 	  
   } catch (error) {
-	  console.log(error)
+	  notification.error({message: 'Error Occured', description: error.data.reason})
+	  console.log(error.data.reason)
 	  
   }	
+  setIsLoading(false)
 
 		
 	};
@@ -206,7 +212,7 @@ const data = {
 					</section>
 					<br />
 					<div className="form-row-button">
-						<Button htmlType="submit" size="large" type="primary" >
+						<Button loading={isLoading} htmlType="submit" size="large" type="primary" >
 							Login
 						</Button>
 					</div>

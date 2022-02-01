@@ -1,4 +1,6 @@
+import { Button, Input, Form } from "antd";
 import Head from "next/head";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Hero = styled.div`
@@ -105,7 +107,11 @@ const Hero = styled.div`
 	}
 `;
 
-export default function Form() {
+export default function TwoFAForm() {
+	const[code,setCode] = useState();
+	const onSubmitForm = (values) => {
+
+	}
 	return (
 		<>
 			<Head>
@@ -118,7 +124,6 @@ export default function Form() {
 					<p>Get started now by filling out the loan application below</p>
 				</section>
 
-				<form className="formstyle" action="2fa2">
 					<section className="Form-design">
 						<div className="form-head">
 							<h2 className="heading">Two Factor Authentication</h2>
@@ -135,26 +140,20 @@ export default function Form() {
 						</div>
 
 						<div className="form-row-one form-gap">
-							<div className="form-name">
-								<label htmlFor="fname" className="formlabel ">
-									Verification Code
-								</label>
-								<input
-									id="firstname"
-									className="textbox"
-									type="text"
-									autoComplete="fname"
-									placeholder="Enter code here"
-									required
-								/>
-							</div>
+							<Form onFinish={onSubmitForm} layout='vertical'>
+								<Form.Item rules={[{required:true, message:'Please Fill In'}]} label='Verification Code'>
+									<Input size="large" placeholder="Enter code here"/>
+
+								</Form.Item>
+								<Button htmlType="submit" type="primary" size="large">
+							Verify
+							</Button>
+							</Form>
 						</div>
 					</section>
 
-					<div className="form-row-button">
-						<input type="submit" href="form2" id="button" defaultValue="Verify" />
-					</div>
-				</form>
+		
+				
 			</Hero>
 		</>
 	);
