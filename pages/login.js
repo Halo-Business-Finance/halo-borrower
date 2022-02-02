@@ -149,12 +149,12 @@ const data = {
   try {
  await API.post('/auth/request-for-code',data)
  notification.success({message:'Success', description:`Verification Code sent to ${data.userName}`})
- router.push('/2fa')
+ router.push({pathname:"/2fa",query:{email:values.username}})
 
 	  
   } catch (error) {
 	  notification.error({message: 'Error Occured', description: error.data.reason})
-	  console.log(error.data.reason)
+	 
 	  
   }	
   setIsLoading(false)

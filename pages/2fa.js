@@ -1,18 +1,37 @@
-import { Button, Input, Form } from "antd";
+import { Button, Input, Form, notification } from "antd";
 import Head from "next/head";
 import { useState } from "react";
 import styled from "styled-components";
+import { useRouter } from 'next/router'
+import { API } from "../utils/api";
 
 const Hero = styled.div`
-	padding: 40px 20% 40px 20%;
+	/* padding: 40px 20% 40px 20%; */
 	font-family: Mulish;
-	background-color: #e5e5e5;
+	& .ant-input{
+		width: 100%;
+	}
+	& .ant-form-item{
+		max-width: 350px;
+		width: 100%;
+		margin: 0 auto;
+		margin-bottom: 12px;
+	}
+	
+	& .container{
+		background: aliceblue;
+		max-width: 700px;
+		width: 100%;
+		margin: 0 auto;
+		margin-top:100px;
+	}
 
 	.verify {
-		width: 60%;
+		/* width: 60%; */
 		color: #5c5c5c;
 		font-weight: 600;
 		font-size: 16px;
+		white-space:break-spaces;
 	}
 
 	.formstyle {
@@ -30,13 +49,7 @@ const Hero = styled.div`
 		padding: 12px;
 	}
 
-	.form-row-one {
-		justify-content: center;
-		align-items: center;
-		display: flex;
-		width: 100%;
-	}
-
+	
 	.form-head {
 		display: inline-block;
 		width: 100%;
@@ -48,42 +61,13 @@ const Hero = styled.div`
 		color: #333333;
 	}
 
-	.formlabel {
-		color: #5c5c5c;
-		font-weight: 600;
-		font-size: 16px;
-		line-height: 10px;
-	}
 
-	.textbox {
-		border-radius: 4px;
-		border: 2px solid #ededed;
-	}
+	
 
-	.textbox ::placeholder {
-		color: #adadad;
-		opacity: 1;
-		font-style: italic;
-	}
 
-	input[type="submit"] {
-		background-color: #f3ba17;
-		border: none;
-		color: #333333;
-		font-weight: 700;
-		border-radius: 8px;
-		padding: 14px 30px;
-		text-decoration: none;
-		cursor: pointer;
-		font-size: 18px;
-	}
+	
 
-	.form-row-button {
-		width: 100%;
-		justify-content: center;
-		align-items: center;
-		display: flex;
-	}
+	
 
 	.req {
 		color: red;
@@ -99,17 +83,51 @@ const Hero = styled.div`
 		line-height: 10px;
 		margin-bottom: 20px;
 	}
+	.reg-head h3{
+		color: #fff;
+		font-weight: 700;
+		font-size: 22px;
+	}
 
 	.reg-head p {
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(255, 255, 255,0.8);
 		font-size: 16px;
 		line-height: 10px;
 	}
+	 & .btn-wrap {
+		 display: flex;
+		 justify-content: center;
+		 margin-top:20px;
+		 & .ant-btn-primary {
+			 min-width: 150px;
+			 font-weight: bold;
+			 height: 42px !important;
+		 }
+	 }
 `;
 
 export default function TwoFAForm() {
-	const[code,setCode] = useState();
-	const onSubmitForm = (values) => {
+
+	const router = useRouter();
+
+	const onSubmitForm = async (values) => {
+		const formData=new FormData();
+		formData.append("code",Number(values.code));
+		formData.append("grant_type","password");
+		formData.append("username",router?.query?.email)
+		const refactoredData = {
+			code: Number(values?.code),
+			grant_type: "password",
+			username: router?.query?.email
+		}
+		try {
+			await API.post("/auth/token", formData);
+
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason })
+
+		}
+
 
 	}
 	return (
@@ -119,10 +137,11 @@ export default function TwoFAForm() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-				<section className="reg-head">
-					<h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
-					<p>Get started now by filling out the loan application below</p>
-				</section>
+				<div className="container">
+					<section className="reg-head">
+						<h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
+						<p>Get started now by filling out the loan application below</p>
+					</section>
 
 					<section className="Form-design">
 						<div className="form-head">
@@ -133,27 +152,28 @@ export default function TwoFAForm() {
 							<center>
 								<img src="/images/mail.png" />
 								<p className="verify">
-									A verification code has been sand to your email. This code
-									will be valid for 15 minutes.
+									{`A verification code has been sand to your email.\n This code will be valid for 15 minutes.`}
 								</p>
 							</center>
 						</div>
 
-						<div className="form-row-one form-gap">
-							<Form onFinish={onSubmitForm} layout='vertical'>
-								<Form.Item rules={[{required:true, message:'Please Fill In'}]} label='Verification Code'>
-									<Input size="large" placeholder="Enter code here"/>
 
-								</Form.Item>
+						<Form onFinish={onSubmitForm} layout='vertical'>
+							<Form.Item name="code" rules={[{ required: true, message: 'Please Fill In' }]} label='Verification Code'>
+								<Input size="large" placeholder="Enter code here" />
+
+							</Form.Item>
+							<div className="btn-wrap">
 								<Button htmlType="submit" type="primary" size="large">
-							Verify
-							</Button>
-							</Form>
-						</div>
-					</section>
+									Verify
+								</Button>
+							</div>
+						</Form>
 
-		
-				
+					</section>
+				</div>
+
+
 			</Hero>
 		</>
 	);
