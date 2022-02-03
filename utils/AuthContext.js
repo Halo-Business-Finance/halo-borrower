@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react';
 export const AuthContext = createContext()
 
 const AuthContextProvider = (props) => {
-    const [formState, setFormState] = useState(1);
+    const [formState, setFormState] = useState(0);
     return (
         <AuthContext.Provider value={{ formState, setFormState }}>
             {props.children}

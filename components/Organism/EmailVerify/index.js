@@ -127,7 +127,7 @@ export default function VerifyEmailForm() {
 		}
 		try {
 			// await API.post("/auth/token", formData);
-			router.push({pathname:"/log",query:{id:3}})
+			router.push({pathname:"/log",query:{id:2}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 

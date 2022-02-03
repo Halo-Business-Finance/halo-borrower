@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
-	background-color: #e5e5e5;
+	background-color: aliceblue;
 
 	.formstyle {
 		background: #fff;
@@ -166,7 +166,7 @@ export default function RegistrationForm() {
 
 	const onSubmitForm = async (data) => {
 		setFormState(2);
-		router.push({pathname:"/log",query:{id:2}})
+		router.push({pathname:"/log",query:{id:1}})
 		
 		// try {
 		// 	await API.post("/api/borrower/register",data)
@@ -272,8 +272,8 @@ export default function RegistrationForm() {
 									autoComplete="fdba"
 									placeholder="Retype your password"
 								/>
-								{errors.password && (
-									<span className="StyledError" role="alert">{errors.password.message}</span>
+								{errors.confirmPassword && (
+									<span className="StyledError" role="alert">{errors.confirmPassword.message}</span>
 								)}
 							</div>
 						</div>

@@ -162,7 +162,7 @@ export default function VerifyPhoneForm() {
 
 						<div>
 							<center>
-								<img src="/images/mail.png" />
+								<img src="/images/sms.png" />
 								<p className="verify">
 									{`A verification code has been sand to your email.\n This code will be valid for 15 minutes.`}
 								</p>

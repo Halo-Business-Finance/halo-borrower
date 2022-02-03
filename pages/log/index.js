@@ -33,17 +33,18 @@ const LoginAndVerification = () => {
             setFormState(router.query.id)
         }
     },[router.query])
+    console.log(formState,'state')
     return (
         <Container>
             <Steps type='navigation' current={formState}>
-                <Step current={formState} status="finish" title="Basic Info" icon={formState==1 && <UserOutlined />}  />
-                <Step current={formState} disabled={formState !==2} status="finish" title="Email Verification" icon={formState==2 && <MailOutlined />}   />
-                <Step current={formState} disabled={formState !==3} status="process" title="Phone Verification" icon={formState==3 && <PhoneOutlined />} />
+                <Step current={formState}  title="Basic Info" icon={formState==0 && <UserOutlined />}  />
+                <Step current={formState}   disabled={formState !==1}  title="Email Verification" icon={formState==1 && <MailOutlined />}   />
+                <Step current={formState}   disabled={formState !==2}  title="Phone Verification" icon={formState==2 && <PhoneOutlined />} />
                
             </Steps>
-             {formState==1 && <RegistrationForm/>}
-             {formState==2 && <VerifyEmailForm/>}
-             {formState==3 && <VerifyPhoneForm/>}
+             {formState==0 && <RegistrationForm/>}
+             {formState==1 && <VerifyEmailForm/>}
+             {formState==2 && <VerifyPhoneForm/>}
         </Container>
     )
 }
