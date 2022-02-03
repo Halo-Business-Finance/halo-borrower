@@ -1,14 +1,14 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
-
-import cookie from "js-cookie";
+import React, { useContext } from "react";
 
 import Link from "next/link";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { API } from "../utils/api";
+import { API } from "../../../utils/api";
+import { AuthContext } from "../../../utils/AuthContext";
+import { useRouter } from "next/router";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -55,7 +55,6 @@ const Hero = styled.div`
 		font-size: 16px;
 		line-height: 10px;
 	}
-
 	.textbox {
 		border-radius: 4px;
 		border: 2px solid #ededed;
@@ -136,22 +135,24 @@ const Hero = styled.div`
 `;
 
 
-export default function Form() {
+export default function RegistrationForm() {
+	const { setFormState } = useContext(AuthContext);
+	const router = useRouter();
 	const validationSchema = Yup.object().shape({
 		email: Yup.string()
-		.required('Email is required')
-		.email('Invalid Email'),
+			.required('Email is required')
+			.email('Invalid Email'),
 		phone: Yup.string()
-		.required('Phone is required')
-		.min(10, 'Phone must be at least 10 characters'),
-        password: Yup.string()
-            .required('Password is required')
-            .min(6, 'Password must be at least 6 characters'),
-        confirmPassword: Yup.string()
-            .required('Confirm Password is required')
-            .oneOf([Yup.ref('password')], 'Passwords must match')
-            
-    });
+			.required('Phone is required')
+			.min(10, 'Phone must be at least 10 characters'),
+		password: Yup.string()
+			.required('Password is required')
+			.min(6, 'Password must be at least 6 characters'),
+		confirmPassword: Yup.string()
+			.required('Confirm Password is required')
+			.oneOf([Yup.ref('password')], 'Passwords must match')
+
+	});
 	const {
 		register,
 		handleSubmit,
@@ -159,16 +160,19 @@ export default function Form() {
 	} = useForm({
 		resolver: yupResolver(validationSchema)
 	});
-console.log('err',errors)
-	const [aState, setA] = useState();
+
+
 
 
 	const onSubmitForm = async (data) => {
-		try {
-			await API.post("/api/borrower/register",data)
-		} catch (error) {
-			console.log('hi',error)
-		}
+		setFormState(2);
+		router.push({pathname:"/log",query:{id:2}})
+		
+		// try {
+		// 	await API.post("/api/borrower/register",data)
+		// } catch (error) {
+		// 	console.log('hi',error)
+		// }
 	}
 
 
@@ -194,9 +198,7 @@ console.log('err',errors)
 							<h2 className="heading">Continue to Enroll</h2>
 						</div>
 
-						<div className="error">
-							<p>{aState}</p>
-						</div>
+
 
 						<div className="form-row-one">
 							<div className="form-group">
@@ -205,14 +207,14 @@ console.log('err',errors)
 								</label>
 								<input
 									{...register("email"
-										
+
 									)}
 									id="email"
 									className="textbox"
 									type="email"
 									autoComplete="fname"
 									placeholder="Enter your email address"
-									
+
 								/>
 								{errors.email && (
 									<span className="StyledError" role="alert">{errors.email.message}</span>
@@ -223,14 +225,14 @@ console.log('err',errors)
 									Phone<sup className="req">*</sup>
 								</label>
 								<input
-									{...register("phone" 
+									{...register("phone"
 									)}
 									id="phone"
 									className="textbox"
 									type="tel"
 									autoComplete="fdba"
 									placeholder="Enter your phone number"
-									
+
 								/>
 								{errors.phone && (
 									<span className="StyledError" role="alert">{errors.phone.message}</span>
@@ -249,15 +251,15 @@ console.log('err',errors)
 									type="password"
 									autoComplete="fdba"
 									placeholder="Enter your password"
-									
+
 								/>
 								{errors.password && (
 									<span className="StyledError" role="alert">{errors.password.message}</span>
 								)}
 							</div>
-							
-						
-						<div className="form-group">
+
+
+							<div className="form-group">
 								<label htmlFor="password" className="formlabel">
 									Confirm Password<sup className="req">*</sup>
 								</label>
@@ -274,8 +276,8 @@ console.log('err',errors)
 									<span className="StyledError" role="alert">{errors.password.message}</span>
 								)}
 							</div>
-							</div>
-							
+						</div>
+
 
 						<p className="register-description">
 							{" "}
@@ -296,7 +298,7 @@ console.log('err',errors)
 					<p className="register-description">
 						{" "}
 						Already have an account?{" "}
-						<Link href="/login"><a  className="login-link">
+						<Link href="/login"><a className="login-link">
 							Login
 						</a>
 						</Link>

@@ -1,13 +1,19 @@
-import { Button, Input, Form, notification } from "antd";
+import { Button, Input, Form, notification ,Steps} from "antd";
 import Head from "next/head";
 import { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from 'next/router'
-import { API } from "../utils/api";
+import { API } from "../../../utils/api";
+import { UserOutlined, SolutionOutlined, PhoneOutlined, SmileOutlined } from '@ant-design/icons';
 
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	font-family: Mulish;
+	max-width: 1440px;
+	padding: 24px;
+	margin:0 auto;
+	margin: 24px;
+	background: white;
 	& .ant-input{
 		width: 100%;
 	}
@@ -23,7 +29,7 @@ const Hero = styled.div`
 		max-width: 700px;
 		width: 100%;
 		margin: 0 auto;
-		margin-top:100px;
+		margin-top:30px;
 	}
 
 	.verify {
@@ -105,24 +111,24 @@ const Hero = styled.div`
 		 }
 	 }
 `;
-
-export default function TwoFAForm() {
+const { Step } = Steps;
+export default function VerifyPhoneForm() {
 
 	const router = useRouter();
 
 	const onSubmitForm = async (values) => {
-		const formData=new FormData();
-		formData.append("code",Number(values.code));
-		formData.append("grant_type","password");
-		formData.append("username",router?.query?.email)
+		const formData = new FormData();
+		formData.append("code", Number(values.code));
+		formData.append("grant_type", "password");
+		formData.append("username", router?.query?.email)
 		const refactoredData = {
 			code: Number(values?.code),
 			grant_type: "password",
 			username: router?.query?.email
 		}
 		try {
-			await API.post("/auth/token", formData);
-
+			// await API.post("/auth/token", formData);
+			router.push({pathname:"/"})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
@@ -137,6 +143,12 @@ export default function TwoFAForm() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
+			{/* <Steps type="navigation" current={3}>
+                <Step status={"finish"}   title="Login" icon={<UserOutlined />} />
+                <Step status={"finish"}   title="Email Verification" icon={<SolutionOutlined />} />
+                <Step  status="process" title="Phone Verification" icon={<PhoneOutlined />} />
+               
+            </Steps> */}
 				<div className="container">
 					<section className="reg-head">
 						<h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>

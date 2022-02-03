@@ -5,22 +5,25 @@ import "../styles/globals.css";
 import "nprogress/nprogress.css";
 import dynamic from 'next/dynamic';
 import 'antd/dist/antd.css';
+import AuthContextProvider from "../utils/AuthContext";
 export default function App({ Component, pageProps }) {
 
-const ProgressBar = dynamic(
-  () => {
-    return import("../components/ProgressBar");
-  },
-  { ssr: false },
-);
+	const ProgressBar = dynamic(
+		() => {
+			return import("../components/ProgressBar");
+		},
+		{ ssr: false },
+	);
 
-	return(
+	return (
 		<>
-			
-		<ProgressBar />
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
+
+			<ProgressBar />
+			<AuthContextProvider>
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</AuthContextProvider>
 		</>
 	)
 }
