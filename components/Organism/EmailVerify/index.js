@@ -17,7 +17,7 @@ const Hero = styled.div`
 		width: 100%;
 	}
 	& .ant-form-item{
-		max-width: 350px;
+		max-width: 450px;
 		width: 100%;
 		margin: 0 auto;
 		margin-bottom: 12px;
@@ -25,7 +25,7 @@ const Hero = styled.div`
 	
 	& .container{
 		background: aliceblue;
-		max-width: 700px;
+		max-width: 800px;
 		width: 100%;
 		margin: 0 auto;
 		margin-top:30px;
