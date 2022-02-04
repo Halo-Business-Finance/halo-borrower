@@ -121,56 +121,6 @@ const Hero = styled.div`
 `;
 
 export default function VerifyPhoneForm() {
-<<<<<<< HEAD
-    const { phone,setAuthenticated } = useContext(AuthContext)
-    const router = useRouter();
-
-    const onSubmitForm = async (values) => {
-        // const formData = new FormData();
-        // formData.append("code", Number(values.code));
-        // formData.append("grant_type", "password");
-        // formData.append("username", router?.query?.email)
-        const refactoredData = {
-            code: values?.code,
-            grant_type: "password",
-            username: router?.query?.email
-        }
-        try {
-          const response =  await API.post("/auth/token", refactoredData);
-			notification.success({message: 'Success', description: 'Login Successfully'})
-			sessionStorage.setItem('token',response?.payload?.access_token)
-			setAuthenticated(true)
-            router.push({ pathname: "/test" })
-			console.log(response,'re')
-			
-        } catch (error) {
-            notification.error({ message: 'Error Occured', description: error?.data?.reason })
-
-        }
-
-
-    }
-    const ResendVerificationPhone = async () => {
-        try {
-            await API.post("/api/registration/send-phone-verification", {
-                "phone": phone
-
-            })
-            notification.success({ message: "Success", description: "Verification code resend successfully" })
-        } catch (error) {
-            console.log(error)
-            notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
-        }
-    }
-    return (
-        <>
-            <Head>
-                <title>Registration</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <Hero>
-                {/* <Steps type="navigation" current={3}>
-=======
 	const { phone, setAuthenticated } = useContext(AuthContext)
 	const router = useRouter();
 	const [loading,setLoading] = useState(false);
@@ -217,7 +167,6 @@ setLoading(false);
 			</Head>
 			<Hero>
 				{/* <Steps type="navigation" current={3}>
->>>>>>> 8c22742d2a6922d733c4a44976e09656729eedad
                 <Step status={"finish"}   title="Login" icon={<UserOutlined />} />
                 <Step status={"finish"}   title="Email Verification" icon={<SolutionOutlined />} />
                 <Step  status="process" title="Phone Verification" icon={<PhoneOutlined />} />

@@ -1,4 +1,4 @@
-import { Button, Input, Form, notification ,Steps} from "antd";
+import { Button, Input, Form, notification, Steps } from "antd";
 import Head from "next/head";
 import { useContext, useState } from "react";
 import styled from "styled-components";
@@ -124,9 +124,9 @@ const Hero = styled.div`
 		 }
 	 }
 `;
-const { Step } = Steps;
+
 export default function VerifyPhoneForm() {
-const {phone}=useContext(AuthContext)
+	const { phone, setAuthenticated } = useContext(AuthContext)
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -143,7 +143,7 @@ const {phone}=useContext(AuthContext)
 		}
 		try {
 			await API.post("/api/registration/verify-phone", formData);
-			router.push({pathname:"/"})
+			router.push({ pathname: "/" })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
@@ -152,16 +152,16 @@ const {phone}=useContext(AuthContext)
 
 
 	}
-	const ResendVerificationPhone=async()=>{
+	const ResendVerificationPhone = async () => {
 		try {
-			await API.post("/api/registration/send-phone-verification",{
+			await API.post("/api/registration/send-phone-verification", {
 				"phone": phone
-				
-			  })
-			  notification.success({ message:"Success",description:"Verification code resend successfully"})
+
+			})
+			notification.success({ message: "Success", description: "Verification code resend successfully" })
 		} catch (error) {
 			console.log(error)
-			notification.error({ message:"Error occured",description:error?.data?.reason||"Something went wrong,please try again later"})
+			notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
 		}
 	}
 	return (
@@ -171,7 +171,7 @@ const {phone}=useContext(AuthContext)
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Hero>
-			{/* <Steps type="navigation" current={3}>
+				{/* <Steps type="navigation" current={3}>
                 <Step status={"finish"}   title="Login" icon={<UserOutlined />} />
                 <Step status={"finish"}   title="Email Verification" icon={<SolutionOutlined />} />
                 <Step  status="process" title="Phone Verification" icon={<PhoneOutlined />} />
@@ -212,7 +212,7 @@ const {phone}=useContext(AuthContext)
 
 					</section>
 					<div className="btn-resend">
-					Didn't receive code?<Button type="link" onClick={ResendVerificationPhone}>Resend Verification Code</Button>
+						Didn't receive code?<Button type="link" onClick={ResendVerificationPhone}>Resend Verification Code</Button>
 					</div>
 				</div>
 
