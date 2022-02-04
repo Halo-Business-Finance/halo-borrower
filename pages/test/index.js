@@ -14,7 +14,10 @@ import { Factoring } from "../../components/Organism/Factoring";
 import { useRouter } from 'next/router';
 import PrivateRoute from "../withPrivateRoute";
 const Hero = styled.div`
-	padding: 40px 20% 40px 20%;
+	/* padding: 40px 20% 40px 20%; */
+	max-width: 1490px;
+	margin: 0 auto;
+	margin-top:30px;
 	font-family: Mulish;
 	background-color: #fff;
     //  background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
@@ -22,7 +25,7 @@ const Hero = styled.div`
     height: 100%;
 	& .loan-type-select{
         padding: 15px 0px;
-	
+		transition: all .3s ease-in-out;
 		&:hover{
 			transform: scale(1.1); 
 			
@@ -37,6 +40,11 @@ const Hero = styled.div`
             font-size: 16px;
             line-height: 150%;
             color: #5C5C5C;
+			transition: all .1s ease-in-out;
+		&:hover{
+			transform: scale(1.1); 
+			
+		}
 		}
 	}
 
@@ -121,13 +129,14 @@ const Hero = styled.div`
 	}
 
 	.loans-types {
-        max-width:800px;
+        max-width:1200px;
         /* min-height: 300px; */
         width: 100%;
         margin: 0 auto;
         display: flex;
 		flex-wrap: wrap;
-        justify-content: space-between;
+		gap: 10px;
+        /* justify-content: space-between; */
 		
         
 	}
