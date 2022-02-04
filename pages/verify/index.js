@@ -83,10 +83,6 @@ const Hero = styled.div`
 }
 
 
-	
-
-	
-
 	.req {
 		color: red;
 		font-size: 14px;
@@ -125,6 +121,7 @@ const Hero = styled.div`
 `;
 
 export default function VerifyPhoneForm() {
+<<<<<<< HEAD
     const { phone,setAuthenticated } = useContext(AuthContext)
     const router = useRouter();
 
@@ -173,52 +170,102 @@ export default function VerifyPhoneForm() {
             </Head>
             <Hero>
                 {/* <Steps type="navigation" current={3}>
+=======
+	const { phone, setAuthenticated } = useContext(AuthContext)
+	const router = useRouter();
+
+	const onSubmitForm = async (values) => {
+		// const formData = new FormData();
+		// formData.append("code", Number(values.code));
+		// formData.append("grant_type", "password");
+		// formData.append("username", router?.query?.email)
+		const refactoredData = {
+			code: values?.code,
+			grant_type: "password",
+			username: router?.query?.email
+		}
+		try {
+			const response = await API.post("/auth/token", refactoredData);
+			notification.success({ message: 'Success', description: 'Login Successfully' })
+			sessionStorage.setItem('token', response?.payload?.access_token)
+			setAuthenticated(true)
+			router.push({ pathname: "/test" })
+			console.log(response, 're')
+
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason })
+
+		}
+
+
+	}
+	const ResendVerificationPhone = async () => {
+		try {
+			await API.post("/api/registration/send-phone-verification", {
+				"phone": phone
+
+			})
+			notification.success({ message: "Success", description: "Verification code resend successfully" })
+		} catch (error) {
+			console.log(error)
+			notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
+		}
+	}
+	return (
+		<>
+			<Head>
+				<title>Registration</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<Hero>
+				{/* <Steps type="navigation" current={3}>
+>>>>>>> 8c22742d2a6922d733c4a44976e09656729eedad
                 <Step status={"finish"}   title="Login" icon={<UserOutlined />} />
                 <Step status={"finish"}   title="Email Verification" icon={<SolutionOutlined />} />
                 <Step  status="process" title="Phone Verification" icon={<PhoneOutlined />} />
                
             </Steps> */}
-                <div className="container">
-                    <section className="reg-head">
-                        <h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
-                        <p>Get started now by filling out the loan application below</p>
-                    </section>
+				<div className="container">
+					<section className="reg-head">
+						<h3>Soft Credit Check – No Upfront Fees – Apply Online</h3>
+						<p>Get started now by filling out the loan application below</p>
+					</section>
 
-                    <section className="Form-design">
-                        <div className="form-head">
-                            <h2 className="heading">Two Factor Authentication</h2>
-                        </div>
+					<section className="Form-design">
+						<div className="form-head">
+							<h2 className="heading">Two Factor Authentication</h2>
+						</div>
 
-                        <div>
-                            <center>
-                                <img src="/images/sms.png" />
-                                <p className="verify">
-                                    {`A verification code has been sand to your email and phone.\n This code will be valid for 15 minutes.`}
-                                </p>
-                            </center>
-                        </div>
+						<div>
+							<center>
+								<img src="/images/sms.png" />
+								<p className="verify">
+									{`A verification code has been sand to your email and phone.\n This code will be valid for 15 minutes.`}
+								</p>
+							</center>
+						</div>
 
 
-                        <Form onFinish={onSubmitForm} layout='vertical'>
-                            <Form.Item name="code" rules={[{ required: true, message: 'Please Fill In' }]} label='Verification Code'>
-                                <Input size="large" placeholder="Enter code here" />
+						<Form onFinish={onSubmitForm} layout='vertical'>
+							<Form.Item name="code" rules={[{ required: true, message: 'Please Fill In' }]} label='Verification Code'>
+								<Input size="large" placeholder="Enter code here" />
 
-                            </Form.Item>
-                            <div className="btn-wrap">
-                                <Button htmlType="submit" type="primary" size="large">
-                                    Verify
-                                </Button>
-                            </div>
-                        </Form>
+							</Form.Item>
+							<div className="btn-wrap">
+								<Button htmlType="submit" type="primary" size="large">
+									Verify
+								</Button>
+							</div>
+						</Form>
 
-                    </section>
-                    {/* <div className="btn-resend">
+					</section>
+					{/* <div className="btn-resend">
                         Didn't receive code?<Button type="link" onClick={ResendVerificationPhone}>Resend Verification Code</Button>
                     </div> */}
-                </div>
+				</div>
 
 
-            </Hero>
-        </>
-    );
+			</Hero>
+		</>
+	);
 }
