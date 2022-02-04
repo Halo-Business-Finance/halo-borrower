@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useRouter } from 'next/router'
 import { API } from "../../utils/api";
 import { AuthContext } from "../../utils/AuthContext";
-
+import React,{useState} from 'react'
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	font-family: Mulish;
@@ -120,7 +120,7 @@ const Hero = styled.div`
 	 }
 `;
 
-export default function VerifyPhoneForm() {
+export default function VerifyCodeForm() {
 	const { phone, setAuthenticated } = useContext(AuthContext)
 	const router = useRouter();
 	const [loading,setLoading] = useState(false);
