@@ -127,8 +127,10 @@ const { Step } = Steps;
 export default function VerifyEmailForm() {
 	const { setFormState ,username} = useContext(AuthContext)
 	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onSubmitForm = async (values) => {
+		setIsLoading(true)
 		const formData = new FormData();
 		formData.append("code", Number(values.code));
 		formData.append("grant_type", "password");
@@ -145,6 +147,7 @@ export default function VerifyEmailForm() {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })
 
 		}
+		setIsLoading(false)
 
 
 	}
@@ -201,7 +204,7 @@ export default function VerifyEmailForm() {
 
 							</Form.Item>
 							<div className="btn-wrap">
-								<Button htmlType="submit" type="primary" size="large">
+								<Button loading={isLoading} htmlType="submit" type="primary" size="large">
 									Verify
 								</Button>
 							</div>
