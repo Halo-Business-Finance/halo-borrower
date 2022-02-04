@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import cookie from "js-cookie";
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import CRE from "../../components/CRE";
 import BLOAN from "../../components/BLOAN";
@@ -13,6 +13,8 @@ import { Franchaise } from "../../components/Organism/Franchise";
 import { Factoring } from "../../components/Organism/Factoring";
 import { useRouter } from 'next/router';
 import PrivateRoute from "../withPrivateRoute";
+import { AuthContext } from "../../utils/AuthContext";
+import { Spin } from "antd";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	max-width: 1490px;
@@ -300,13 +302,21 @@ text-align: center;
 		margin: 0;
 	}
 `;
+const SpinWrapper = styled.div`
+height: 100vh;
+width: 100%;
+display: flex ;
+justify-content: center;
+align-items: center;
+
+`;
 
 const Form = () => {
 	const { register, handleSubmit } = useForm();
 	const [details, setDetails] = useState([]);
 	const [status, setStatus] = useState(0);
 	const router = useRouter();
-
+const {authenticated}=useContext(AuthContext)
 
 	const radioHandler = (status) => {
 		setStatus(status);
@@ -352,14 +362,14 @@ const Form = () => {
 		cookie.set("source", data.source, { expires: 1 / 24 });
 		Router.push("/registration");
 	};
-
+console.log("auth",authenticated)
 	return (
 		<>
 			<Head>
 				<title>Borrower Section</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Hero>
+			{!authenticated?<SpinWrapper><Spin size="large"/></SpinWrapper>:<Hero>
 				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
 					{status == "" && <div className="finance-list">
 						<p className="loan-step">Step 1</p>
@@ -691,7 +701,7 @@ const Form = () => {
 					</div> */}
 				</form>
 			</Hero>
-		</>
+	}	</>
 	);
 }
 export default PrivateRoute(Form)

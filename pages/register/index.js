@@ -36,7 +36,7 @@ const LoginAndVerification = () => {
     // console.log(formState,'state')
     return (
         <Container>
-            {formState}
+           
             <Steps type='navigation' current={formState}>
                 <Step current={formState}  title="Basic Info" icon={formState==0 && <UserOutlined />}  />
                 <Step current={formState}   disabled={formState !==1}  title="Email Verification" icon={formState==1 && <MailOutlined />}   />

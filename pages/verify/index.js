@@ -123,12 +123,10 @@ const Hero = styled.div`
 export default function VerifyPhoneForm() {
 	const { phone, setAuthenticated } = useContext(AuthContext)
 	const router = useRouter();
+	const [loading,setLoading] = useState(false);
 
 	const onSubmitForm = async (values) => {
-		// const formData = new FormData();
-		// formData.append("code", Number(values.code));
-		// formData.append("grant_type", "password");
-		// formData.append("username", router?.query?.email)
+		setLoading(true);
 		const refactoredData = {
 			code: values?.code,
 			grant_type: "password",
@@ -146,7 +144,7 @@ export default function VerifyPhoneForm() {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
 		}
-
+setLoading(false);
 
 	}
 	const ResendVerificationPhone = async () => {
@@ -201,7 +199,7 @@ export default function VerifyPhoneForm() {
 
 							</Form.Item>
 							<div className="btn-wrap">
-								<Button htmlType="submit" type="primary" size="large">
+								<Button loading={loading} htmlType="submit" type="primary" size="large">
 									Verify
 								</Button>
 							</div>

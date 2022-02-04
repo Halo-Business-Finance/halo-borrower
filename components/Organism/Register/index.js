@@ -2,14 +2,14 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import React, { useContext } from "react";
-
+import {CaretRightOutlined} from '@ant-design/icons';
 import Link from "next/link";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { API } from "../../../utils/api";
 import { AuthContext } from "../../../utils/AuthContext";
 import { useRouter } from "next/router";
-import { Button } from "antd";
+import { Button, Collapse } from "antd";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -109,8 +109,14 @@ margin: 0 auto;
 		margin-bottom: 20px;
 	}
 
+	.reg-head h3{
+		color: #fff;
+		font-weight: 700;
+		font-size: 22px;
+	}
+
 	.reg-head p {
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(255, 255, 255,0.8);
 		font-size: 16px;
 		line-height: 10px;
 	}
@@ -135,11 +141,14 @@ margin: 0 auto;
 	& .StyledError {
 		color: red;
 	}
+	& .ant-btn-primary{
+		min-width: 230px;
+	}
 `;
 
-
+const { Panel } = Collapse;
 export default function RegistrationForm() {
-	const { setFormState,setUsername,setPhone } = useContext(AuthContext);
+	const { setFormState, setUsername, setPhone } = useContext(AuthContext);
 	const router = useRouter();
 	const validationSchema = Yup.object().shape({
 		email: Yup.string()
@@ -168,16 +177,16 @@ export default function RegistrationForm() {
 
 
 	const onSubmitForm = async (data) => {
-		
+
 		// router.push({pathname:"/log",query:{email:data?.email}})
-		
+
 		try {
-			await API.post("/api/registration/borrower-registration",data)
+			await API.post("/api/registration/borrower-registration", data)
 			setUsername(data?.email);
 			setPhone(data?.phone);
 			setFormState(1);
 		} catch (error) {
-			console.log('hi',error)
+			console.log('hi', error)
 		}
 	}
 
@@ -283,23 +292,29 @@ export default function RegistrationForm() {
 								)}
 							</div>
 						</div>
+<br/>
+						<Collapse 
+						expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+						border={false}>
+							<Panel header="Read Our Terms and Policies">
+								<p >
 
+									By clicking “Register”, you consent to receive calls and emails
+									from Halo Business Finance. You acknowledge that no purchase of
+									credit or services is contingent upon such consent and acknowledge
+									that you have read Halo Business Finance’s Application Agreement
+									and Halo Business Finance’s privacy policy. You understand that
+									you may opt-out of receiving communications of your choice from
+									Halo Business Finance as provided in the privacy policy.
+								</p>
+							</Panel>
+						</Collapse>
 
-						<p className="register-description">
-							{" "}
-							By clicking “Register”, you consent to receive calls and emails
-							from Halo Business Finance. You acknowledge that no purchase of
-							credit or services is contingent upon such consent and acknowledge
-							that you have read Halo Business Finance’s Application Agreement
-							and Halo Business Finance’s privacy policy. You understand that
-							you may opt-out of receiving communications of your choice from
-							Halo Business Finance as provided in the privacy policy.
-						</p>
 					</section>
 
 					<div className="form-row-button">
 						<Button size="large" htmlType="submit" type="primary">Register</Button>
-							</div>
+					</div>
 
 					<p className="register-description">
 						{" "}

@@ -34,6 +34,7 @@ const StyledLink = styled.a`
 
 const Navbar = (data) => {
 	const router = useRouter();
+	const restricted=["/login","/verify"]
 	if (
 		typeof cookie.get("access_token") !== "undefined" ||
 		typeof cookie.get("userName") !== "undefined" ||
@@ -97,8 +98,8 @@ const Navbar = (data) => {
 						</StyledLink>
 					</div>
 					<div className="top-details">
-						<Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button>
-					</div>
+					{!restricted?.includes(router?.pathname) &&<Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button>
+				}	</div>
 				</Nav>
 			</>
 		);
