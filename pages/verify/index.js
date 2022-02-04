@@ -134,12 +134,12 @@ export default function VerifyPhoneForm() {
         // formData.append("grant_type", "password");
         // formData.append("username", router?.query?.email)
         const refactoredData = {
-            code: Number(values?.code),
+            code: values?.code,
             grant_type: "password",
             username: router?.query?.email
         }
         try {
-            await API.post("/auth-token", refactoredData);
+            await API.post("/auth/token", refactoredData);
             router.push({ pathname: "/" })
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason })

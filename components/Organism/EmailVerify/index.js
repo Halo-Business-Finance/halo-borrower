@@ -134,12 +134,11 @@ export default function VerifyEmailForm() {
 		formData.append("grant_type", "password");
 		formData.append("username", router?.query?.email)
 		const refactoredData = {
-			code: Number(values?.code),
-			grant_type: "password",
-			username: router?.query?.email
+			code: values?.code,
+			email: username,
 		}
 		try {
-			// await API.post("/api/registration/verify-email", formData);
+			await API.post("/api/registration/verify-email", refactoredData);
 
 			setFormState(2);
 		} catch (error) {

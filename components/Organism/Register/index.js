@@ -168,16 +168,17 @@ export default function RegistrationForm() {
 
 
 	const onSubmitForm = async (data) => {
-		setFormState(1);
-		setUsername(data?.email);
-		setPhone(data?.phone);
+		
 		// router.push({pathname:"/log",query:{email:data?.email}})
 		
-		// try {
-		// 	await API.post("/api/borrower/register",data)
-		// } catch (error) {
-		// 	console.log('hi',error)
-		// }
+		try {
+			await API.post("/api/registration/borrower-registration",data)
+			setUsername(data?.email);
+			setPhone(data?.phone);
+			setFormState(1);
+		} catch (error) {
+			console.log('hi',error)
+		}
 	}
 
 
