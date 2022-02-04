@@ -14,7 +14,10 @@ import { Factoring } from "../../components/Organism/Factoring";
 import { useRouter } from 'next/router';
 import PrivateRoute from "../withPrivateRoute";
 const Hero = styled.div`
-	padding: 40px 20% 40px 20%;
+    max-width: 1000px;
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 100%;
 	font-family: Mulish;
 	background-color: #fff;
     //  background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
@@ -121,7 +124,7 @@ const Hero = styled.div`
 	}
 
 	.loans-types {
-        max-width:800px;
+        max-width: 1000px;
         /* min-height: 300px; */
         width: 100%;
         margin: 0 auto;

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 
 import Link from "next/link";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -163,11 +163,13 @@ export default function RegistrationForm() {
 	} = useForm({
 		resolver: yupResolver(validationSchema)
 	});
+	const [isLoading, setIsLoading] = useState(false);
 
 
 
 
 	const onSubmitForm = async (data) => {
+		setIsLoading(true)
 		
 		// router.push({pathname:"/log",query:{email:data?.email}})
 		
@@ -179,6 +181,7 @@ export default function RegistrationForm() {
 		} catch (error) {
 			console.log('hi',error)
 		}
+		setIsLoading(false)
 	}
 
 
@@ -298,7 +301,7 @@ export default function RegistrationForm() {
 					</section>
 
 					<div className="form-row-button">
-						<Button size="large" htmlType="submit" type="primary">Register</Button>
+						<Button  loading={isLoading} size="large" htmlType="submit" type="primary">Register</Button>
 							</div>
 
 					<p className="register-description">

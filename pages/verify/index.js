@@ -125,7 +125,7 @@ const Hero = styled.div`
 `;
 
 export default function VerifyPhoneForm() {
-    const { phone } = useContext(AuthContext)
+    const { phone,setAuthenticated } = useContext(AuthContext)
     const router = useRouter();
 
     const onSubmitForm = async (values) => {
@@ -142,6 +142,7 @@ export default function VerifyPhoneForm() {
           const response =  await API.post("/auth/token", refactoredData);
 			notification.success({message: 'Success', description: 'Login Successfully'})
 			sessionStorage.setItem('token',response?.payload?.access_token)
+			setAuthenticated(true)
             router.push({ pathname: "/test" })
 			console.log(response,'re')
 			

@@ -128,8 +128,10 @@ const { Step } = Steps;
 export default function VerifyPhoneForm() {
 const {phone}=useContext(AuthContext)
 	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onSubmitForm = async (values) => {
+		setIsLoading(true)
 		const formData = new FormData();
 		formData.append("code", Number(values.code));
 		formData.append("grant_type", "password");
@@ -146,6 +148,7 @@ const {phone}=useContext(AuthContext)
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
 		}
+		setIsLoading(false)
 
 
 	}
@@ -189,7 +192,7 @@ const {phone}=useContext(AuthContext)
 							<center>
 								<img src="/images/sms.png" />
 								<p className="verify">
-									{`A verification code has been sand to your email.\n This code will be valid for 15 minutes.`}
+									{`A verification code has been sent to your phone.\n This code will be valid for 15 minutes.`}
 								</p>
 							</center>
 						</div>
@@ -201,7 +204,7 @@ const {phone}=useContext(AuthContext)
 
 							</Form.Item>
 							<div className="btn-wrap">
-								<Button htmlType="submit" type="primary" size="large">
+								<Button loading={isLoading} htmlType="submit" type="primary" size="large">
 									Verify
 								</Button>
 							</div>
