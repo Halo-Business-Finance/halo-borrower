@@ -142,7 +142,7 @@ export default function VerifyEmailForm() {
 
 			setFormState(2);
 		} catch (error) {
-			notification.error({ message: 'Error Occured', description: error?.data?.reason })
+			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })
 
 		}
 

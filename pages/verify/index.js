@@ -139,8 +139,12 @@ export default function VerifyPhoneForm() {
             username: router?.query?.email
         }
         try {
-            await API.post("/auth/token", refactoredData);
-            router.push({ pathname: "/" })
+          const response =  await API.post("/auth/token", refactoredData);
+			notification.success({message: 'Success', description: 'Login Successfully'})
+			sessionStorage.setItem('token',response?.payload?.access_token)
+            router.push({ pathname: "/test" })
+			console.log(response,'re')
+			
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason })
 

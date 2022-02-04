@@ -12,10 +12,8 @@ const API = axios.create({
 API.interceptors.request.use(
  async (config) => {
      const token=sessionStorage.getItem("token");
-     const refreshToken=sessionStorage.getItem("refresh_token");
    if (token) {
      config.headers["Authorization"] = "Bearer " + token;
-     config.headers["RefreshToken"]=refreshToken;
    }
    return config;
  },

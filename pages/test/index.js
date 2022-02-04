@@ -12,6 +12,7 @@ import { WorkingCapitalForm } from "../../components/workingcapital";
 import { Franchaise } from "../../components/Organism/Franchise";
 import { Factoring } from "../../components/Organism/Factoring";
 import { useRouter } from 'next/router';
+import PrivateRoute from "../withPrivateRoute";
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
@@ -291,7 +292,7 @@ text-align: center;
 	}
 `;
 
-export default function Form() {
+const Form = () => {
 	const { register, handleSubmit } = useForm();
 	const [details, setDetails] = useState([]);
 	const [status, setStatus] = useState(0);
@@ -684,3 +685,4 @@ export default function Form() {
 		</>
 	);
 }
+export default PrivateRoute(Form)
