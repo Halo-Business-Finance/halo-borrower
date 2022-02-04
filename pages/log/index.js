@@ -28,14 +28,15 @@ const LoginAndVerification = () => {
     const [step,setStep]=useState(1);
     const {formState,setFormState}=useContext(AuthContext);
     const router=useRouter();
-    useEffect(()=>{
-        if(router.query?.id){
-            setFormState(router.query.id)
-        }
-    },[router.query])
-    console.log(formState,'state')
+    // useEffect(()=>{
+    //     if(router.query?.id){
+    //         setFormState(router.query.id)
+    //     }
+    // },[router.query])
+    // console.log(formState,'state')
     return (
         <Container>
+            {formState}
             <Steps type='navigation' current={formState}>
                 <Step current={formState}  title="Basic Info" icon={formState==0 && <UserOutlined />}  />
                 <Step current={formState}   disabled={formState !==1}  title="Email Verification" icon={formState==1 && <MailOutlined />}   />

@@ -9,14 +9,17 @@ import * as Yup from 'yup';
 import { API } from "../../../utils/api";
 import { AuthContext } from "../../../utils/AuthContext";
 import { useRouter } from "next/router";
+import { Button } from "antd";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
 	font-family: Mulish;
-	background-color: aliceblue;
-
+	/* background-color: aliceblue; */
+max-width:1440px;
+width: 90%;
+margin: 0 auto;
 	.formstyle {
-		background: #fff;
+		background: aliceblue;
 		border-radius: 10px;
 		padding: 0px 0px 20px 0px;
 	}
@@ -136,7 +139,7 @@ const Hero = styled.div`
 
 
 export default function RegistrationForm() {
-	const { setFormState } = useContext(AuthContext);
+	const { setFormState,setUsername,setPhone } = useContext(AuthContext);
 	const router = useRouter();
 	const validationSchema = Yup.object().shape({
 		email: Yup.string()
@@ -165,8 +168,10 @@ export default function RegistrationForm() {
 
 
 	const onSubmitForm = async (data) => {
-		setFormState(2);
-		router.push({pathname:"/log",query:{id:1}})
+		setFormState(1);
+		setUsername(data?.email);
+		setPhone(data?.phone);
+		// router.push({pathname:"/log",query:{email:data?.email}})
 		
 		// try {
 		// 	await API.post("/api/borrower/register",data)
@@ -292,8 +297,8 @@ export default function RegistrationForm() {
 					</section>
 
 					<div className="form-row-button">
-						<input type="submit" id="button" value="Register" />
-					</div>
+						<Button size="large" htmlType="submit" type="primary">Register</Button>
+							</div>
 
 					<p className="register-description">
 						{" "}

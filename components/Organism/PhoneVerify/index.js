@@ -1,15 +1,17 @@
 import { Button, Input, Form, notification ,Steps} from "antd";
 import Head from "next/head";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from 'next/router'
 import { API } from "../../../utils/api";
 import { UserOutlined, SolutionOutlined, PhoneOutlined, SmileOutlined } from '@ant-design/icons';
+import { AuthContext } from "../../../utils/AuthContext";
 
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	font-family: Mulish;
 	max-width: 1440px;
+	width: 90%;
 	padding: 24px;
 	margin:0 auto;
 	margin: 24px;
@@ -68,7 +70,18 @@ const Hero = styled.div`
 	}
 
 
-	
+	& .btn-resend{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	margin-top:-15px;
+	font-size: 16px;
+	margin-bottom: 20px;
+	& button{
+		font-size: 16px;
+		padding: 0px !important;
+	}
+}
 
 
 	
@@ -113,7 +126,7 @@ const Hero = styled.div`
 `;
 const { Step } = Steps;
 export default function VerifyPhoneForm() {
-
+const {phone}=useContext(AuthContext)
 	const router = useRouter();
 
 	const onSubmitForm = async (values) => {
@@ -127,7 +140,7 @@ export default function VerifyPhoneForm() {
 			username: router?.query?.email
 		}
 		try {
-			// await API.post("/auth/token", formData);
+			await API.post("/api/registration/verify-phone", formData);
 			router.push({pathname:"/"})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -135,6 +148,18 @@ export default function VerifyPhoneForm() {
 		}
 
 
+	}
+	const ResendVerificationPhone=async()=>{
+		try {
+			await API.post("/api/registration/send-phone-verification",{
+				"phone": phone
+				
+			  })
+			  notification.success({ message:"Success",description:"Verification code resend successfully"})
+		} catch (error) {
+			console.log(error)
+			notification.error({ message:"Error occured",description:error?.data?.reason||"Something went wrong,please try again later"})
+		}
 	}
 	return (
 		<>
@@ -183,6 +208,9 @@ export default function VerifyPhoneForm() {
 						</Form>
 
 					</section>
+					<div className="btn-resend">
+					Didn't receive code?<Button type="link" onClick={ResendVerificationPhone}>Resend Verification Code</Button>
+					</div>
 				</div>
 
 

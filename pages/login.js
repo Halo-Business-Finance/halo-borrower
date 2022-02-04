@@ -2,15 +2,16 @@ import Head from "next/head";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 import Link from "next/link";
-import { Button, notification } from "antd";
+import { Button, Checkbox, notification } from "antd";
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { API } from "../utils/api";
 import router from "next/router";
+import { AuthContext } from "../utils/AuthContext";
 
 const Hero = styled.div`
 	display: flex;
@@ -27,8 +28,8 @@ const Hero = styled.div`
 
 	.formstyle {
 		box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
-
-		width: 40%;
+          max-width: 500px;
+		width: 100%;
 		background: #fff;
 		border-radius: 10px;
 		padding: 0px 20px 20px 20px;
@@ -54,8 +55,15 @@ const Hero = styled.div`
 	}
 
 	.form-head {
-		display: inline-block;
+		display: flex;
+		justify-content:center;
+		align-items: center;
+		flex-direction: column;
 		width: 100%;
+		min-height: 120px;
+		& h2{
+			font-size: 28px;
+		}
 	}
 
 	.heading {
@@ -117,7 +125,8 @@ const Hero = styled.div`
 	}
 `;
 
-export default function Login({ email, userName, access_token, userid }) {
+export default function Login() {
+	const { setUsername } = useContext(AuthContext)
 	const validationSchema = yup.object().shape({
 		username: yup.string()
 			.required('Email is required')
@@ -137,30 +146,31 @@ export default function Login({ email, userName, access_token, userid }) {
 		mode: "all",
 		resolver: yupResolver(validationSchema)
 	});
-	const[isLoading,setIsLoading] = useState(false);
-
+	const [isLoading, setIsLoading] = useState(false);
 
 	const onSubmitForm = async (values) => {
 		setIsLoading(true)
-const data = {
-	"userName": values.username,
-	"password": values.password,
-  }	
-  try {
- await API.post('/auth/request-for-code',data)
- notification.success({message:'Success', description:`Verification Code sent to ${data.userName}`})
- router.push({pathname:"/2fa",query:{email:values.username}})
+		setUsername(values.username)
+		const data = {
+			"userName": values.username,
+			"password": values.password,
+		}
+		try {
+			await API.post('/auth/request-for-code', data)
+			notification.success({ message: 'Success', description: `Verification Code sent to ${data.userName}` })
+			router.push({ pathname: "/verify", query: { email: values.username } })
 
-	  
-  } catch (error) {
-	  notification.error({message: 'Error Occured', description: error.data.reason})
-	 
-	  
-  }	
-  setIsLoading(false)
 
-		
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error.data.reason })
+
+
+		}
+		setIsLoading(false)
+
+
 	};
+
 
 	return (
 		<>
@@ -172,9 +182,11 @@ const data = {
 				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
 					<section className="Form-design">
 						<div className="form-head">
-							<h2 className="heading">Log In</h2>
+
+							<img src="/images/logo.svg" />
+							{/* <h2 >Log In</h2> */}
 						</div>
-					
+
 
 						<div className="form-row-one form-gap">
 							<div className="form-name">
@@ -200,14 +212,15 @@ const data = {
 									{...register("password")}
 									className="textbox"
 									type="password"
-									
+
 									placeholder="Enter your password"
-								
+
 								/>
 								{errors.password && (
 									<span className="error" role="alert">{errors.password.message}</span>
 								)}
 							</div>
+
 						</div>
 					</section>
 					<br />

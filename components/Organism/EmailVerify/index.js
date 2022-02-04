@@ -1,15 +1,17 @@
 import { Button, Input, Form, notification, Steps } from "antd";
 import Head from "next/head";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from 'next/router'
 import { API } from "../../../utils/api";
 import { UserOutlined, SolutionOutlined, PhoneOutlined, SmileOutlined } from '@ant-design/icons';
+import { AuthContext } from "../../../utils/AuthContext";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	max-width: 1440px;
 	padding: 24px;
 	margin:0 auto;
+	width: 90%;
 	margin: 24px;
 	background: white;
 	font-family: Mulish;
@@ -66,7 +68,18 @@ const Hero = styled.div`
 		color: #333333;
 	}
 
-
+& .btn-resend{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	margin-top:-15px;
+	font-size: 16px;
+	margin-bottom: 20px;
+	& button{
+		font-size: 16px;
+		padding: 0px !important;
+	}
+}
 	
 
 
@@ -112,7 +125,7 @@ const Hero = styled.div`
 `;
 const { Step } = Steps;
 export default function VerifyEmailForm() {
-
+	const { setFormState ,username} = useContext(AuthContext)
 	const router = useRouter();
 
 	const onSubmitForm = async (values) => {
@@ -126,14 +139,27 @@ export default function VerifyEmailForm() {
 			username: router?.query?.email
 		}
 		try {
-			// await API.post("/auth/token", formData);
-			router.push({pathname:"/log",query:{id:2}})
+			// await API.post("/api/registration/verify-email", formData);
+
+			setFormState(2);
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
 		}
 
 
+	}
+	const ResendVerificationEmail=async()=>{
+		try {
+			await API.post("/api/registration/send-email-verification",{
+				"email": username !=null ? username:router.query.email
+				
+			  })
+			  notification.success({ message:"Success",description:"Verification email resend successfully"})
+		} catch (error) {
+			console.log(error)
+			notification.error({ message:"Error occured",description:error?.data?.reason||"Something went wrong,please try again later"})
+		}
 	}
 	return (
 		<>
@@ -183,6 +209,9 @@ export default function VerifyEmailForm() {
 						</Form>
 
 					</section>
+					<div className="btn-resend">
+					Didn't receive code?<Button type="link" onClick={ResendVerificationEmail}>Resend Verification Code</Button>
+					</div>
 				</div>
 
 
