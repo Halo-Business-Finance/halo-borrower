@@ -232,7 +232,7 @@ export default function Login() {
 					<p className="login-description">
 						{" "}
 						Don't have an account?{" "}
-						<Link href="/registration"><a className="login-link">
+						<Link href="/register"><a className="login-link">
 							Register
 						</a>
 						</Link>
