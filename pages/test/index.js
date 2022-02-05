@@ -19,7 +19,8 @@ import Carousel from "react-multi-carousel";
 import { Spin } from "antd";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
-	max-width: 1490px;
+	max-width: 1250px;
+	width: 90%;
 	margin: 0 auto;
 	margin-top:30px;
 	font-family: Mulish;
@@ -327,15 +328,15 @@ const Form = () => {
 		},
 		desktop: {
 		  breakpoint: { max: 3000, min: 1024 },
-		  items: 3
+		  items: 5
 		},
 		tablet: {
 		  breakpoint: { max: 1024, min: 464 },
-		  items: 2
+		  items: 4
 		},
 		mobile: {
 		  breakpoint: { max: 464, min: 0 },
-		  items: 1
+		  items: 2
 		}
 	  };
 	  
@@ -729,4 +730,4 @@ const Form = () => {
 			}	</>
 	);
 }
-export default Form
+export default  PrivateRoute (Form)
