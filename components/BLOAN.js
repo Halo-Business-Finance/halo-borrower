@@ -333,7 +333,7 @@ export default function BLOAN() {
 
 	const formHandler = async () => {
         try {
-            await API.post("/", formValues)
+            await API.post("/", bridgeLoanData)
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
