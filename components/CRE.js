@@ -247,7 +247,14 @@ export default function CRE() {
 			[name]: ""
 		})
 	}
+	const formHandler = async () => {
+        try {
+            await API.post("/", formValues)
 
+        } catch (error) {
+            notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
+        }
+    }
 	return (
 		<div>
 			  <Progress
