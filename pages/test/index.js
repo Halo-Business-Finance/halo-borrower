@@ -16,17 +16,10 @@ import PrivateRoute from "../withPrivateRoute";
 import { AuthContext } from "../../utils/AuthContext";
 import { Spin } from "antd";
 const Hero = styled.div`
-<<<<<<< HEAD
     max-width: 1000px;
 	margin: 0 auto;
 	margin-top: 50px;
 	width: 100%;
-=======
-	/* padding: 40px 20% 40px 20%; */
-	max-width: 1490px;
-	margin: 0 auto;
-	margin-top:30px;
->>>>>>> 8c22742d2a6922d733c4a44976e09656729eedad
 	font-family: Mulish;
 	background-color: #fff;
     //  background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
@@ -138,11 +131,7 @@ const Hero = styled.div`
 	}
 
 	.loans-types {
-<<<<<<< HEAD
         max-width: 1000px;
-=======
-        max-width:1200px;
->>>>>>> 8c22742d2a6922d733c4a44976e09656729eedad
         /* min-height: 300px; */
         width: 100%;
         margin: 0 auto;
