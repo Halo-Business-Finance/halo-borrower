@@ -1,12 +1,12 @@
 import React from "react";
-import styled,{keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import { useForm } from "react-hook-form";
 
-import {  useState } from "react";
+import { useState } from "react";
 
 import { Button, Modal, Progress, Space } from "antd";
-import {zoomIn,fadeInRightBig} from 'react-animations'
+import { zoomIn, fadeInRightBig } from 'react-animations'
 
 import { Disqulaified } from "./Organism/Disqualify";
 const bounceAnimation = keyframes`${zoomIn}`;
@@ -104,7 +104,7 @@ export default function PROPERTYCRE() {
 		business: '',
 		property: '',
 		propertyType: '',
-		propertyState:"",
+		propertyState: "",
 		occupy: '',
 		tenants: '',
 		amount: '',
@@ -118,7 +118,7 @@ export default function PROPERTYCRE() {
 		business: '',
 		property: '',
 		propertyType: '',
-		propertyState:"",
+		propertyState: "",
 		occupy: '',
 		tenants: '',
 		amount: '',
@@ -133,65 +133,65 @@ export default function PROPERTYCRE() {
 	const completeFormStep = () => {
 		if (formValues.amount == '1' || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
 			setIsModalVisible(true)
-            return;
+			return;
 		}
 		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
 			setIsModalVisible(true)
-            return;
+			return;
 		}
 		if (formstep == 1 && formValues.business == "") {
-            setErrors({ ...error, business: "Error" });
-            return;
-        }
-		else if (formstep == 2 && formValues.property == "" ) {
-            setErrors({ ...error, property: "Error" });
-            return;
-        }
-		else if (formstep == 3 && formValues.propertyType == "" ) {
-            setErrors({ ...error, propertyType: "Error" });
-            return;
-        }
-		else if (formstep == 4 && formValues.propertyState == "" ) {
-            setErrors({ ...error, propertyState: "Error" });
-            return;
-        }
-		else if (formstep == 5 && formValues.occupy == "" ) {
-            setErrors({ ...error, occupy: "Error" });
-            return;
-        }
-		else if (formstep == 6 && formValues.tenants == "" ) {
-            setErrors({ ...error, tenants: "Error" });
-            return;
-        }
-		else if (formstep == 7 && formValues.amount == "" ) {
-            setErrors({ ...error, amount: "Error" });
-            return;
-        }
-		else if (formstep == 8 && formValues.ownership == "" ) {
-            setErrors({ ...error, ownership: "Error" });
-            return;
-        }
-		else if (formstep == 9 && formValues.bankruptcy == "" ) {
-            setErrors({ ...error, bankruptcy: "Error" });
-            return;
-        }
-		else if (formstep == 10 && formValues.bankruptcyYear == "" ) {
-            setErrors({ ...error, bankruptcyYear: "Error" });
-            return;
-        }
-		else if (formstep == 11 && formValues.downpayment == "" ) {
-            setErrors({ ...error, downpayment: "Error" });
-            return;
-        }
-		else if (formstep == 12 && formValues.commercial == "" ) {
-            setErrors({ ...error, commercial: "Error" });
-            return;
-        }
+			setErrors({ ...error, business: "Error" });
+			return;
+		}
+		else if (formstep == 2 && formValues.property == "") {
+			setErrors({ ...error, property: "Error" });
+			return;
+		}
+		else if (formstep == 3 && formValues.propertyType == "") {
+			setErrors({ ...error, propertyType: "Error" });
+			return;
+		}
+		else if (formstep == 4 && formValues.propertyState == "") {
+			setErrors({ ...error, propertyState: "Error" });
+			return;
+		}
+		else if (formstep == 5 && formValues.occupy == "") {
+			setErrors({ ...error, occupy: "Error" });
+			return;
+		}
+		else if (formstep == 6 && formValues.tenants == "") {
+			setErrors({ ...error, tenants: "Error" });
+			return;
+		}
+		else if (formstep == 7 && formValues.amount == "") {
+			setErrors({ ...error, amount: "Error" });
+			return;
+		}
+		else if (formstep == 8 && formValues.ownership == "") {
+			setErrors({ ...error, ownership: "Error" });
+			return;
+		}
+		else if (formstep == 9 && formValues.bankruptcy == "") {
+			setErrors({ ...error, bankruptcy: "Error" });
+			return;
+		}
+		else if (formstep == 10 && formValues.bankruptcyYear == "") {
+			setErrors({ ...error, bankruptcyYear: "Error" });
+			return;
+		}
+		else if (formstep == 11 && formValues.downpayment == "") {
+			setErrors({ ...error, downpayment: "Error" });
+			return;
+		}
+		else if (formstep == 12 && formValues.commercial == "") {
+			setErrors({ ...error, commercial: "Error" });
+			return;
+		}
 
-		if (formValues.propertyState=="Investment" && formstep==4){
+		if (formValues.propertyState == "Investment" && formstep == 4) {
 			setFormstep(6)
-			return;	
-			}
+			return;
+		}
 		if (formstep == 9 && formValues.bankruptcy !== 'Yes') {
 			setFormstep(11);
 			return;
@@ -200,17 +200,17 @@ export default function PROPERTYCRE() {
 	};
 
 	const previousStep = () => {
-		if (formValues.propertyState=="Investment" && formstep==6){
+		if (formValues.propertyState == "Investment" && formstep == 6) {
 			setFormstep(4)
-			return;	
-			}
-			if (formstep == 11 && formValues.bankruptcy !== 'Yes') {
-				setFormstep(9);
-				return;
-			}
+			return;
+		}
+		if (formstep == 11 && formValues.bankruptcy !== 'Yes') {
+			setFormstep(9);
+			return;
+		}
 		setFormstep(formstep - 1);
 	}
-	
+
 	console.log(formValues.tenants);
 	const isUserDisqualified = () => {
 		setIsModalVisible(true);
@@ -227,23 +227,33 @@ export default function PROPERTYCRE() {
 		})
 	}
 	const formHandler = async () => {
-        try {
-            await API.post("/", formValues)
+		const data = {
+			"loanTypes": 101,
+			"nameOfBusiness": "string",
+			"nameOfBorrower": "string",
+			"emailOfBorrower": "string",
+			"phoneNumber": "string",
+			"prequalifyAnswers": formValues,
+			"accepted": true
+		}
+		try {
+			await API.post("/api/borrower/create-prequalify-request", data)
 
-        } catch (error) {
-            notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
-        }
-    }
+
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
+		}
+	}
 	return (
 		<div>
 			<Progress
-                strokeColor={{
-                    '0%': '#108ee9',
-                    '100%': '#87d068',
-                }}
-                percent={Math.ceil((formstep/12)*100)}
+				strokeColor={{
+					'0%': '#108ee9',
+					'100%': '#87d068',
+				}}
+				percent={Math.ceil((formstep / 12) * 100)}
 
-            />
+			/>
 			<Hero>
 				{formstep === 1 &&
 
@@ -374,23 +384,23 @@ export default function PROPERTYCRE() {
 						<ErrorMessage>{error.propertyState && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
-				{(formValues.propertyState == 'Owner' &&formstep == 5) &&
-				 <section>
-					<div className="goal">
-						<div className="cast">
-							Will You Occupy 51% or more of the space
+				{(formValues.propertyState == 'Owner' && formstep == 5) &&
+					<section>
+						<div className="goal">
+							<div className="cast">
+								Will You Occupy 51% or more of the space
+							</div>
+							<div className="term">
+								<input checked={formValues.occupy == "Yes" ? true : false} onChange={(e) => onFormChange(e, 'occupy')} type="radio" name="more" value="Yes" />
+								<label className="radio">Yes</label>
+							</div>
+							<div className="term">
+								<input checked={formValues.occupy == "No" ? true : false} onChange={(e) => onFormChange(e, 'occupy')} type="radio" name="more" value="No" />
+								<label className="radio">No</label>
+							</div>
 						</div>
-						<div className="term">
-							<input checked={formValues.occupy == "Yes" ? true : false} onChange={(e) => onFormChange(e, 'occupy')} type="radio" name="more" value="Yes" />
-							<label className="radio">Yes</label>
-						</div>
-						<div className="term">
-							<input checked={formValues.occupy == "No" ? true : false} onChange={(e) => onFormChange(e, 'occupy')} type="radio" name="more" value="No" />
-							<label className="radio">No</label>
-						</div>
-					</div>
-					<ErrorMessage>{error.occupy && "Please select to continue"}</ErrorMessage>
-				</section>}
+						<ErrorMessage>{error.occupy && "Please select to continue"}</ErrorMessage>
+					</section>}
 				{formstep == 6 &&
 					<section>
 						<div className="goal">
@@ -514,7 +524,7 @@ export default function PROPERTYCRE() {
 								<label className="radio">30%</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.downpayment == "100" ? true : false} onChange={(e) => onFormChange(e, 'downpayment')}  type="radio" name="putting" value="100" />
+								<input checked={formValues.downpayment == "100" ? true : false} onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="100" />
 								<label className="radio">More then 30%</label>
 							</div>
 						</div>
@@ -540,14 +550,14 @@ export default function PROPERTYCRE() {
 					</section>
 				}
 				<ButtonWrapper>
-						{formstep > 1 &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{formstep==12?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
-	Next Step
-</Button>}
-</ButtonWrapper>
-<Modal visible={isModalVisible} footer={null}>
-				<Disqulaified />
-			</Modal>
+					{formstep > 1 && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+					{formstep == 12 ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+						Next Step
+					</Button>}
+				</ButtonWrapper>
+				<Modal visible={isModalVisible} footer={null}>
+					<Disqulaified />
+				</Modal>
 			</Hero>
 
 		</div>

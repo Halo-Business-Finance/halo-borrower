@@ -214,8 +214,18 @@ export const Factoring = () => {
     const formCount = formValues.bankruptcy == "Yes" ? 13 : 12;
 
     const formHandler = async () => {
+        const data = {
+            "loanTypes": 101,
+            "nameOfBusiness": "string",
+            "nameOfBorrower": "string",
+            "emailOfBorrower": "string",
+            "phoneNumber": "string",
+            "prequalifyAnswers": formValues,
+            "accepted": true
+        }
         try {
-            await API.post("/", formValues)
+            await API.post("/api/borrower/create-prequalify-request", data)
+
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -545,11 +555,7 @@ export const Factoring = () => {
                 <ButtonWrapper>
 
                     <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-                    {((formstep == 12 && formValues.bankruptcy == "No") || formstep == 13) ? <Button onClick={() => {
-
-                        setshowSucessModal(true)
-
-                    }} type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+                    {((formstep == 12 && formValues.bankruptcy == "No") || formstep == 13) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
                         Next Step
                     </Button>}
                 </ButtonWrapper>
