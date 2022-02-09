@@ -216,7 +216,9 @@ const WorkingCapitalForm = () => {
 			[name]: ""
 		})
 	}
+	const [loading, setLoading] = useState(false)
 	const formHandler = async () => {
+		setLoading(true)
 		try {
 			const data = {
 				"loanTypes": 101,
@@ -228,11 +230,12 @@ const WorkingCapitalForm = () => {
 				"accepted": true
 			}
 			await API.post("/api/borrower/create-prequalify-request", data)
-
+			notification.success({ message: "Form submitted successfully" })
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
 		}
+		setLoading(false)
 	}
 	return (
 		<div>
@@ -566,7 +569,7 @@ const WorkingCapitalForm = () => {
 						<ErrorMessage>{error.loanAmount && "Please select to continue"}</ErrorMessage>
 					</section>
 					}
-					{formstep == 12 && <section>
+					{(formstep == 12 || formstep == 13) && <section>
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
@@ -598,10 +601,10 @@ const WorkingCapitalForm = () => {
 					}
 				</>
 				<ButtonWrapper>
-					{formstep > 1 && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 12 ? <Button type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+					{(formstep > 1 && formstep < 13) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+					{formstep == 13 ? <Button loading={loading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 13 && <Button size="large" type="primary" onClick={completeFormStep}>
 						Next Step
-					</Button>}
+					</Button>)}
 				</ButtonWrapper>
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />

@@ -392,7 +392,7 @@ const Form = () => {
 				<title>Borrower Section</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			{!authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
+			{authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
 				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
 					{status == "" && <div className="finance-list">
 						<p className="loan-step">Step 1</p>
@@ -730,4 +730,4 @@ const Form = () => {
 			}	</>
 	);
 }
-export default  PrivateRoute (Form)
+export default   Form
