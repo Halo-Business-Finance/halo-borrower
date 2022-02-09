@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import "nprogress/nprogress.css";
 import dynamic from 'next/dynamic';
 import 'antd/dist/antd.css';
+import "react-multi-carousel/lib/styles.css";
 import AuthContextProvider from "../utils/AuthContext";
 export default function App({ Component, pageProps }) {
 

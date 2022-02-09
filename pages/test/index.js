@@ -14,12 +14,15 @@ import { Factoring } from "../../components/Organism/Factoring";
 import { useRouter } from 'next/router';
 import PrivateRoute from "../withPrivateRoute";
 import { AuthContext } from "../../utils/AuthContext";
+import Carousel from "react-multi-carousel";
+
 import { Spin } from "antd";
 const Hero = styled.div`
-    max-width: 1000px;
+	/* padding: 40px 20% 40px 20%; */
+	max-width: 1250px;
+	width: 90%;
 	margin: 0 auto;
-	margin-top: 50px;
-	width: 100%;
+	margin-top:30px;
 	font-family: Mulish;
 	background-color: #fff;
     //  background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
@@ -131,7 +134,7 @@ const Hero = styled.div`
 	}
 
 	.loans-types {
-        max-width: 1000px;
+        max-width:1200px;
         /* min-height: 300px; */
         width: 100%;
         margin: 0 auto;
@@ -316,7 +319,27 @@ const Form = () => {
 	const [details, setDetails] = useState([]);
 	const [status, setStatus] = useState(0);
 	const router = useRouter();
-const {authenticated}=useContext(AuthContext)
+	const { authenticated } = useContext(AuthContext);
+	const responsive = {
+		superLargeDesktop: {
+		  // the naming can be any, depends on you.
+		  breakpoint: { max: 4000, min: 3000 },
+		  items: 5
+		},
+		desktop: {
+		  breakpoint: { max: 3000, min: 1024 },
+		  items: 5
+		},
+		tablet: {
+		  breakpoint: { max: 1024, min: 464 },
+		  items: 4
+		},
+		mobile: {
+		  breakpoint: { max: 464, min: 0 },
+		  items: 2
+		}
+	  };
+	  
 
 	const radioHandler = (status) => {
 		setStatus(status);
@@ -362,25 +385,27 @@ const {authenticated}=useContext(AuthContext)
 		cookie.set("source", data.source, { expires: 1 / 24 });
 		Router.push("/registration");
 	};
-console.log("auth",authenticated)
+	console.log("auth", authenticated)
 	return (
 		<>
 			<Head>
 				<title>Borrower Section</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			{!authenticated?<SpinWrapper><Spin size="large"/></SpinWrapper>:<Hero>
+			{authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
 				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
 					{status == "" && <div className="finance-list">
 						<p className="loan-step">Step 1</p>
 						<h3 className="loan-head">Which type of loan do you prefer?</h3>
 						<p className="loan-describe">Please select one to continue</p>
 
-						<section className="loans-types">
+						{/* <section className="loans-types"> */}
 							{/* {details.map((datai, dataname) => {
 								const base_url =
 									process.env.NEXT_PUBLIC_BASE_URL + datai.thumbnail;
 								return ( */}
+
+								<Carousel responsive={responsive}>
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
@@ -521,7 +546,8 @@ console.log("auth",authenticated)
 									</div>
 								</div>
 							</div>
-						</section>
+							</Carousel>
+						{/* </section> */}
 					</div>}
 
 					{/* <div className="space"></div> */}
@@ -701,7 +727,7 @@ console.log("auth",authenticated)
 					</div> */}
 				</form>
 			</Hero>
-	}	</>
+			}	</>
 	);
 }
-export default PrivateRoute(Form)
+export default  Form

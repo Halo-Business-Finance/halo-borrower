@@ -216,6 +216,14 @@ const WorkingCapitalForm = () => {
 			[name]: ""
 		})
 	}
+	const formHandler = async () => {
+        try {
+            await API.post("/", workingCapitalData)
+
+        } catch (error) {
+            notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
+        }
+    }
     return (
         <div>
 			<Progress

@@ -212,6 +212,15 @@ export const Factoring = () => {
     }
 
     const formCount = formValues.bankruptcy == "Yes" ? 13 : 12;
+
+    const formHandler = async () => {
+        try {
+            await API.post("/", formValues)
+
+        } catch (error) {
+            notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
+        }
+    }
     return (
         <div>
             <Progress
