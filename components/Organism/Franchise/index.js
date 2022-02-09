@@ -144,9 +144,9 @@ export const Franchaise = () => {
 
         })
         setErrors({
-			...error,
-			[name]: ""
-		})
+            ...error,
+            [name]: ""
+        })
 
     }
 
@@ -227,8 +227,17 @@ export const Franchaise = () => {
         setFormstep(formstep - 1);
     }
     const formHandler = async () => {
+        const data = {
+            "loanTypes": 101,
+            "nameOfBusiness": "string",
+            "nameOfBorrower": "string",
+            "emailOfBorrower": "string",
+            "phoneNumber": "string",
+            "prequalifyAnswers": formValues,
+            "accepted": true
+        }
         try {
-            await API.post("/", formValues)
+            await API.post("/api/borrower/create-prequalify-request", data)
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -529,7 +538,7 @@ export const Franchaise = () => {
                 <ButtonWrapper>
 
                     {formstep > 1 && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-                    {((formstep == 11 && formValues.bankruptcy == "No") || formstep == 12) ? <Button type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
+                    {((formstep == 11 && formValues.bankruptcy == "No") || formstep == 12) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
                         Next Step
                     </Button>}
 

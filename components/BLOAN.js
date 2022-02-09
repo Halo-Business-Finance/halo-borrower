@@ -6,6 +6,7 @@ import axios from "axios";
 import { Alert, Button, Modal, notification, Progress } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
 import { fadeIn ,zoomIn,fadeInRightBig} from 'react-animations';
+import { API } from "../utils/api";
 const zoomAnimation = keyframes`${fadeIn}`;
 const zoomInAnimation=keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -332,8 +333,17 @@ export default function BLOAN() {
 	}
 
 	const formHandler = async () => {
+		const data=	{
+			"loanTypes": 101,
+			"nameOfBusiness": "string",
+			"nameOfBorrower": "string",
+			"emailOfBorrower": "string",
+			"phoneNumber": "string",
+			"prequalifyAnswers": bridgeLoanData,
+			"accepted": true
+		  }
         try {
-            await API.post("/", bridgeLoanData)
+            await API.post("/api/borrower/create-prequalify-request", data)
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -925,7 +935,7 @@ export default function BLOAN() {
 				<ButtonWrapper>
 
 					{formstep != 1 && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 20 ? <Button type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+					{formstep == 20 ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>}
 				</ButtonWrapper>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from "./Organism/Disqualify";
 import { UserForm } from "./Organism/UserForm";
-
+import {API} from '../utils/api'
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
@@ -248,8 +248,18 @@ export default function CRE() {
 		})
 	}
 	const formHandler = async () => {
+	const data=	{
+			"loanTypes": 101,
+			"nameOfBusiness": "string",
+			"nameOfBorrower": "string",
+			"emailOfBorrower": "string",
+			"phoneNumber": "string",
+			"prequalifyAnswers": formValues,
+			"accepted": true
+		  }
         try {
-            await API.post("/", formValues)
+			console.log("lk")
+            await API.post("/api/borrower/create-prequalify-request", data)
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -730,7 +740,7 @@ export default function CRE() {
 				)} */}
 				<ButtonWrapper>
 						{formstep > 1 &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{formstep==14?<Button type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
+{formstep==14?<Button onClick={formHandler} type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
 	Next Step
 </Button>}
 </ButtonWrapper>
