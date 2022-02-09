@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Alert, Button, Modal, notification, Progress } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
-import { fadeIn ,zoomIn,fadeInRightBig} from 'react-animations';
+import { fadeIn, zoomIn, fadeInRightBig } from 'react-animations';
 import { API } from "../utils/api";
 const zoomAnimation = keyframes`${fadeIn}`;
-const zoomInAnimation=keyframes`${zoomIn}`;
+const zoomInAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
 
 const Hero = styled.div`
@@ -150,8 +150,9 @@ export default function BLOAN() {
 		stabilized: "",
 
 	})
-
+	let isValidationComplete = false;
 	const completeFormStep = () => {
+
 		if (bridgeLoanData.cashOut == "1" || bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
 			setIsModalVisible(true);
 			return;
@@ -273,9 +274,13 @@ export default function BLOAN() {
 		}
 		if (formstep == 20 && bridgeLoanData.stabilized == "") {
 			setErrors({ ...errors, stabilized: "Error" });
+
 			return;
 		}
+
+
 		setFormstep(formstep + 1);
+
 
 	};
 	const previousStep = () => {
@@ -331,9 +336,10 @@ export default function BLOAN() {
 		});
 		setErrors({ ...errors, [name]: "" })
 	}
-
+	const [loading, setLoading] = useState(false);
 	const formHandler = async () => {
-		const data=	{
+		setLoading(true);
+		const data = {
 			"loanTypes": 101,
 			"nameOfBusiness": "string",
 			"nameOfBorrower": "string",
@@ -341,27 +347,28 @@ export default function BLOAN() {
 			"phoneNumber": "string",
 			"prequalifyAnswers": bridgeLoanData,
 			"accepted": true
-		  }
-        try {
-            await API.post("/api/borrower/create-prequalify-request", data)
+		}
+		try {
+			await API.post("/api/borrower/create-prequalify-request", data)
 
-        } catch (error) {
-            notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
-        }
-    }
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
+		}
+		setLoading(true);
+	}
 
 	return (
 		<div>
 
 			<Hero>
-			<Progress
-                strokeColor={{
-                    '0%': '#108ee9',
-                    '100%': '#87d068',
-                }}
-                percent={Math.ceil((formstep/20)*100)}
+				<Progress
+					strokeColor={{
+						'0%': '#108ee9',
+						'100%': '#87d068',
+					}}
+					percent={Math.ceil((formstep / 20) * 100)}
 
-            />
+				/>
 				<>
 					{formstep == 1 && <section>
 						<div className="goal">
@@ -388,7 +395,7 @@ export default function BLOAN() {
 								<label className="radio">Refinance</label>
 							</div>
 						</div>
-								{errors.fundPlan &&<ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>}
+						{errors.fundPlan && <ErrorMessage>{errors.fundPlan && "Please select one to continue"}</ErrorMessage>}
 					</section>}
 
 					{
@@ -914,7 +921,7 @@ export default function BLOAN() {
 						<ErrorMessage>{errors.currentProperty && "Please enter"}</ErrorMessage>
 
 					</section>}
-					{formstep == 20 && <section>
+					{(formstep == 20 || formstep == 21) && <section>
 						<div className="goal">
 							<div className="cast">Once Stabilized</div>
 							<div className="term">
@@ -934,10 +941,10 @@ export default function BLOAN() {
 				</>
 				<ButtonWrapper>
 
-					{formstep != 1 && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 20 ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+					{(formstep != 1 && formstep < 21) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+					{formstep == 21 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 21 && <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
-					</Button>}
+					</Button>)}
 				</ButtonWrapper>
 
 			</Hero>

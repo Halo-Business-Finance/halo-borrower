@@ -521,7 +521,7 @@ export const Franchaise = () => {
                     </div>
                     <ErrorMessage>{error.bankruptcy && "Please select to continue"}</ErrorMessage>
                 </section>}
-                {(formstep == 12 && formValues.bankruptcy == "Yes") && <section>
+                {((formstep == 12 || formstep == 13) && formValues.bankruptcy == "Yes") && <section>
                     <div className="goal">
                         <div className="cast">If Yes, tells us when?</div>
                         <div className="term">
@@ -537,8 +537,8 @@ export const Franchaise = () => {
                 </section>}
                 <ButtonWrapper>
 
-                    {formstep > 1 && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-                    {((formstep == 11 && formValues.bankruptcy == "No") || formstep == 12) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
+                    {(formstep > 1 || formstep <13) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+                    {(((formstep == 13) && formValues.bankruptcy == "No") || formstep == 12) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
                         Next Step
                     </Button>}
 
