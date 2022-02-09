@@ -730,8 +730,4 @@ const Form = () => {
 			}	</>
 	);
 }
-<<<<<<< HEAD
 export default  Form
-=======
-export default   Form
->>>>>>> a6698b510d79f54b11bd6e591179ca2eddc927dc

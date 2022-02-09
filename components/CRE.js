@@ -267,6 +267,7 @@ export default function CRE() {
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
         }
+		setIsLoading(true)
     }
 	return (
 		<div>
@@ -743,7 +744,7 @@ export default function CRE() {
 				)} */}
 				<ButtonWrapper>
 						{(formstep > 1 && formstep < 15) &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{formstep==15?<Button isLoading={isLoading} onClick={formHandler} type="primary">Submit</Button>:( formstep < 15 &&<Button size="large" type="primary" onClick={completeFormStep}>
+{formstep==15?<Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button>:( formstep < 15 &&<Button size="large" type="primary" onClick={completeFormStep}>
 	Next Step
 </Button>)}
 </ButtonWrapper>

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { useState } from "react";
 
-import { Button, Modal, Progress, Space } from "antd";
+import { Button, Modal, notification, Progress, Space } from "antd";
 import { zoomIn, fadeInRightBig } from 'react-animations'
 
 import { Disqulaified } from "./Organism/Disqualify";
@@ -99,6 +99,7 @@ margin-top: 10px;
 
 
 export default function PROPERTYCRE() {
+	const [isLoading, setIsLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [error, setErrors] = useState({
 		business: '',
@@ -227,6 +228,7 @@ export default function PROPERTYCRE() {
 		})
 	}
 	const formHandler = async () => {
+		setIsLoading(true)
 		const data = {
 			"loanTypes": 101,
 			"nameOfBusiness": "string",
@@ -243,6 +245,7 @@ export default function PROPERTYCRE() {
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
 		}
+		setIsLoading(true)
 	}
 	return (
 		<div>
@@ -531,7 +534,7 @@ export default function PROPERTYCRE() {
 						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>
 				}
-				{formstep == 12 &&
+				{(formstep == 12 || formstep ==13) &&
 					<section>
 						<div className="goal">
 							<div className="cast">
@@ -550,10 +553,10 @@ export default function PROPERTYCRE() {
 					</section>
 				}
 				<ButtonWrapper>
-					{formstep > 1 && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 12 ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+					{(formstep > 1 && formstep < 13) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+					{formstep == 13 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 13 &&<Button size="large" type="primary" onClick={completeFormStep}>
 						Next Step
-					</Button>}
+					</Button>)}
 				</ButtonWrapper>
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
