@@ -12,7 +12,7 @@ const Hero = styled.div`
 	padding: 40px 40px 40px 40px;
 	font-family: Mulish;
 	background-color: #fff;
-    min-height: 300px;
+    min-height: 200px;
 	box-shadow: rgba(40, 120, 250, 0.1) 0px 4px 16px, rgba(40, 120, 250, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 	
 
@@ -56,6 +56,12 @@ const Hero = styled.div`
 	.outline:focus {
 		outline: none;
 	}
+    & .submit-form{
+        margin-top: 20px;
+        min-width:200px;
+        min-height: 54px;
+        font-size: 28px;
+    }
 `;
 const ButtonWrapper = styled.div`
 display: flex;
@@ -552,13 +558,18 @@ export const Factoring = () => {
                     <ErrorMessage>{errors.bankruptcyYear && "Please select to continue"}</ErrorMessage>
 
                 </section>}
-                <ButtonWrapper>
+                {
+                    formstep == 13 && <div>
 
+                        <Button className="submit-form" onClick={formHandler} type="primary">Submit</Button>
+                    </div>
+                }
+                {formstep < 13 && <ButtonWrapper>
                     <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
-                    {((formstep == 12 && formValues.bankruptcy == "No") || formstep == 13) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" type="primary" onClick={completeFormStep}>
+                    <Button size="large" type="primary" onClick={completeFormStep}>
                         Next Step
-                    </Button>}
-                </ButtonWrapper>
+                    </Button>
+                </ButtonWrapper>}
 
             </Hero>
             <Modal visible={isModalVisible} footer={null}>
