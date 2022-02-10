@@ -150,7 +150,6 @@ export default function BLOAN() {
 		stabilized: "",
 
 	})
-	let isValidationComplete = false;
 	const completeFormStep = () => {
 
 		if (bridgeLoanData.cashOut == "1" || bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
@@ -942,7 +941,7 @@ export default function BLOAN() {
 				<ButtonWrapper>
 
 					{(formstep != 1 && formstep < 21) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 21 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 21 && <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
+					{formstep == 21 ? <Button loading={loading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 21 && <Button disabled={isDisqualified} size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>)}
 				</ButtonWrapper>

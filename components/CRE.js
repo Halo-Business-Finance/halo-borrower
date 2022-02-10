@@ -95,6 +95,7 @@ color:red;
 `;
 
 export default function CRE() {
+    const [isLoading, setIsLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [error, setErrors] = useState({
 		goal: '',
@@ -231,6 +232,7 @@ export default function CRE() {
 			return;
 		}
 		setFormstep(formstep - 1);
+		
 	}
 
 	const isUserDisqualified = () => {
@@ -248,6 +250,7 @@ export default function CRE() {
 		})
 	}
 	const formHandler = async () => {
+		setIsLoading(true)
 	const data=	{
 			"loanTypes": 101,
 			"nameOfBusiness": "string",
@@ -264,6 +267,7 @@ export default function CRE() {
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
         }
+		setIsLoading(true)
     }
 	return (
 		<div>
@@ -610,7 +614,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>}
-					{formstep == 14 && <section>
+					{(formstep == 14 || formstep ==15)   && <section>
 						<div className="goal">
 							<div className="cast">
 								Do you have any other commercial properties?
@@ -739,10 +743,10 @@ export default function CRE() {
 					</div>
 				)} */}
 				<ButtonWrapper>
-						{formstep > 1 &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{formstep==14?<Button onClick={formHandler} type="primary">Submit</Button>:<Button size="large" type="primary" onClick={completeFormStep}>
+						{(formstep > 1 && formstep < 15) &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{formstep==15?<Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button>:( formstep < 15 &&<Button size="large" type="primary" onClick={completeFormStep}>
 	Next Step
-</Button>}
+</Button>)}
 </ButtonWrapper>
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
