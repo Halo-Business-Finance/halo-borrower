@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Disqualify';
 import { Success } from '../Success';
+import {API} from '../../../utils/api';
+import { useRouter } from 'next/router';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -103,6 +105,8 @@ export const Factoring = () => {
     const [formstep, setFormstep] = React.useState(1);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [showSucessModal, setshowSucessModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
     const [formValues, setFormValues] = useState({
         businessYear: '',
         invoiceReceivables: "",
@@ -220,8 +224,9 @@ export const Factoring = () => {
     const formCount = formValues.bankruptcy == "Yes" ? 13 : 12;
 
     const formHandler = async () => {
+        setIsLoading(true)
         const data = {
-            "loanTypes": 101,
+            "loanTypes": 105,
             "nameOfBusiness": "string",
             "nameOfBorrower": "string",
             "emailOfBorrower": "string",
@@ -231,11 +236,13 @@ export const Factoring = () => {
         }
         try {
             await API.post("/api/borrower/create-prequalify-request", data)
+            notification.success({ message: "Form submitted successfully" })
 
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
         }
+        setIsLoading(false)
     }
     return (
         <div>
@@ -561,7 +568,7 @@ export const Factoring = () => {
                 {
                     formstep == 13 && <div>
 
-                        <Button className="submit-form" onClick={formHandler} type="primary">Submit</Button>
+                        <Button className="submit-form" loading={isLoading} onClick={formHandler} type="primary">Submit</Button>
                     </div>
                 }
                 {formstep < 13 && <ButtonWrapper>

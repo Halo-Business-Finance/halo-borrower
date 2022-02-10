@@ -339,7 +339,7 @@ export default function BLOAN() {
 	const formHandler = async () => {
 		setLoading(true);
 		const data = {
-			"loanTypes": 101,
+			"loanTypes": 102,
 			"nameOfBusiness": "string",
 			"nameOfBorrower": "string",
 			"emailOfBorrower": "string",
@@ -349,6 +349,7 @@ export default function BLOAN() {
 		}
 		try {
 			await API.post("/api/borrower/create-prequalify-request", data)
+			notification.success({ message: "Form submitted successfully" })
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })

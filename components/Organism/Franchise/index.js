@@ -7,6 +7,7 @@ import { Disqulaified } from '../Disqualify';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import {API} from '../../../utils/api';
 
 
 const bounceAnimation = keyframes`${zoomIn}`;
@@ -108,6 +109,7 @@ color:red;
 
 export const Franchaise = () => {
     const [formstep, setFormstep] = React.useState(1);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const [error, setErrors] = useState({
@@ -238,8 +240,9 @@ export const Franchaise = () => {
         setFormstep(formstep - 1);
     }
     const formHandler = async () => {
+        setIsLoading(true)
         const data = {
-            "loanTypes": 101,
+            "loanTypes": 104,
             "nameOfBusiness": "string",
             "nameOfBorrower": "string",
             "emailOfBorrower": "string",
@@ -249,10 +252,12 @@ export const Franchaise = () => {
         }
         try {
             await API.post("/api/borrower/create-prequalify-request", data)
+            notification.success({ message: "Form submitted successfully" })
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
         }
+        setIsLoading(false)
     }
     
 
@@ -549,7 +554,7 @@ export const Franchaise = () => {
                 </section>}
                 {
                    formstep==14&& <div>
-                        <Button className="submit-form" onClick={formHandler} type="primary">Submit</Button>
+                        <Button className="submit-form" loading={isLoading} onClick={formHandler} type="primary">Submit</Button>
                     </div>
                 }
                 {formstep<14 &&<ButtonWrapper>

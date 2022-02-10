@@ -6,6 +6,7 @@ import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from "./Organism/Disqualify";
 import { UserForm } from "./Organism/UserForm";
 import {API} from '../utils/api'
+import{ useRouter} from "next/router";
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
@@ -97,6 +98,7 @@ color:red;
 export default function CRE() {
     const [isLoading, setIsLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const router = useRouter();
 	const [error, setErrors] = useState({
 		goal: '',
 		cash: '',
@@ -263,11 +265,13 @@ export default function CRE() {
         try {
 			console.log("lk")
             await API.post("/api/borrower/create-prequalify-request", data)
+			notification.success({ message: "Form submitted successfully" })
+			router.push('/test')
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
         }
-		setIsLoading(true)
+		setIsLoading(false)
     }
 	return (
 		<div>

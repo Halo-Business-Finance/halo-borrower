@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal, notification, Progress } from "antd";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Organism/Disqualify';
+import {API} from '../../utils/api';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -221,7 +222,7 @@ const WorkingCapitalForm = () => {
 		setLoading(true)
 		try {
 			const data = {
-				"loanTypes": 101,
+				"loanTypes": 106,
 				"nameOfBusiness": "string",
 				"nameOfBorrower": "string",
 				"emailOfBorrower": "string",

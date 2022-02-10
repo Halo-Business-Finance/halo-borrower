@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import { Button, Modal, notification, Progress, Space } from "antd";
 import { zoomIn, fadeInRightBig } from 'react-animations'
+import {API} from '../utils/api';
 
 import { Disqulaified } from "./Organism/Disqualify";
 const bounceAnimation = keyframes`${zoomIn}`;
@@ -230,7 +231,7 @@ export default function PROPERTYCRE() {
 	const formHandler = async () => {
 		setIsLoading(true)
 		const data = {
-			"loanTypes": 101,
+			"loanTypes": 103,
 			"nameOfBusiness": "string",
 			"nameOfBorrower": "string",
 			"emailOfBorrower": "string",
@@ -240,12 +241,13 @@ export default function PROPERTYCRE() {
 		}
 		try {
 			await API.post("/api/borrower/create-prequalify-request", data)
+			notification.success({ message: "Form submitted successfully" })
 
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
 		}
-		setIsLoading(true)
+		setIsLoading(false)
 	}
 	return (
 		<div>
