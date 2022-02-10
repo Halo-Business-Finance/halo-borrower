@@ -165,7 +165,7 @@ export const Franchaise = () => {
             setIsModalVisible(true)
             return;
         }
-        if(formValues.bankruptcy!=="Yes"){
+        if(formValues.bankruptcy=="No"){
             setFormstep(14);
             return;
         }
