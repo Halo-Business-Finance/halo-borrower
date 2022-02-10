@@ -538,7 +538,7 @@ export const Franchaise = () => {
                 <ButtonWrapper>
 
                     {(formstep > 1 || formstep <13) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-                    {(((formstep == 13) && formValues.bankruptcy == "No") || formstep == 12) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
+                    {(((formstep == 11|| fromStep) && formValues.bankruptcy == "No") || formstep == 12) ? <Button onClick={formHandler} type="primary">Submit</Button> : <Button size="large" onClick={completeFormStep} type="primary" >
                         Next Step
                     </Button>}
 
