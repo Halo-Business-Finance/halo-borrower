@@ -322,24 +322,24 @@ const Form = () => {
 	const { authenticated } = useContext(AuthContext);
 	const responsive = {
 		superLargeDesktop: {
-		  // the naming can be any, depends on you.
-		  breakpoint: { max: 4000, min: 3000 },
-		  items: 5
+			// the naming can be any, depends on you.
+			breakpoint: { max: 4000, min: 3000 },
+			items: 5
 		},
 		desktop: {
-		  breakpoint: { max: 3000, min: 1024 },
-		  items: 5
+			breakpoint: { max: 3000, min: 1024 },
+			items: 5
 		},
 		tablet: {
-		  breakpoint: { max: 1024, min: 464 },
-		  items: 4
+			breakpoint: { max: 1024, min: 464 },
+			items: 4
 		},
 		mobile: {
-		  breakpoint: { max: 464, min: 0 },
-		  items: 2
+			breakpoint: { max: 464, min: 0 },
+			items: 2
 		}
-	  };
-	  
+	};
+
 
 	const radioHandler = (status) => {
 		setStatus(status);
@@ -386,6 +386,7 @@ const Form = () => {
 		Router.push("/registration");
 	};
 	console.log("auth", authenticated)
+
 	return (
 		<>
 			<Head>
@@ -400,12 +401,12 @@ const Form = () => {
 						<p className="loan-describe">Please select one to continue</p>
 
 						{/* <section className="loans-types"> */}
-							{/* {details.map((datai, dataname) => {
+						{/* {details.map((datai, dataname) => {
 								const base_url =
 									process.env.NEXT_PUBLIC_BASE_URL + datai.thumbnail;
 								return ( */}
 
-								<Carousel responsive={responsive}>
+						<Carousel responsive={responsive}>
 							<div className="loan-type-section">
 								<div className="loan-type">
 									<div className="loan-type-select">
@@ -546,7 +547,7 @@ const Form = () => {
 									</div>
 								</div>
 							</div>
-							</Carousel>
+						</Carousel>
 						{/* </section> */}
 					</div>}
 
@@ -730,4 +731,4 @@ const Form = () => {
 			}	</>
 	);
 }
-export default PrivateRoute (Form);
+export default PrivateRoute(Form);

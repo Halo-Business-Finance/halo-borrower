@@ -239,14 +239,25 @@ export const Franchaise = () => {
 
         setFormstep(formstep - 1);
     }
+    useEffect(()=>{
+        const userData=sessionStorage.getItem("user");
+        const parsedData=JSON.parse(userData);
+        console.log(parsedData)
+    },[])
     const formHandler = async () => {
+    
         setIsLoading(true)
+
+        const userData=sessionStorage.getItem("user");
+        const parsedData=JSON.parse(userData);
+        console.log(parsedData)
+        
         const data = {
             "loanTypes": 104,
-            "nameOfBusiness": "string",
-            "nameOfBorrower": "string",
-            "emailOfBorrower": "string",
-            "phoneNumber": "string",
+            "nameOfBusiness":parsedData?.businessName,
+            "nameOfBorrower": parsedData?.borrowerName,
+            "emailOfBorrower": parsedData?.email,
+            "phoneNumber": parsedData?.phoneNumber,
             "prequalifyAnswers": formValues,
             "accepted": true
         }

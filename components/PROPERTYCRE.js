@@ -230,12 +230,14 @@ export default function PROPERTYCRE() {
 	}
 	const formHandler = async () => {
 		setIsLoading(true)
-		const data = {
-			"loanTypes": 103,
-			"nameOfBusiness": "string",
-			"nameOfBorrower": "string",
-			"emailOfBorrower": "string",
-			"phoneNumber": "string",
+		const userData=sessionStorage.getItem("user");
+        const parsedData=JSON.parse(userData);
+        const data = {
+            "loanTypes": 104,
+            "nameOfBusiness":parsedData?.businessName,
+            "nameOfBorrower": parsedData?.borrowerName,
+            "emailOfBorrower": parsedData?.email,
+            "phoneNumber": parsedData?.phoneNumber,
 			"prequalifyAnswers": formValues,
 			"accepted": true
 		}

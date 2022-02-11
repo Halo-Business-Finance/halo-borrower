@@ -18,11 +18,16 @@ box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2p
 const { Title } = Typography;
 export const UserForm = () => {
   const router=useRouter();
+  const formSubmitHandler=(data)=>{
+    const jsonInfo=JSON.stringify(data);
+    sessionStorage.setItem("user",jsonInfo)
+    router.push({pathname:"/test",query:{id:router.query.id}})
+  }
   return (
     <div>
       <Container>
         <Title level={2}>Tell us something about you</Title>
-        <Form layout="vertical">
+        <Form onFinish={formSubmitHandler} layout="vertical">
           <Form.Item
             name={"buinessName"}
             rules={[{ required: true, message: "Please fill in" }]}
@@ -52,12 +57,13 @@ export const UserForm = () => {
           >
             <Input size="large" type="tel" />
           </Form.Item>
-        </Form>
-        <Form.Item>
-          <Button onClick={()=>router.push({pathname:"/test",query:{id:router.query.id}})} size="large" type="primary">
+          <Form.Item>
+          <Button htmlType="submit" size="large" type="primary">
             Next
           </Button>
         </Form.Item>
+        </Form>
+        
       </Container>
     </div>
   );

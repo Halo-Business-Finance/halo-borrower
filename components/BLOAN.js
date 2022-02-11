@@ -338,12 +338,14 @@ export default function BLOAN() {
 	const [loading, setLoading] = useState(false);
 	const formHandler = async () => {
 		setLoading(true);
-		const data = {
-			"loanTypes": 102,
-			"nameOfBusiness": "string",
-			"nameOfBorrower": "string",
-			"emailOfBorrower": "string",
-			"phoneNumber": "string",
+		const userData=sessionStorage.getItem("user");
+        const parsedData=JSON.parse(userData);
+        const data = {
+            "loanTypes": 104,
+            "nameOfBusiness":parsedData?.businessName,
+            "nameOfBorrower": parsedData?.borrowerName,
+            "emailOfBorrower": parsedData?.email,
+            "phoneNumber": parsedData?.phoneNumber,
 			"prequalifyAnswers": bridgeLoanData,
 			"accepted": true
 		}
