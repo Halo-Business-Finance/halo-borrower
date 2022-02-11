@@ -230,7 +230,7 @@ export const Factoring = () => {
         
         
         const data = {
-            "loanTypes": 104,
+            "loanTypes": 105,
             "nameOfBusiness":parsedData?.businessName,
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,

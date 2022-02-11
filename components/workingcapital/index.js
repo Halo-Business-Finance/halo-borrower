@@ -224,7 +224,7 @@ const WorkingCapitalForm = () => {
 			const userData=sessionStorage.getItem("user");
 			const parsedData=JSON.parse(userData);
 			const data = {
-				"loanTypes": 104,
+				"loanTypes": 106,
 				"nameOfBusiness":parsedData?.businessName,
 				"nameOfBorrower": parsedData?.borrowerName,
 				"emailOfBorrower": parsedData?.email,

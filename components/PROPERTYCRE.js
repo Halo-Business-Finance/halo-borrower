@@ -233,7 +233,7 @@ export default function PROPERTYCRE() {
 		const userData=sessionStorage.getItem("user");
         const parsedData=JSON.parse(userData);
         const data = {
-            "loanTypes": 104,
+            "loanTypes": 103,
             "nameOfBusiness":parsedData?.businessName,
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,

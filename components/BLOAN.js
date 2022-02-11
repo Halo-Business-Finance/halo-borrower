@@ -341,7 +341,7 @@ export default function BLOAN() {
 		const userData=sessionStorage.getItem("user");
         const parsedData=JSON.parse(userData);
         const data = {
-            "loanTypes": 104,
+            "loanTypes": 102,
             "nameOfBusiness":parsedData?.businessName,
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,
