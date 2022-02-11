@@ -5,6 +5,7 @@ import { Button, Modal, notification, Progress } from "antd";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Organism/Disqualify';
 import {API} from '../../utils/api';
+import { Success } from "../Organism/Success";
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -97,6 +98,7 @@ margin-top: 10px;
 
 const WorkingCapitalForm = () => {
 	const [formstep, setFormstep] = React.useState(1);
+	const [showSucessModal, setshowSucessModal] = useState(false);
 	const [error, setErrors] = useState({
 		bankruptcy: "",
 		bankruptcyYear: "",
@@ -234,6 +236,7 @@ const WorkingCapitalForm = () => {
 			}
 			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
+			setshowSucessModal(true)
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -612,6 +615,9 @@ const WorkingCapitalForm = () => {
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>
+				<Modal visible={showSucessModal} footer={null}>
+                <Success />
+            </Modal>
 
 
 

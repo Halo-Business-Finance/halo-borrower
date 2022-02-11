@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {API} from '../../../utils/api';
+import { Success } from "../Success";
 
 
 const bounceAnimation = keyframes`${zoomIn}`;
@@ -110,6 +111,7 @@ color:red;
 export const Franchaise = () => {
     const [formstep, setFormstep] = React.useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const [showSucessModal, setshowSucessModal] = useState(false);
 
 
     const [error, setErrors] = useState({
@@ -264,6 +266,7 @@ export const Franchaise = () => {
         try {
             await API.post("/api/borrower/create-prequalify-request", data)
             notification.success({ message: "Form submitted successfully" })
+            setshowSucessModal(true)
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -579,6 +582,9 @@ export const Franchaise = () => {
                 <Modal visible={isModalVisible} footer={null}>
                     <Disqulaified />
                 </Modal>
+                <Modal visible={showSucessModal} footer={null}>
+                <Success />
+            </Modal>
 
             </Hero>
 

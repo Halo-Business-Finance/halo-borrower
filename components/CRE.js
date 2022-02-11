@@ -7,6 +7,7 @@ import { Disqulaified } from "./Organism/Disqualify";
 import { UserForm } from "./Organism/UserForm";
 import {API} from '../utils/api'
 import{ useRouter} from "next/router";
+import { Success } from "./Organism/Success";
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
@@ -98,6 +99,7 @@ color:red;
 export default function CRE() {
     const [isLoading, setIsLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [showSucessModal, setshowSucessModal] = useState(false);
 	const router = useRouter();
 	const [error, setErrors] = useState({
 		goal: '',
@@ -270,7 +272,7 @@ export default function CRE() {
 			console.log("lk")
             await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
-			router.push('/test')
+			setshowSucessModal(true)
 
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -759,6 +761,9 @@ export default function CRE() {
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>
+				<Modal visible={showSucessModal} footer={null}>
+                <Success />
+            </Modal>
 
 				{/* <input className="button" type="button" value="Next" /> */}
 			</Hero>

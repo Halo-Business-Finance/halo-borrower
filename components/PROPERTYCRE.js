@@ -10,6 +10,7 @@ import { zoomIn, fadeInRightBig } from 'react-animations'
 import {API} from '../utils/api';
 
 import { Disqulaified } from "./Organism/Disqualify";
+import { Success } from "./Organism/Success";
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
@@ -102,6 +103,7 @@ margin-top: 10px;
 export default function PROPERTYCRE() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [showSucessModal, setshowSucessModal] = useState(false);
 	const [error, setErrors] = useState({
 		business: '',
 		property: '',
@@ -244,6 +246,7 @@ export default function PROPERTYCRE() {
 		try {
 			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
+			setshowSucessModal(true)
 
 
 		} catch (error) {
@@ -565,6 +568,9 @@ export default function PROPERTYCRE() {
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>
+				<Modal visible={showSucessModal} footer={null}>
+                <Success />
+            </Modal>
 			</Hero>
 
 		</div>

@@ -7,6 +7,7 @@ import { Alert, Button, Modal, notification, Progress } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
 import { fadeIn, zoomIn, fadeInRightBig } from 'react-animations';
 import { API } from "../utils/api";
+import { Success } from "./Organism/Success";
 const zoomAnimation = keyframes`${fadeIn}`;
 const zoomInAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -101,6 +102,7 @@ margin-top: 10px;
 export default function BLOAN() {
 	const [isDisqualified, setDisqualified] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [showSucessModal, setshowSucessModal] = useState(false);
 	const [formstep, setFormstep] = React.useState(1);
 	const [errors, setErrors] = useState({
 		fundPlan: "",
@@ -352,6 +354,7 @@ export default function BLOAN() {
 		try {
 			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
+			setshowSucessModal(true)
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
@@ -953,6 +956,9 @@ export default function BLOAN() {
 			<Modal visible={isModalVisible} footer={null}>
 				<Disqulaified />
 			</Modal>
+			<Modal visible={showSucessModal} footer={null}>
+                <Success />
+            </Modal>
 		</div>
 	);
 }
