@@ -241,6 +241,7 @@ export const Factoring = () => {
         try {
             await API.post("/api/borrower/create-prequalify-request", data)
             notification.success({ message: "Form submitted successfully" })
+            setshowSucessModal(true)
 
 
         } catch (error) {
