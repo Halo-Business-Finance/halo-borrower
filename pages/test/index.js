@@ -15,8 +15,9 @@ import { useRouter } from 'next/router';
 import PrivateRoute from "../withPrivateRoute";
 import { AuthContext } from "../../utils/AuthContext";
 import Carousel from "react-multi-carousel";
+import {ArrowLeftOutlined} from '@ant-design/icons'
 
-import { Spin } from "antd";
+import { Button, Popconfirm, Spin } from "antd";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	max-width: 1250px;
@@ -393,7 +394,12 @@ const Form = () => {
 				<title>Borrower Section</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			{!authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
+			{authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
+			{router.query.id &&<Popconfirm onConfirm={()=>window.location.assign('/test')} title="Once you back you need to start from the beginning. Are you sure you want to go back?">
+					<Button type="link" >
+<ArrowLeftOutlined /> Back to home
+					</Button>
+					</Popconfirm>}
 				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
 					{status == "" && <div className="finance-list">
 						<p className="loan-step">Step 1</p>
@@ -731,4 +737,4 @@ const Form = () => {
 			}	</>
 	);
 }
-export default PrivateRoute(Form);
+export default  PrivateRoute(Form);

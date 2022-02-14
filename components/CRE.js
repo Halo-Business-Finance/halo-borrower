@@ -1,12 +1,16 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Button, Modal, notification, Progress } from 'antd';
+import { Button, Modal, notification, Popconfirm, Progress } from 'antd';
 import { useEffect, useState } from "react";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from "./Organism/Disqualify";
 import { UserForm } from "./Organism/UserForm";
-import {API} from '../utils/api'
-import{ useRouter} from "next/router";
+import { API } from '../utils/api'
+import { useRouter } from "next/router";
+import Link from 'next/link';
+import {ArrowLeftOutlined} from '@ant-design/icons'
+
+
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
 const Hero = styled.div`
@@ -96,7 +100,7 @@ color:red;
 `;
 
 export default function CRE() {
-    const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const router = useRouter();
 	const [error, setErrors] = useState({
@@ -136,7 +140,7 @@ export default function CRE() {
 	const [formstep, setFormstep] = React.useState(1);
 
 	const completeFormStep = () => {
-		if (formValues.tenants == '1' || formValues.bankruptcyYear == "0") {
+		if (formValues.bankruptcyYear == "0") {
 			setIsModalVisible(true)
 			return;
 		}
@@ -150,62 +154,66 @@ export default function CRE() {
 
 		}
 		if (formstep == 1 && formValues.goal == "") {
-            setErrors({ ...error, goal: "Error" });
-            return;
-        }
-		else if (formstep == 2 && formValues.cash == "" ) {
-            setErrors({ ...error, cash: "Error" });
-            return;
-        }
-		else if (formstep == 3 && formValues.business == "" ) {
-            setErrors({ ...error, business: "Error" });
-            return;
-        }
-		else if (formstep == 4 && formValues.address == "" ) {
-            setErrors({ ...error, address: "Error" });
-            return;
-        }
-		else if (formstep == 5 && formValues.propertyType == "" ) {
-            setErrors({ ...error, propertyType: "Error" });
-            return;
-        }
-		else if (formstep == 6 && formValues.property == "" ) {
-            setErrors({ ...error, property: "Error" });
-            return;
-        }
-		else if (formstep == 7 && formValues.occupy == "" ) {
-            setErrors({ ...error, occupy: "Error" });
-            return;
-        }
-		
-		else if (formstep == 8 && formValues.tenants == "" ) {
-            setErrors({ ...error, tenants: "Error" });
-            return;
-        }
-		else if (formstep == 9 && formValues.dollar == "" ) {
-            setErrors({ ...error, dollar: "Error" });
-            return;
-        }
-		else if (formstep == 10 && formValues.ownership == "" ) {
-            setErrors({ ...error, ownership: "Error" });
-            return;
-        }
-		else if (formstep == 11 && formValues.bankruptcy == "" ) {
-            setErrors({ ...error, bankruptcy: "Error" });
-            return;
-        }
-		else if (formstep == 12 && formValues.bankruptcyYear == "" ) {
-            setErrors({ ...error, bankruptcyYear: "Error" });
-            return;
-        }
-		else if (formstep == 13 && formValues.downpayment == "" ) {
-            setErrors({ ...error, downpayment: "Error" });
-            return;
-        }
-		else if (formstep == 14 && formValues.commercial == "" ) {
-            setErrors({ ...error, commercial: "Error" });
-            return;
-        }
+			setErrors({ ...error, goal: "Error" });
+			return;
+		}
+		else if (formstep == 2 && formValues.cash == "") {
+			setErrors({ ...error, cash: "Error" });
+			return;
+		}
+		else if (formstep == 3 && formValues.business == "") {
+			setErrors({ ...error, business: "Error" });
+			return;
+		}
+		else if (formstep == 4 && formValues.address == "") {
+			setErrors({ ...error, address: "Error" });
+			return;
+		}
+		else if (formstep == 5 && formValues.propertyType == "") {
+			setErrors({ ...error, propertyType: "Error" });
+			return;
+		}
+		else if (formstep == 6 && formValues.property == "") {
+			setErrors({ ...error, property: "Error" });
+			return;
+		}
+		else if (formstep == 7 && formValues.occupy == "") {
+			setErrors({ ...error, occupy: "Error" });
+			return;
+		}
+
+		else if (formstep == 8 && formValues.tenants == "") {
+			if (Number(formValues?.tenants) < 1) {
+				setErrors({ ...error, tenants: "len" });
+				return;
+			}
+			setErrors({ ...error, tenants: "Error" });
+			return;
+		}
+		else if (formstep == 9 && formValues.dollar == "") {
+			setErrors({ ...error, dollar: "Error" });
+			return;
+		}
+		else if (formstep == 10 && formValues.ownership == "") {
+			setErrors({ ...error, ownership: "Error" });
+			return;
+		}
+		else if (formstep == 11 && formValues.bankruptcy == "") {
+			setErrors({ ...error, bankruptcy: "Error" });
+			return;
+		}
+		else if (formstep == 12 && formValues.bankruptcyYear == "") {
+			setErrors({ ...error, bankruptcyYear: "Error" });
+			return;
+		}
+		else if (formstep == 13 && formValues.downpayment == "") {
+			setErrors({ ...error, downpayment: "Error" });
+			return;
+		}
+		else if (formstep == 14 && formValues.commercial == "") {
+			setErrors({ ...error, commercial: "Error" });
+			return;
+		}
 		if (formValues.goal !== "CashOut" && formstep == 1) {
 			setFormstep(3);
 			return;
@@ -234,7 +242,7 @@ export default function CRE() {
 			return;
 		}
 		setFormstep(formstep - 1);
-		
+
 	}
 
 	const isUserDisqualified = () => {
@@ -253,43 +261,44 @@ export default function CRE() {
 	}
 	const formHandler = async () => {
 		setIsLoading(true)
-		const userData=sessionStorage.getItem("user");
-        const parsedData=JSON.parse(userData);
-        
-        
-        const data = {
-            "loanTypes": 101,
-            "nameOfBusiness":parsedData?.businessName,
-            "nameOfBorrower": parsedData?.borrowerName,
-            "emailOfBorrower": parsedData?.email,
-            "phoneNumber": parsedData?.phoneNumber,
+		const userData = sessionStorage.getItem("user");
+		const parsedData = JSON.parse(userData);
+
+
+		const data = {
+			"loanTypes": 101,
+			"nameOfBusiness": parsedData?.businessName,
+			"nameOfBorrower": parsedData?.borrowerName,
+			"emailOfBorrower": parsedData?.email,
+			"phoneNumber": parsedData?.phoneNumber,
 			"prequalifyAnswers": formValues,
 			"accepted": true
-		  }
-        try {
+		}
+		try {
 			console.log("lk")
-            await API.post("/api/borrower/create-prequalify-request", data)
+			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
 			router.push('/test')
 
-        } catch (error) {
-            notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
-        }
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason || "Something went wrong, Please try again" })
+		}
 		setIsLoading(false)
-    }
+	}
 	return (
 		<div>
-			  <Progress
-                strokeColor={{
-                    '0%': '#108ee9',
-                    '100%': '#87d068',
-                }}
-                percent={Math.ceil((formstep/14)*100)}
+			<Progress
+				strokeColor={{
+					'0%': '#108ee9',
+					'100%': '#87d068',
+				}}
+				percent={Math.ceil((formstep / 14) * 100)}
 
-            />
+			/>
 
 
 			<Hero>
+				
 				{/* {formstep === 0 && (
 					<div className="finance-list">
 						<p className="loan-step">Step 1</p>
@@ -501,7 +510,7 @@ export default function CRE() {
 								<div className="term">
 									<input value={formValues.tenants} onChange={(e) => onFormChange(e, 'tenants')}
 										className="outline"
-										type="text"
+										type="number"
 										placeholder="Your answer"
 									/>
 								</div>
@@ -622,7 +631,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>}
-					{(formstep == 14 || formstep ==15)   && <section>
+					{(formstep == 14 || formstep == 15) && <section>
 						<div className="goal">
 							<div className="cast">
 								Do you have any other commercial properties?
@@ -751,11 +760,11 @@ export default function CRE() {
 					</div>
 				)} */}
 				<ButtonWrapper>
-						{(formstep > 1 && formstep < 15) &&<StyledButton disabled={formstep==1 } size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{formstep==15?<Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button>:( formstep < 15 &&<Button size="large" type="primary" onClick={completeFormStep}>
-	Next Step
-</Button>)}
-</ButtonWrapper>
+					{(formstep > 1 && formstep < 15) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+					{formstep == 15 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 15 && <Button size="large" type="primary" onClick={completeFormStep}>
+						Next Step
+					</Button>)}
+				</ButtonWrapper>
 				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>

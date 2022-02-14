@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal, notification, Progress } from "antd";
 import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Organism/Disqualify';
-import {API} from '../../utils/api';
+import { API } from '../../utils/api';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -127,7 +127,7 @@ const WorkingCapitalForm = () => {
 	})
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const completeFormStep = () => {
-		if (workingCapitalData.bankruptcyYear == "0" || workingCapitalData.businessYear == "0" || workingCapitalData.annualRevenue == "1" || workingCapitalData.creditScore == "score1") {
+		if (workingCapitalData.bankruptcyYear == "0" || workingCapitalData.businessYear == "0" || Number(workingCapitalData.annualRevenue) < 20000 || workingCapitalData.creditScore == "score1") {
 			setIsModalVisible(true)
 			return;
 
@@ -221,11 +221,11 @@ const WorkingCapitalForm = () => {
 	const formHandler = async () => {
 		setLoading(true)
 		try {
-			const userData=sessionStorage.getItem("user");
-			const parsedData=JSON.parse(userData);
+			const userData = sessionStorage.getItem("user");
+			const parsedData = JSON.parse(userData);
 			const data = {
 				"loanTypes": 106,
-				"nameOfBusiness":parsedData?.businessName,
+				"nameOfBusiness": parsedData?.businessName,
 				"nameOfBorrower": parsedData?.borrowerName,
 				"emailOfBorrower": parsedData?.email,
 				"phoneNumber": parsedData?.phoneNumber,
@@ -313,34 +313,11 @@ const WorkingCapitalForm = () => {
 							<div className="cast">Annual Revenue </div>
 							<div className="term">
 								<input
-									checked={workingCapitalData.annualRevenue == "1" ? true : false}
-									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="1" />
-								<label className="radio">0 - $200,000</label>
+
+									onChange={(e) => onChangeHandler("annualRevenue", e)} type="number" name="amount" value={workingCapitalData.annualRevenue} />
+
 							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.annualRevenue == "2" ? true : false}
-									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="2" />
-								<label className="radio">200,000 - $1,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.annualRevenue == "3" ? true : false}
-									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="3" />
-								<label className="radio">1,000,000 - $5,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.annualRevenue == "4" ? true : false}
-									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="4" />
-								<label className="radio">5,000,000 - $25,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.annualRevenue == "5" ? true : false}
-									onChange={(e) => onChangeHandler("annualRevenue", e)} type="radio" name="amount" value="5" />
-								<label className="radio">25,000,000 - $100,000,000</label>
-							</div>
+
 						</div>
 						<ErrorMessage>{error.annualRevenue && "Please select to continue"}</ErrorMessage>
 					</section>

@@ -518,10 +518,7 @@ export default function PROPERTYCRE() {
 							<div className="cast">
 								How much do you plan on putting down?
 							</div>
-							<div className="term">
-								<input checked={formValues.downpayment == "10" ? true : false} onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="10" />
-								<label className="radio">10%</label>
-							</div>
+							
 							<div className="term">
 								<input checked={formValues.downpayment == "20" ? true : false} onChange={(e) => onFormChange(e, 'downpayment')} type="radio" name="putting" value="20" />
 								<label className="radio">20%</label>

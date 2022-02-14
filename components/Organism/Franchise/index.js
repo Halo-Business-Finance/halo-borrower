@@ -162,7 +162,7 @@ export const Franchaise = () => {
 
     const completeFormStep = async (e) => {
         e.preventDefault();
-        if (formValues.businessYear == "0" || formValues.annualRevenue == "1" || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
+        if (formValues.businessYear == "0" || Number(formValues.annualRevenue) <25000 || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
 
             setIsModalVisible(true)
             return;
@@ -313,25 +313,10 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Annual Revenue </div>
                         <div className="term">
-                            <input checked={formValues.annualRevenue == "1" ? true : false} onChange={(e) => onFormChange(e, 'annualRevenue')} type="radio" name="amount" value="1" />
-                            <label className="radio">25,000</label>
+                            <input  onChange={(e) => onFormChange(e, 'annualRevenue')} type="number" name="amount" value={formValues.annualRevenue} />
+                            
                         </div>
-                        <div className="term">
-                            <input checked={formValues.annualRevenue == "2" ? true : false} onChange={(e) => onFormChange(e, 'annualRevenue')} type="radio" name="amount" value="2" />
-                            <label className="radio">250,000 - 1,000,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.annualRevenue == "3" ? true : false} onChange={(e) => onFormChange(e, 'annualRevenue')} type="radio" name="amount" value="3" />
-                            <label className="radio">1,000,000 - 5,000,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.annualRevenue == "4" ? true : false} onChange={(e) => onFormChange(e, 'annualRevenue')} type="radio" name="amount" value="4" />
-                            <label className="radio">5,000,000 - 25,000,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.annualRevenue == "5" ? true : false} onChange={(e) => onFormChange(e, 'annualRevenue')} type="radio" name="amount" value="5" />
-                            <label className="radio">25,000,000 - 100,000,000</label>
-                        </div>
+                        
                     </div>
                     <ErrorMessage>{error.annualRevenue && "Please select to continue"}</ErrorMessage>
 
