@@ -40,6 +40,9 @@ const Hero = styled.div`
 		padding: 10px 10px 10px 10px;
 		font-size: 20px;
 	}
+    & .input_text {
+        min-width: 300px;
+    }
 	.term {
 		margin: 10px 10px 10px 10px;
 	}
@@ -47,6 +50,7 @@ const Hero = styled.div`
 		margin-left: 15px;
 	}
 	input {
+        
 		border-top-style: hidden;
 		border-right-style: hidden;
 		border-left-style: hidden;
@@ -176,6 +180,12 @@ export const Factoring = () => {
         if (formstep == 6 && formValues.useOfProceeds == "OtherUse" && formValues.specifiedOtherUse == "") {
             setErrors({ ...errors, specifiedOtherUse: "Error" });
             return;
+        }
+        if(formValues?.useOfProceeds=="OtherUse"){
+            if(formValues?.specifiedOtherUse?.length>20){
+                setErrors({ ...errors, specifiedOtherUse: "len" });
+                return;    
+            }
         }
         if (formstep == 7 && formValues.LoanTermRequested == "") {
             setErrors({ ...errors, specifiedOtherUse: "Error" });
@@ -413,14 +423,16 @@ export const Factoring = () => {
                     <div className="goal">
                         <div className="cast">If Other use, Please Specify </div>
                         <div className="term">
-                            <input value={formValues.specifiedOtherUse} onChange={(e) => onFormChange(e, 'specifiedOtherUse')}
-                                className="outline"
+                            <input 
+                            value={formValues.specifiedOtherUse} onChange={(e) => onFormChange(e, 'specifiedOtherUse')}
+                                className="outline input_text"
                                 type="text"
                                 placeholder="Your answer"
                             />
                         </div>
                     </div>
-                    <ErrorMessage>{errors.specifiedOtherUse && "Please enter"}</ErrorMessage>
+                   <ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
+                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
 
 
                 </section>}
@@ -465,7 +477,7 @@ export const Factoring = () => {
                         </div>
                         <div className="term">
                             <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="680_740" />
-                            <label className="radio">680-740</label>
+                            <label className="radio">680 & Above</label>
                         </div>
                     </div>
                     <ErrorMessage>{errors.creditScore && "Please select to continue"}</ErrorMessage>

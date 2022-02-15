@@ -18,6 +18,7 @@ import Carousel from "react-multi-carousel";
 import {ArrowLeftOutlined} from '@ant-design/icons'
 
 import { Button, Popconfirm, Spin } from "antd";
+import { API } from "../../utils/api";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	max-width: 1250px;
@@ -386,7 +387,21 @@ const Form = () => {
 		cookie.set("source", data.source, { expires: 1 / 24 });
 		Router.push("/registration");
 	};
-	console.log("auth", authenticated)
+	
+
+	const FetchPrequaifyDataFromAPI=async()=>{
+		try {
+			await API.get("/api/borrower/get-prequalify-request")
+		} catch (error) {
+			
+		}
+	}
+
+useEffect(() => {
+	FetchPrequaifyDataFromAPI();
+
+},[])
+
 
 	return (
 		<>
@@ -394,7 +409,7 @@ const Form = () => {
 				<title>Borrower Section</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			{authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
+			{!authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
 			{router.query.id &&<Popconfirm onConfirm={()=>window.location.assign('/test')} title="Once you back you need to start from the beginning. Are you sure you want to go back?">
 					<Button type="link" >
 <ArrowLeftOutlined /> Back to home
@@ -737,4 +752,6 @@ const Form = () => {
 			}	</>
 	);
 }
-export default  PrivateRoute(Form);
+export default PrivateRoute(Form);
+//  Form
+//  PrivateRoute(Form);

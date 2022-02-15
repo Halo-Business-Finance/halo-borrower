@@ -195,6 +195,12 @@ export const Franchaise = () => {
             setErrors({ ...error, specifiedOtherUse: "Error" });
             return;
         }
+       else  if(formValues?.useOfProceeds=="OtherUse"){
+            if(formValues?.specifiedOtherUse?.length>20){
+                setErrors({ ...errors, specifiedOtherUse: "len" });
+                return;    
+            }
+        }
         else if (formstep == 6 && formValues.LoanTermRequested == "") {
             setErrors({ ...error, LoanTermRequested: "Error" });
             return;
@@ -452,7 +458,7 @@ export const Franchaise = () => {
                         </div>
                         <div className="term">
                             <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="680_740" />
-                            <label className="radio">680-740</label>
+                            <label className="radio">680 & Above</label>
                         </div>
                     </div>
                     <ErrorMessage>{error.creditScore && "Please select to continue"}</ErrorMessage>
@@ -542,11 +548,11 @@ export const Franchaise = () => {
                         <div className="cast">If Yes, tells us when?</div>
                         <div className="term">
                             <input checked={formValues.bankruptcyYear == "0" ? true : false} onChange={(e) => onFormChange(e, 'bankruptcyYear')} type="radio" name="bankruptcy" value="0" />
-                            <label className="radio">Less Than 5 Years</label>
+                            <label className="radio">Less Than 7 Years</label>
                         </div>
                         <div className="term">
                             <input checked={formValues.bankruptcyYear == "1" ? true : false} onChange={(e) => onFormChange(e, 'bankruptcyYear')} type="radio" name="bankruptcy" value="1" />
-                            <label className="radio">Over 5 Years</label>
+                            <label className="radio">Over 7 Years</label>
                         </div>
                     </div>
                     <ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>

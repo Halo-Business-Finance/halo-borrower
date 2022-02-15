@@ -488,7 +488,7 @@ const WorkingCapitalForm = () => {
 							<div className="term">
 								<input checked={workingCapitalData.creditScore == "score4" ? true : false}
 									onChange={(e) => onChangeHandler("creditScore", e)} type="radio" name="score" value="score4" />
-								<label className="radio">680-740</label>
+								<label className="radio">680 & Above</label>
 							</div>
 
 						</div>
