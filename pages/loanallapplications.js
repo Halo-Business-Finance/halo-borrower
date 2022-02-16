@@ -318,9 +318,9 @@ export default function LoansApplications() {
 
 					<section>
 						<p>All aplications</p>
-						{loanRequest.map((loan_requests, loans_details) => {
-							return (
-								<form onSubmit={handleSubmit(onSubmitForm)} key={loan_requests.id} >
+						{/* {loanRequest.map((loan_requests, loans_details) => {
+							return ( */}
+								<form onSubmit={handleSubmit(onSubmitForm)}  >
 									<div className="finance-list">
 										<div className="sba-header-container">
 											<div className="finance-container-one">
@@ -331,10 +331,10 @@ export default function LoansApplications() {
 
 												<div className="sba-details">
 													<p className="finance-detail-title">
-														{loan_requests.borrowerState}
+														1
 													</p>
 													<p className="finance-detail-detail">
-														{loan_requests.loanRequestStatus}
+														2
 													</p>
 												</div>
 											</div>
@@ -342,22 +342,22 @@ export default function LoansApplications() {
 											<div className="finance-container-two">
 												<div className="application_details">
 													<h3>Application Started</h3>
-													<p> {loan_requests.applicationStarted} </p>
+													<p> 3</p>
 												</div>
 
 												<div className="application_details">
 													<h3>Application Number</h3>
-													<p> {loan_requests.applicationNumber} </p>
+													{/* <p> {loan_requests.applicationNumber} </p> */}
 												</div>
 
 												<div className="application_details">
 													<h3>Amount to borrow</h3>
-													<p> $ {loan_requests.amount} </p>
+													<p> 4 </p>
 												</div>
 												<input
 													type="hidden"
 													name="loanid"
-													value={loan_requests.id}
+													// value={loan_requests.id}
 													{...register("loanid")}
 												/>
 												<div className="button-step">
@@ -371,8 +371,8 @@ export default function LoansApplications() {
 										<br />
 									</div>
 								</form>
-							);
-						})}
+							{/* );
+						})} */}
 					</section>
 				</div>
 			</Hero>

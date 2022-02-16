@@ -19,6 +19,7 @@ import {ArrowLeftOutlined} from '@ant-design/icons'
 
 import { Button, Popconfirm, Spin } from "antd";
 import { API } from "../../utils/api";
+import { LoanList } from "../../components/Organism/LoanList";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	max-width: 1250px;
@@ -319,6 +320,7 @@ align-items: center;
 const Form = () => {
 	const { register, handleSubmit } = useForm();
 	const [details, setDetails] = useState([]);
+	const [applicationList,setApplicationList]=useState([]);
 	const [status, setStatus] = useState(0);
 	const router = useRouter();
 	const { authenticated } = useContext(AuthContext);
@@ -391,7 +393,9 @@ const Form = () => {
 
 	const FetchPrequaifyDataFromAPI=async()=>{
 		try {
-			await API.get("/api/borrower/get-prequalify-request")
+		const response=	await API.get("/api/borrower/get-all-loan-requests");
+		const data=await response?.data;
+		console.log(response?.payload,"as")
 		} catch (error) {
 			
 		}
@@ -581,6 +585,8 @@ useEffect(() => {
 					{status == 5 && <Factoring />}
 					{status == 6 && <WorkingCapitalForm />}
 
+					<LoanList name="SBA Loan"/>
+
 					{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
 						<h3 className="loan-head">How much do you want to borrow?</h3>
@@ -631,7 +637,7 @@ useEffect(() => {
 								</div>
 							</div>
 						</section>
-					</div> */}
+					</div> 
 
 					{/* <CRE />
 					<BLOAN />
