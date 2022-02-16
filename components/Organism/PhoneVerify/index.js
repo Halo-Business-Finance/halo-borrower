@@ -126,7 +126,7 @@ const Hero = styled.div`
 `;
 
 export default function VerifyPhoneForm() {
-	const { phone, setAuthenticated } = useContext(AuthContext)
+	const { phone, setAuthenticated, username } = useContext(AuthContext)
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -139,7 +139,7 @@ export default function VerifyPhoneForm() {
 		const refactoredData = {
 			code: Number(values?.code),
 			grant_type: "password",
-			username: router?.query?.email
+			username: router?.query?.email || username
 		}
 		try {
 			await API.post("/api/registration/verify-phone", formData);
@@ -155,7 +155,8 @@ export default function VerifyPhoneForm() {
 	const ResendVerificationPhone = async () => {
 		try {
 			await API.post("/api/registration/send-phone-verification", {
-				"phone": phone
+				"phone": phone,
+
 
 			})
 			notification.success({ message: "Success", description: "Verification code resend successfully" })
