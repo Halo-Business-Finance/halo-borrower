@@ -1,4 +1,5 @@
 import { Button } from 'antd';
+import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 const Wrapper = styled.div`
@@ -102,6 +103,7 @@ color: #5C5C5C;
 `;
 
 export const LoanList = ({name,startedDate,applicationNumber,amount}) => {
+    const router = useRouter();
     return (
         <div>
             <Wrapper>
@@ -135,7 +137,7 @@ export const LoanList = ({name,startedDate,applicationNumber,amount}) => {
                     <strong className="subtitle">$1000</strong>
                 </ContentWrapper>
                 <ContentWrapper>
-                    <Button>View</Button>
+                    <Button onClick={()=>router.push("/loan-overview")}>View</Button>
                 </ContentWrapper>
                 </div>
 
