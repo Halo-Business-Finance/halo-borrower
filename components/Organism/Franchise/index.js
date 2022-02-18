@@ -164,7 +164,7 @@ export const Franchaise = () => {
 
     const completeFormStep = async (e) => {
         e.preventDefault();
-        if (formValues.businessYear == "0" || Number(formValues.annualRevenue) <25000 || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
+        if (formValues.businessYear == "0" || (formValues?.annualRevenue && Number(formValues.annualRevenue) < 25000 ) || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
 
             setIsModalVisible(true)
             return;

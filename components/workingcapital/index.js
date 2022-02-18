@@ -129,7 +129,7 @@ const WorkingCapitalForm = () => {
 	})
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const completeFormStep = () => {
-		if (workingCapitalData.bankruptcyYear == "0" || workingCapitalData.businessYear == "0" || Number(workingCapitalData.annualRevenue) < 20000 || workingCapitalData.creditScore == "score1") {
+		if (workingCapitalData.bankruptcyYear == "0" || workingCapitalData.businessYear == "0" ||(workingCapitalData?.annualRevenue && Number(workingCapitalData.annualRevenue) < 20000 )|| workingCapitalData.creditScore == "score1") {
 			setIsModalVisible(true)
 			return;
 
