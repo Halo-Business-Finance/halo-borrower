@@ -135,7 +135,7 @@ export default function PROPERTYCRE() {
 	const [formstep, setFormstep] = React.useState(1);
 
 	const completeFormStep = () => {
-		if (formValues.amount == '1' || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
+		if (Number(formValues.amount) < 250000 || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
 			setIsModalVisible(true)
 			return;
 		}
@@ -418,8 +418,8 @@ export default function PROPERTYCRE() {
 							<div className="term">
 								<input value={formValues.tenants} onChange={(e) => onFormChange(e, 'tenants')}
 									className="outline"
-									type="text"
-									placeholder="Your answer"
+									type="number"
+									placeholder="Only Number"
 								/>
 							</div>
 						</div>
@@ -433,24 +433,11 @@ export default function PROPERTYCRE() {
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
-								<input checked={formValues.amount == "1" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="1" />
-								<label className="radio">25,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.amount == "2" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="2" />
-								<label className="radio">250,000 - 1,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.amount == "3" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="3" />
-								<label className="radio">1,000,000 - 5,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.amount == "4" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="4" />
-								<label className="radio">5,000,000 - 25,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.amount == "5" ? true : false} onChange={(e) => onFormChange(e, 'amount')} type="radio" name="amount" value="5" />
-								<label className="radio">25,000,000 - 100,000,000</label>
+							<input value={formValues.amount} onChange={(e) => onFormChange(e, 'amount')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
 							</div>
 						</div>
 						<ErrorMessage>{error.amount && "Please select to continue"}</ErrorMessage>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import cookie from "js-cookie";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import NavMenu from "../components/NavMenu";
+import NavMenu from "../../components/NavMenu";
 import router from "next/router";
 import { useForm } from "react-hook-form";
 

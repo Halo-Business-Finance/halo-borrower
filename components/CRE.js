@@ -145,7 +145,7 @@ export default function CRE() {
 			setIsModalVisible(true)
 			return;
 		}
-		if (formValues.dollar == '1') {
+		if (Number(formValues.dollar) < 250000) {
 			setIsModalVisible(true)
 			return;
 		}
@@ -512,7 +512,7 @@ export default function CRE() {
 									<input value={formValues.tenants} onChange={(e) => onFormChange(e, 'tenants')}
 										className="outline"
 										type="number"
-										placeholder="Your answer"
+										placeholder="Only Number"
 									/>
 								</div>
 							</div>
@@ -527,24 +527,11 @@ export default function CRE() {
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
-								<input checked={formValues.dollar == "1" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="1" />
-								<label className="radio">25,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.dollar == "2" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="2" />
-								<label className="radio">250,000 - 1,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.dollar == "3" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="3" />
-								<label className="radio">1,000,000 - 5,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.dollar == "4" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="4" />
-								<label className="radio">5,000,000 - 25,000,000</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.dollar == "5" ? true : false} onChange={(e) => onFormChange(e, 'dollar')} type="radio" name="amount" value="5" />
-								<label className="radio">25,000,000 - 100,000,000</label>
+							<input value={formValues.dollar} onChange={(e) => onFormChange(e, 'dollar')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
 							</div>
 						</div>
 						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
