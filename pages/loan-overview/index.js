@@ -150,6 +150,7 @@ const Hero = styled.div`
   }
 
   .sba-header-container {
+    
     width: 100%;
     padding: 20px;
     border: 2px solid
@@ -158,7 +159,7 @@ const Hero = styled.div`
   }
 
   .sba-image {
-    width: 30%;
+    
     height: 70px;
     width: 70px;
     padding: 5px;
@@ -249,6 +250,15 @@ const Hero = styled.div`
   }
   .owner-list{
 	  margin-top: 10px ;
+  }
+  & .finance-list{
+    margin-top: 20px;
+    & .sba-header-container{
+      margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    }
   }
 `;
 
@@ -393,7 +403,7 @@ export default function informationindex() {
           <br />
           <br />
           <div className="finance-list">
-            <div className="sba-header-container">
+            <div className="sba-header-container ">
               <div className="finance-container-one">
                 <img src="/images/Pre-qualify.png" className="sba-image" />
 
@@ -407,7 +417,7 @@ export default function informationindex() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/prequlaify_bci">
+                  <a href="/business-contact">
                     <span>Next step</span>
                   </a>
                 </div>
@@ -420,7 +430,7 @@ export default function informationindex() {
               </div>
             </div>
           </div>
-
+          {/* 
           <br />
           <br />
           <div className="finance-list">
@@ -438,7 +448,7 @@ export default function informationindex() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/businessfinance_btr">
+                  <a href="/buiness-contact">
                     <span>Next step</span>
                   </a>
                 </div>
@@ -482,10 +492,10 @@ export default function informationindex() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-		  <div className="finance-list">
-		  {owners.map((owner, ownerdetails) => {
+          <div className="finance-list">
+            {owners.map((owner, ownerdetails) => {
               return (
                 <form onClick={handleSubmit(onSubmitForm)} key={owner.id}>
                   <div className="sba-header-container owner-list">
@@ -511,12 +521,12 @@ export default function informationindex() {
                         </a>
                       </div>
                     </div>
-                   
+
                   </div>
                 </form>
               );
             })}
-		  </div>
+          </div>
 
         </div>
       </Hero>
