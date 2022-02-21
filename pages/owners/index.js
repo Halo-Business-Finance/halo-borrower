@@ -273,7 +273,7 @@ export default function Form() {
 	const handleRemoveClick = index => {
 	  const list = [...inputList];
 	  list.splice(index, 1);
-	//   setInputList(list);
+	  setInputList(list);
 	};
   
 	// handle click event of the Add button
