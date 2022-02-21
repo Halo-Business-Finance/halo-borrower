@@ -6,6 +6,8 @@ import axios from "axios";
 import cookie from "js-cookie";
 import Router from "next/router";
 import NavMenu from "../../components/NavMenu";
+import { API } from "../../utils/api";
+import { notification } from "antd";
 
 const Hero = styled.div`
   display: flex;
@@ -141,142 +143,165 @@ export default function financialInformation() {
     "Content-Type": "application/json",
     Authorization: "Bearer" + " " + cookie.get("access_token"),
   };
-  const onSubmitForm = async (values) => {
-    let olab = false;
-    if (values.olab == "" || values.olab == "false") {
-      olab = false;
-    } else {
-      olab = true;
-    }
+  const addUpdateHandler = async (data) => {
+    try {
+      await API.post("/api/borrower/add-update-business-financials", data)
+    } catch (error) {
+      notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
-    if (cookie.get("id") == "") {
-      axios({
-        method: "post",
-        url:
-          process.env.NEXT_PUBLIC_BASE_URL +
-          "/api/borrower/add-update-business-financials",
-        headers: headers,
-        data: {
-          annualRevenuw: values.annual,
-          // monthlyPayrollExpenses: values.payroll,
-          // monthlyBusinessExpenses: values.expenses,
-          // dailyAverageBankBalance: values.dailybalance,
-          outstandingLoanOrAdvance: true,
-          ourstandingAdvancesLoanAmount: values.advanceloan,
-          useOfFunds: values.funds,
-          loanAmountRequested: values.amount,
-          typeOfProperty: values.Own,
-          borrowerId: cookie.get("loan_request_id"),
-          mortageInformation: {
-            monthlyMoratge: values.mortage,
-          },
-          rentInformation: {
-            monthlyRent: values.rent,
-            landlordName: values.landordName,
-            leaseStartDate: values.firstDate,
-            leaseEndDate: values.endDate,
-          },
-        },
-      }).then(
-        (response) => {
-          if (response.data.isSuccess) {
-            Router.push("/prequlaify_owner");
-          } else {
-            console.log(response);
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } else {
-      axios({
-        method: "post",
-        url:
-          process.env.NEXT_PUBLIC_BASE_URL +
-          "/api/borrower/add-update-business-financials",
-        headers: headers,
-        data: {
-          annualRevenuw: values.annual,
-          // monthlyPayrollExpenses: values.payroll,
-          // monthlyBusinessExpenses: values.expenses,
-          // dailyAverageBankBalance: values.dailybalance,
-          outstandingLoanOrAdvance: true,
-          ourstandingAdvancesLoanAmount: values.advanceloan,
-          useOfFunds: values.funds,
-          loanAmountRequested: values.amount,
-          typeOfProperty: values.Own,
-          id: cookie.get("id"),
-          borrowerId: cookie.get("loan_request_id"),
-          mortageInformation: {
-            monthlyMoratge: values.mortage,
-          },
-          rentInformation: {
-            monthlyRent: values.rent,
-            landlordName: values.landordName,
-            leaseStartDate: values.firstDate,
-            leaseEndDate: values.endDate,
-          },
-        },
-      }).then(
-        (response) => {
-          if (response.data.isSuccess) {
-            Router.push("/prequlaify_owner");
-          } else {
-            console.log(response);
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
     }
+  }
+  const onSubmitForm = async (values) => {
+    addUpdateHandler(values)
+    //   let olab = false;
+    //   if (values.olab == "" || values.olab == "false") {
+    //     olab = false;
+    //   } else {
+    //     olab = true;
+    //   }
+
+    //   if (cookie.get("id") == "") {
+    //     axios({
+    //       method: "post",
+    //       url:
+    //         process.env.NEXT_PUBLIC_BASE_URL +
+    //         "",
+    //       headers: headers,
+    //       data: {
+    //         annualRevenuw: values.annual,
+    //         // monthlyPayrollExpenses: values.payroll,
+    //         // monthlyBusinessExpenses: values.expenses,
+    //         // dailyAverageBankBalance: values.dailybalance,
+    //         outstandingLoanOrAdvance: true,
+    //         ourstandingAdvancesLoanAmount: values.advanceloan,
+    //         useOfFunds: values.funds,
+    //         loanAmountRequested: values.amount,
+    //         typeOfProperty: values.Own,
+    //         borrowerId: cookie.get("loan_request_id"),
+    //         mortageInformation: {
+    //           monthlyMoratge: values.mortage,
+    //         },
+    //         rentInformation: {
+    //           monthlyRent: values.rent,
+    //           landlordName: values.landordName,
+    //           leaseStartDate: values.firstDate,
+    //           leaseEndDate: values.endDate,
+    //         },
+    //       },
+    //     }).then(
+    //       (response) => {
+    //         if (response.data.isSuccess) {
+    //           Router.push("/prequlaify_owner");
+    //         } else {
+    //           console.log(response);
+    //         }
+    //       },
+    //       (error) => {
+    //         console.log(error);
+    //       }
+    //     );
+    //   } else {
+    //     axios({
+    //       method: "post",
+    //       url:
+    //         process.env.NEXT_PUBLIC_BASE_URL +
+    //         "/api/borrower/add-update-business-financials",
+    //       headers: headers,
+    //       data: {
+    //         annualRevenuw: values.annual,
+    //         // monthlyPayrollExpenses: values.payroll,
+    //         // monthlyBusinessExpenses: values.expenses,
+    //         // dailyAverageBankBalance: values.dailybalance,
+    //         outstandingLoanOrAdvance: true,
+    //         ourstandingAdvancesLoanAmount: values.advanceloan,
+    //         useOfFunds: values.funds,
+    //         loanAmountRequested: values.amount,
+    //         typeOfProperty: values.Own,
+    //         id: cookie.get("id"),
+    //         borrowerId: cookie.get("loan_request_id"),
+    //         mortageInformation: {
+    //           monthlyMoratge: values.mortage,
+    //         },
+    //         rentInformation: {
+    //           monthlyRent: values.rent,
+    //           landlordName: values.landordName,
+    //           leaseStartDate: values.firstDate,
+    //           leaseEndDate: values.endDate,
+    //         },
+    //       },
+    //     }).then(
+    //       (response) => {
+    //         if (response.data.isSuccess) {
+    //           Router.push("/prequlaify_owner");
+    //         } else {
+    //           console.log(response);
+    //         }
+    //       },
+    //       (error) => {
+    //         console.log(error);
+    //       }
+    //     );
+    //   }
   };
 
-  useEffect(() => {
-    let url =
-      process.env.NEXT_PUBLIC_BASE_URL +
-      "/api/borrower/get-business-financials/" +
-      cookie.get("loan_request_id");
-    axios({
-      method: "GET",
-      url: url,
-      headers: headers,
-    }).then(
-      (respo) => {
-        if (respo.data.payload == null) {
-          cookie.set("id", "", { expires: 5 / 24 });
-          let dataempty = {
-            annualRevenuw: "",
-            monthlyPayrollExpenses: "",
-            monthlyBusinessExpenses: "",
-            dailyAverageBankBalance: "",
-            outstandingLoanOrAdvance: "",
-            ourstandingAdvancesLoanAmount: "",
-            useOfFunds: "",
-            loanAmountRequested: "",
-            typeOfProperty: "",
-            mortageInformation: {
-              monthlyMoratge: "",
-            },
-            rentInformation: {
-              monthlyRent: "",
-              landlordName: "string",
-              leaseStartDate: "2021-11-22T06:39:28.564Z",
-              leaseEndDate: "2021-11-22T06:39:28.564Z",
-            },
-          };
-          getConsumer(dataempty);
-        } else {
-          cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-          // console.log(respo.data.payload);
-          getConsumer(respo.data.payload);
-        }
-      },
-      (error) => {
-        console.log(error);
+  const GetAllInformations = async () => {
+    try {
+      if (id){
+        const response = await API.get(`/api/borrower/get-business-financials/${id}`)
+        console.log(response);
       }
-    );
+   
+    } catch (error) {
+      notification.error({ message: 'Error Occured', description: error?.data?.reason })
+    }
+  }
+
+
+  useEffect(() => {
+    GetAllInformations();
+    // let url =
+    //   process.env.NEXT_PUBLIC_BASE_URL +
+    //   "/api/borrower/get-business-financials/" +
+    //   cookie.get("loan_request_id");
+    // axios({
+    //   method: "GET",
+    //   url: url,
+    //   headers: headers,
+    // }).then(
+    //   (respo) => {
+    //     if (respo.data.payload == null) {
+    //       cookie.set("id", "", { expires: 5 / 24 });
+    //       let dataempty = {
+    //         annualRevenuw: "",
+    //         monthlyPayrollExpenses: "",
+    //         monthlyBusinessExpenses: "",
+    //         dailyAverageBankBalance: "",
+    //         outstandingLoanOrAdvance: "",
+    //         ourstandingAdvancesLoanAmount: "",
+    //         useOfFunds: "",
+    //         loanAmountRequested: "",
+    //         typeOfProperty: "",
+    //         mortageInformation: {
+    //           monthlyMoratge: "",
+    //         },
+    //         rentInformation: {
+    //           monthlyRent: "",
+    //           landlordName: "string",
+    //           leaseStartDate: "2021-11-22T06:39:28.564Z",
+    //           leaseEndDate: "2021-11-22T06:39:28.564Z",
+    //         },
+    //       };
+    //       getConsumer(dataempty);
+    //     } else {
+    //       cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
+    //       // console.log(respo.data.payload);
+    //       getConsumer(respo.data.payload);
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }, []);
 
   function handleChange(event) {
@@ -532,7 +557,7 @@ export default function financialInformation() {
           </section>
 
           <div className="form-row-button">
-            <input onClick={()=>Router.push("/owners")} type="submit" id="button" value="Continue" />
+            <input onClick={() => Router.push("/owners")} type="submit" id="button" value="Continue" />
           </div>
         </form>
       </Hero>
