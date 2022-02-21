@@ -431,7 +431,7 @@ export default function PROPERTYCRE() {
 
 					<section>
 						<div className="goal">
-							<div className="cast">Dollar Amount Wanted </div>
+							<div className="cast">Loan Amount Requested</div>
 							<div className="term">
 							<input value={formValues.amount} onChange={(e) => onFormChange(e, 'amount')}
 										className="outline"

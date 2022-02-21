@@ -525,7 +525,7 @@ export default function CRE() {
 				<>
 					{formstep == 9 && <section>
 						<div className="goal">
-							<div className="cast">Dollar Amount Wanted </div>
+							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
 							<input value={formValues.dollar} onChange={(e) => onFormChange(e, 'dollar')}
 										className="outline"

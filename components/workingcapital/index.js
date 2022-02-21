@@ -529,7 +529,7 @@ const WorkingCapitalForm = () => {
 					}
 					{formstep == 11 && <section>
 						<div className="goal">
-							<div className="cast">Loan Request Amount?  </div>
+							<div className="cast">Loan Amount Requested  </div>
 							<div className="term">
 							<input value={workingCapitalData.loanAmount} onChange={(e) => onFormChange(e, 'loanAmount')}
 										className="outline"

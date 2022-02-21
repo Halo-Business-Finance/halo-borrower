@@ -773,7 +773,7 @@ export default function BLOAN() {
 				<>
 					{formstep == 13 && <section>
 						<div className="goal">
-							<div className="cast">Dollar Amount Wanted </div>
+							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
 							<input value={bridgeLoanData.dollar} onChange={(e) => onFormChange(e, 'dollar')}
 										className="outline"
