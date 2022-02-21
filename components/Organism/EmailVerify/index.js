@@ -125,7 +125,7 @@ const Hero = styled.div`
 `;
 const { Step } = Steps;
 export default function VerifyEmailForm() {
-	const { setFormState ,username} = useContext(AuthContext)
+	const { setFormState, username } = useContext(AuthContext)
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -141,7 +141,7 @@ export default function VerifyEmailForm() {
 		}
 		try {
 			await API.post("/api/registration/verify-email", refactoredData);
-
+			router.push(`/register?email=${router?.query?.email}`)
 			setFormState(2);
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })
@@ -151,16 +151,16 @@ export default function VerifyEmailForm() {
 
 
 	}
-	const ResendVerificationEmail=async()=>{
+	const ResendVerificationEmail = async () => {
 		try {
-			await API.post("/api/registration/send-email-verification",{
-				"email": username !=null ? username:router.query.email
-				
-			  })
-			  notification.success({ message:"Success",description:"Verification email resend successfully"})
+			await API.post("/api/registration/send-email-verification", {
+				"email": username != null ? username : router.query.email
+
+			})
+			notification.success({ message: "Success", description: "Verification email resend successfully" })
 		} catch (error) {
 			console.log(error)
-			notification.error({ message:"Error occured",description:error?.data?.reason||"Something went wrong,please try again later"})
+			notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
 		}
 	}
 	return (
@@ -212,7 +212,7 @@ export default function VerifyEmailForm() {
 
 					</section>
 					<div className="btn-resend">
-					Didn't receive code?<Button type="link" onClick={ResendVerificationEmail}>Resend Verification Code</Button>
+						Didn't receive code?<Button type="link" onClick={ResendVerificationEmail}>Resend Verification Code</Button>
 					</div>
 				</div>
 

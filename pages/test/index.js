@@ -393,7 +393,7 @@ const Form = () => {
 
 	const FetchPrequaifyDataFromAPI=async()=>{
 		try {
-		const response=	await API.get("/api/borrower/get-all-loan-requests");
+		const response=	await API.get("/api/borrower/get-prequalify-request");
 		const data=await response?.data;
 		console.log(response?.payload,"as")
 		} catch (error) {

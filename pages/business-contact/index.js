@@ -7,6 +7,8 @@ import cookie from "js-cookie";
 import { useEffect, useState } from "react";
 import Login from "../login";
 import NavMenu from "../../components/NavMenu";
+import { API } from "../../utils/api";
+import { notification } from "antd";
 
 
 const Hero = styled.div`
@@ -156,7 +158,8 @@ const Hero = styled.div`
 
 
 export default function Form({ data }) {
-	const router=useRouter();
+	const router = useRouter();
+	const id = router.query.id
 	const {
 		register,
 		handleSubmit,
@@ -168,115 +171,49 @@ export default function Form({ data }) {
 		Authorization: "Bearer" + " " + cookie.get("access_token"),
 	};
 
+	const addHandler = (data) => {
+		try {
+			API.post("api/borrower/add-update-business-contact", data)
+			Router.push("/business-information")
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason })
+		}
+	}
+
 	const onSubmitForm = async (values) => {
 
-		if(cookie.get("id") == "") {
-		
+		const data = {
 
-			axios({
-				method: "post",
-				url:
-					process.env.NEXT_PUBLIC_BASE_URL + "api/borrower/add-update-business-contact" ,
-				data: {
-
-					businessLegalName: values.businesslegalname,
-					dba: values.dba,
-					address: values.address,
-					suite: values.suite,
-					city: values.city,
-					state: values.state,
-					zipCode: values.zipcode,
-					businessPhone: values.phone,
-					website: values.website,
-					// id: cookie.get("id"),
-					borrowerId: cookie.get("loan_request_id"),
-				},
-				headers: headers,
-			}).then(
-				(response) => {
-					if (response.data.isSuccess) {
-						Router.push("/prequlaify_bi");
-					} else {
-						console.log(response);
-					}
-				},
-				(error) => {
-					console.log(error);
-				}
-			);
-		}else{
-			axios({
-				method: "post",
-				url:
-					process.env.NEXT_PUBLIC_BASE_URL + "api/borrower/add-update-business-contact" ,
-				data: {
-
-					businessLegalName: values.businesslegalname,
-					dba: values.dba,
-					address: values.address,
-					suite: values.suite,
-					city: values.city,
-					state: values.state,
-					zipCode: values.zipcode,
-					businessPhone: values.phone,
-					website: values.website,
-					id: cookie.get("id"),
-					borrowerId: cookie.get("loan_request_id"),
-				},
-				headers: headers,
-			}).then(
-				(response) => {
-					if (response.data.isSuccess) {
-						Router.push("/prequlaify_bi");
-					} else {
-						console.log(response);
-					}
-				},
-				(error) => {
-					console.log(error);
-				}
-			);
+			businessLegalName: values.businesslegalname,
+			dba: values.dba,
+			address: values.address,
+			suite: values.suite,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipcode,
+			businessPhone: values.phone,
+			website: values.website,
+			borrowerId: id,
 		}
-	};
+		addHandler(data)
 
+	}
 	const [consumer, getConsumer] = useState({});
 
-	useEffect(() => { 
-		let url =
-			process.env.NEXT_PUBLIC_BASE_URL +
-			"/api/borrower/get-business-contact/" +
-			cookie.get("loan_request_id");
-		axios({
-			method: "GET",
-			url: url,
-			headers: headers,
-		}).then(
-			(respo) => {
-				console.log(respo.data.payload);
-				if(respo.data.payload == null){
-					cookie.set("id","", { expires: 5 / 24 });
-					let dataempty = {
-						businessLegalName: "",
-						dba: "",
-						address: "",
-						suite: "",
-						city: "",
-						state: "",
-						zipCode: "",
-						businessPhone: "",
-						website: "",
-					}
-					getConsumer(dataempty);
-		  		}else{
-					cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-					getConsumer(respo.data.payload);
-		  		}
-			},
-			(error) => {
-				console.log(error);
+	const fetchBussinessContactInformations = async () => {
+		if (id) {
+			try {
+				const response = await API.get(`/api/borrower/get-business-contact/${id}`);
+				console.log(response);
+			} catch (error) {
+
 			}
-		);
-	},[]);
+
+		}
+	}
+	useEffect(() => {
+		fetchBussinessContactInformations();
+	}, []);
 
 	function handleChange(event) {
 		getConsumer(event.target.value);
@@ -288,7 +225,7 @@ export default function Form({ data }) {
 				<title>Business Contact Information </title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-				<NavMenu />
+			<NavMenu />
 			<Hero>
 				{/* <div className="error">
               <p>{aState}</p>
@@ -310,7 +247,7 @@ export default function Form({ data }) {
 								<input
 									className="textbox"
 									type="text"
-									defaultValue={consumer.businessLegalName} 
+									defaultValue={consumer.businessLegalName}
 									autoComplete="businesslegalname"
 									placeholder="Enter Business Legal Name"
 									{...register("businesslegalname", {
@@ -325,7 +262,7 @@ export default function Form({ data }) {
 								<input
 									className="textbox"
 									type="text"
-									defaultValue={consumer.dba} 
+									defaultValue={consumer.dba}
 									autoComplete="fdba"
 									placeholder="Enter DBA"
 									{...register("dba", {
@@ -344,7 +281,7 @@ export default function Form({ data }) {
 									id="address"
 									className="textbox"
 									type="text"
-									defaultValue={consumer.address} 
+									defaultValue={consumer.address}
 									autoComplete="fname"
 									placeholder="Enter Address"
 									{...register("address", {
@@ -361,7 +298,7 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
-									defaultValue={consumer.suite} 
+									defaultValue={consumer.suite}
 
 									placeholder="Enter Suite/FL"
 									{...register("suite", {
@@ -382,7 +319,7 @@ export default function Form({ data }) {
 									type="text"
 									autoComplete="fname"
 									placeholder="Enter City"
-									defaultValue={consumer.city} 
+									defaultValue={consumer.city}
 
 									{...register("city", {
 										required: "Required",
@@ -399,7 +336,7 @@ export default function Form({ data }) {
 									type="text"
 									autoComplete="fname"
 									placeholder="Select State"
-									defaultValue={consumer.state} 
+									defaultValue={consumer.state}
 
 									{...register("state", {
 										required: "Required",
@@ -416,7 +353,7 @@ export default function Form({ data }) {
 									type="number"
 									autoComplete="fname"
 									placeholder="Enter Zip Code"
-									defaultValue={consumer.zipCode} 
+									defaultValue={consumer.zipCode}
 
 									{...register("zipcode", {
 										required: "Required",
@@ -435,7 +372,7 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
-									defaultValue={consumer.businessPhone} 
+									defaultValue={consumer.businessPhone}
 
 									placeholder="(XXX)-(XXX)-(XXXX)"
 									{...register("phone", {
@@ -452,7 +389,7 @@ export default function Form({ data }) {
 									className="textbox"
 									type="text"
 									autoComplete="fname"
-									defaultValue={consumer.website} 
+									defaultValue={consumer.website}
 
 									placeholder="Enter Website"
 									{...register("website", {
@@ -464,7 +401,7 @@ export default function Form({ data }) {
 					</section>
 
 					<div className="form-row-button">
-						<input onClick={()=>router.push("/business-information")} type="submit" id="button" value="Continue" />
+						<input onClick={() => router.push()} type="submit" id="button" value="Continue" />
 					</div>
 				</form>
 			</Hero>
