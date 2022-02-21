@@ -107,6 +107,7 @@ const WorkingCapitalForm = () => {
 		businessType: "",
 		proceeds: "",
 		otheruse: "",
+		specifiedOtherUse: "",
 		termRequest: "",
 		creditScore: "",
 		franchise: "",
@@ -121,6 +122,7 @@ const WorkingCapitalForm = () => {
 		businessType: "",
 		proceeds: "",
 		otheruse: "",
+		specifiedOtherUse: "",
 		termRequest: "",
 		franchise: "",
 		loanAmount: "",
@@ -162,6 +164,12 @@ const WorkingCapitalForm = () => {
 			setErrors({ ...error, otheruse: "Error" });
 			return;
 		}
+		if(formValues?.useOfProceeds=="OtherUse"){
+            if(workingCapitalData?.specifiedOtherUse?.length>20){
+                setErrors({ ...error, specifiedOtherUse: "len" });
+                return;    
+            }
+        }
 		else if (formstep == 8 && workingCapitalData.termRequest == "") {
 			setErrors({ ...error, termRequest: "Error" });
 			return;
@@ -315,9 +323,12 @@ const WorkingCapitalForm = () => {
 						<div className="goal">
 							<div className="cast">Annual Revenue </div>
 							<div className="term">
-								<input
-
-									onChange={(e) => onChangeHandler("annualRevenue", e)} type="number" name="amount" value={workingCapitalData.annualRevenue} />
+								<input onChange={(e) => onChangeHandler("annualRevenue", e)} 
+								type="number" 
+								name="amount"
+								placeholder="Only Number"
+								 value={workingCapitalData.annualRevenue} />
+						
 
 							</div>
 
@@ -431,15 +442,16 @@ const WorkingCapitalForm = () => {
 							<div className="cast">If Other use, Please Specify</div>
 							<div className="term">
 								<input
-									value={workingCapitalData.otheruse}
-									onChange={(e) => onChangeHandler("otheruse", e)}
+									value={workingCapitalData.specifiedOtherUse}
+									onChange={(e) => onChangeHandler("specifiedOtherUse", e)}
 									className="outline"
 									type="text"
 									placeholder="Your answer"
 								/>
 							</div>
 						</div>
-						<ErrorMessage>{error.otheruse && "Please Enter"}</ErrorMessage>
+						<ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
+                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
 					</section>
 					}
 					{formstep == 8 && <section>
@@ -519,34 +531,11 @@ const WorkingCapitalForm = () => {
 						<div className="goal">
 							<div className="cast">Loan Request Amount?  </div>
 							<div className="term">
-								<input
-									checked={workingCapitalData.loanAmount == "1" ? true : false}
-									onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="1" />
-								<label className="radio">25,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.loanAmount == "2" ? true : false}
-									onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="2" />
-								<label className="radio">250,000 - 1,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.loanAmount == "3" ? true : false}
-									onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="3" />
-								<label className="radio">1,000,000 - 5,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.loanAmount == "4" ? true : false}
-									onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="4" />
-								<label className="radio">5,000,000 - 25,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={workingCapitalData.loanAmount == "5" ? true : false}
-									onChange={(e) => onChangeHandler("loanAmount", e)} type="radio" name="amount" value="5" />
-								<label className="radio">25,000,000 - 100,000,000</label>
+							<input value={workingCapitalData.loanAmount} onChange={(e) => onFormChange(e, 'loanAmount')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
 							</div>
 						</div>
 						<ErrorMessage>{error.loanAmount && "Please select to continue"}</ErrorMessage>

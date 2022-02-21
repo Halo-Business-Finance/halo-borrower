@@ -154,7 +154,7 @@ export default function BLOAN() {
 	})
 	const completeFormStep = () => {
 
-		if (bridgeLoanData.cashOut == "1" || bridgeLoanData.constructionAmount == "1" || bridgeLoanData.dollar == "1" || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || bridgeLoanData.rateTermAmount == "1")) {
+		if (Number(bridgeLoanData.cashOut) < 250000 || Number(bridgeLoanData.constructionAmount) < 250000 || Number(bridgeLoanData.dollar) < 250000 || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || Number(bridgeLoanData.rateTermAmount) < 250000 )) {
 			setIsModalVisible(true);
 			return;
 
@@ -426,12 +426,17 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Cash out Amount </div>
 							<div className="term">
-								<input
+							<input value={bridgeLoanData.cashOut} onChange={(e) => onFormChange(e, 'cashOut')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
+								{/* <input
 									checked={bridgeLoanData.cashOut == "1" ? true : false}
 									onChange={(e) => onChangeHandler("cashOut", e)} type="radio" name="amount" value="1" />
-								<label className="radio">25,000 - 250,000</label>
+								<label className="radio">25,000 - 250,000</label> */}
 							</div>
-							<div className="term">
+							{/* <div className="term">
 								<input
 									checked={bridgeLoanData.cashOut == "2" ? true : false}
 									onChange={(e) => onChangeHandler("cashOut", e)} type="radio" name="amount" value="2" />
@@ -454,7 +459,7 @@ export default function BLOAN() {
 									checked={bridgeLoanData.cashOut == "5" ? true : false}
 									onChange={(e) => onChangeHandler("cashOut", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
-							</div>
+							</div> */}
 						</div>
 
 						<ErrorMessage>{errors.cashOut && "Please select one to continue"}</ErrorMessage>
@@ -464,12 +469,17 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Construction Amount </div>
 							<div className="term">
-								<input
+							<input value={bridgeLoanData.constructionAmount} onChange={(e) => onFormChange(e, 'constructionAmount')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
+								{/* <input
 									checked={bridgeLoanData.constructionAmount == "1" ? true : false}
 									onChange={(e) => onChangeHandler("constructionAmount", e)} type="radio" name="amount" value="1" />
-								<label className="radio">25,000 - 250,000</label>
+								<label className="radio">25,000 - 250,000</label> */}
 							</div>
-							<div className="term">
+							{/* <div className="term">
 								<input
 									checked={bridgeLoanData.constructionAmount == "2" ? true : false}
 									onChange={(e) => onChangeHandler("constructionAmount", e)} type="radio" name="amount" value="2" />
@@ -492,7 +502,7 @@ export default function BLOAN() {
 									checked={bridgeLoanData.constructionAmount == "5" ? true : false}
 									onChange={(e) => onChangeHandler("constructionAmount", e)} type="radio" name="amount" value="5" />
 								<label className="radio">25,000,000 - 100,000,000</label>
-							</div>
+							</div> */}
 						</div>
 						<ErrorMessage>{errors.constructionAmount && "Please select one to continue"}</ErrorMessage>
 
@@ -506,12 +516,17 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
-									<input
+								<input value={bridgeLoanData.rateTermAmount} onChange={(e) => onFormChange(e, 'rateTermAmount')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
+									{/* <input
 										checked={bridgeLoanData.rateTermAmount == "1" ? true : false}
 										onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="1" />
-									<label className="radio">25,000 - 250,000</label>
+									<label className="radio">25,000 - 250,000</label> */}
 								</div>
-								<div className="term">
+								{/* <div className="term">
 									<input
 										checked={bridgeLoanData.rateTermAmount == "2" ? true : false}
 										onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="2" />
@@ -532,7 +547,7 @@ export default function BLOAN() {
 								<div className="term">
 									<input checked={bridgeLoanData.rateTermAmount == "5" ? true : false} onChange={(e) => onChangeHandler("rateTermAmount", e)} type="radio" name="amount" value="5" />
 									<label className="radio">25,000,000 - 100,000,000</label>
-								</div>
+								</div> */}
 							</div>
 							<ErrorMessage>{errors.rateTermAmount && "Please select one to continue"}</ErrorMessage>
 
@@ -745,8 +760,8 @@ export default function BLOAN() {
 									value={bridgeLoanData.tenants}
 									onChange={(e) => onChangeHandler("tenants", e)}
 									className="outline"
-									type="text"
-									placeholder="Your answer"
+									type="number"
+									placeholder="Number Only"
 								/>
 							</div>
 						</div>
@@ -760,34 +775,11 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Dollar Amount Wanted </div>
 							<div className="term">
-								<input
-									checked={bridgeLoanData.dollar == "1" ? true : false}
-									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="1" />
-								<label className="radio">25,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.dollar == "2" ? true : false}
-									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="2" />
-								<label className="radio">250,000 - 1,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.dollar == "3" ? true : false}
-									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="3" />
-								<label className="radio">1,000,000 - 5,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.dollar == "4" ? true : false}
-									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="4" />
-								<label className="radio">5,000,000 - 25,000,000</label>
-							</div>
-							<div className="term">
-								<input
-									checked={bridgeLoanData.dollar == "5" ? true : false}
-									onChange={(e) => onChangeHandler("dollar", e)} type="radio" name="amount" value="5" />
-								<label className="radio">25,000,000 - 100,000,000</label>
+							<input value={bridgeLoanData.dollar} onChange={(e) => onFormChange(e, 'dollar')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
 							</div>
 						</div>
 						<ErrorMessage>{errors.dollar && "Please select one to continue"}</ErrorMessage>

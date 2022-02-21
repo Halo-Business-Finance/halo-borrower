@@ -322,7 +322,10 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Annual Revenue </div>
                         <div className="term">
-                            <input  onChange={(e) => onFormChange(e, 'annualRevenue')} type="number" name="amount" value={formValues.annualRevenue} />
+                            <input  onChange={(e) => onFormChange(e, 'annualRevenue')} 
+                            type="number" 
+                            name="amount" 
+                            value={formValues.annualRevenue} />
                             
                         </div>
                         
@@ -417,7 +420,8 @@ export const Franchaise = () => {
                             />
                         </div>
                     </div>
-                    <ErrorMessage>{error.specifiedOtherUse && "Please Enter"}</ErrorMessage>
+                    <ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
+                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
                 </section>}
                 {formstep == 6 && <section>
                     <div className="goal">
@@ -485,24 +489,11 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Loan Request Amount? </div>
                         <div className="term">
-                            <input checked={formValues.LoanAmountRequested == "1" ? true : false} onChange={(e) => onFormChange(e, 'LoanAmountRequested')} type="radio" name="amount" value="1" />
-                            <label className="radio">25,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanAmountRequested == "2" ? true : false} onChange={(e) => onFormChange(e, 'LoanAmountRequested')} type="radio" name="amount" value="2" />
-                            <label className="radio">250,000 - 1,000,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanAmountRequested == "3" ? true : false} onChange={(e) => onFormChange(e, 'LoanAmountRequested')} type="radio" name="amount" value="3" />
-                            <label className="radio">1,000,000 - 5,000,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanAmountRequested == "4" ? true : false} onChange={(e) => onFormChange(e, 'LoanAmountRequested')} type="radio" name="amount" value="4" />
-                            <label className="radio">5,000,000 - 25,000,000</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanAmountRequested == "5" ? true : false} onChange={(e) => onFormChange(e, 'LoanAmountRequested')} type="radio" name="amount" value="5" />
-                            <label className="radio">25,000,000 - 100,000,000</label>
+                        <input value={formValues.LoanAmountRequested} onChange={(e) => onFormChange(e, 'LoanAmountRequested')}
+										className="outline"
+										type="number"
+										placeholder="Only Number"
+									/>
                         </div>
                     </div>
                     <ErrorMessage>{error.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
