@@ -395,7 +395,7 @@ const Form = () => {
 		try {
 		const response=	await API.get("/api/borrower/get-prequalify-request");
 		const data=await response?.data;
-		console.log(response?.payload,"as")
+		console.log(response,"as")
 		} catch (error) {
 			
 		}

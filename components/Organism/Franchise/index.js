@@ -420,8 +420,8 @@ export const Franchaise = () => {
                             />
                         </div>
                     </div>
-                    <ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
-                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
+                    <ErrorMessage>{error?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
+                    <ErrorMessage>{error?.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
                 </section>}
                 {formstep == 6 && <section>
                     <div className="goal">
