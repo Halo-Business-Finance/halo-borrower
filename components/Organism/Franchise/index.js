@@ -487,7 +487,7 @@ export const Franchaise = () => {
 
                 {formstep == 9 && <section>
                     <div className="goal">
-                        <div className="cast">Loan Request Amount? </div>
+                        <div className="cast">Loan Amount Requested</div>
                         <div className="term">
                         <input value={formValues.LoanAmountRequested} onChange={(e) => onFormChange(e, 'LoanAmountRequested')}
 										className="outline"

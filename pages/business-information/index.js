@@ -194,13 +194,21 @@ export default function businessInformation() {
         "Content-Type": "application/json",
         Authorization: "Bearer" + " " + cookie.get("access_token"),
     };
+    const addHandler = (data) => {
+		try {
+			API.post("api/borrower/add-update-business-info", data)
+			Router.push("/financial-information")
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason })
+		}
+	}
     const onSubmitForm = async (values) => {
 
-        if (cookie.get("id") == "") {
-            axios({
-                method: "post",
-                url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-business-info/",
-                data: {
+        // if (cookie.get("id") == "") {
+        //     axios({
+        //         method: "post",
+        //         url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-business-info/",
+            const data = {
                     legalEntity: values.binfo,
                     stateOfOrganization: values.organization,
                     federalTaxId: values.federal,
@@ -211,55 +219,57 @@ export default function businessInformation() {
                     totalContractors: values.totalContractors,
                     wasPurchased: values.businesspurchased,
                     borrowerId: cookie.get("loan_request_id"),
-                },
-                headers: headers,
-            }).then(
-                (response) => {
-                    if (response.data.isSuccess) {
-                        Router.push("/prequlaify_fi");
-                    } else {
-                        console.log(response);
-                    }
-                },
-                (error) => {
-                    console.log(error);
                 }
-            );
-        } else {
-            axios({
-                method: "post",
-                url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-business-info/",
-                data: {
-                    legalEntity: values.binfo,
-                    stateOfOrganization: values.organization,
-                    federalTaxId: values.federal,
-                    startDate: values.date,
-                    industryDescription: values.industry,
-                    typeOfProduct: values.product,
-                    totalEmployees: values.totalEmployees,
-                    totalContractors: values.totalContractors,
-                    wasPurchased: values.businesspurchased,
-                    id: cookie.get("id"),
-                    borrowerId: cookie.get("loan_request_id"),
-                },
-                headers: headers,
-            }).then(
-                (response) => {
-                    if (response.data.isSuccess) {
-                        Router.push("/prequlaify_fi");
-                    } else {
-                        console.log(response);
-                    }
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        }
+                addHandler(data)
+            }
+    //             headers: headers,
+    //         }).then(
+    //             (response) => {
+    //                 if (response.data.isSuccess) {
+    //                     Router.push("/prequlaify_fi");
+    //                 } else {
+    //                     console.log(response);
+    //                 }
+    //             },
+    //             (error) => {
+    //                 console.log(error);
+    //             }
+    //         );
+    //     } else {
+    //         axios({
+    //             method: "post",
+    //             url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-business-info/",
+    //             data: {
+    //                 legalEntity: values.binfo,
+    //                 stateOfOrganization: values.organization,
+    //                 federalTaxId: values.federal,
+    //                 startDate: values.date,
+    //                 industryDescription: values.industry,
+    //                 typeOfProduct: values.product,
+    //                 totalEmployees: values.totalEmployees,
+    //                 totalContractors: values.totalContractors,
+    //                 wasPurchased: values.businesspurchased,
+    //                 id: cookie.get("id"),
+    //                 borrowerId: cookie.get("loan_request_id"),
+    //             },
+    //             headers: headers,
+    //         }).then(
+    //             (response) => {
+    //                 if (response.data.isSuccess) {
+    //                     Router.push("/prequlaify_fi");
+    //                 } else {
+    //                     console.log(response);
+    //                 }
+    //             },
+    //             (error) => {
+    //                 console.log(error);
+    //             }
+    //         );
+    //     }
 
-    };
+    // };
 
-    useEffect(() => {
+    // useEffect(() => {
 
 
         //   const [datache, datachecked] = useState({});
@@ -274,34 +284,34 @@ export default function businessInformation() {
         // // let Partnershipcheck ="";
         // datachecked(datatest);
 
-        let url =
-            process.env.NEXT_PUBLIC_BASE_URL +
-            "/api/borrower/get-business-info/" +
-            cookie.get("loan_request_id");
-        axios({
-            method: "GET",
-            url: url,
-            headers: headers,
-        }).then(
-            (respo) => {
+        // let url =
+        //     process.env.NEXT_PUBLIC_BASE_URL +
+        //     "/api/borrower/get-business-info/" +
+        //     cookie.get("loan_request_id");
+        // axios({
+        //     method: "GET",
+        //     url: url,
+        //     headers: headers,
+        // }).then(
+        //     (respo) => {
 
-                if (respo.data.payload == null) {
-                    cookie.set("id", "", { expires: 5 / 24 });
-                    let dataempty = {
-                        legalEntity: "",
-                        stateOfOrganization: "",
-                        federalTaxId: "",
-                        startDate: "",
-                        industryDescription: "",
-                        typeOfProduct: "",
-                        totalEmployees: "",
-                        totalContractors: "",
-                        wasPurchased: "",
-                    }
-                    getConsumer(dataempty);
-                } else {
-                    cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-                    console.log(respo.data.payload);
+        //         if (respo.data.payload == null) {
+        //             cookie.set("id", "", { expires: 5 / 24 });
+        //             let dataempty = {
+        //                 legalEntity: "",
+        //                 stateOfOrganization: "",
+        //                 federalTaxId: "",
+        //                 startDate: "",
+        //                 industryDescription: "",
+        //                 typeOfProduct: "",
+        //                 totalEmployees: "",
+        //                 totalContractors: "",
+        //                 wasPurchased: "",
+        //             }
+        //             getConsumer(dataempty);
+        //         } else {
+        //             cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
+        //             console.log(respo.data.payload);
 
                     // let legalEntitypre;
                     // if (respo.data.payload.legalEntity == 0 ) {
@@ -320,14 +330,14 @@ export default function businessInformation() {
                     //   legalEntitypre = false;
                     // }
                     // console.log(respo.data.payload);
-                    getConsumer(respo.data.payload);
-                }
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    }, []);
+    //                 getConsumer(respo.data.payload);
+    //             }
+    //         },
+    //         (error) => {
+    //             console.log(error);
+    //         }
+    //     );
+    // }, []);
 
     function handleChange(event) {
         getConsumer(event.target.value);
