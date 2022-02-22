@@ -1,18 +1,21 @@
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
-import styled from 'styled-components';
+import styled,{ keyframes} from 'styled-components';
+import { flipInX } from 'react-animations';
+const flip = keyframes`${flipInX}`;
 const Wrapper = styled.div`
 max-width:1300px;
 width:100%;
 margin:0 auto;
-margin-top:80px;
+margin-top:30px;
 background: #FFFFFF;
 box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.08);
 border-radius: 8px;
 padding: 24px;
 display: flex;
 align-items: center;
+animation: 2s ${flip};
 
 justify-content:space-between;
 @media (max-width: 768px) {
@@ -102,10 +105,11 @@ color: #5C5C5C;
 
 `;
 
-export const LoanList = ({name,startedDate,applicationNumber,amount}) => {
+export const LoanList = ({name,startedDate,applicationNumber,amount=0}) => {
     const router = useRouter();
     return (
         <div>
+            
             <Wrapper>
                 <div className="content">
                 <ContentWrapper>
@@ -116,7 +120,7 @@ export const LoanList = ({name,startedDate,applicationNumber,amount}) => {
                    <LowerView>
                        <div
                        className="status"
-                       style={{backgroundColor:"red"}}
+                       style={{backgroundColor:"yellow"}}
                        ></div>
                        <span className="process">In process</span>
                        <img src="/images/Mask.svg"/>
@@ -126,15 +130,15 @@ export const LoanList = ({name,startedDate,applicationNumber,amount}) => {
                 <div className="content2">
                 <ContentWrapper>
                     <h3 className="title">Application Started</h3>
-                    <strong className="subtitle">6/1/2020</strong>
+                    <strong className="subtitle">{startedDate}</strong>
                 </ContentWrapper>
                 <ContentWrapper>
                     <h3 className="title">Application Number</h3>
-                    <strong className="subtitle">6/1/2020</strong>
+                    <strong className="subtitle">{applicationNumber}</strong>
                 </ContentWrapper>
                 <ContentWrapper>
                     <h3 className="title">Amount to borrow</h3>
-                    <strong className="subtitle">$1000</strong>
+                    <strong className="subtitle">${amount}</strong>
                 </ContentWrapper>
                 <ContentWrapper>
                     <Button onClick={()=>router.push("/loan-overview")}>View</Button>

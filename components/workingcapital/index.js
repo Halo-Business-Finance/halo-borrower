@@ -239,6 +239,7 @@ const WorkingCapitalForm = () => {
 				"nameOfBorrower": parsedData?.borrowerName,
 				"emailOfBorrower": parsedData?.email,
 				"phoneNumber": parsedData?.phoneNumber,
+				"amountToBeBorrowed":workingCapitalData?.termRequest,
 				"prequalifyAnswers": workingCapitalData,
 				"accepted": true
 			}

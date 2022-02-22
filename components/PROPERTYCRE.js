@@ -240,6 +240,7 @@ export default function PROPERTYCRE() {
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,
             "phoneNumber": parsedData?.phoneNumber,
+			"amountToBeBorrowed":formValues.amount,
 			"prequalifyAnswers": formValues,
 			"accepted": true
 		}

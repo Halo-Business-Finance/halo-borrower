@@ -15,11 +15,13 @@ import { useRouter } from 'next/router';
 import PrivateRoute from "../withPrivateRoute";
 import { AuthContext } from "../../utils/AuthContext";
 import Carousel from "react-multi-carousel";
-import {ArrowLeftOutlined} from '@ant-design/icons'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import { Button, Popconfirm, Spin } from "antd";
 import { API } from "../../utils/api";
 import { LoanList } from "../../components/Organism/LoanList";
+import moment from "moment";
+import { LoanCode } from "../../utils/code";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
 	max-width: 1250px;
@@ -320,7 +322,7 @@ align-items: center;
 const Form = () => {
 	const { register, handleSubmit } = useForm();
 	const [details, setDetails] = useState([]);
-	const [applicationList,setApplicationList]=useState([]);
+	const [applicationList, setApplicationList] = useState([]);
 	const [status, setStatus] = useState(0);
 	const router = useRouter();
 	const { authenticated } = useContext(AuthContext);
@@ -389,22 +391,23 @@ const Form = () => {
 		cookie.set("source", data.source, { expires: 1 / 24 });
 		Router.push("/registration");
 	};
-	
+	const [prequalifyData, setPrequalifyData] = useState([])
 
-	const FetchPrequaifyDataFromAPI=async()=>{
+	const FetchPrequaifyDataFromAPI = async () => {
 		try {
-		const response=	await API.get("/api/borrower/get-prequalify-request");
-		const data=await response?.data;
-		console.log(response,"as")
+			const response = await API.get("/api/borrower/get-prequalify-request");
+			const data = await response?.payload;
+			setPrequalifyData(data)
+			console.log(response, "as")
 		} catch (error) {
-			
+
 		}
 	}
 
-useEffect(() => {
-	FetchPrequaifyDataFromAPI();
+	useEffect(() => {
+		FetchPrequaifyDataFromAPI();
 
-},[])
+	}, [])
 
 
 	return (
@@ -414,11 +417,11 @@ useEffect(() => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			{!authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
-			{router.query.id &&<Popconfirm onConfirm={()=>window.location.assign('/test')} title="Once you back you need to start from the beginning. Are you sure you want to go back?">
+				{router.query.id && <Popconfirm onConfirm={() => window.location.assign('/test')} title="Once you back you need to start from the beginning. Are you sure you want to go back?">
 					<Button type="link" >
-<ArrowLeftOutlined /> Back to home
+						<ArrowLeftOutlined /> Back to home
 					</Button>
-					</Popconfirm>}
+				</Popconfirm>}
 				<form onSubmit={handleSubmit(onSubmitForm)} action="form2">
 					{status == "" && <div className="finance-list">
 						<p className="loan-step">Step 1</p>
@@ -584,10 +587,26 @@ useEffect(() => {
 					{status == 4 && <Franchaise />}
 					{status == 5 && <Factoring />}
 					{status == 6 && <WorkingCapitalForm />}
+					<br />
+					<br />
+					<br />
+					<div>
+						<h2>All Applications</h2>
+						{
 
-					<LoanList name="SBA Loan"/>
+							prequalifyData?.length > 0 && prequalifyData?.map((item, index) =>
 
-					{/* <div className="finance-list">
+								<LoanList
+									key={index}
+									startedDate={moment(item?.applicationStartedDate).format("YYYY/MM/DD hh:mm")}
+									amout={item?.amountToBeBorrowed}
+									applicationNumber={item?.applicationNumber}
+									name={LoanCode?.find((loan) => loan?.code == item?.loanTypes)?.name} />
+							)
+						}
+					</div>
+
+				{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
 						<h3 className="loan-head">How much do you want to borrow?</h3>
 						<p className="loan-describe">

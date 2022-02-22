@@ -272,6 +272,7 @@ export default function CRE() {
 			"nameOfBorrower": parsedData?.borrowerName,
 			"emailOfBorrower": parsedData?.email,
 			"phoneNumber": parsedData?.phoneNumber,
+			"amountToBeBorrowed":formValues.dollar,
 			"prequalifyAnswers": formValues,
 			"accepted": true
 		}

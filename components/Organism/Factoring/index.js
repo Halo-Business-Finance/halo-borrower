@@ -245,6 +245,7 @@ export const Factoring = () => {
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,
             "phoneNumber": parsedData?.phoneNumber,
+            "amountToBeBorrowed":formValues?.LoanAmountRequested,
             "prequalifyAnswers": formValues,
             "accepted": true
         }

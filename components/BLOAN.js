@@ -348,6 +348,7 @@ export default function BLOAN() {
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,
             "phoneNumber": parsedData?.phoneNumber,
+			"amountToBeBorrowed":bridgeLoanData.termRequest,
 			"prequalifyAnswers": bridgeLoanData,
 			"accepted": true
 		}
