@@ -590,7 +590,7 @@ const Form = () => {
 					<br />
 					<br />
 					<br />
-					<div>
+					{status==0 &&<div>
 						<h2>All Applications</h2>
 						{
 
@@ -604,7 +604,7 @@ const Form = () => {
 									name={LoanCode?.find((loan) => loan?.code == item?.loanTypes)?.name} />
 							)
 						}
-					</div>
+					</div>}
 
 				{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
