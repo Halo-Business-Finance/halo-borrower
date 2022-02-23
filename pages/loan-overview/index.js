@@ -4,8 +4,9 @@ import cookie from "js-cookie";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import NavMenu from "../../components/NavMenu";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { API } from '../../utils/api';
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
@@ -263,6 +264,10 @@ const Hero = styled.div`
 `;
 
 export default function informationindex() {
+
+  const router = useRouter();
+  const { id } = router.query;
+
   const {
     register,
     handleSubmit,
@@ -271,63 +276,50 @@ export default function informationindex() {
   const [details, setDetails] = useState([]);
   const [owners, setOwners] = useState([]);
 
-  const headersone = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer" + " " + cookie.get("access_token"),
-  };
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer" + " " + cookie.get("access_token"),
-  };
 
-  const urlone =
-    process.env.NEXT_PUBLIC_BASE_URL +
-    "api/borrower/get-loan-request/" +
-    cookie.get("loan_request_id");
+
+
 
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: urlone,
-      headers: headersone,
-    }).then(
-      (respo) => {
-        setDetails(respo.data.payload);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
+    fetchLoanOverview();
+  }, [id]);
 
-  const url =
-    process.env.NEXT_PUBLIC_BASE_URL +
-    "/api/borrower/get-owners/" +
-    cookie.get("loan_request_id");
+  const fetchLoanOverview = async () => {
+    try {
+      const response = await API.get(`api/borrower/get-loan-request/${router.query.id}`)
+      const data = await response.payload;
+      setDetails(data);
+      console.log(data);
+    } catch (error) {
 
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: url,
-      headers: headers,
-    }).then(
-      (response) => {
-        console.log(response.data.payload);
-        setOwners(response.data.payload);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
+    }
+  }
 
-  const onSubmitForm = async (values) => {
-    // console.log(values);
-    cookie.set("ownerId", values.ownerid, {
-      expires: 1 / 24,
-    });
-    router.push("/personalfinance_pi");
-  };
+
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "GET",
+  //     url: url,
+  //     headers: headers,
+  //   }).then(
+  //     (response) => {
+  //       console.log(response.data.payload);
+  //       setOwners(response.data.payload);
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }, []);
+
+  // const onSubmitForm = async (values) => {
+  //   // console.log(values);
+  //   cookie.set("ownerId", values.ownerid, {
+  //     expires: 1 / 24,
+  //   });
+  //   router.push("/personalfinance_pi");
+  // };
 
   return (
     <>
@@ -494,7 +486,7 @@ export default function informationindex() {
             </div>
           </div> */}
 
-          <div className="finance-list">
+          {/* <div className="finance-list">
             {owners.map((owner, ownerdetails) => {
               return (
                 <form onClick={handleSubmit(onSubmitForm)} key={owner.id}>
@@ -526,10 +518,11 @@ export default function informationindex() {
                 </form>
               );
             })}
-          </div>
+          </div> */}
 
         </div>
       </Hero>
     </>
   );
+
 }
