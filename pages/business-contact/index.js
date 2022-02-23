@@ -5,7 +5,6 @@ import axios from "axios";
 import Router, { useRouter } from "next/router";
 import cookie from "js-cookie";
 import { useEffect, useState } from "react";
-import Login from "../login";
 import NavMenu from "../../components/NavMenu";
 import { API } from "../../utils/api";
 import { notification } from "antd";
@@ -159,17 +158,15 @@ const Hero = styled.div`
 
 export default function Form({ data }) {
 	const router = useRouter();
-	const id = router.query.id
+	const id = router.query.id;
+	const [hasId, setHasID] = useState(null);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm({});
 
-	const headers = {
-		"Content-Type": "application/json",
-		Authorization: "Bearer" + " " + cookie.get("access_token"),
-	};
+
 
 	const addHandler = (data) => {
 		try {
@@ -193,7 +190,7 @@ export default function Form({ data }) {
 			zipCode: values.zipcode,
 			businessPhone: values.phone,
 			website: values.website,
-			borrowerId: id,
+			borrowerId: hasId,
 		}
 		addHandler(data)
 
@@ -204,7 +201,9 @@ export default function Form({ data }) {
 		if (id) {
 			try {
 				const response = await API.get(`/api/borrower/get-business-contact/${id}`);
-				console.log(response);
+				const data = response.payload;
+				setHasID(data?.id)
+
 			} catch (error) {
 
 			}
@@ -213,7 +212,7 @@ export default function Form({ data }) {
 	}
 	useEffect(() => {
 		fetchBussinessContactInformations();
-	}, []);
+	}, [id]);
 
 	function handleChange(event) {
 		getConsumer(event.target.value);
@@ -401,7 +400,7 @@ export default function Form({ data }) {
 					</section>
 
 					<div className="form-row-button">
-						<input onClick={() => router.push()} type="submit" id="button" value="Continue" />
+						<input type="submit" id="button" value="Continue" />
 					</div>
 				</form>
 			</Hero>
