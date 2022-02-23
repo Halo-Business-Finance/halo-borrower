@@ -191,17 +191,15 @@ export default function businessInformation() {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const id=router.query.id
 
     const [consumer, getConsumer] = useState({});
 
-    // const headers = {
-    //     "Content-Type": "application/json",
-    //     Authorization: "Bearer" + " " + cookie.get("access_token"),
-    // };
-    const addHandler = async (data) => {
+   
+    const addHandler = (data) => {
 		try {
-			await API.post("api/borrower/add-update-business-info", data)
-			Router.push("/financial-information")
+			// API.post("api/borrower/add-update-business-info", data)
+			Router.push({pathname:"/financial-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
