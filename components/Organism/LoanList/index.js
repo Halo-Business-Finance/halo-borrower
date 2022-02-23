@@ -105,7 +105,7 @@ color: #5C5C5C;
 
 `;
 
-export const LoanList = ({name,startedDate,applicationNumber,amount=0}) => {
+export const LoanList = ({name,startedDate,applicationNumber,amount=0,id}) => {
     const router = useRouter();
     return (
         <div>
@@ -141,7 +141,12 @@ export const LoanList = ({name,startedDate,applicationNumber,amount=0}) => {
                     <strong className="subtitle">${amount}</strong>
                 </ContentWrapper>
                 <ContentWrapper>
-                    <Button onClick={()=>router.push("/loan-overview")}>View</Button>
+                    <Button onClick={()=>router.push({
+                        pathname:'/loan-overview',
+                        query:{
+                            id:id
+                        }
+                    })}>View</Button>
                 </ContentWrapper>
                 </div>
 

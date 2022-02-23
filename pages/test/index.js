@@ -597,6 +597,7 @@ const Form = () => {
 							prequalifyData?.length > 0 && prequalifyData?.map((item, index) =>
 
 								<LoanList
+								id={item.loanRequestId}
 									key={index}
 									startedDate={moment(item?.applicationStartedDate).format("YYYY/MM/DD hh:mm")}
 									amout={item?.amountToBeBorrowed}
