@@ -192,7 +192,20 @@ export default function Form({ data }) {
 			website: values.website,
 			borrowerId: hasId,
 		}
-		addHandler(data)
+		const dataWithoutID = {
+
+			businessLegalName: values.businesslegalname,
+			dba: values.dba,
+			address: values.address,
+			suite: values.suite,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipcode,
+			businessPhone: values.phone,
+			website: values.website,
+			
+		}
+		addHandler(hasId==null?dataWithoutID:data)
 
 	}
 	const [consumer, getConsumer] = useState({});
