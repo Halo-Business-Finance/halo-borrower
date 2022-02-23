@@ -408,7 +408,12 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
-                <div className="button-step">
+                <div onClick={() => router.push({
+                  pathname: "/business-contact",
+                  query: {
+                    id: id
+                  }
+                })} className="button-step">
                   <a href="/business-contact">
                     <span>Next step</span>
                   </a>
