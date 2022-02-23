@@ -7,6 +7,7 @@ import axios from "axios";
 import cookie from "js-cookie";
 import NavMenu from "../../components/NavMenu";
 import { notification } from "antd";
+import { API } from "../../utils/api";
 
 
 const Hero = styled.div`
@@ -579,7 +580,7 @@ export default function businessInformation() {
                     </section>
 
                     <div className="form-row-button">
-                        <input onClick={() => router.push("/financial-information")} type="submit" id="button" value="Continue" />
+                        <input  type="submit" id="button" value="Continue" />
                     </div>
                 </form>
             </Hero>

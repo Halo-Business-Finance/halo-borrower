@@ -168,10 +168,10 @@ export default function Form({ data }) {
 
 
 
-	const addHandler = (data) => {
+	const addHandler = async(data) => {
 		try {
-			API.post("api/borrower/add-update-business-contact", data)
-			Router.push({pathname:"/business-information",query:{id:id}})
+		await	API.post("api/borrower/add-update-business-contact", data)
+			Router.push("/business-information")
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
@@ -190,9 +190,24 @@ export default function Form({ data }) {
 			zipCode: values.zipcode,
 			businessPhone: values.phone,
 			website: values.website,
-			borrowerId: hasId,
+			id: hasId,
+			loanRequestId:id
 		}
-		addHandler(data)
+		const dataWithoutID = {
+
+			businessLegalName: values.businesslegalname,
+			dba: values.dba,
+			address: values.address,
+			suite: values.suite,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipcode,
+			businessPhone: values.phone,
+			website: values.website,
+			loanRequestId:id
+			
+		}
+		addHandler(hasId==null?dataWithoutID:data)
 
 	}
 	const [consumer, getConsumer] = useState({});
@@ -202,6 +217,7 @@ export default function Form({ data }) {
 			try {
 				const response = await API.get(`/api/borrower/get-business-contact/${id}`);
 				const data = response.payload;
+				getConsumer(data)
 				setHasID(data?.id)
 
 			} catch (error) {
