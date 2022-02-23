@@ -417,7 +417,7 @@ export default function informationindex() {
                     id: id
                   }
                 })} className="button-step">
-                  <a href="/business-contact">
+                  <a >
                     <span>Next step</span>
                   </a>
                 </div>
