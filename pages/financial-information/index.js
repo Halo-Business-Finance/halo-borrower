@@ -133,8 +133,9 @@ export default function financialInformation() {
   } = useForm();
   const router = useRouter();
   const { id } = router.query
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState(1);
   const [consumer, getConsumer] = useState({});
+  const [hasId, setHasID] = useState(null)
 
   const radioHandler = (status) => {
     setStatus(status);
@@ -144,36 +145,89 @@ export default function financialInformation() {
   const addUpdateHandler = async (data) => {
     try {
       await API.post("/api/borrower/add-update-business-financials", data)
+      router.push({ pathname: "/owners",query:{id:id}})
     } catch (error) {
       notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
     }
   }
   const onSubmitForm = async (values) => {
-    console.log(values,"dakdkj")
-    const refactoredData=
+    
+    let refactoredData =
+    {
+
+      "annualRevenue": Number(values?.annual),
+      
+      "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
+      "ourstandingAdvancesLoanAmount": values?.advanceloan,
+      "useOfFunds": values?.funds,
+      "loanAmountRequested": values?.amount,
+      "typeOfProperty": "own",
+      "loanRequestId": id,
+
+
+    }
+    if (status == 2) {
+      refactoredData =
       {
-       
-        "annualRevenue": values?.annual,
-        // "dailyAverageBankBalance": values?.,
-        "outstandingLoanOrAdvance": values?.loans=="No"?false:true,
+
+        "annualRevenue": Number(values?.annual),
+        "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
         "ourstandingAdvancesLoanAmount": values?.advanceloan,
         "useOfFunds": values?.funds,
         "loanAmountRequested": values?.amount,
-        "typeOfProperty": "Own",
-        "loanRequestId": "00000000-0000-0000-0000-000000000000",
+        "typeOfProperty": "Mortgage",
+        "loanRequestId": id,
         "mortageInformation": {
-          "monthlyMoratge": 0
+          "monthlyMoratge": Number(values?.mortage)
         },
-        "rentInformation": {
-          "monthlyRent": 0,
-          "landlordName": "string",
-          "leaseStartDate": "2022-02-23T16:45:12.889Z",
-          "leaseEndDate": "2022-02-23T16:45:12.889Z"
+
+
+      }
+      if (status == 3) {
+        refactoredData =
+        {
+
+          "annualRevenue": Number(values?.annual),
+          "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
+          "ourstandingAdvancesLoanAmount": values?.advanceloan,
+          "useOfFunds": values?.funds,
+          "loanAmountRequested": values?.amount,
+          "typeOfProperty": "rent",
+          "loanRequestId": id,
+          "rentInformation": {
+            "monthlyRent": Number(values?.rent),
+            "landlordName": values?.landordName,
+            "leaseStartDate": values?.firstDate,
+            "leaseEndDate": values?.endDate
+          }
+
+
         }
-      
+        if (hasId !== null) {
+          refactoredData =
+          {
+            "id":hasId,
+            "annualRevenue": values?.annual,
+            "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
+            "ourstandingAdvancesLoanAmount": values?.advanceloan,
+            "useOfFunds": values?.funds,
+            "loanAmountRequested": values?.amount,
+            "typeOfProperty": "rent",
+            "loanRequestId": id,
+            "rentInformation": {
+              "monthlyRent": Number(values?.rent),
+              "landlordName": values?.landordName,
+              "leaseStartDate": values?.firstDate,
+              "leaseEndDate": values?.endDate
+            }
+          }
+        }
+
+      }
     }
-    addUpdateHandler(values)
+
+    addUpdateHandler(refactoredData)
     //   let olab = false;
     //   if (values.olab == "" || values.olab == "false") {
     //     olab = false;
@@ -268,8 +322,16 @@ export default function financialInformation() {
   const GetAllInformations = async () => {
     try {
       if (id) {
-        const response = await API.get(`/api/borrower/get-business-financials/${id}`)
-        console.log(response);
+        const response = await API.get(`/api/borrower/get-business-financials/${id}`);
+        const data =await response?.payload;
+        setHasID(data?.id)
+        setStatus(data?.typeOfProperty+1);
+        getConsumer({
+          ...data,
+          outstandingLoanOrAdvance:data?.outstandingLoanOrAdvance?"Yes":"No"
+          
+        })
+        
       }
 
     } catch (error) {
@@ -323,11 +385,12 @@ export default function financialInformation() {
     //     console.log(error);
     //   }
     // );
-  }, []);
+  }, [id]);
 
   function handleChange(event) {
     getConsumer(event.target.value);
   }
+  console.log(consumer)
 
   return (
     <>
@@ -356,7 +419,7 @@ export default function financialInformation() {
                   type="number"
                   autoComplete="fname"
                   placeholder="Enter Annual Business Revenue"
-                  defaultValue={consumer.annualRevenuw}
+                  defaultValue={consumer.annualRevenue}
                   {...register("annual")}
                 />
               </div>
@@ -372,7 +435,8 @@ export default function financialInformation() {
                     <input
                       type="radio"
                       name="olab"
-                      value="Yes"
+                      value={"Yes"}
+                      checked={consumer.outstandingLoanOrAdvance=="Yes"}
                       defaultValue={consumer.outstandingLoanOrAdvance}
                       {...register("loans")}
                     />
@@ -384,6 +448,7 @@ export default function financialInformation() {
                       type="radio"
                       name="olab"
                       value="No"
+                      checked={consumer.outstandingLoanOrAdvance=="No"}
                       defaultValue={consumer.outstandingLoanOrAdvance}
                       {...register("loans")}
                     />
@@ -401,6 +466,7 @@ export default function financialInformation() {
                   type="number"
                   autoComplete="fdba"
                   placeholder="Enter Outstanding Loan/Advance Balance"
+                  
                   defaultValue={consumer.ourstandingAdvancesLoanAmount}
                   {...register("advanceloan")}
                 />
@@ -455,7 +521,8 @@ export default function financialInformation() {
                     type="radio"
                     name="radio"
                     className="own-click"
-                    value="0"
+                    value={1}
+                    checked={status==1}
                     defaultChecked={status === 1}
                     onClick={(e) => radioHandler(1)}
                   />
@@ -467,7 +534,8 @@ export default function financialInformation() {
                     type="radio"
                     name="radio"
                     className="mortgage-click"
-                    value="1"
+                    value={2}
+                    checked={status==2}
                     defaultChecked={status === 2}
                     onClick={(e) => radioHandler(2)}
                   />
@@ -479,9 +547,10 @@ export default function financialInformation() {
                     type="radio"
                     name="radio"
                     className="rent-click"
-                    value="2"
+                    value={3}
+                    checked={status==3}
                     defaultChecked={status === 3}
-                    onClick={(e) => radioHandler(3)}
+                    onChange={(e) => radioHandler(3)}
                   />
                   <label>Rent</label>
                 </div>
@@ -578,7 +647,7 @@ export default function financialInformation() {
           </section>
 
           <div className="form-row-button">
-            <input  type="submit" id="button" value="Continue" />
+            <input type="submit" id="button" value="Continue" />
           </div>
         </form>
       </Hero>
