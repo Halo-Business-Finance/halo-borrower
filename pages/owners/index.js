@@ -6,6 +6,7 @@ import axios from "axios";
 import cookie from "js-cookie";
 import Router from "next/router";
 import NavMenu from "../../components/NavMenu";
+import { notification } from "antd";
 
 const Hero = styled.div`
 	display: flex;
@@ -242,11 +243,19 @@ const Hero = styled.div`
 
 export default function Form() {
 	const {
-	
+		register,
 		handleSubmit,
 		formState: { errors },
 	  } = useForm();
-	
+
+	  const addHandler = (data) => {
+		try {
+			API.post("api/borrower/add-update-owners", data)
+			Router.push({pathname:"/financial-information",query:{id:id}})
+		} catch (error) {
+			notification.error({ message: 'Error Occured', description: error?.data?.reason })
+		}
+	}
 	// const [inputList, setInputList] = useState([{ fullname: "",
 	// dateofbirth: "",
 	// homeaddress: "",

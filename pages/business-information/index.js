@@ -191,14 +191,13 @@ export default function businessInformation() {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const id=router.query.id
 
     const [consumer, getConsumer] = useState({});
 
    
     const addHandler = (data) => {
 		try {
-			// API.post("api/borrower/add-update-business-info", data)
+			API.post("api/borrower/add-update-business-info", data)
 			Router.push({pathname:"/financial-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -220,15 +219,29 @@ export default function businessInformation() {
                     totalEmployees: values.totalEmployees,
                     totalContractors: values.totalContractors,
                     wasPurchased: values.businesspurchased,
-                    borrowerId: cookie.get("loan_request_id"),
+                    id: hasId,
+                    loanRequestId:id
                 }
-                addHandler(data)
+                const dataWithoutID = {
+                    legalEntity: values.binfo,
+                    stateOfOrganization: values.organization,
+                    federalTaxId: values.federal,
+                    startDate: values.date,
+                    industryDescription: values.industry,
+                    typeOfProduct: values.product,
+                    totalEmployees: values.totalEmployees,
+                    totalContractors: values.totalContractors,
+                    wasPurchased: values.businesspurchased,
+                    loanRequestId:id
+                }
+                addHandler(hasId==null?dataWithoutID:data)
             }
             const fetchBussinessInformation = async () => {
                 if (id) {
                     try {
                         const response = await API.get(`/api/borrower/get-business-info/${id}`);
                         const data = response.payload;
+                        getConsumer(data)
                         setHasID(data?.id)
         
                     } catch (error) {
@@ -388,18 +401,25 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="CCorp"
+                                        defaultValue={consumer.legalEntity}
+                                        checked={consumer.legalEntity==1}
                                         // defaultChecked = {datache.CCorpprecheck}
                                         {...register("binfo")}
+                                        
                                     />
+                                
 
                                     <label>C- Corp</label>
                                 </div>
+                                
 
                                 <div className="radio-container">
                                     <input
                                         type="radio"
                                         name="binfo"
                                         value="SoleProp"
+                                        checked={consumer.legalEntity==2}
+                                        defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
                                     <label>Sole-Prop</label>
@@ -410,6 +430,8 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="LLC"
+                                        checked={consumer.legalEntity==3}
+                                        defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
                                     <label>LLC</label>
@@ -420,6 +442,8 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="Partnership"
+                                        checked={consumer.legalEntity==4}
+                                        defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
                                     <label>Partnership</label>
@@ -436,10 +460,10 @@ export default function businessInformation() {
                                     id="address"
                                     className="textbox"
                                     type="text"
-                                    autoComplete="stateoforganization"
+                                    autoComplete="organization"
                                     placeholder="Enter State of Organization"
                                     defaultValue={consumer.stateOfOrganization}
-                                    {...register("stateoforganization", {
+                                    {...register("organization", {
                                         required: "Required",
                                     })}
                                 />
@@ -556,8 +580,9 @@ export default function businessInformation() {
                                             type="radio"
                                             name="business"
                                             value="Yes"
-                                            defaultChecked={consumer.wasPurchased}
-                                            {...register("business")}
+                                            checked={consumer.wasPurchased==true}
+                                            // defaultChecked={consumer.wasPurchased}
+                                            {...register("businesspurchased")}
                                         />
                                         <label>Yes</label>
                                     </div>
@@ -567,8 +592,9 @@ export default function businessInformation() {
                                             type="radio"
                                             name="business"
                                             value="No"
-                                            defaultChecked={consumer.wasPurchased}
-                                            {...register("business")}
+                                            checked={consumer.wasPurchased==false}
+                                            // defaultChecked={consumer.wasPurchased}
+                                            {...register("businesspurchased")}
                                         />
                                         <label>No</label>
                                     </div>
