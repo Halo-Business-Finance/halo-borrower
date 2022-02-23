@@ -151,6 +151,28 @@ export default function financialInformation() {
   }
   const onSubmitForm = async (values) => {
     console.log(values,"dakdkj")
+    const refactoredData=
+      {
+       
+        "annualRevenue": values?.annual,
+        // "dailyAverageBankBalance": values?.,
+        "outstandingLoanOrAdvance": values?.loans=="No"?false:true,
+        "ourstandingAdvancesLoanAmount": values?.advanceloan,
+        "useOfFunds": values?.funds,
+        "loanAmountRequested": values?.amount,
+        "typeOfProperty": "Own",
+        "loanRequestId": "00000000-0000-0000-0000-000000000000",
+        "mortageInformation": {
+          "monthlyMoratge": 0
+        },
+        "rentInformation": {
+          "monthlyRent": 0,
+          "landlordName": "string",
+          "leaseStartDate": "2022-02-23T16:45:12.889Z",
+          "leaseEndDate": "2022-02-23T16:45:12.889Z"
+        }
+      
+    }
     addUpdateHandler(values)
     //   let olab = false;
     //   if (values.olab == "" || values.olab == "false") {
