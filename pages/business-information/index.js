@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import cookie from "js-cookie";
 import NavMenu from "../../components/NavMenu";
+import { notification } from "antd";
 
 
 const Hero = styled.div`
@@ -196,9 +197,9 @@ export default function businessInformation() {
     //     "Content-Type": "application/json",
     //     Authorization: "Bearer" + " " + cookie.get("access_token"),
     // };
-    const addHandler = (data) => {
+    const addHandler = async (data) => {
 		try {
-			API.post("api/borrower/add-update-business-info", data)
+			await API.post("api/borrower/add-update-business-info", data)
 			Router.push("/financial-information")
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -436,10 +437,10 @@ export default function businessInformation() {
                                     id="address"
                                     className="textbox"
                                     type="text"
-                                    autoComplete="fsoo"
+                                    autoComplete="stateoforganization"
                                     placeholder="Enter State of Organization"
                                     defaultValue={consumer.stateOfOrganization}
-                                    {...register("organization", {
+                                    {...register("stateoforganization", {
                                         required: "Required",
                                     })}
                                 />

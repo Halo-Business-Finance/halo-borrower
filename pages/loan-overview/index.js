@@ -7,6 +7,8 @@ import NavMenu from "../../components/NavMenu";
 import router, { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { API } from '../../utils/api';
+import moment from "moment";
+import {LoanCode} from '../../utils/code'
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
@@ -273,7 +275,7 @@ export default function informationindex() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [details, setDetails] = useState([]);
+  const [details, setDetails] = useState();
   const [owners, setOwners] = useState([]);
   
 
@@ -287,13 +289,14 @@ export default function informationindex() {
   const fetchLoanOverview = async () => {
     try {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
-      const data = await response.payload;
-      setDetails(data);
-      console.log(data,'ln');
+      
+      setDetails(await response.payload);
+      console.log(data);
     } catch (error) {
 
     }
   }
+  console.log(details,"d")
 
 
 
@@ -356,7 +359,7 @@ export default function informationindex() {
           <div className="top-heading">
             <div>
               <span className="dot"></span>
-              <span className="inprogress">{details.loanRequestStatus}</span>
+              <span className="inprogress">{details?.loanRequestStatus}</span>
               <p>Your application in review by lender.</p>
             </div>
 
@@ -365,8 +368,8 @@ export default function informationindex() {
                 <img src="/images/SBA7ALoan.png" className="sba-image" />
 
                 <div className="sba-details">
-                  <p className="sba-detail-title">{details.loanTypeName}</p>
-                  <p className="sba-detail-amount">$ {details.amount} </p>
+                  <p className="sba-detail-title">{LoanCode?.find((loan) => loan?.code == details?.loanTypes)?.name}</p>
+                  <p className="sba-detail-amount">$ {details?.amountToBeBorrowed} </p>
                 </div>
               </div>
 
@@ -376,7 +379,7 @@ export default function informationindex() {
                     Application Started
                   </span>
                   <p className="application-detail-details">
-                    {details.applicationStarted}
+                    {moment(details?.applicationStartedDate).format("YYYY-MM-DD")}
                   </p>
                 </div>
 
@@ -385,7 +388,7 @@ export default function informationindex() {
                     Application Number
                   </span>
                   <p className="application-detail-details">
-                    {details.applicationNumber}
+                    {details?.applicationNumber}
                   </p>
                 </div>
               </div>
