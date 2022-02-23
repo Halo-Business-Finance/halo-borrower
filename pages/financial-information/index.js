@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import cookie from "js-cookie";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import NavMenu from "../../components/NavMenu";
 import { API } from "../../utils/api";
 import { notification } from "antd";
@@ -131,7 +131,8 @@ export default function financialInformation() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const router = useRouter();
+  const { id } = router.query
   const [status, setStatus] = useState(0);
   const [consumer, getConsumer] = useState({});
 
@@ -139,10 +140,7 @@ export default function financialInformation() {
     setStatus(status);
   };
 
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Bearer" + " " + cookie.get("access_token"),
-  };
+
   const addUpdateHandler = async (data) => {
     try {
       await API.post("/api/borrower/add-update-business-financials", data)
@@ -152,6 +150,7 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
+    console.log(values,"dakdkj")
     addUpdateHandler(values)
     //   let olab = false;
     //   if (values.olab == "" || values.olab == "false") {
@@ -246,11 +245,11 @@ export default function financialInformation() {
 
   const GetAllInformations = async () => {
     try {
-      if (id){
+      if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`)
         console.log(response);
       }
-   
+
     } catch (error) {
       notification.error({ message: 'Error Occured', description: error?.data?.reason })
     }
@@ -557,7 +556,7 @@ export default function financialInformation() {
           </section>
 
           <div className="form-row-button">
-            <input onClick={() => Router.push("/owners")} type="submit" id="button" value="Continue" />
+            <input  type="submit" id="button" value="Continue" />
           </div>
         </form>
       </Hero>

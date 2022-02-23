@@ -187,17 +187,15 @@ export default function businessInformation() {
         handleSubmit,
         formState: { errors },
     } = useForm();
+    const id=router.query.id
 
     const [consumer, getConsumer] = useState({});
 
-    const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer" + " " + cookie.get("access_token"),
-    };
+   
     const addHandler = (data) => {
 		try {
-			API.post("api/borrower/add-update-business-info", data)
-			Router.push("/financial-information")
+			// API.post("api/borrower/add-update-business-info", data)
+			Router.push({pathname:"/financial-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
@@ -560,7 +558,7 @@ export default function businessInformation() {
                     </section>
 
                     <div className="form-row-button">
-                        <input onClick={() => router.push("/financial-information")} type="submit" id="button" value="Continue" />
+                        <input  type="submit" id="button" value="Continue" />
                     </div>
                 </form>
             </Hero>
