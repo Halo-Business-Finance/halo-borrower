@@ -182,6 +182,8 @@ const Hero = styled.div`
 
 export default function businessInformation() {
     const router = useRouter();
+    const id = router.query.id;
+	const [hasId, setHasID] = useState(null);
     const {
         register,
         handleSubmit,
@@ -190,10 +192,10 @@ export default function businessInformation() {
 
     const [consumer, getConsumer] = useState({});
 
-    const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer" + " " + cookie.get("access_token"),
-    };
+    // const headers = {
+    //     "Content-Type": "application/json",
+    //     Authorization: "Bearer" + " " + cookie.get("access_token"),
+    // };
     const addHandler = (data) => {
 		try {
 			API.post("api/borrower/add-update-business-info", data)
@@ -221,6 +223,26 @@ export default function businessInformation() {
                     borrowerId: cookie.get("loan_request_id"),
                 }
                 addHandler(data)
+            }
+            const fetchBussinessInformation = async () => {
+                if (id) {
+                    try {
+                        const response = await API.get(`/api/borrower/get-business-info/${id}`);
+                        const data = response.payload;
+                        setHasID(data?.id)
+        
+                    } catch (error) {
+        
+                    }
+        
+                }
+            }
+            useEffect(() => {
+                fetchBussinessInformation();
+            }, [id]);
+        
+            function handleChange(event) {
+                getConsumer(event.target.value);
             }
     //             headers: headers,
     //         }).then(
@@ -338,10 +360,6 @@ export default function businessInformation() {
     //         }
     //     );
     // }, []);
-
-    function handleChange(event) {
-        getConsumer(event.target.value);
-    }
 
     return (
         <>
