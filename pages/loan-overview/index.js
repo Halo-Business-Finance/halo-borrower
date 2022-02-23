@@ -275,7 +275,7 @@ export default function informationindex() {
   } = useForm();
   const [details, setDetails] = useState([]);
   const [owners, setOwners] = useState([]);
-
+  
 
 
 
@@ -286,10 +286,10 @@ export default function informationindex() {
 
   const fetchLoanOverview = async () => {
     try {
-      const response = await API.get(`api/borrower/get-loan-request/${router.query.id}`)
+      const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
       const data = await response.payload;
       setDetails(data);
-      console.log(data);
+      console.log(data,'ln');
     } catch (error) {
 
     }
