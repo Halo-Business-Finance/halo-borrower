@@ -152,16 +152,17 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
-    
+    console.log(values,"val")
+    console.log(status)
     let refactoredData =
     {
 
-      "annualRevenue": Number(values?.annual),
+      "annualrevenueRevenue": Number(values?.annualrevenue),
       
-      "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
-      "ourstandingAdvancesLoanAmount": values?.advanceloan,
-      "useOfFunds": values?.funds,
-      "loanAmountRequested": values?.amount,
+      "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+      "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+      "useOfFunds": values?.useoffunds,
+      "loanAmountRequested": values?.loanamountrequested,
       "typeOfProperty": "own",
       "loanRequestId": id,
 
@@ -171,11 +172,11 @@ export default function financialInformation() {
       refactoredData =
       {
 
-        "annualRevenue": Number(values?.annual),
-        "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
-        "ourstandingAdvancesLoanAmount": values?.advanceloan,
-        "useOfFunds": values?.funds,
-        "loanAmountRequested": values?.amount,
+        "annualrevenueRevenue": Number(values?.annualrevenue),
+        "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+        "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": values?.useoffunds,
+        "loanAmountRequested": values?.loanamountrequested,
         "typeOfProperty": "Mortgage",
         "loanRequestId": id,
         "mortageInformation": {
@@ -184,15 +185,17 @@ export default function financialInformation() {
 
 
       }
+     
       if (status == 3) {
+        console.log("data")
         refactoredData =
         {
 
-          "annualRevenue": Number(values?.annual),
-          "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
-          "ourstandingAdvancesLoanAmount": values?.advanceloan,
-          "useOfFunds": values?.funds,
-          "loanAmountRequested": values?.amount,
+          "annualrevenueRevenue": Number(values?.annualrevenue),
+          "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+          "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+          "useOfFunds": values?.useoffunds,
+          "loanAmountRequested": values?.loanamountrequested,
           "typeOfProperty": "rent",
           "loanRequestId": id,
           "rentInformation": {
@@ -208,11 +211,11 @@ export default function financialInformation() {
           refactoredData =
           {
             "id":hasId,
-            "annualRevenue": values?.annual,
-            "outstandingLoanOrAdvance": values?.loans == "No" ? false : true,
-            "ourstandingAdvancesLoanAmount": values?.advanceloan,
-            "useOfFunds": values?.funds,
-            "loanAmountRequested": values?.amount,
+            "annualrevenueRevenue": values?.annualrevenue,
+            "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+            "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+            "useOfFunds": values?.useoffunds,
+            "loanAmountRequested": values?.loanamountrequested,
             "typeOfProperty": "rent",
             "loanRequestId": id,
             "rentInformation": {
@@ -243,14 +246,14 @@ export default function financialInformation() {
     //         "",
     //       headers: headers,
     //       data: {
-    //         annualRevenuw: values.annual,
+    //         annualrevenueRevenuw: values.annualrevenue,
     //         // monthlyPayrollExpenses: values.payroll,
     //         // monthlyBusinessExpenses: values.expenses,
     //         // dailyAverageBankBalance: values.dailybalance,
     //         outstandingLoanOrAdvance: true,
-    //         ourstandingAdvancesLoanAmount: values.advanceloan,
-    //         useOfFunds: values.funds,
-    //         loanAmountRequested: values.amount,
+    //         ourstandingAdvancesLoanAmount: values.outstandingloanoradvance,
+    //         useOfFunds: values.useoffunds,
+    //         loanAmountRequested: values.loanamountrequested,
     //         typeOfProperty: values.Own,
     //         borrowerId: cookie.get("loan_request_id"),
     //         mortageInformation: {
@@ -283,14 +286,14 @@ export default function financialInformation() {
     //         "/api/borrower/add-update-business-financials",
     //       headers: headers,
     //       data: {
-    //         annualRevenuw: values.annual,
+    //         annualrevenueRevenuw: values.annualrevenue,
     //         // monthlyPayrollExpenses: values.payroll,
     //         // monthlyBusinessExpenses: values.expenses,
     //         // dailyAverageBankBalance: values.dailybalance,
     //         outstandingLoanOrAdvance: true,
-    //         ourstandingAdvancesLoanAmount: values.advanceloan,
-    //         useOfFunds: values.funds,
-    //         loanAmountRequested: values.amount,
+    //         ourstandingAdvancesLoanAmount: values.outstandingloanoradvance,
+    //         useOfFunds: values.useoffunds,
+    //         loanAmountRequested: values.loanamountrequested,
     //         typeOfProperty: values.Own,
     //         id: cookie.get("id"),
     //         borrowerId: cookie.get("loan_request_id"),
@@ -327,8 +330,7 @@ export default function financialInformation() {
         setHasID(data?.id)
         setStatus(data?.typeOfProperty+1);
         getConsumer({
-          ...data,
-          outstandingLoanOrAdvance:data?.outstandingLoanOrAdvance?"Yes":"No"
+         ...data
           
         })
         
@@ -355,7 +357,7 @@ export default function financialInformation() {
     //     if (respo.data.payload == null) {
     //       cookie.set("id", "", { expires: 5 / 24 });
     //       let dataempty = {
-    //         annualRevenuw: "",
+    //         annualrevenueRevenuw: "",
     //         monthlyPayrollExpenses: "",
     //         monthlyBusinessExpenses: "",
     //         dailyAverageBankBalance: "",
@@ -412,15 +414,15 @@ export default function financialInformation() {
             <div className="form-row form-gap">
               <div className="form-group">
                 <label htmlFor="fname" className="formlabel ">
-                  Annual Business Revenue
+                  AnnualRevenue Business Revenue
                 </label>
                 <input
                   className="textbox"
                   type="number"
                   autoComplete="fname"
-                  placeholder="Enter Annual Business Revenue"
+                  placeholder="Enter AnnualRevenue Business Revenue"
                   defaultValue={consumer.annualRevenue}
-                  {...register("annual")}
+                  {...register("annualrevenue")}
                 />
               </div>
             </div>
@@ -428,7 +430,7 @@ export default function financialInformation() {
             <div className="form-row-one form-gap">
               <div className="form-group form-name">
                 <label htmlFor="ffti" className="formlabel">
-                  Do you have any outstanding loans or advances?
+                  Do you have any outstanding outstandingloanoradvance or advances?
                 </label>
                 <div className="radio-two">
                   <div className="radio-container">
@@ -436,9 +438,9 @@ export default function financialInformation() {
                       type="radio"
                       name="olab"
                       value={"Yes"}
-                      checked={consumer.outstandingLoanOrAdvance=="Yes"}
-                      defaultValue={consumer.outstandingLoanOrAdvance}
-                      {...register("loans")}
+                      checked={consumer.loanAmountRequested}
+                      defaultValue={consumer.loanAmountRequested}
+                      {...register("outstandingloanoradvance")}
                     />
                     <label>Yes</label>
                   </div>
@@ -448,9 +450,9 @@ export default function financialInformation() {
                       type="radio"
                       name="olab"
                       value="No"
-                      checked={consumer.outstandingLoanOrAdvance=="No"}
-                      defaultValue={consumer.outstandingLoanOrAdvance}
-                      {...register("loans")}
+                      checked={!consumer.loanAmountRequested}
+                      defaultValue={consumer.loanAmountRequested}
+                      {...register("outstandingloanoradvance")}
                     />
                     <label>No</label>
                   </div>
@@ -468,7 +470,7 @@ export default function financialInformation() {
                   placeholder="Enter Outstanding Loan/Advance Balance"
                   
                   defaultValue={consumer.ourstandingAdvancesLoanAmount}
-                  {...register("advanceloan")}
+                  {...register("outstandingloanoradvance")}
                 />
               </div>
             </div>
@@ -484,7 +486,7 @@ export default function financialInformation() {
                   autoComplete="fname"
                   placeholder="Enter Use of Funds"
                   defaultValue={consumer.useOfFunds}
-                  {...register("funds", {
+                  {...register("useoffunds", {
                     required: "Required",
                   })}
                   required
@@ -500,7 +502,7 @@ export default function financialInformation() {
                   autoComplete="fdba"
                   placeholder="Enter Loan Amount Requested"
                   defaultValue={consumer.loanAmountRequested}
-                  {...register("amount", {
+                  {...register("loanamountrequested", {
                     required: "Required",
                   })}
                   required
