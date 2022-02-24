@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from "axios";
 import cookie from "js-cookie";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import NavMenu from "../../components/NavMenu";
 import { notification } from "antd";
+import { API } from "../../utils/api";
 
 const Hero = styled.div`
 	display: flex;
@@ -242,31 +243,23 @@ const Hero = styled.div`
 `;
 
 export default function Form() {
+	const router = useRouter();
+	const id = router.query.id;
+	const [hasId, setHasID] = useState(null);
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	  } = useForm();
 
-	  const addHandler = (data) => {
+	  const addHandler = async(data) => {
 		try {
-			API.post("api/borrower/add-update-owners", data)
+			await API.post("api/borrower/add-update-owners", data)
 			// Router.push({pathname:"/financial-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
 	}
-	// const [inputList, setInputList] = useState([{ fullname: "",
-	// dateofbirth: "",
-	// homeaddress: "",
-	// city: "",
-	// state: "",
-	// zipcode: "",
-	// socialsecuritynumber: "",
-	// email: "",
-	// mobile: "",
-	// ownership: "",
-	// personaldata: "", }]);
 
 	const [inputList, setInputList] = useState([]);
 
@@ -287,110 +280,117 @@ export default function Form() {
   
 	// handle click event of the Add button
 	const handleAddClick = () => {
-	  setInputList([...inputList, { fullname: "",
+	  setInputList([...inputList, { 
+		
+	 loanRequestId: id,
+	  fullname: "",
 	  dateofbirth: "",
 	  homeaddress: "",
 	  city: "",
 	  state: "",
 	  zipcode: "",
-	  socialsecuritynumber: "",
+	  ssn: "",
 	  email: "",
-	  mobile: "",
-	  ownership: "",
-	  personaldata: "",}]);
+	  phoneNumber: "",
+	  ownershipPercentage: "",
+	  typeOfResident: "",}]);
 	};
-	console.log(setInputList,'st')
-	let a= 1;
+	console.log(inputList,'st')
 
-	const headers = {
-		"Content-Type": "application/json",
-		Authorization: "Bearer" + " " + cookie.get("access_token"),
-	  };
 
 	const onSubmitForm = async (values) => {
 		console.log(values);
-		const headers = {
-			"Content-Type": "application/json",
-			Authorization: "Bearer" + " " + cookie.get("access_token"),
-		};
-
-		const ownerdata = [
-			{
-				id: cookie.get("id"),
-				borrowerId: cookie.get("loan_request_id"),
-				fullName: values.fullname,
-				dateOfBirth: values.dateofbirth,
-				homeAddress: values.homeaddress,
-				city: values.city,
-				state: values.state,
-				zipCode: values.zipcode,
-				ssn: values.socialsecuritynumber,
-				email: values.email,
-				phoneNumber: values.mobile,
-				ownershipPercentage: values.ownership,
-				typeOfResident: values.personaldata,
+     
+	 const refactoredData = inputList.map((value,index) => (
+		{
+				
+			fullName: values.fullname,
+			dateOfBirth: values.dateofbirth,
+			homeAddress: values.homeaddress,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipcode,
+			ssn: values.socialsecuritynumber,
+			email: values.email,
+			phoneNumber: values.mobile,
+			ownershipPercentage: values.ownership,
+			typeOfResident: values.personaldata,
+			id: hasId,
+			loanRequestId:id,
+		}
+	 ))
+	 const refactoredDataWithoutID = inputList.map((value,index) => (
+		{
+					
+			fullName: values.fullname,
+			dateOfBirth: values.dateofbirth,
+			homeAddress: values.homeaddress,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipcode,
+			ssn: values.socialsecuritynumber,
+			email: values.email,
+			phoneNumber: values.mobile,
+			ownershipPercentage: values.ownership,
+			typeOfResident: values.personaldata,
+			loanRequestId:id
+		}
+	 ))
+		// const  data = 
+		// 	{
+				
+		// 		fullName: values.fullname,
+		// 		dateOfBirth: values.dateofbirth,
+		// 		homeAddress: values.homeaddress,
+		// 		city: values.city,
+		// 		state: values.state,
+		// 		zipCode: values.zipcode,
+		// 		ssn: values.socialsecuritynumber,
+		// 		email: values.email,
+		// 		phoneNumber: values.mobile,
+		// 		ownershipPercentage: values.ownership,
+		// 		typeOfResident: values.personaldata,
+		// 		id: hasId,
+		// 	    loanRequestId:id,
+		// 	}
+			// const dataWithoutID = 
+			// 	{
+					
+			// 		fullName: values.fullname,
+			// 		dateOfBirth: values.dateofbirth,
+			// 		homeAddress: values.homeaddress,
+			// 		city: values.city,
+			// 		state: values.state,
+			// 		zipCode: values.zipcode,
+			// 		ssn: values.socialsecuritynumber,
+			// 		email: values.email,
+			// 		phoneNumber: values.mobile,
+			// 		ownershipPercentage: values.ownership,
+			// 		typeOfResident: values.personaldata,
+			// 		loanRequestId:id
+			// 	}
+				addHandler(hasId==null?refactoredDataWithoutID:refactoredData)
+				
 			}
-			
-		];
-
-		axios({
-			method: "post",
-			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-owners",
-			headers: headers,
-			data: ownerdata,
-		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					console.log(response.data.isSuccess);
-					// Router.push("/prequlaify_ba");
-				} else {
-					console.log(response);
+			const fetchOwnerInformations = async () => {
+				if (id) {
+					try {
+						const response = await API.get(`/api/borrower/get-owners/${id}`);
+						const data = response.payload;
+						setInputList(data)
+						setHasID(data?.id)
+		
+					} catch (error) {
+		
+					}
+		
 				}
-			},
-			(error) => {
-				console.log(error);
 			}
-		);
-	};
-	
-	useEffect(() => {
-		  let url =
-			process.env.NEXT_PUBLIC_BASE_URL +
-			"/api/borrower/get-owners/" +
-			cookie.get("loan_request_id");
-		  axios({
-			method: "GET",
-			url: url,
-			headers: headers,
-		  }).then(
-			(respo) => {
-	  
-			  if(respo.data.payload == null){
-						cookie.set("id","", { expires: 5 / 24 });
-				let dataempty = {
-						  legalEntity: "",
-				stateOfOrganization: "",
-				federalTaxId: "",
-				startDate: "",
-				industryDescription: "",
-				typeOfProduct:"",
-				totalEmployees: "",
-				totalContractors: "",
-				wasPurchased: "",
-						  }
-						  getConsumer(dataempty);
-			  }else{
-						cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-				console.log(respo.data.payload);
-				setInputList(respo.data.payload);
-			  }
-			},
-			(error) => {
-			  console.log(error);
-			}
-		  );
-		}, []);
-
+			useEffect(() => {
+				fetchOwnerInformations();
+			}, [id]);
+		
+			
 	return (
 		<>
 			<Head>
@@ -408,7 +408,7 @@ export default function Form() {
 								<br /><br />
 								<div className="form-head">
 									<h2 className="heading">
-										Owner {a }
+										{/* Owner {a } */}
 										
 										{inputList.length !== 1 && <img
 											src={"/images/trash.png"}
@@ -437,7 +437,7 @@ export default function Form() {
 											className="textbox"
 											type="text"
 											placeholder="John"
-											defaultValue={x.fullName}
+											defaultValue={x.fullname}
 											onChange={e => handleInputChange(e, i)}
 										/>
 									</div>
@@ -469,7 +469,7 @@ export default function Form() {
 												className="textbox"
 												type="text"
 												placeholder="Enter Address"
-												defaultValue={x.homeAddress}
+												defaultValue={x.homeaddress}
 												onChange={e => handleInputChange(e, i)}
 											/>
 									</div>
@@ -498,7 +498,7 @@ export default function Form() {
 											name="state"
 											className="textbox"
 											type="text"
-											placeholder="Select State"
+											placeholder="Select state"
 											defaultValue={x.state}
 											onChange={e => handleInputChange(e, i)}
 										/>
@@ -512,7 +512,7 @@ export default function Form() {
 											className="textbox"
 											type="number"
 											placeholder="Enter Zip Code"
-											defaultValue={x.zipCode}
+											defaultValue={x.zipcode}
 											onChange={e => handleInputChange(e, i)}
 										/>
 									</div>
@@ -522,7 +522,7 @@ export default function Form() {
 										</label>
 										<input
 
-											name="socialsecuritynumber"
+											name="ssn"
 											className="textbox"
 											type="number"
 											placeholder="Social Security Number"
@@ -552,7 +552,7 @@ export default function Form() {
 										</label>
 										<input
 
-											name="mobile"
+											name="phoneNumber"
 											className="textbox"
 											type="mobile"
 											placeholder="(XXX)-(XXX)-(XXXX)"
@@ -569,7 +569,7 @@ export default function Form() {
 										</label>
 										<input
 
-											name="ownership"
+											name="ownershipPercentage"
 											className="textbox"
 											type="text"
 											placeholder="Enter percent of ownership"
@@ -587,7 +587,7 @@ export default function Form() {
 										<div className="radio-container">
 											<input
 
-												name="personaldata"
+												name="type"
 												className="own-click"
 												type="radio"
 												value="USCitizen"
@@ -612,7 +612,7 @@ export default function Form() {
 										<div className="radio-container">
 											<input
 
-												name="personaldata"
+												name="typeOfResident"
 												className="own-click"
 												type="radio"
 												value="USCitizen"
