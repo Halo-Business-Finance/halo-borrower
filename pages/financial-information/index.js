@@ -187,6 +187,7 @@ export default function financialInformation() {
       }
      
       if (status == 3) {
+        console.log("data")
         refactoredData =
         {
 
