@@ -8,6 +8,7 @@ import Router, { useRouter } from "next/router";
 import NavMenu from "../../components/NavMenu";
 import { notification } from "antd";
 import { API } from "../../utils/api";
+import moment from "moment";
 
 const Hero = styled.div`
 	display: flex;
@@ -250,9 +251,9 @@ export default function Form() {
 		register,
 		handleSubmit,
 		formState: { errors },
-	  } = useForm();
+	} = useForm();
 
-	  const addHandler = async(data) => {
+	const addHandler = async (data) => {
 		try {
 			await API.post("api/borrower/add-update-owners", data)
 			// Router.push({pathname:"/financial-information",query:{id:id}})
@@ -265,80 +266,81 @@ export default function Form() {
 
 	// handle input change
 	const handleInputChange = (e, index) => {
-	  const { name, value } = e.target;
-	  const list = [...inputList];
-	  list[index][name] = value;
-	//   setInputList(list);
+		const { name, value } = e.target;
+		const list = [...inputList];
+		list[index][name] = value;
+		//   setInputList(list);
 	};
-  
+
 	// handle click event of the Remove button
 	const handleRemoveClick = index => {
-	  const list = [...inputList];
-	  list.splice(index, 1);
-	  setInputList(list);
+		const list = [...inputList];
+		list.splice(index, 1);
+		setInputList(list);
 	};
-  
+
 	// handle click event of the Add button
 	const handleAddClick = () => {
-	  setInputList([...inputList, { 
-		
-	 loanRequestId: id,
-	  fullname: "",
-	  dateofbirth: "",
-	  homeaddress: "",
-	  city: "",
-	  state: "",
-	  zipcode: "",
-	  ssn: "",
-	  email: "",
-	  phoneNumber: "",
-	  ownershipPercentage: "",
-	  typeOfResident: "",}]);
-	};
-	console.log(inputList,'st')
+		setInputList([...inputList, {
 
-let a=1;
+			loanRequestId: id,
+			fullname: "",
+			dateofbirth: "",
+			homeaddress: "",
+			city: "",
+			state: "",
+			zipcode: "",
+			ssn: "",
+			email: "",
+			phoneNumber: "",
+			ownershipPercentage: "",
+			typeOfResident: "",
+		}]);
+	};
+	console.log(inputList, 'st')
+
+	let a = 1;
 	const onSubmitForm = async (values) => {
-		console.log(values);
-     
-	 const refactoredData = inputList.map((values,index) => (
-		{
-				
-			fullName: values.fullname,
-			dateOfBirth: values.dateofbirth,
-			homeAddress: values.homeaddress,
-			city: values.city,
-			state: values.state,
-			zipCode: values.zipcode,
-			ssn: values.socialsecuritynumber,
-			email: values.email,
-			phoneNumber: values.mobile,
-			ownershipPercentage: values.ownership,
-			typeOfResident: values.personaldata,
-			id: hasId,
-			loanRequestId:id,
-		}
-	 ))
-	 const refactoredDataWithoutID = inputList.map((values,index) => (
-		{
-					
-			fullName: values.fullname,
-			dateOfBirth: values.dateofbirth,
-			homeAddress: values.homeaddress,
-			city: values.city,
-			state: values.state,
-			zipCode: values.zipcode,
-			ssn: values.socialsecuritynumber,
-			email: values.email,
-			phoneNumber: values.mobile,
-			ownershipPercentage: values.ownership,
-			typeOfResident: values.personaldata,
-			loanRequestId:id
-		}
-	 ))
+		
+
+		const refactoredData = inputList.map((values, index) => (
+			{
+
+				fullName: values.fullname,
+				dateOfBirth: values.dateofbirth,
+				homeAddress: values.homeaddress,
+				city: values.city,
+				state: values.state,
+				zipCode: values.zipcode,
+				ssn: values.ssn,
+				email: values.email,
+				phoneNumber: values.mobile,
+				ownershipPercentage: values.ownershipPercentage,
+				typeOfResident: values.personaldata,
+				id: values.id,
+				loanRequestId: id,
+			}
+		))
+		const refactoredDataWithoutID = inputList.map((values, index) => (
+			{
+
+				fullName: values.fullname,
+				dateOfBirth: values.dateofbirth,
+				homeAddress: values.homeaddress,
+				city: values.city,
+				state: values.state,
+				zipCode: values.zipcode,
+				ssn: values.ssn,
+				email: values.email,
+				phoneNumber: values.phoneNumber,
+				ownershipPercentage: values.ownershipPercentage,
+				typeOfResident: values.personaldata,
+				loanRequestId: id
+			}
+		))
 		// const  data = 
 		// 	{
-				
+
 		// 		fullName: values.fullname,
 		// 		dateOfBirth: values.dateofbirth,
 		// 		homeAddress: values.homeaddress,
@@ -353,44 +355,45 @@ let a=1;
 		// 		id: hasId,
 		// 	    loanRequestId:id,
 		// 	}
-			// const dataWithoutID = 
-			// 	{
-					
-			// 		fullName: values.fullname,
-			// 		dateOfBirth: values.dateofbirth,
-			// 		homeAddress: values.homeaddress,
-			// 		city: values.city,
-			// 		state: values.state,
-			// 		zipCode: values.zipcode,
-			// 		ssn: values.socialsecuritynumber,
-			// 		email: values.email,
-			// 		phoneNumber: values.mobile,
-			// 		ownershipPercentage: values.ownership,
-			// 		typeOfResident: values.personaldata,
-			// 		loanRequestId:id
-			// 	}
-				addHandler(hasId==null?refactoredDataWithoutID:refactoredData)
-				
+		// const dataWithoutID = 
+		// 	{
+
+		// 		fullName: values.fullname,
+		// 		dateOfBirth: values.dateofbirth,
+		// 		homeAddress: values.homeaddress,
+		// 		city: values.city,
+		// 		state: values.state,
+		// 		zipCode: values.zipcode,
+		// 		ssn: values.socialsecuritynumber,
+		// 		email: values.email,
+		// 		phoneNumber: values.mobile,
+		// 		ownershipPercentage: values.ownership,
+		// 		typeOfResident: values.personaldata,
+		// 		loanRequestId:id
+		// 	}
+		addHandler(hasId == null ? refactoredDataWithoutID : refactoredData)
+
+	}
+	const fetchOwnerInformations = async () => {
+		if (id) {
+			try {
+				const response = await API.get(`/api/borrower/get-owners/${id}`);
+				const data = await response.payload;
+
+				setInputList(data)
+				setHasID(data[0]?.id)
+
+			} catch (error) {
+
 			}
-			const fetchOwnerInformations = async () => {
-				if (id) {
-					try {
-						const response = await API.get(`/api/borrower/get-owners/${id}`);
-						const data = response.payload;
-						setInputList(data)
-						setHasID(data?.id)
-		
-					} catch (error) {
-		
-					}
-		
-				}
-			}
-			useEffect(() => {
-				fetchOwnerInformations();
-			}, [id]);
-		
-			
+
+		}
+	}
+	useEffect(() => {
+		fetchOwnerInformations();
+	}, [id]);
+
+
 	return (
 		<>
 			<Head>
@@ -399,69 +402,69 @@ let a=1;
 			</Head>
 			<NavMenu />
 			<Hero>
-				<form className="formstyle"  onSubmit={handleSubmit(onSubmitForm)}>
+				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
 					<section className="Form-design">
 
 						{inputList.map((x, i) => {
 							return (
 								<div>
-								<br /><br />
-								<div className="form-head">
-									<h2 className="heading">
-										{/* Owner {a } */}
-										
-										{inputList.length !== 1 && <img
-											src={"/images/trash.png"}
-											alt="trash"
-											onClick={() => handleRemoveClick(i)}
-										/>}
-										
-										
-										<div className="hide-class">{a = a+1 }</div>										
-										
-									</h2>
-							
-									<h2 className="heading-step">
-										<p className="active">Step 1</p> /3
-									</h2>
-								</div>	
+									<br /><br />
+									<div className="form-head">
+										<h2 className="heading">
+											{/* Owner {a } */}
 
-								<div className="form-row-one form-gap">
-									<div className="form-group form-name">
-										<label htmlFor="fname" className="formlabel ">
-											Full Name
-										</label>
-										
-										<input
-											name="fullname"
-											className="textbox"
-											type="text"
-											placeholder="John"
-											defaultValue={x.fullname}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-								
+											{inputList.length !== 1 && <img
+												src={"/images/trash.png"}
+												alt="trash"
+												onClick={() => handleRemoveClick(i)}
+											/>}
 
-									<div className="form-group form-dba">
-										<label htmlFor="fdba" className="formlabel">
-											Date of Birth
-										</label>
-										<input
-											
-											name="dateofbirth"
-											className="textbox"
-											type="date"
-											placeholder="dateofbirth"
-											defaultValue={x.dateofbirth}
-											onChange={e => handleInputChange(e, i)}
-										/>
+
+											<div className="hide-class">{a = a + 1}</div>
+
+										</h2>
+
+										<h2 className="heading-step">
+											<p className="active">Step 1</p> /3
+										</h2>
 									</div>
-								</div>
-								
-								<div className="form-row-one form-gap">
-									<div className="form-group form-name">
-										<label htmlFor="fname" className="formlabel ">
+
+									<div className="form-row-one form-gap">
+										<div className="form-group form-name">
+											<label htmlFor="fname" className="formlabel ">
+												Full Name
+											</label>
+
+											<input
+												name="fullname"
+												className="textbox"
+												type="text"
+												placeholder="John"
+												defaultValue={x.fullName}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+
+
+										<div className="form-group form-dba">
+											<label htmlFor="fdba" className="formlabel">
+												Date of Birth
+											</label>
+											<input
+
+												name="dateofbirth"
+												className="textbox"
+												type="date"
+												placeholder="dateofbirth"
+												defaultValue={moment(x.dateOfBirth).format('YYYY-MM-DD')}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+									</div>
+
+									<div className="form-row-one form-gap">
+										<div className="form-group form-name">
+											<label htmlFor="fname" className="formlabel ">
 												Home Address
 											</label>
 											<input
@@ -469,174 +472,177 @@ let a=1;
 												className="textbox"
 												type="text"
 												placeholder="Enter Address"
-												defaultValue={x.homeaddress}
+												defaultValue={x.homeAddress}
 												onChange={e => handleInputChange(e, i)}
 											/>
-									</div>
-									
-									<div className="form-group form-dba">
-										<label htmlFor="fdba" className="formlabel">
-											City
-										</label>
-										<input
-											name="city"
-											className="textbox"
-											type="text"
-											placeholder="Enter City"
-											defaultValue={x.city}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-								</div>
-
-								<div className="form-row-three form-gap">
-									<div className="form-group form-city">
-										<label htmlFor="fname" className="formlabel">
-											State
-										</label>
-										<input
-											name="state"
-											className="textbox"
-											type="text"
-											placeholder="Select state"
-											defaultValue={x.state}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-									<div className="form-group form-state">
-										<label htmlFor="fname" className="formlabel">
-											Zip Code
-										</label>
-										<input
-											name="zipcode"
-											className="textbox"
-											type="number"
-											placeholder="Enter Zip Code"
-											defaultValue={x.zipcode}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-									<div className="form-group form-zip">
-										<label htmlFor="fname" className="formlabel">
-											Social Security Number
-										</label>
-										<input
-
-											name="ssn"
-											className="textbox"
-											type="number"
-											placeholder="Social Security Number"
-											defaultValue={x.ssn}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-								</div>
-
-								<div className="form-row-one form-gap">
-									<div className="form-group form-name">
-										<label htmlFor="fname" className="formlabel ">
-											Email
-										</label>
-										<input
-											name="email"
-											className="textbox"
-											type="email"
-											placeholder="Enter Email"
-											defaultValue={x.email}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-									<div className="form-group form-dba">
-										<label htmlFor="fdba" className="formlabel">
-											Mobile
-										</label>
-										<input
-
-											name="phoneNumber"
-											className="textbox"
-											type="mobile"
-											placeholder="(XXX)-(XXX)-(XXXX)"
-											defaultValue={x.phoneNumber}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-								</div>
-
-								<div className="form-row-one form-gap">
-									<div className="form-group form-name">
-										<label htmlFor="fname" className="formlabel ">
-											Ownership
-										</label>
-										<input
-
-											name="ownershipPercentage"
-											className="textbox"
-											type="text"
-											placeholder="Enter percent of ownership"
-											defaultValue={x.ownershipPercentage}
-											onChange={e => handleInputChange(e, i)}
-										/>
-									</div>
-								</div>
-
-								<div className="form-group form-gap">
-									<label htmlFor="ffti" className="formlabel">
-										Are you a:
-									</label>
-									<div className="radio-three">
-										<div className="radio-container">
-											<input
-
-												name="type"
-												className="own-click"
-												type="radio"
-												value="USCitizen"
-												placeholder="Enter percent of ownership"
-												onChange={e => handleInputChange(e, i)}
-											/>
-											<label>US Citizen</label>
-										</div>
-										<div className="radio-container">
-											<input
-												name="personaldata"
-												className="own-click"
-												type="radio"
-												value="USCitizen"
-												placeholder="Enter percent of ownership"
-												onChange={e => handleInputChange(e, i)}
-
-											/>
-											<label>US Permanent Resident</label>
 										</div>
 
-										<div className="radio-container">
+										<div className="form-group form-dba">
+											<label htmlFor="fdba" className="formlabel">
+												City
+											</label>
 											<input
-
-												name="typeOfResident"
-												className="own-click"
-												type="radio"
-												value="USCitizen"
-												placeholder="Enter percent of ownership"
+												name="city"
+												className="textbox"
+												type="text"
+												placeholder="Enter City"
+												defaultValue={x.city}
 												onChange={e => handleInputChange(e, i)}
 											/>
-											<label>Other</label>
+										</div>
+									</div>
+
+									<div className="form-row-three form-gap">
+										<div className="form-group form-city">
+											<label htmlFor="fname" className="formlabel">
+												State
+											</label>
+											<input
+												name="state"
+												className="textbox"
+												type="text"
+												placeholder="Select state"
+												defaultValue={x.state}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+										<div className="form-group form-state">
+											<label htmlFor="fname" className="formlabel">
+												Zip Code
+											</label>
+											<input
+												name="zipcode"
+												className="textbox"
+												type="number"
+												placeholder="Enter Zip Code"
+												defaultValue={x.zipCode}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+										<div className="form-group form-zip">
+											<label htmlFor="fname" className="formlabel">
+												Social Security Number
+											</label>
+											<input
+
+												name="ssn"
+												className="textbox"
+												type="number"
+												placeholder="Social Security Number"
+												defaultValue={x.ssn}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+									</div>
+
+									<div className="form-row-one form-gap">
+										<div className="form-group form-name">
+											<label htmlFor="fname" className="formlabel ">
+												Email
+											</label>
+											<input
+												name="email"
+												className="textbox"
+												type="email"
+												placeholder="Enter Email"
+												defaultValue={x.email}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+										<div className="form-group form-dba">
+											<label htmlFor="fdba" className="formlabel">
+												Mobile
+											</label>
+											<input
+
+												name="phoneNumber"
+												className="textbox"
+												type="mobile"
+												placeholder="(XXX)-(XXX)-(XXXX)"
+												defaultValue={x.phoneNumber}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+									</div>
+
+									<div className="form-row-one form-gap">
+										<div className="form-group form-name">
+											<label htmlFor="fname" className="formlabel ">
+												Ownership
+											</label>
+											<input
+
+												name="ownershipPercentage"
+												className="textbox"
+												type="text"
+												placeholder="Enter percent of ownership"
+												defaultValue={x.ownershipPercentage}
+												onChange={e => handleInputChange(e, i)}
+											/>
+										</div>
+									</div>
+
+									<div className="form-group form-gap">
+										<label htmlFor="ffti" className="formlabel">
+											Are you a:
+										</label>
+										<div className="radio-three">
+											<div className="radio-container">
+												<input
+													checked={x.typeOfResident == 0}
+													defaultValue={x.typeOfResident}
+													name="type"
+													className="own-click"
+													type="radio"
+													value="USCitizen"
+													placeholder="Enter percent of ownership"
+													onChange={e => handleInputChange(e, i)}
+												/>
+												<label>US Citizen</label>
+											</div>
+											{console.log(x.typeOfResident)}
+											<div className="radio-container">
+												<input
+													checked={x.typeOfResident == 1}
+													name="personaldata"
+													className="own-click"
+													type="radio"
+													value="USCitizen"
+													placeholder="Enter percent of ownership"
+													onChange={e => handleInputChange(e, i)}
+
+												/>
+												<label>US Permanent Resident</label>
+											</div>
+
+											<div className="radio-container">
+												<input
+													checked={x.typeOfResident == 2}
+													name="typeOfResident"
+													className="own-click"
+													type="radio"
+													value="USCitizen"
+													placeholder="Enter percent of ownership"
+													onChange={e => handleInputChange(e, i)}
+												/>
+												<label>Other</label>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-								
+
 							);
-						})}	
-							<p className="add-owner" onClick={handleAddClick}>
+						})}
+						<p className="add-owner" onClick={handleAddClick}>
 							Add Owner
-							</p>
+						</p>
 
-							<div className="form-row-button">
-								<input type="submit" id="button" value="Continue" />
-							</div>
+						<div className="form-row-button">
+							<input type="submit" id="button" value="Continue" />
+						</div>
 
 
-							{/* <div className="btn-box">
+						{/* <div className="btn-box">
 								{inputList.length !== 1 && <button
 									className="mr10"
 									onClick={() => handleRemoveClick(i)}>Remove</button>}
@@ -656,5 +662,5 @@ let a=1;
 			</Hero>
 		</>
 	);
-	}
+}
 
