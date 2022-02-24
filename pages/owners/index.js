@@ -300,19 +300,19 @@ export default function Form() {
 	  personaldata: "",}]);
 	};
 	console.log(setInputList,'st')
-	// let a= 1;
+	let a= 1;
 
-	// const headers = {
-	// 	"Content-Type": "application/json",
-	// 	Authorization: "Bearer" + " " + cookie.get("access_token"),
-	//   };
+	const headers = {
+		"Content-Type": "application/json",
+		Authorization: "Bearer" + " " + cookie.get("access_token"),
+	  };
 
 	const onSubmitForm = async (values) => {
-		// console.log(values);
-		// const headers = {
-		// 	"Content-Type": "application/json",
-		// 	Authorization: "Bearer" + " " + cookie.get("access_token"),
-		// };
+		console.log(values);
+		const headers = {
+			"Content-Type": "application/json",
+			Authorization: "Bearer" + " " + cookie.get("access_token"),
+		};
 
 		const ownerdata = [
 			{
@@ -329,67 +329,67 @@ export default function Form() {
 				phoneNumber: values.mobile,
 				ownershipPercentage: values.ownership,
 				typeOfResident: values.personaldata,
-			},
-			addHandler()
+			}
+			
 		];
 
-	// 	axios({
-	// 		method: "post",
-	// 		url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-owners",
-	// 		headers: headers,
-	// 		data: ownerdata,
-	// 	}).then(
-	// 		(response) => {
-	// 			if (response.data.isSuccess) {
-	// 				console.log(response.data.isSuccess);
-	// 				// Router.push("/prequlaify_ba");
-	// 			} else {
-	// 				console.log(response);
-	// 			}
-	// 		},
-	// 		(error) => {
-	// 			console.log(error);
-	// 		}
-	// 	);
-	// };
+		axios({
+			method: "post",
+			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-owners",
+			headers: headers,
+			data: ownerdata,
+		}).then(
+			(response) => {
+				if (response.data.isSuccess) {
+					console.log(response.data.isSuccess);
+					// Router.push("/prequlaify_ba");
+				} else {
+					console.log(response);
+				}
+			},
+			(error) => {
+				console.log(error);
+			}
+		);
+	};
 	
-	// useEffect(() => {
-	// 	  let url =
-	// 		process.env.NEXT_PUBLIC_BASE_URL +
-	// 		"/api/borrower/get-owners/" +
-	// 		cookie.get("loan_request_id");
-	// 	  axios({
-	// 		method: "GET",
-	// 		url: url,
-	// 		headers: headers,
-	// 	  }).then(
-	// 		(respo) => {
+	useEffect(() => {
+		  let url =
+			process.env.NEXT_PUBLIC_BASE_URL +
+			"/api/borrower/get-owners/" +
+			cookie.get("loan_request_id");
+		  axios({
+			method: "GET",
+			url: url,
+			headers: headers,
+		  }).then(
+			(respo) => {
 	  
-			//   if(respo.data.payload == null){
-			// 			cookie.set("id","", { expires: 5 / 24 });
-			// 	let dataempty = {
-			// 			  legalEntity: "",
-			// 	stateOfOrganization: "",
-			// 	federalTaxId: "",
-			// 	startDate: "",
-			// 	industryDescription: "",
-			// 	typeOfProduct:"",
-			// 	totalEmployees: "",
-			// 	totalContractors: "",
-			// 	wasPurchased: "",
-			// 			  }
-			// 			  getConsumer(dataempty);
-			//   }else{
-			// 			cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-				// console.log(respo.data.payload);
-				// setInputList(respo.data.payload);
-			//   }
-		// 	},
-		// 	(error) => {
-		// 	  console.log(error);
-		// 	}
-		//   );
-		// }, []);
+			  if(respo.data.payload == null){
+						cookie.set("id","", { expires: 5 / 24 });
+				let dataempty = {
+						  legalEntity: "",
+				stateOfOrganization: "",
+				federalTaxId: "",
+				startDate: "",
+				industryDescription: "",
+				typeOfProduct:"",
+				totalEmployees: "",
+				totalContractors: "",
+				wasPurchased: "",
+						  }
+						  getConsumer(dataempty);
+			  }else{
+						cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
+				console.log(respo.data.payload);
+				setInputList(respo.data.payload);
+			  }
+			},
+			(error) => {
+			  console.log(error);
+			}
+		  );
+		}, []);
 
 	return (
 		<>
@@ -656,5 +656,5 @@ export default function Form() {
 			</Hero>
 		</>
 	);
-							}
-}
+	}
+
