@@ -297,11 +297,11 @@ export default function Form() {
 	};
 	console.log(inputList,'st')
 
-
+let a=1;
 	const onSubmitForm = async (values) => {
 		console.log(values);
      
-	 const refactoredData = inputList.map((value,index) => (
+	 const refactoredData = inputList.map((values,index) => (
 		{
 				
 			fullName: values.fullname,
@@ -319,7 +319,7 @@ export default function Form() {
 			loanRequestId:id,
 		}
 	 ))
-	 const refactoredDataWithoutID = inputList.map((value,index) => (
+	 const refactoredDataWithoutID = inputList.map((values,index) => (
 		{
 					
 			fullName: values.fullname,
