@@ -299,7 +299,7 @@ export default function Form() {
 	  ownership: "",
 	  personaldata: "",}]);
 	};
-	console.log(setInputList,'st')
+	
 	let a= 1;
 
 	const headers = {
@@ -390,6 +390,7 @@ export default function Form() {
 			}
 		  );
 		}, []);
+		console.log(inputList,"input list")
 
 	return (
 		<>

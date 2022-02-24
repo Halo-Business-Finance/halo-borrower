@@ -8,6 +8,7 @@ import cookie from "js-cookie";
 import NavMenu from "../../components/NavMenu";
 import { notification } from "antd";
 import { API } from "../../utils/api";
+import moment from "moment";
 
 
 const Hero = styled.div`
@@ -185,7 +186,7 @@ const Hero = styled.div`
 export default function businessInformation() {
     const router = useRouter();
     const id = router.query.id;
-	const [hasId, setHasID] = useState(null);
+    const [hasId, setHasID] = useState(null);
     const {
         register,
         handleSubmit,
@@ -194,69 +195,69 @@ export default function businessInformation() {
 
     const [consumer, getConsumer] = useState({});
 
-   
-    const addHandler = (data) => {
-		try {
-			API.post("api/borrower/add-update-business-info", data)
-			Router.push({pathname:"/financial-information",query:{id:id}})
-		} catch (error) {
-			notification.error({ message: 'Error Occured', description: error?.data?.reason })
-		}
-	}
+
+    const addHandler = async(data) => {
+        try {
+           await API.post("api/borrower/add-update-business-info", data)
+            Router.push({ pathname: "/financial-information", query: { id: id } })
+        } catch (error) {
+            notification.error({ message: 'Error Occured', description: error?.data?.reason })
+        }
+    }
     const onSubmitForm = async (values) => {
 
         // if (cookie.get("id") == "") {
         //     axios({
         //         method: "post",
         //         url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-business-info/",
-            const data = {
-                    legalEntity: values.binfo,
-                    stateOfOrganization: values.organization,
-                    federalTaxId: values.federal,
-                    startDate: values.date,
-                    industryDescription: values.industry,
-                    typeOfProduct: values.product,
-                    totalEmployees: values.totalEmployees,
-                    totalContractors: values.totalContractors,
-                    wasPurchased: values.businesspurchased,
-                    id: hasId,
-                    loanRequestId:id
-                }
-                const dataWithoutID = {
-                    legalEntity: values.binfo,
-                    stateOfOrganization: values.organization,
-                    federalTaxId: values.federal,
-                    startDate: values.date,
-                    industryDescription: values.industry,
-                    typeOfProduct: values.product,
-                    totalEmployees: values.totalEmployees,
-                    totalContractors: values.totalContractors,
-                    wasPurchased: values.businesspurchased,
-                    loanRequestId:id
-                }
-                addHandler(hasId==null?dataWithoutID:data)
+        const data = {
+            legalEntity: values.legalEntity,
+            stateOfOrganization: values.organization,
+            federalTaxId: values.federal,
+            startDate: values.date,
+            industryDescription: values.industry,
+            typeOfProduct: values.product,
+            totalEmployees: values.totalEmployees,
+            totalContractors: values.totalContractors,
+            wasPurchased: values.wasPurchased,
+            id: hasId,
+            loanRequestId: id
+        }
+        const dataWithoutID = {
+            legalEntity: values.binfo,
+            stateOfOrganization: values.organization,
+            federalTaxId: values.federal,
+            startDate: values.date,
+            industryDescription: values.industry,
+            typeOfProduct: values.product,
+            totalEmployees: values.totalEmployees,
+            totalContractors: values.totalContractors,
+            wasPurchased: values.wasPurchased,
+            loanRequestId: id
+        }
+        addHandler(hasId == null ? dataWithoutID : data)
+    }
+    const fetchBussinessInformation = async () => {
+        if (id) {
+            try {
+                const response = await API.get(`/api/borrower/get-business-info/${id}`);
+                const data = response.payload;
+                getConsumer(data)
+                setHasID(data?.id)
+
+            } catch (error) {
+
             }
-            const fetchBussinessInformation = async () => {
-                if (id) {
-                    try {
-                        const response = await API.get(`/api/borrower/get-business-info/${id}`);
-                        const data = response.payload;
-                        getConsumer(data)
-                        setHasID(data?.id)
-        
-                    } catch (error) {
-        
-                    }
-        
-                }
-            }
-            useEffect(() => {
-                fetchBussinessInformation();
-            }, [id]);
-        
-            function handleChange(event) {
-                getConsumer(event.target.value);
-            }
+
+        }
+    }
+    useEffect(() => {
+        fetchBussinessInformation();
+    }, [id]);
+
+    function handleChange(event) {
+        getConsumer(event.target.value);
+    }
     //             headers: headers,
     //         }).then(
     //             (response) => {
@@ -307,64 +308,64 @@ export default function businessInformation() {
     // useEffect(() => {
 
 
-        //   const [datache, datachecked] = useState({});
+    //   const [datache, datachecked] = useState({});
 
-        // const datatest =  {
-        //    "CCorpprecheck" : "checked"
-        // };
+    // const datatest =  {
+    //    "CCorpprecheck" : "checked"
+    // };
 
-        // // let CCorpprecheck = "checked";
-        // // let SolePropcheck ="";
-        // // let LLCcheck ="";
-        // // let Partnershipcheck ="";
-        // datachecked(datatest);
+    // // let CCorpprecheck = "checked";
+    // // let SolePropcheck ="";
+    // // let LLCcheck ="";
+    // // let Partnershipcheck ="";
+    // datachecked(datatest);
 
-        // let url =
-        //     process.env.NEXT_PUBLIC_BASE_URL +
-        //     "/api/borrower/get-business-info/" +
-        //     cookie.get("loan_request_id");
-        // axios({
-        //     method: "GET",
-        //     url: url,
-        //     headers: headers,
-        // }).then(
-        //     (respo) => {
+    // let url =
+    //     process.env.NEXT_PUBLIC_BASE_URL +
+    //     "/api/borrower/get-business-info/" +
+    //     cookie.get("loan_request_id");
+    // axios({
+    //     method: "GET",
+    //     url: url,
+    //     headers: headers,
+    // }).then(
+    //     (respo) => {
 
-        //         if (respo.data.payload == null) {
-        //             cookie.set("id", "", { expires: 5 / 24 });
-        //             let dataempty = {
-        //                 legalEntity: "",
-        //                 stateOfOrganization: "",
-        //                 federalTaxId: "",
-        //                 startDate: "",
-        //                 industryDescription: "",
-        //                 typeOfProduct: "",
-        //                 totalEmployees: "",
-        //                 totalContractors: "",
-        //                 wasPurchased: "",
-        //             }
-        //             getConsumer(dataempty);
-        //         } else {
-        //             cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-        //             console.log(respo.data.payload);
+    //         if (respo.data.payload == null) {
+    //             cookie.set("id", "", { expires: 5 / 24 });
+    //             let dataempty = {
+    //                 legalEntity: "",
+    //                 stateOfOrganization: "",
+    //                 federalTaxId: "",
+    //                 startDate: "",
+    //                 industryDescription: "",
+    //                 typeOfProduct: "",
+    //                 totalEmployees: "",
+    //                 totalContractors: "",
+    //                 wasPurchased: "",
+    //             }
+    //             getConsumer(dataempty);
+    //         } else {
+    //             cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
+    //             console.log(respo.data.payload);
 
-                    // let legalEntitypre;
-                    // if (respo.data.payload.legalEntity == 0 ) {
-                    //     legalEntitypre = false;
-                    //    CCorpprecheck ="checked";
+    // let legalEntitypre;
+    // if (respo.data.payload.legalEntity == 0 ) {
+    //     legalEntitypre = false;
+    //    CCorpprecheck ="checked";
 
-                    // } else if (respo.data.payload.legalEntity == "CCorp" ) {
-                    //    CCorpprecheck ="checked";
-                    // } else if (respo.data.payload.legalEntity == "SoleProp" ) {
-                    //    SolePropcheck ="checked";
-                    // }else if (respo.data.payload.legalEntity == "LLC" ) {
-                    //    LLCcheck ="checked";
-                    // }else if (respo.data.payload.legalEntity == "Partnership" ) {
-                    //    Partnershipcheck ="checked";
-                    // }else{
-                    //   legalEntitypre = false;
-                    // }
-                    // console.log(respo.data.payload);
+    // } else if (respo.data.payload.legalEntity == "CCorp" ) {
+    //    CCorpprecheck ="checked";
+    // } else if (respo.data.payload.legalEntity == "SoleProp" ) {
+    //    SolePropcheck ="checked";
+    // }else if (respo.data.payload.legalEntity == "LLC" ) {
+    //    LLCcheck ="checked";
+    // }else if (respo.data.payload.legalEntity == "Partnership" ) {
+    //    Partnershipcheck ="checked";
+    // }else{
+    //   legalEntitypre = false;
+    // }
+    // console.log(respo.data.payload);
     //                 getConsumer(respo.data.payload);
     //             }
     //         },
@@ -401,24 +402,27 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="CCorp"
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 1 })}
                                         defaultValue={consumer.legalEntity}
-                                        checked={consumer.legalEntity==1}
+                                        checked={consumer.legalEntity == 1}
                                         // defaultChecked = {datache.CCorpprecheck}
                                         {...register("binfo")}
-                                        
+
                                     />
-                                
+
 
                                     <label>C- Corp</label>
                                 </div>
-                                
+
 
                                 <div className="radio-container">
                                     <input
                                         type="radio"
                                         name="binfo"
                                         value="SoleProp"
-                                        checked={consumer.legalEntity==2}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 2 })}
+
+                                        checked={consumer.legalEntity == 2}
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
@@ -430,7 +434,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="LLC"
-                                        checked={consumer.legalEntity==3}
+                                        onChange={(e) => getConsumer({ ...consumer, legalEntity: 3 })}
+
+                                        checked={consumer.legalEntity == 3}
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
@@ -442,7 +448,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="Partnership"
-                                        checked={consumer.legalEntity==4}
+                                        checked={consumer.legalEntity == 4}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 4 })}
+
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
@@ -457,7 +465,7 @@ export default function businessInformation() {
                                     State of Organization
                                 </label>
                                 <input
-                                    id="address"
+                                    id="stateOfOrganization"
                                     className="textbox"
                                     type="text"
                                     autoComplete="organization"
@@ -497,7 +505,7 @@ export default function businessInformation() {
                                     type="date"
                                     autoComplete="fname"
                                     placeholder="(XXX)-(XXX)-(XXXX)"
-                                    defaultValue={consumer.startDate}
+                                    defaultValue={moment(consumer.startDate).format("YYYY-MM-DD")}
                                     {...register("date", {
                                         required: "Required",
                                     })}
@@ -580,7 +588,8 @@ export default function businessInformation() {
                                             type="radio"
                                             name="business"
                                             value="Yes"
-                                            checked={consumer.wasPurchased==true}
+                                            onClick={()=>getConsumer({...consumer,wasPurchased:"Yes"})}
+                                            checked={consumer.wasPurchased == true}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />
@@ -592,7 +601,9 @@ export default function businessInformation() {
                                             type="radio"
                                             name="business"
                                             value="No"
-                                            checked={consumer.wasPurchased==false}
+                                            onClick={()=>getConsumer({...consumer,wasPurchased:"No"})}
+                                        
+                                            checked={consumer.wasPurchased == false}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />
@@ -604,7 +615,7 @@ export default function businessInformation() {
                     </section>
 
                     <div className="form-row-button">
-                        <input  type="submit" id="button" value="Continue" />
+                        <input type="submit" id="button" value="Continue" />
                     </div>
                 </form>
             </Hero>
