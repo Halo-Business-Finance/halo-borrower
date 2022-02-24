@@ -251,7 +251,7 @@ export default function Form() {
 	  const addHandler = (data) => {
 		try {
 			API.post("api/borrower/add-update-owners", data)
-			Router.push({pathname:"/financial-information",query:{id:id}})
+			// Router.push({pathname:"/financial-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
@@ -299,21 +299,22 @@ export default function Form() {
 	  ownership: "",
 	  personaldata: "",}]);
 	};
-	let a= 1;
+	console.log(setInputList,'st')
+	// let a= 1;
 
-	const headers = {
-		"Content-Type": "application/json",
-		Authorization: "Bearer" + " " + cookie.get("access_token"),
-	  };
+	// const headers = {
+	// 	"Content-Type": "application/json",
+	// 	Authorization: "Bearer" + " " + cookie.get("access_token"),
+	//   };
 
 	const onSubmitForm = async (values) => {
 		// console.log(values);
-		const headers = {
-			"Content-Type": "application/json",
-			Authorization: "Bearer" + " " + cookie.get("access_token"),
-		};
+		// const headers = {
+		// 	"Content-Type": "application/json",
+		// 	Authorization: "Bearer" + " " + cookie.get("access_token"),
+		// };
 
-		let ownerdata = [
+		const ownerdata = [
 			{
 				id: cookie.get("id"),
 				borrowerId: cookie.get("loan_request_id"),
@@ -328,40 +329,41 @@ export default function Form() {
 				phoneNumber: values.mobile,
 				ownershipPercentage: values.ownership,
 				typeOfResident: values.personaldata,
-			}
+			},
+			addHandler()
 		];
 
-		axios({
-			method: "post",
-			url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-owners",
-			headers: headers,
-			data: ownerdata,
-		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					console.log(response.data.isSuccess);
-					// Router.push("/prequlaify_ba");
-				} else {
-					console.log(response);
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
+	// 	axios({
+	// 		method: "post",
+	// 		url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-owners",
+	// 		headers: headers,
+	// 		data: ownerdata,
+	// 	}).then(
+	// 		(response) => {
+	// 			if (response.data.isSuccess) {
+	// 				console.log(response.data.isSuccess);
+	// 				// Router.push("/prequlaify_ba");
+	// 			} else {
+	// 				console.log(response);
+	// 			}
+	// 		},
+	// 		(error) => {
+	// 			console.log(error);
+	// 		}
+	// 	);
+	// };
 	
-	useEffect(() => {
-		  let url =
-			process.env.NEXT_PUBLIC_BASE_URL +
-			"/api/borrower/get-owners/" +
-			cookie.get("loan_request_id");
-		  axios({
-			method: "GET",
-			url: url,
-			headers: headers,
-		  }).then(
-			(respo) => {
+	// useEffect(() => {
+	// 	  let url =
+	// 		process.env.NEXT_PUBLIC_BASE_URL +
+	// 		"/api/borrower/get-owners/" +
+	// 		cookie.get("loan_request_id");
+	// 	  axios({
+	// 		method: "GET",
+	// 		url: url,
+	// 		headers: headers,
+	// 	  }).then(
+	// 		(respo) => {
 	  
 			//   if(respo.data.payload == null){
 			// 			cookie.set("id","", { expires: 5 / 24 });
@@ -379,15 +381,15 @@ export default function Form() {
 			// 			  getConsumer(dataempty);
 			//   }else{
 			// 			cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-				console.log(respo.data.payload);
-				setInputList(respo.data.payload);
+				// console.log(respo.data.payload);
+				// setInputList(respo.data.payload);
 			//   }
-			},
-			(error) => {
-			  console.log(error);
-			}
-		  );
-		}, []);
+		// 	},
+		// 	(error) => {
+		// 	  console.log(error);
+		// 	}
+		//   );
+		// }, []);
 
 	return (
 		<>
@@ -654,4 +656,5 @@ export default function Form() {
 			</Hero>
 		</>
 	);
+							}
 }
