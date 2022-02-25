@@ -105,12 +105,12 @@ color: #5C5C5C;
 
 `;
 
-export const LoanList = ({name,startedDate,applicationNumber,amount=0,id}) => {
+export const LoanList = ({name,startedDate,applicationNumber,amount=0,id,code}) => {
     const router = useRouter();
     return (
         <div>
             
-            <Wrapper>
+            <Wrapper code={code}>
                 <div className="content">
                 <ContentWrapper>
                     <img src="/images/Pre-qualify.png" />

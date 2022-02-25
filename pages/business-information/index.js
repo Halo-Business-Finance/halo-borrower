@@ -164,10 +164,15 @@ const Hero = styled.div`
   }
 
   .radio-container {
+      display: flex;
+      align-items: center;
     padding: 5px 5px 5px 5px;
     border: 1px solid #ededed;
     border-radius: 4px;
     background-color: white;
+    & input{
+			margin-right: 5px;
+		}
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -374,6 +379,7 @@ export default function businessInformation() {
     //         }
     //     );
     // }, []);
+    console.log(consumer,"co")
 
     return (
         <>
@@ -402,9 +408,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="CCorp"
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 1 })}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 0 })}
                                         defaultValue={consumer.legalEntity}
-                                        checked={consumer.legalEntity == 1}
+                                        checked={consumer.legalEntity == 0}
                                         // defaultChecked = {datache.CCorpprecheck}
                                         {...register("binfo")}
 
@@ -420,9 +426,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="SoleProp"
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 2 })}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 1 })}
 
-                                        checked={consumer.legalEntity == 2}
+                                        checked={consumer.legalEntity == 1}
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
@@ -434,9 +440,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="LLC"
-                                        onChange={(e) => getConsumer({ ...consumer, legalEntity: 3 })}
+                                        onChange={(e) => getConsumer({ ...consumer, legalEntity: 2 })}
 
-                                        checked={consumer.legalEntity == 3}
+                                        checked={consumer.legalEntity == 2}
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
@@ -448,8 +454,8 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="Partnership"
-                                        checked={consumer.legalEntity == 4}
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 4 })}
+                                        checked={consumer.legalEntity == 3}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 3 })}
 
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
@@ -589,7 +595,7 @@ export default function businessInformation() {
                                             name="business"
                                             value="Yes"
                                             onClick={()=>getConsumer({...consumer,wasPurchased:"Yes"})}
-                                            checked={consumer.wasPurchased == true}
+                                            checked={consumer.wasPurchased}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />
@@ -603,7 +609,7 @@ export default function businessInformation() {
                                             value="No"
                                             onClick={()=>getConsumer({...consumer,wasPurchased:"No"})}
                                         
-                                            checked={consumer.wasPurchased == false}
+                                            checked={consumer.wasPurchased==false}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />

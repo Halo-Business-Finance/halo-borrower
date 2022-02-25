@@ -170,10 +170,15 @@ const Hero = styled.div`
 	}
 
 	.radio-container {
+		display: flex;
+      align-items: center;
 		padding: 5px 5px 5px 5px;
 		border: 1px solid #ededed;
 		border-radius: 4px;
 		background-color: white;
+		& input{
+			margin-right: 5px;
+		}
 	}
 
 	.rent {
@@ -269,10 +274,12 @@ export default function Form() {
 
 	// handle input change
 	const handleInputChange = (e, index) => {
+
 		const { name, value } = e.target;
 		const list = [...inputList];
+
 		list[index][name] = value;
-		//   setInputList(list);
+		setInputList(list);
 	};
 
 	// handle click event of the Remove button
@@ -285,45 +292,47 @@ export default function Form() {
 	// handle click event of the Add button
 	const handleAddClick = () => {
 		setInputList([...inputList, {
-
+			fullName: null,
+			dateOfBirth: null,
+			homeAddress: null,
+			city: null,
+			state: null,
+			zipCode: null,
+			ssn: null,
+			email: null,
+			phoneNumber: null,
+			ownershipPercentage: null,
+			typeOfResident: null,
+			
 			loanRequestId: id,
-			fullname: "",
-			dateofbirth: "",
-			homeaddress: "",
-			city: "",
-			state: "",
-			zipcode: "",
-			ssn: "",
-			email: "",
-			phoneNumber: "",
-			ownershipPercentage: "",
-			typeOfResident: "",
 		}]);
 	};
-	console.log(inputList, 'st')
+
 
 	let a = 1;
 	const onSubmitForm = async (values) => {
+
+if (hasId !== null){
+	const refactoredData = inputList.map((values, index) => (
+		{
+			fullName: values.fullName,
+			dateOfBirth: values.dateOfBirth,
+			homeAddress: values.homeAddress,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipCode,
+			ssn: values.ssn,
+			email: values.email,
+			phoneNumber: values.phoneNumber,
+			ownershipPercentage: values.ownershipPercentage,
+			typeOfResident: values.typeOfResident,
+			loanRequestId: id,
+			id:values?.id
+			
+		}
+	))
+}
 		
-
-		const refactoredData = inputList.map((values, index) => (
-			{
-
-				fullName: values.fullname,
-				dateOfBirth: values.dateofbirth,
-				homeAddress: values.homeaddress,
-				city: values.city,
-				state: values.state,
-				zipCode: values.zipcode,
-				ssn: values.ssn,
-				email: values.email,
-				phoneNumber: values.mobile,
-				ownershipPercentage: values.ownershipPercentage,
-				typeOfResident: values.personaldata,
-				id: values.id,
-				loanRequestId: id,
-			}
-		))
 		const refactoredDataWithoutID = inputList.map((values, index) => (
 			{
 
@@ -374,7 +383,7 @@ export default function Form() {
 		// 		typeOfResident: values.personaldata,
 		// 		loanRequestId:id
 		// 	}
-		addHandler(hasId == null ? refactoredDataWithoutID : refactoredData)
+		addHandler(inputList)
 
 	}
 	const fetchOwnerInformations = async () => {
@@ -409,6 +418,7 @@ export default function Form() {
 					<section className="Form-design">
 
 						{inputList.map((x, i) => {
+							console.log("habjabsjdhs", x)
 							return (
 								<div>
 									<br /><br />
@@ -428,7 +438,7 @@ export default function Form() {
 										</h2>
 
 										<h2 className="heading-step">
-											<p className="active">Step 1</p> /3
+											<p className="active">Step {i + 1}</p> /3
 										</h2>
 									</div>
 
@@ -439,7 +449,7 @@ export default function Form() {
 											</label>
 
 											<input
-												name="fullname"
+												name="fullName"
 												className="textbox"
 												type="text"
 												placeholder="John"
@@ -455,7 +465,7 @@ export default function Form() {
 											</label>
 											<input
 
-												name="dateofbirth"
+												name="dateOfBirth"
 												className="textbox"
 												type="date"
 												placeholder="dateofbirth"
@@ -471,7 +481,7 @@ export default function Form() {
 												Home Address
 											</label>
 											<input
-												name="homeaddress"
+												name="homeAddress"
 												className="textbox"
 												type="text"
 												placeholder="Enter Address"
@@ -514,7 +524,7 @@ export default function Form() {
 												Zip Code
 											</label>
 											<input
-												name="zipcode"
+												name="zipCode"
 												className="textbox"
 												type="number"
 												placeholder="Enter Zip Code"
@@ -594,23 +604,23 @@ export default function Form() {
 												<input
 													checked={x.typeOfResident == 0}
 													defaultValue={x.typeOfResident}
-													name="type"
+													name="typeOfResident"
 													className="own-click"
 													type="radio"
-													value="USCitizen"
+													value={0}
 													placeholder="Enter percent of ownership"
 													onChange={e => handleInputChange(e, i)}
 												/>
 												<label>US Citizen</label>
 											</div>
-											{console.log(x.typeOfResident)}
+
 											<div className="radio-container">
 												<input
 													checked={x.typeOfResident == 1}
-													name="personaldata"
+													name="typeOfResident"
 													className="own-click"
 													type="radio"
-													value="USCitizen"
+													value={1}
 													placeholder="Enter percent of ownership"
 													onChange={e => handleInputChange(e, i)}
 
@@ -624,7 +634,7 @@ export default function Form() {
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
-													value="USCitizen"
+													value={2}
 													placeholder="Enter percent of ownership"
 													onChange={e => handleInputChange(e, i)}
 												/>
