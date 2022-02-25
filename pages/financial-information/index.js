@@ -431,7 +431,7 @@ export default function financialInformation() {
         setHasID(data?.id)
         console.log(data?.mortgageInformation?.monthlyMortgage,"sajakdbsj")
        
-          setStatus(data?.typeOfProperty+1);
+          setStatus(data?.typeOfProperty);
         
         
         getConsumer({
