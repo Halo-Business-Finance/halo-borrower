@@ -140,12 +140,15 @@ export default function financialInformation() {
   const router = useRouter();
   const { id } = router.query
   const [status, setStatus] = useState(1);
+  function removeEmpty(obj) {
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != null));
+  }
   const [consumer, getConsumer] = useState(
     {
       
       "annualRevenue": null,
-      "dailyAverageBankBalance": null,
-      "outstandingLoanOrAdvance": null,
+      // "dailyAverageBankBalance": null,
+      "outstandingLoanOrAdvance": true,
       "ourstandingAdvancesLoanAmount": null,
       "useOfFunds": null,
       "loanAmountRequested": null,
@@ -158,7 +161,7 @@ export default function financialInformation() {
         "monthlyRent": null,
         "landlordName": null,
         "leaseStartDate": null,
-        "leaseEndDate": ""
+        "leaseEndDate": null
       }
     }
   );
@@ -186,32 +189,9 @@ export default function financialInformation() {
     if(hasId !==null){
       getConsumer({...consumer,"id":hasId})
     }
-    if( status==1){
-      getConsumer({
-        ...consumer, 
-        "mortgageInformation": {
-          "monthlyMortgage": null
-        },
-        "rentInformation": {
-          "monthlyRent": null,
-          "landlordName": null,
-          "leaseStartDate": null,
-          "leaseEndDate": ""
-        }
-      })
-    }else if( status==2){
-      getConsumer({
-        ...consumer, 
-        
-        
-        "rentInformation": {
-          "monthlyRent": null,
-          "landlordName": null,
-          "leaseStartDate": null,
-          "leaseEndDate": ""
-        }
-      })
-    }
+    console.log(status)
+  const data=  removeEmpty(consumer)
+    
     
 
     // console.log(values, "val")
@@ -404,7 +384,7 @@ export default function financialInformation() {
       }
 
     } catch (error) {
-      notification.error({ message: 'Error Occured', description: error?.data?.reason })
+      // notification.error({ message: 'Error Occured', description: error?.data?.reason })
     }
   }
 
@@ -461,9 +441,35 @@ export default function financialInformation() {
   }
  
   useEffect(() => {
-    console.log(status,"askjsakj")
+    if( status==1){
+      
+      getConsumer({
+        "annualRevenue": consumer?.annualRevenue,
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": consumer?.useOfFunds,
+        "loanAmountRequested": consumer?.loanAmountRequested,
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+      })
+    }else if( status==2){
+      getConsumer({
+        "annualRevenue": consumer?.annualRevenue,
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": consumer?.useOfFunds,
+        "loanAmountRequested": consumer?.loanAmountRequested,
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        "mortgageInformation":{
+          "monthlyMoratge":consumer?.mortgageInformation?.monthlyMortgage,
+        }
+      })
+    }
    
-  },[status])
+  },[status,id])
 
   return (
     <>
