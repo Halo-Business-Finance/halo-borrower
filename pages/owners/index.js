@@ -312,7 +312,6 @@ export default function Form() {
 
 		const refactoredData = inputList.map((values, index) => (
 			{
-
 				fullName: values.fullname,
 				dateOfBirth: values.dateofbirth,
 				homeAddress: values.homeaddress,
@@ -321,11 +320,12 @@ export default function Form() {
 				zipCode: values.zipcode,
 				ssn: values.ssn,
 				email: values.email,
-				phoneNumber: values.mobile,
+				phoneNumber: values.phoneNumber,
 				ownershipPercentage: values.ownershipPercentage,
 				typeOfResident: values.personaldata,
-				id: values.id,
-				loanRequestId: id,
+				loanRequestId: values?.loanRequestId,
+				id:values?.id
+				
 			}
 		))
 		const refactoredDataWithoutID = inputList.map((values, index) => (

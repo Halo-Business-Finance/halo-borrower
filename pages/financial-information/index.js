@@ -142,7 +142,7 @@ export default function financialInformation() {
   const [status, setStatus] = useState(1);
   const [consumer, getConsumer] = useState(
     {
-      "id": "",
+      "id": null,
       "annualRevenue": null,
       "dailyAverageBankBalance": null,
       "outstandingLoanOrAdvance": null,
@@ -150,7 +150,7 @@ export default function financialInformation() {
       "useOfFunds": null,
       "loanAmountRequested": null,
       "typeOfProperty": 1,
-      "loanRequestId": null,
+      "loanRequestId": id,
       "mortgageInformation": {
         "monthlyMortgage": null
       },
