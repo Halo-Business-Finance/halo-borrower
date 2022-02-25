@@ -186,10 +186,67 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
-    if(hasId !==null){
-      getConsumer({...consumer,"id":hasId})
+    if(hasId !== null && status==1){
+      getConsumer({
+        "annualRevenue": consumer?.annualRevenue,
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": consumer?.useOfFunds,
+        "loanAmountRequested": consumer?.loanAmountRequested,
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        id:hasId,
+      })  
     }
-    console.log(status)
+    if( status==1 && hasId==null ){
+      
+      getConsumer({
+        "annualRevenue": consumer?.annualRevenue,
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": consumer?.useOfFunds,
+        "loanAmountRequested": consumer?.loanAmountRequested,
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+      })
+      
+    }else if( status==2 && hasId==null){
+      getConsumer({
+        "annualRevenue": consumer?.annualRevenue,
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": consumer?.useOfFunds,
+        "loanAmountRequested": consumer?.loanAmountRequested,
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        "mortgageInformation":{
+          "monthlyMoratge":consumer?.mortgageInformation?.monthlyMortgage,
+        }
+      })
+    }
+    if(status==2 && hasId!==null){
+      getConsumer({
+        "annualRevenue": consumer?.annualRevenue,
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "useOfFunds": consumer?.useOfFunds,
+        "loanAmountRequested": consumer?.loanAmountRequested,
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        "id":hasId,
+        "mortgageInformation":{
+          "monthlyMoratge":consumer?.mortgageInformation?.monthlyMortgage,
+        }
+      })
+
+    }
+   
+   
+    
   const data=  removeEmpty(consumer)
     
     
@@ -370,10 +427,11 @@ export default function financialInformation() {
       if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
         const data = await response?.payload;
+        console.log(data?.id)
         setHasID(data?.id)
         console.log(data?.mortgageInformation?.monthlyMortgage,"sajakdbsj")
        
-          setStatus(data?.typeOfProperty);
+          setStatus(data?.typeOfProperty+1);
         
         
         getConsumer({
@@ -441,33 +499,6 @@ export default function financialInformation() {
   }
  
   useEffect(() => {
-    if( status==1){
-      
-      getConsumer({
-        "annualRevenue": consumer?.annualRevenue,
-        // "dailyAverageBankBalance": null,
-        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
-        "useOfFunds": consumer?.useOfFunds,
-        "loanAmountRequested": consumer?.loanAmountRequested,
-        "typeOfProperty": consumer?.typeOfProperty,
-        "loanRequestId": id,
-      })
-    }else if( status==2){
-      getConsumer({
-        "annualRevenue": consumer?.annualRevenue,
-        // "dailyAverageBankBalance": null,
-        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
-        "useOfFunds": consumer?.useOfFunds,
-        "loanAmountRequested": consumer?.loanAmountRequested,
-        "typeOfProperty": consumer?.typeOfProperty,
-        "loanRequestId": id,
-        "mortgageInformation":{
-          "monthlyMoratge":consumer?.mortgageInformation?.monthlyMortgage,
-        }
-      })
-    }
    
   },[status,id])
 

@@ -9,7 +9,7 @@ import NavMenu from "../../components/NavMenu";
 import { notification, Modal } from "antd";
 import { API } from "../../utils/api";
 import moment from "moment";
-import { Success } from '../Success';
+import { Success } from '../../components/Organism/Success';
 
 const Hero = styled.div`
 	display: flex;
