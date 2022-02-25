@@ -300,8 +300,8 @@ export default function Form() {
 			phoneNumber: null,
 			ownershipPercentage: null,
 			typeOfResident: null,
-			id: null,
-			loanRequestId: null,
+			
+			loanRequestId: id,
 		}]);
 	};
 
@@ -309,25 +309,27 @@ export default function Form() {
 	let a = 1;
 	const onSubmitForm = async (values) => {
 
-
-		const refactoredData = inputList.map((values, index) => (
-			{
-				fullName: values.fullname,
-				dateOfBirth: values.dateofbirth,
-				homeAddress: values.homeaddress,
-				city: values.city,
-				state: values.state,
-				zipCode: values.zipcode,
-				ssn: values.ssn,
-				email: values.email,
-				phoneNumber: values.phoneNumber,
-				ownershipPercentage: values.ownershipPercentage,
-				typeOfResident: values.personaldata,
-				loanRequestId: values?.loanRequestId,
-				id:values?.id
-				
-			}
-		))
+if (hasId !== null){
+	const refactoredData = inputList.map((values, index) => (
+		{
+			fullName: values.fullName,
+			dateOfBirth: values.dateOfBirth,
+			homeAddress: values.homeAddress,
+			city: values.city,
+			state: values.state,
+			zipCode: values.zipCode,
+			ssn: values.ssn,
+			email: values.email,
+			phoneNumber: values.phoneNumber,
+			ownershipPercentage: values.ownershipPercentage,
+			typeOfResident: values.typeOfResident,
+			loanRequestId: id,
+			id:values?.id
+			
+		}
+	))
+}
+		
 		const refactoredDataWithoutID = inputList.map((values, index) => (
 			{
 
