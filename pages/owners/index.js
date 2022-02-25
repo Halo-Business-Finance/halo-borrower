@@ -6,9 +6,10 @@ import axios from "axios";
 import cookie from "js-cookie";
 import Router, { useRouter } from "next/router";
 import NavMenu from "../../components/NavMenu";
-import { notification } from "antd";
+import { notification, Modal } from "antd";
 import { API } from "../../utils/api";
 import moment from "moment";
+import { Success } from '../Success';
 
 const Hero = styled.div`
 	display: flex;
@@ -247,6 +248,7 @@ export default function Form() {
 	const router = useRouter();
 	const id = router.query.id;
 	const [hasId, setHasID] = useState(null);
+	const [showSucessModal, setshowSucessModal] = useState(false);
 	const {
 		register,
 		handleSubmit,
@@ -256,6 +258,7 @@ export default function Form() {
 	const addHandler = async (data) => {
 		try {
 			await API.post("api/borrower/add-update-owners", data)
+			setshowSucessModal(true)
 			// Router.push({pathname:"/financial-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -660,6 +663,9 @@ export default function Form() {
 					</section>
 				</form>
 			</Hero>
+			<Modal visible={showSucessModal} footer={null}>
+                <Success />
+            </Modal>
 		</>
 	);
 }
