@@ -142,7 +142,7 @@ export default function financialInformation() {
   const [status, setStatus] = useState(1);
   const [consumer, getConsumer] = useState(
     {
-      "id": null,
+      
       "annualRevenue": null,
       "dailyAverageBankBalance": null,
       "outstandingLoanOrAdvance": null,
@@ -183,6 +183,9 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
+    if(hasId !==null){
+      getConsumer({...consumer,"id":hasId})
+    }
     if( status==1){
       getConsumer({
         ...consumer, 
@@ -199,6 +202,7 @@ export default function financialInformation() {
     }else if( status==2){
       getConsumer({
         ...consumer, 
+        
         
         "rentInformation": {
           "monthlyRent": null,
