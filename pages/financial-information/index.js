@@ -8,6 +8,7 @@ import Router, { useRouter } from "next/router";
 import NavMenu from "../../components/NavMenu";
 import { API } from "../../utils/api";
 import { notification } from "antd";
+import moment from "moment";
 
 const Hero = styled.div`
   display: flex;
@@ -113,10 +114,15 @@ const Hero = styled.div`
   }
 
   .radio-container {
+    display: flex;
+      align-items: center;
     padding: 5px 5px 5px 5px;
     border: 1px solid #ededed;
     border-radius: 4px;
     background-color: white;
+    & input{
+			margin-right: 5px;
+		}
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -134,103 +140,156 @@ export default function financialInformation() {
   const router = useRouter();
   const { id } = router.query
   const [status, setStatus] = useState(1);
-  const [consumer, getConsumer] = useState({});
+  const [consumer, getConsumer] = useState(
+    {
+      "id": "",
+      "annualRevenue": null,
+      "dailyAverageBankBalance": null,
+      "outstandingLoanOrAdvance": null,
+      "ourstandingAdvancesLoanAmount": null,
+      "useOfFunds": null,
+      "loanAmountRequested": null,
+      "typeOfProperty": 1,
+      "loanRequestId": null,
+      "mortgageInformation": {
+        "monthlyMortgage": null
+      },
+      "rentInformation": {
+        "monthlyRent": null,
+        "landlordName": null,
+        "leaseStartDate": null,
+        "leaseEndDate": ""
+      }
+    }
+  );
   const [hasId, setHasID] = useState(null)
 
   const radioHandler = (status) => {
     setStatus(status);
+    getConsumer({
+      ...consumer, 
+      typeOfProperty:status
+    })
   };
 
 
   const addUpdateHandler = async (data) => {
     try {
       await API.post("/api/borrower/add-update-business-financials", data)
-      router.push({ pathname: "/owners",query:{id:id}})
+      router.push({ pathname: "/owners", query: { id: id } })
     } catch (error) {
       notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
     }
   }
   const onSubmitForm = async (values) => {
-    console.log(values,"val")
-    console.log(status)
-    let refactoredData =
-    {
-
-      "annualrevenueRevenue": Number(values?.annualrevenue),
-      
-      "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
-      "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
-      "useOfFunds": values?.useoffunds,
-      "loanAmountRequested": values?.loanamountrequested,
-      "typeOfProperty": "own",
-      "loanRequestId": id,
-
-
-    }
-    if (status == 2) {
-      refactoredData =
-      {
-
-        "annualrevenueRevenue": Number(values?.annualrevenue),
-        "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
-        "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
-        "useOfFunds": values?.useoffunds,
-        "loanAmountRequested": values?.loanamountrequested,
-        "typeOfProperty": "Mortgage",
-        "loanRequestId": id,
-        "mortageInformation": {
-          "monthlyMoratge": Number(values?.mortage)
+    if( status==1){
+      getConsumer({
+        ...consumer, 
+        "mortgageInformation": {
+          "monthlyMortgage": null
         },
-
-
-      }
-     
-      if (status == 3) {
-        console.log("data")
-        refactoredData =
-        {
-
-          "annualrevenueRevenue": Number(values?.annualrevenue),
-          "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
-          "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
-          "useOfFunds": values?.useoffunds,
-          "loanAmountRequested": values?.loanamountrequested,
-          "typeOfProperty": "rent",
-          "loanRequestId": id,
-          "rentInformation": {
-            "monthlyRent": Number(values?.rent),
-            "landlordName": values?.landordName,
-            "leaseStartDate": values?.firstDate,
-            "leaseEndDate": values?.endDate
-          }
-
-
+        "rentInformation": {
+          "monthlyRent": null,
+          "landlordName": null,
+          "leaseStartDate": null,
+          "leaseEndDate": ""
         }
-        if (hasId !== null) {
-          refactoredData =
-          {
-            "id":hasId,
-            "annualrevenueRevenue": values?.annualrevenue,
-            "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
-            "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
-            "useOfFunds": values?.useoffunds,
-            "loanAmountRequested": values?.loanamountrequested,
-            "typeOfProperty": "rent",
-            "loanRequestId": id,
-            "rentInformation": {
-              "monthlyRent": Number(values?.rent),
-              "landlordName": values?.landordName,
-              "leaseStartDate": values?.firstDate,
-              "leaseEndDate": values?.endDate
-            }
-          }
+      })
+    }else if( status==2){
+      getConsumer({
+        ...consumer, 
+        
+        "rentInformation": {
+          "monthlyRent": null,
+          "landlordName": null,
+          "leaseStartDate": null,
+          "leaseEndDate": ""
         }
-
-      }
+      })
     }
+    
 
-    addUpdateHandler(refactoredData)
+    // console.log(values, "val")
+    
+    // console.log(status)
+    // let refactoredData =
+    // {
+
+    //   "annualrevenueRevenue": Number(values?.annualrevenue),
+
+    //   "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+    //   "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+    //   "useOfFunds": values?.useoffunds,
+    //   "loanAmountRequested": values?.loanamountrequested,
+    //   "typeOfProperty": "own",
+    //   "loanRequestId": id,
+
+
+    // }
+    // if (status == 2) {
+    //   refactoredData =
+    //   {
+
+    //     "annualrevenueRevenue": Number(values?.annualrevenue),
+    //     "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+    //     "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+    //     "useOfFunds": values?.useoffunds,
+    //     "loanAmountRequested": values?.loanamountrequested,
+    //     "typeOfProperty": "Mortgage",
+    //     "loanRequestId": id,
+    //     "mortageInformation": {
+    //       "monthlyMoratge": Number(values?.mortage)
+    //     },
+
+
+    //   }
+
+    //   if (status == 3) {
+    //     console.log("data")
+    //     refactoredData =
+    //     {
+
+    //       "annualrevenueRevenue": Number(values?.annualrevenue),
+    //       "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+    //       "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+    //       "useOfFunds": values?.useoffunds,
+    //       "loanAmountRequested": values?.loanamountrequested,
+    //       "typeOfProperty": "rent",
+    //       "loanRequestId": id,
+    //       "rentInformation": {
+    //         "monthlyRent": Number(values?.rent),
+    //         "landlordName": values?.landordName,
+    //         "leaseStartDate": values?.firstDate,
+    //         "leaseEndDate": values?.endDate
+    //       }
+
+
+    //     }
+    //     if (hasId !== null) {
+    //       refactoredData =
+    //       {
+    //         "id": hasId,
+    //         "annualrevenueRevenue": values?.annualrevenue,
+    //         "outstandingLoanOrAdvance": values?.outstandingloanoradvance == "No" ? false : true,
+    //         "ourstandingAdvancesLoanAmount": values?.ourstandingAdvancesLoanAmount,
+    //         "useOfFunds": values?.useoffunds,
+    //         "loanAmountRequested": values?.loanamountrequested,
+    //         "typeOfProperty": "rent",
+    //         "loanRequestId": id,
+    //         "rentInformation": {
+    //           "monthlyRent": Number(values?.rent),
+    //           "landlordName": values?.landordName,
+    //           "leaseStartDate": values?.firstDate,
+    //           "leaseEndDate": values?.endDate
+    //         }
+    //       }
+    //     }
+
+    //   }
+    // }
+
+    addUpdateHandler(consumer)
     //   let olab = false;
     //   if (values.olab == "" || values.olab == "false") {
     //     olab = false;
@@ -326,14 +385,18 @@ export default function financialInformation() {
     try {
       if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
-        const data =await response?.payload;
+        const data = await response?.payload;
         setHasID(data?.id)
-        setStatus(data?.typeOfProperty+1);
-        getConsumer({
-         ...data
-          
-        })
+        console.log(data?.mortgageInformation?.monthlyMortgage,"sajakdbsj")
+       
+          setStatus(data?.typeOfProperty);
         
+        
+        getConsumer({
+          ...data
+
+        })
+
       }
 
     } catch (error) {
@@ -392,7 +455,11 @@ export default function financialInformation() {
   function handleChange(event) {
     getConsumer(event.target.value);
   }
-  console.log(consumer)
+ 
+  useEffect(() => {
+    console.log(status,"askjsakj")
+   
+  },[status])
 
   return (
     <>
@@ -423,6 +490,8 @@ export default function financialInformation() {
                   placeholder="Enter AnnualRevenue Business Revenue"
                   defaultValue={consumer.annualRevenue}
                   {...register("annualrevenue")}
+                  onChange={(e) =>getConsumer({...consumer,annualRevenue: e.target.value})}
+                  
                 />
               </div>
             </div>
@@ -437,9 +506,10 @@ export default function financialInformation() {
                     <input
                       type="radio"
                       name="olab"
-                      value={"Yes"}
-                      checked={consumer.loanAmountRequested}
-                      defaultValue={consumer.loanAmountRequested}
+                      value={true}
+                      onClick={() => getConsumer({ ...consumer, outstandingLoanOrAdvance: true })}
+                      checked={consumer.outstandingLoanOrAdvance}
+                      defaultValue={consumer.outstandingLoanOrAdvance}
                       {...register("outstandingloanoradvance")}
                     />
                     <label>Yes</label>
@@ -449,9 +519,10 @@ export default function financialInformation() {
                     <input
                       type="radio"
                       name="olab"
-                      value="No"
-                      checked={!consumer.loanAmountRequested}
-                      defaultValue={consumer.loanAmountRequested}
+                      value={false}
+                      onClick={() => getConsumer({ ...consumer, outstandingLoanOrAdvance: false })}
+                      checked={!consumer.outstandingLoanOrAdvance}
+                      defaultValue={consumer.outstandingLoanOrAdvance}
                       {...register("outstandingloanoradvance")}
                     />
                     <label>No</label>
@@ -468,9 +539,11 @@ export default function financialInformation() {
                   type="number"
                   autoComplete="fdba"
                   placeholder="Enter Outstanding Loan/Advance Balance"
-                  
+
                   defaultValue={consumer.ourstandingAdvancesLoanAmount}
                   {...register("outstandingloanoradvance")}
+                  onChange={(e) =>getConsumer({...consumer,ourstandingAdvancesLoanAmount: e.target.value})}
+                
                 />
               </div>
             </div>
@@ -490,6 +563,8 @@ export default function financialInformation() {
                     required: "Required",
                   })}
                   required
+                  onChange={(e) =>getConsumer({...consumer,useOfFunds: e.target.value})}
+                
                 />
               </div>
               <div className="form-group form-dba">
@@ -505,7 +580,10 @@ export default function financialInformation() {
                   {...register("loanamountrequested", {
                     required: "Required",
                   })}
+                  onChange={(e) =>getConsumer({...consumer,loanAmountRequested: e.target.value})}
+                
                   required
+                  
                 />
               </div>
             </div>
@@ -524,7 +602,7 @@ export default function financialInformation() {
                     name="radio"
                     className="own-click"
                     value={1}
-                    checked={status==1}
+                    checked={status == 1}
                     defaultChecked={status === 1}
                     onClick={(e) => radioHandler(1)}
                   />
@@ -537,7 +615,7 @@ export default function financialInformation() {
                     name="radio"
                     className="mortgage-click"
                     value={2}
-                    checked={status==2}
+                    checked={status == 2}
                     defaultChecked={status === 2}
                     onClick={(e) => radioHandler(2)}
                   />
@@ -550,7 +628,7 @@ export default function financialInformation() {
                     name="radio"
                     className="rent-click"
                     value={3}
-                    checked={status==3}
+                    checked={status == 3}
                     defaultChecked={status === 3}
                     onChange={(e) => radioHandler(3)}
                   />
@@ -566,11 +644,15 @@ export default function financialInformation() {
                     Monthly Mortgage
                   </label>
                   <input
+                   
+                   value={consumer?.mortgageInformation?.monthlyMortgage}
                     className="textbox"
                     type="text"
                     autoComplete="fname"
-                    placeholder="Enter Monthly Rent/Mortgage"
+                      placeholder="Enter Monthly Rent/Mortgage"
                     {...register("mortage")}
+                    onChange={(e) =>getConsumer({...consumer,mortgageInformation:{monthlyMortgage: e.target.value}})}
+                  
                   />
                 </div>
               </div>
@@ -584,11 +666,17 @@ export default function financialInformation() {
                         Monthly Rent
                       </label>
                       <input
+                      value={consumer?.rentInformation?.monthlyRent}
                         className="textbox"
-                        type="text"
+                        type="number"
                         autoComplete="fname"
                         placeholder="Enter Monthly Rent"
                         {...register("rent")}
+                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
+                          ...consumer?.rentInformation,
+                          monthlyRent:e.target.value
+                        }})}
+                
                       />
                     </div>
                   </div>
@@ -599,6 +687,7 @@ export default function financialInformation() {
                         Landlord Name
                       </label>
                       <input
+                      value={consumer?.rentInformation?.landlordName}
                         id="firstname"
                         className="textbox"
                         type="text"
@@ -607,6 +696,10 @@ export default function financialInformation() {
                         {...register("landordName", {
                           required: "Required",
                         })}
+                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
+                          ...consumer?.rentInformation,
+                          landlordName:e.target.value
+                        }})}
                       />
                     </div>
                   </div>
@@ -625,6 +718,11 @@ export default function financialInformation() {
                         {...register("firstDate", {
                           required: "Required",
                         })}
+                        value={moment(consumer?.rentInformation?.leaseStartDate).format("YYYY-MM-DD")}
+                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
+                          ...consumer?.rentInformation,
+                          leaseStartDate:e.target.value
+                        }})}
                       />
                     </div>
                     <div className="form-phone">
@@ -640,6 +738,12 @@ export default function financialInformation() {
                         {...register("endDate", {
                           required: "Required",
                         })}
+                        value={moment(consumer?.rentInformation?.leaseEndDate).format("YYYY-MM-DD")}
+                       
+                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
+                          ...consumer?.rentInformation,
+                          leaseEndDate:e.target.value
+                        }})}
                       />
                     </div>
                   </div>

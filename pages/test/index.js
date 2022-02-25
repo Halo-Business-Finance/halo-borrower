@@ -311,7 +311,7 @@ text-align: center;
 	}
 `;
 const SpinWrapper = styled.div`
-height: 100vh;
+height: 400px;
 width: 100%;
 display: flex ;
 justify-content: center;
@@ -392,8 +392,9 @@ const Form = () => {
 		Router.push("/registration");
 	};
 	const [prequalifyData, setPrequalifyData] = useState([])
-
+  const [isFeatchingloanList,setIsFetchingLoanList]=useState(true);
 	const FetchPrequaifyDataFromAPI = async () => {
+		
 		try {
 			const response = await API.get("/api/borrower/get-prequalify-request");
 			const data = await response?.payload;
@@ -402,6 +403,7 @@ const Form = () => {
 		} catch (error) {
 
 		}
+		setIsFetchingLoanList(false)
 	}
 
 	useEffect(() => {
@@ -590,14 +592,15 @@ const Form = () => {
 					<br />
 					<br />
 					<br />
-					{status==0 &&<div>
+					{(status == 0 && !isFeatchingloanList) && <div>
 						<h2>All Applications</h2>
 						{
 
 							prequalifyData?.length > 0 && prequalifyData?.map((item, index) =>
 
 								<LoanList
-								id={item.loanRequestId}
+									code={index + 1}
+									id={item.loanRequestId}
 									key={index}
 									startedDate={moment(item?.applicationStartedDate).format("YYYY/MM/DD hh:mm")}
 									amout={item?.amountToBeBorrowed}
@@ -606,8 +609,10 @@ const Form = () => {
 							)
 						}
 					</div>}
+					{(authenticated&&isFeatchingloanList)&&<SpinWrapper><Spin size="large" /></SpinWrapper>}
 
-				{/* <div className="finance-list">
+
+					{/* <div className="finance-list">
 						<p className="loan-step">Step 2</p>
 						<h3 className="loan-head">How much do you want to borrow?</h3>
 						<p className="loan-describe">
