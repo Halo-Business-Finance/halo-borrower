@@ -603,7 +603,7 @@ const Form = () => {
 									id={item.loanRequestId}
 									key={index}
 									startedDate={moment(item?.applicationStartedDate).format("YYYY/MM/DD hh:mm")}
-									amout={item?.amountToBeBorrowed}
+									amount={item?.amountToBeBorrowed}
 									applicationNumber={item?.applicationNumber}
 									name={LoanCode?.find((loan) => loan?.code == item?.loanTypes)?.name} />
 							)
