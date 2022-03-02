@@ -3,6 +3,10 @@ import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import NavMenu from "../components/NavMenu";
+import { Form, Upload } from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
+
+const { Dragger } = Upload;
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -17,6 +21,10 @@ const BusinessStyle = styled.div`
     padding: 12px;
     background: #f8f8ff;
     border-radius: 10px;
+    & .ant-form-item-label>label {
+        font-weight: bold;
+        font-size: 18px;
+    }
     header {
       .header-one p {
         font-size: 16px;
@@ -188,15 +196,20 @@ export default function balanceSheet() {
                 <div className="column-one">
                   <label>Balance Sheet</label>
                 </div>
-                <div className="column-two">
-                  <img src="/images/upload.png" />
-                  <input type="file" id="file" {...register("files")} />
-                  {/* Drag & Drop or click to upload files */}
-                  {/* <label htmlFor="file">
-                    Drag & Drop or click to upload files
-                  </label> */}
-                  
-                </div>
+                <br/>
+                        <Form layout="vertical">
+                            <Form.Item label="Upload Profit and loss statements">
+                                    <Dragger >
+                                        <p className="ant-upload-drag-icon">
+                                            <InboxOutlined />
+                                        </p>
+                                        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                                        <p className="ant-upload-hint">
+                                            Upload your profit and loss documents
+                                        </p>
+                                    </Dragger>
+                                    </Form.Item>
+                                    </Form>
               </section>
             </div>
             <div className="footer">

@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import NavMenu from "../components/NavMenu";
+import { Button, Form, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { useState } from "react";
+
+const { Dragger } = Upload;
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -131,7 +136,7 @@ const BusinessStyle = styled.div`
   }
 `;
 
-export default function Upload() {
+export default function UploadDocs() {
   const {
     register,
     handleSubmit,
@@ -165,6 +170,9 @@ export default function Upload() {
 			}
 		);
 	};
+  const [documents,setDocuments]=useState({
+    article:null
+  })
 
   return (
     <>
@@ -188,10 +196,18 @@ export default function Upload() {
                   <label> Copy of articles</label>
                 </div>
                 <div className="column-two">
-                  <input type="file" id="file" {...register("fileOne")} />
+                      <Upload
+                        name="avatar"
+                        
+                        
+                      >
+                         <Button size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
+                      </Upload>
+
+                  {/* <input type="file" id="file" {...register("fileOne")} />
                   <label htmlFor="file">
                     Drag & Drop or click to upload files
-                  </label>
+                  </label> */}
                 </div>
               </section>
               <section>
