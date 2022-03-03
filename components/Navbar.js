@@ -3,11 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "../public/images/logo.svg";
 import NavMenu from "./NavMenu";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import cookie from "js-cookie";
 import axios from "axios";
 import { Button } from "antd";
 import { useRouter } from 'next/router';
+import { AuthContext } from "../utils/AuthContext";
 
 const Nav = styled.nav`
 	height: 70px;
@@ -34,7 +35,8 @@ const StyledLink = styled.a`
 
 const Navbar = (data) => {
 	const router = useRouter();
-	const restricted=["/login","/verify"]
+	const { authenticated } = useContext(AuthContext)
+	const restricted = ["/login", "/verify"]
 	if (
 		typeof cookie.get("access_token") !== "undefined" ||
 		typeof cookie.get("userName") !== "undefined" ||
@@ -98,8 +100,16 @@ const Navbar = (data) => {
 						</StyledLink>
 					</div>
 					<div className="top-details">
-					{!restricted?.includes(router?.pathname) &&<Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button>
-				}	</div>
+						{(!authenticated) ? <Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button> :
+							<Button size="large" type="primary" onClick={() => {
+								try {
+									sessionStorage.removeItem("token");
+									router.push("/login")
+								} catch (error) {
+
+								}
+							}}>Logout</Button>
+						}	</div>
 				</Nav>
 			</>
 		);
