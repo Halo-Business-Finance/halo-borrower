@@ -399,7 +399,7 @@ const Form = () => {
 			const response = await API.get("/api/borrower/get-prequalify-request");
 			const data = await response?.payload;
 			setPrequalifyData(data)
-			console.log(response, "as")
+			
 		} catch (error) {
 
 		}

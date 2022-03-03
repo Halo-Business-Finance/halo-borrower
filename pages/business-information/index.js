@@ -9,6 +9,7 @@ import NavMenu from "../../components/NavMenu";
 import { notification } from "antd";
 import { API } from "../../utils/api";
 import moment from "moment";
+import InputMask from 'react-input-mask';
 
 
 const Hero = styled.div`
@@ -193,6 +194,8 @@ export default function businessInformation() {
     const id = router.query.id;
     const [hasId, setHasID] = useState(null);
     const {
+        setValue,
+        watch,
         register,
         handleSubmit,
         formState: { errors },
@@ -201,9 +204,9 @@ export default function businessInformation() {
     const [consumer, getConsumer] = useState({});
 
 
-    const addHandler = async(data) => {
+    const addHandler = async (data) => {
         try {
-           await API.post("api/borrower/add-update-business-info", data)
+            await API.post("api/borrower/add-update-business-info", data)
             Router.push({ pathname: "/financial-information", query: { id: id } })
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -379,7 +382,28 @@ export default function businessInformation() {
     //         }
     //     );
     // }, []);
-    console.log(consumer,"co")
+    function numberWithCommas(x) {
+        return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
 
     return (
         <>
@@ -440,11 +464,12 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="LLC"
+                                        {...register("binfo")}
                                         onChange={(e) => getConsumer({ ...consumer, legalEntity: 2 })}
 
                                         checked={consumer.legalEntity == 2}
                                         defaultValue={consumer.legalEntity}
-                                        {...register("binfo")}
+                                        
                                     />
                                     <label>LLC</label>
                                 </div>
@@ -560,27 +585,41 @@ export default function businessInformation() {
                                     Total Company Employees and 1099 Contractors
                                 </label>
                                 <input
+
                                     id="totalEmployees"
                                     className="first-input"
-                                    type="number"
+                                    type="text"
                                     autoComplete="fsoo"
                                     placeholder="Total Employees"
                                     defaultValue={consumer.totalEmployees}
                                     {...register("totalEmployees", {
                                         required: "Required",
                                     })}
+                                    onChange={(e) => {
+                                        // const formattedEmployees =numberWithCommas(e.target.value)
+                                        const data = e.target.value.replace(/[^\d]+/gi, '')
+                                        setValue("totalEmployees", data)
+                                    }}
+                                    onKeyPress={(e) => validate(e)}
+                                    value={numberWithCommas(watch("totalEmployees"))}
                                 />
 
                                 <input
                                     id="totalContractors"
                                     className="second-input"
-                                    type="number"
+                                    type="text"
                                     autoComplete="fsoo"
                                     placeholder="Total Contractors"
                                     defaultValue={consumer.totalContractors}
                                     {...register("totalContractors", {
                                         required: "Required",
                                     })}
+                                    onChange={(e) => {
+                                        const data = e.target.value.replace(/[^\d]+/gi, '')
+                                        setValue("totalContractors", data)
+                                    }}
+                                    onKeyPress={(e) => validate(e)}
+                                    value={numberWithCommas(watch("totalContractors"))}
                                 />
                             </div>
                             <div className="form-suite">
@@ -594,8 +633,8 @@ export default function businessInformation() {
                                             type="radio"
                                             name="business"
                                             value="Yes"
-                                            onClick={()=>getConsumer({...consumer,wasPurchased:"Yes"})}
-                                            checked={consumer.wasPurchased}
+                                            onClick={() => getConsumer({ ...consumer, wasPurchased: "Yes" })}
+                                            checked={consumer.wasPurchased==true||consumer.wasPurchased=="Yes"}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />
@@ -607,9 +646,9 @@ export default function businessInformation() {
                                             type="radio"
                                             name="business"
                                             value="No"
-                                            onClick={()=>getConsumer({...consumer,wasPurchased:"No"})}
-                                        
-                                            checked={consumer.wasPurchased==false}
+                                            onClick={() => getConsumer({ ...consumer, wasPurchased: "No" })}
+
+                                            checked={consumer.wasPurchased=="No"||consumer.wasPurchased==false}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />
