@@ -58,6 +58,10 @@ const Hero = styled.div`
 	.other:focus {
 		outline: none;
 	}
+	& .outline{
+		min-width:35%;
+		border-bottom: 3px solid blue;
+	}
 `;
 const ButtonWrapper = styled.div`
 
