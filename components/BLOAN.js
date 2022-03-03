@@ -154,7 +154,7 @@ export default function BLOAN() {
 	})
 	const completeFormStep = () => {
 
-		if (Number(bridgeLoanData.cashOut) < 250000 || Number(bridgeLoanData.constructionAmount) < 250000 || Number(bridgeLoanData.dollar) < 250000 || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || Number(bridgeLoanData.rateTermAmount) < 250000 )) {
+		if ((bridgeLoanData.cashOut !== '' && Number(bridgeLoanData.cashOut) < 250000) || (bridgeLoanData.constructionAmount !== '' && Number(bridgeLoanData.constructionAmount) < 250000) || (bridgeLoanData.dollar !== '' && Number(bridgeLoanData.dollar) < 250000) || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || (bridgeLoanData.rateTermAmount !== '' && Number(bridgeLoanData.rateTermAmount) < 250000 ))) {
 			setIsModalVisible(true);
 			return;
 
@@ -348,7 +348,7 @@ export default function BLOAN() {
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,
             "phoneNumber": parsedData?.phoneNumber,
-			"amountToBeBorrowed":bridgeLoanData.termRequest,
+			"amountToBeBorrowed":bridgeLoanData.dollar,
 			"prequalifyAnswers": bridgeLoanData,
 			"accepted": true
 		}
@@ -427,7 +427,7 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Cash out Amount </div>
 							<div className="term">
-							<input value={bridgeLoanData.cashOut} onChange={(e) => onFormChange(e, 'cashOut')}
+							<input value={bridgeLoanData.cashOut} onChange={(e) => onChangeHandler('cashOut',e )}
 										className="outline"
 										type="number"
 										placeholder="Only Number"
@@ -470,7 +470,7 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Construction Amount </div>
 							<div className="term">
-							<input value={bridgeLoanData.constructionAmount} onChange={(e) => onFormChange(e, 'constructionAmount')}
+							<input value={bridgeLoanData.constructionAmount} onChange={(e) => onChangeHandler('constructionAmount',e )}
 										className="outline"
 										type="number"
 										placeholder="Only Number"
@@ -517,7 +517,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
-								<input value={bridgeLoanData.rateTermAmount} onChange={(e) => onFormChange(e, 'rateTermAmount')}
+								<input value={bridgeLoanData.rateTermAmount} onChange={(e) => onChangeHandler('rateTermAmount',e )}
 										className="outline"
 										type="number"
 										placeholder="Only Number"
@@ -776,7 +776,7 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
-							<input value={bridgeLoanData.dollar} onChange={(e) => onFormChange(e, 'dollar')}
+							<input value={bridgeLoanData.dollar} onChange={(e) => onChangeHandler('dollar',e )}
 										className="outline"
 										type="number"
 										placeholder="Only Number"

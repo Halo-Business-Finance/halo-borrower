@@ -145,7 +145,7 @@ export default function CRE() {
 			setIsModalVisible(true)
 			return;
 		}
-		if (Number(formValues.dollar) < 250000) {
+		if (formValues.dollar !== '' && Number(formValues.dollar) < 250000) {
 			setIsModalVisible(true)
 			return;
 		}
