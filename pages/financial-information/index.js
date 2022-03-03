@@ -145,7 +145,7 @@ export default function financialInformation() {
   }
   const [consumer, getConsumer] = useState(
     {
-      
+
       "annualRevenue": null,
       // "dailyAverageBankBalance": null,
       "outstandingLoanOrAdvance": true,
@@ -170,8 +170,8 @@ export default function financialInformation() {
   const radioHandler = (status) => {
     setStatus(status);
     getConsumer({
-      ...consumer, 
-      typeOfProperty:status
+      ...consumer,
+      typeOfProperty: status
     })
   };
 
@@ -186,73 +186,73 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
-    if(hasId !== null && status==1){
+    if (hasId !== null && status == 1) {
       getConsumer({
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
-        id:hasId,
-      })  
+        id: hasId,
+      })
     }
-    if( status==1 && hasId==null ){
-      
+    if (status == 1 && hasId == null) {
+
       getConsumer({
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
       })
-      
-    }else if( status==2 && hasId==null){
+
+    } else if (status == 2 && hasId == null) {
       getConsumer({
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
-        "mortgageInformation":{
-          "monthlyMoratge":consumer?.mortgageInformation?.monthlyMortgage,
+        "mortgageInformation": {
+          "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
         }
       })
     }
-    if(status==2 && hasId!==null){
+    if (status == 2 && hasId !== null) {
       getConsumer({
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount,
+        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
-        "id":hasId,
-        "mortgageInformation":{
-          "monthlyMoratge":consumer?.mortgageInformation?.monthlyMortgage,
+        "id": hasId,
+        "mortgageInformation": {
+          "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
         }
       })
 
     }
-   
-   
-    
-  const data=  removeEmpty(consumer)
-    
-    
+
+
+
+    const data = removeEmpty(consumer)
+
+
 
     // console.log(values, "val")
-    
+
     // console.log(status)
     // let refactoredData =
     // {
@@ -429,11 +429,11 @@ export default function financialInformation() {
         const data = await response?.payload;
         console.log(data?.id)
         setHasID(data?.id)
-        console.log(data?.mortgageInformation?.monthlyMortgage,"sajakdbsj")
-       
-          setStatus(data?.typeOfProperty);
-        
-        
+        console.log(data?.mortgageInformation?.monthlyMortgage, "sajakdbsj")
+
+        setStatus(data?.typeOfProperty);
+
+
         getConsumer({
           ...data
 
@@ -497,10 +497,10 @@ export default function financialInformation() {
   function handleChange(event) {
     getConsumer(event.target.value);
   }
- 
+
   useEffect(() => {
-   
-  },[status,id])
+
+  }, [status, id])
 
   return (
     <>
@@ -522,17 +522,17 @@ export default function financialInformation() {
             <div className="form-row form-gap">
               <div className="form-group">
                 <label htmlFor="fname" className="formlabel ">
-                  AnnualRevenue Business Revenue
+                  Business Revenue
                 </label>
                 <input
                   className="textbox"
                   type="number"
                   autoComplete="fname"
-                  placeholder="Enter AnnualRevenue Business Revenue"
+                  placeholder="Enter  Business Revenue"
                   defaultValue={consumer.annualRevenue}
                   {...register("annualrevenue")}
-                  onChange={(e) =>getConsumer({...consumer,annualRevenue: e.target.value})}
-                  
+                  onChange={(e) => getConsumer({ ...consumer, annualRevenue: e.target.value })}
+
                 />
               </div>
             </div>
@@ -560,6 +560,7 @@ export default function financialInformation() {
                     <input
                       type="radio"
                       name="olab"
+
                       value={false}
                       onClick={() => getConsumer({ ...consumer, outstandingLoanOrAdvance: false })}
                       checked={!consumer.outstandingLoanOrAdvance}
@@ -575,6 +576,7 @@ export default function financialInformation() {
                   Outstanding Loan/Advance Balance
                 </label>
                 <input
+                  disabled={!consumer?.outstandingLoanOrAdvance}
                   id="firstname"
                   className="textbox"
                   type="number"
@@ -583,8 +585,8 @@ export default function financialInformation() {
 
                   defaultValue={consumer.ourstandingAdvancesLoanAmount}
                   {...register("outstandingloanoradvance")}
-                  onChange={(e) =>getConsumer({...consumer,ourstandingAdvancesLoanAmount: e.target.value})}
-                
+                  onChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.target.value })}
+
                 />
               </div>
             </div>
@@ -604,8 +606,8 @@ export default function financialInformation() {
                     required: "Required",
                   })}
                   required
-                  onChange={(e) =>getConsumer({...consumer,useOfFunds: e.target.value})}
-                
+                  onChange={(e) => getConsumer({ ...consumer, useOfFunds: e.target.value })}
+
                 />
               </div>
               <div className="form-group form-dba">
@@ -621,10 +623,10 @@ export default function financialInformation() {
                   {...register("loanamountrequested", {
                     required: "Required",
                   })}
-                  onChange={(e) =>getConsumer({...consumer,loanAmountRequested: e.target.value})}
-                
+                  onChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.target.value })}
+
                   required
-                  
+
                 />
               </div>
             </div>
@@ -685,15 +687,15 @@ export default function financialInformation() {
                     Monthly Mortgage
                   </label>
                   <input
-                   
-                   value={consumer?.mortgageInformation?.monthlyMortgage}
+
+                    value={consumer?.mortgageInformation?.monthlyMortgage}
                     className="textbox"
                     type="text"
                     autoComplete="fname"
-                      placeholder="Enter Monthly Rent/Mortgage"
+                    placeholder="Enter Monthly Rent/Mortgage"
                     {...register("mortage")}
-                    onChange={(e) =>getConsumer({...consumer,mortgageInformation:{monthlyMortgage: e.target.value}})}
-                  
+                    onChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.target.value } })}
+
                   />
                 </div>
               </div>
@@ -707,17 +709,19 @@ export default function financialInformation() {
                         Monthly Rent
                       </label>
                       <input
-                      value={consumer?.rentInformation?.monthlyRent}
+                        value={consumer?.rentInformation?.monthlyRent}
                         className="textbox"
                         type="number"
                         autoComplete="fname"
                         placeholder="Enter Monthly Rent"
                         {...register("rent")}
-                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
-                          ...consumer?.rentInformation,
-                          monthlyRent:e.target.value
-                        }})}
-                
+                        onChange={(e) => getConsumer({
+                          ...consumer, rentInformation: {
+                            ...consumer?.rentInformation,
+                            monthlyRent: e.target.value
+                          }
+                        })}
+
                       />
                     </div>
                   </div>
@@ -728,7 +732,7 @@ export default function financialInformation() {
                         Landlord Name
                       </label>
                       <input
-                      value={consumer?.rentInformation?.landlordName}
+                        value={consumer?.rentInformation?.landlordName}
                         id="firstname"
                         className="textbox"
                         type="text"
@@ -737,10 +741,12 @@ export default function financialInformation() {
                         {...register("landordName", {
                           required: "Required",
                         })}
-                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
-                          ...consumer?.rentInformation,
-                          landlordName:e.target.value
-                        }})}
+                        onChange={(e) => getConsumer({
+                          ...consumer, rentInformation: {
+                            ...consumer?.rentInformation,
+                            landlordName: e.target.value
+                          }
+                        })}
                       />
                     </div>
                   </div>
@@ -760,10 +766,12 @@ export default function financialInformation() {
                           required: "Required",
                         })}
                         value={moment(consumer?.rentInformation?.leaseStartDate).format("YYYY-MM-DD")}
-                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
-                          ...consumer?.rentInformation,
-                          leaseStartDate:e.target.value
-                        }})}
+                        onChange={(e) => getConsumer({
+                          ...consumer, rentInformation: {
+                            ...consumer?.rentInformation,
+                            leaseStartDate: e.target.value
+                          }
+                        })}
                       />
                     </div>
                     <div className="form-phone">
@@ -780,11 +788,13 @@ export default function financialInformation() {
                           required: "Required",
                         })}
                         value={moment(consumer?.rentInformation?.leaseEndDate).format("YYYY-MM-DD")}
-                       
-                        onChange={(e) =>getConsumer({...consumer,rentInformation: {
-                          ...consumer?.rentInformation,
-                          leaseEndDate:e.target.value
-                        }})}
+
+                        onChange={(e) => getConsumer({
+                          ...consumer, rentInformation: {
+                            ...consumer?.rentInformation,
+                            leaseEndDate: e.target.value
+                          }
+                        })}
                       />
                     </div>
                   </div>
