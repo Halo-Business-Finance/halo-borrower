@@ -135,7 +135,7 @@ export default function PROPERTYCRE() {
 	const [formstep, setFormstep] = React.useState(1);
 
 	const completeFormStep = () => {
-		if (Number(formValues.amount) < 250000 || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
+		if (formValues.amount != '' && Number(formValues.amount) < 250000 || (formValues.bankruptcyYear != '' && formValues.bankruptcyYear < 7)) {
 			setIsModalVisible(true)
 			return;
 		}

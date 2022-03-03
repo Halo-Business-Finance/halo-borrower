@@ -114,6 +114,7 @@ const WorkingCapitalForm = () => {
 		loanAmount: "",
 		ownership: "",
 	});
+	console.log(error,'er')
 	const [workingCapitalData, setWorkingCapitalData] = useState({
 		bankruptcy: "",
 		bankruptcyYear: "",
@@ -131,7 +132,7 @@ const WorkingCapitalForm = () => {
 	})
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const completeFormStep = () => {
-		if (workingCapitalData.bankruptcyYear == "0" || workingCapitalData.businessYear == "0" ||(workingCapitalData?.annualRevenue && Number(workingCapitalData.annualRevenue) < 20000 )|| workingCapitalData.creditScore == "score1") {
+		if (workingCapitalData.bankruptcyYear == "0" || workingCapitalData.businessYear == "0" ||(workingCapitalData?.annualRevenue !== '' && Number(workingCapitalData.annualRevenue) < 20000 )|| workingCapitalData.creditScore == "score1") {
 			setIsModalVisible(true)
 			return;
 
@@ -160,15 +161,22 @@ const WorkingCapitalForm = () => {
 			setErrors({ ...error, proceeds: "Error" });
 			return;
 		}
-		else if (formstep == 7 && workingCapitalData.otheruse == "" && workingCapitalData.proceeds == "otherUse") {
-			setErrors({ ...error, otheruse: "Error" });
-			return;
-		}
-		if(formValues?.useOfProceeds=="OtherUse"){
+		// else if (formstep == 7 && workingCapitalData.proceeds == "" && workingCapitalData.proceeds == "otherUse") {
+		// 	setErrors({ ...error, otheruse: "Error" });
+		// 	return;
+		// }
+		if(workingCapitalData?.proceeds=="otherUse"){
             if(workingCapitalData?.specifiedOtherUse?.length>20){
                 setErrors({ ...error, specifiedOtherUse: "len" });
+				console.log(error,'check')
                 return;    
             }
+		if(workingCapitalData?.specifiedOtherUse==''){
+			setErrors({ ...error, specifiedOtherUse: "Error" });
+			return;
+		}	
+	
+		
         }
 		else if (formstep == 8 && workingCapitalData.termRequest == "") {
 			setErrors({ ...error, termRequest: "Error" });
@@ -239,7 +247,7 @@ const WorkingCapitalForm = () => {
 				"nameOfBorrower": parsedData?.borrowerName,
 				"emailOfBorrower": parsedData?.email,
 				"phoneNumber": parsedData?.phoneNumber,
-				"amountToBeBorrowed":workingCapitalData?.termRequest,
+				"amountToBeBorrowed":workingCapitalData?.loanAmount,
 				"prequalifyAnswers": workingCapitalData,
 				"accepted": true
 			}
@@ -450,9 +458,10 @@ const WorkingCapitalForm = () => {
 									placeholder="Your answer"
 								/>
 							</div>
+							<ErrorMessage>{error?.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
 						</div>
-						<ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
-                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
+						<ErrorMessage>{error?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
+                
 					</section>
 					}
 					{formstep == 8 && <section>
@@ -532,7 +541,7 @@ const WorkingCapitalForm = () => {
 						<div className="goal">
 							<div className="cast">Loan Amount Requested  </div>
 							<div className="term">
-							<input value={workingCapitalData.loanAmount} onChange={(e) => onFormChange(e, 'loanAmount')}
+							<input value={workingCapitalData.loanAmount} onChange={(e) => onChangeHandler('loanAmount',e )}
 										className="outline"
 										type="number"
 										placeholder="Only Number"
