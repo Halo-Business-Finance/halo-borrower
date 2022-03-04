@@ -33,10 +33,25 @@ const Hero = styled.div`
     //  background-image:linear-gradient(to bottom,rgba(255,255,250,0),rgba(243,186,23,.3));
 	min-height: 93.7vh;
     height: 100%;
+	& .title-main{
+		font-size: 28px;
+		font-weight: 700;
+		text-decoration: underline;
+		
+	}
+	
+	& .loan{
+		background: #fff;
+		padding:24px;
+		border-radius:10px;
+		box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+		
+	}
 	& .loan-type-select{
         padding: 15px 0px;
 		transition: all .3s ease-in-out;
 		&:hover{
+			
 			transform: scale(1.1); 
 			
 		}
@@ -169,6 +184,14 @@ const Hero = styled.div`
 		box-shadow: rgba(0, 0, 0, 0.5) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 		border-radius: 5px;
 		padding: 30px 20px 50px 20px;
+		&:hover{
+			border-bottom: .5px solid #F3BA17 ;
+			border-right: .5px solid #1B46B0 ;
+			border-left: .5px solid #F3BA17 ;
+			border-top: .5px solid #1B46B0 ;
+		box-shadow: rgb(237 71 71 / 10%) 0px 1px 1px 0px inset, rgb(237 71 71 / 10%) 0px 50px 100px -20px, rgb(237 71 71 / 25%) 0px 30px 60px -30px;
+
+	}
 	}
 
 	.loan-step {
@@ -592,8 +615,9 @@ const Form = () => {
 					<br />
 					<br />
 					<br />
+					<div className="loan">
 					{(status == 0 && !isFeatchingloanList) && <div>
-						<h2>All Applications</h2>
+						{prequalifyData?.length>0 &&<h2 className="title-main">All Applications</h2>}
 						{
 
 							prequalifyData?.length > 0 && prequalifyData?.map((item, index) =>
@@ -609,6 +633,7 @@ const Form = () => {
 							)
 						}
 					</div>}
+					</div>
 					{(authenticated&&isFeatchingloanList)&&<SpinWrapper><Spin size="large" /></SpinWrapper>}
 
 

@@ -2,8 +2,8 @@ import { Button } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled,{ keyframes} from 'styled-components';
-import { flipInX } from 'react-animations';
-const flip = keyframes`${flipInX}`;
+import { flipInX ,zoomInUp} from 'react-animations';
+const flip = keyframes`${zoomInUp}`;
 const Wrapper = styled.div`
 max-width:1300px;
 width:100%;
@@ -18,6 +18,10 @@ align-items: center;
 animation: 2s ${flip};
 
 justify-content:space-between;
+&:hover{
+   box-shadow: 4px 4px 20px rgb(237 71 71 / 30%);
+  
+}
 @media (max-width: 768px) {
     flex-direction: column;
 }

@@ -357,7 +357,7 @@ export default function informationindex() {
           <br />
 
           <div className="top-heading">
-            <div>
+            <div onClick={()=>router.push("/test")}>
               <span className="dot"></span>
               <span className="inprogress">{details?.loanRequestStatus}</span>
               <p>Your application in review by lender.</p>

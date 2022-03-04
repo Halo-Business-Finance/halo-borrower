@@ -18,7 +18,8 @@ const Nav = styled.nav`
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
-	color: #000000;
+	color: #fff;
+	background: #001529;
 
 	.logo {
 		margin-left: 155px;
@@ -94,9 +95,9 @@ const Navbar = (data) => {
 		return (
 			<>
 				<Nav>
-					<div className="logo">
+					<div onClick={()=>router.push("/test")} className="logo">
 						<StyledLink>
-							<Image src={Logo} alt="logo" />
+							<img src={"/logo.svg"} alt="logo" />
 						</StyledLink>
 					</div>
 					<div className="top-details">
