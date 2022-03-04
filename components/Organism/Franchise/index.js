@@ -164,7 +164,7 @@ export const Franchaise = () => {
 
     const completeFormStep = async (e) => {
         e.preventDefault();
-        if (formValues.businessYear == "0" || (formValues?.annualRevenue && Number(formValues.annualRevenue) < 25000 ) || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
+        if (formValues.businessYear == "0" || (formValues?.annualRevenue !== '' && Number(formValues.annualRevenue) < 25000 ) || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
 
             setIsModalVisible(true)
             return;
@@ -197,7 +197,7 @@ export const Franchaise = () => {
         }
        else  if(formValues?.useOfProceeds=="OtherUse"){
             if(formValues?.specifiedOtherUse?.length>20){
-                setErrors({ ...errors, specifiedOtherUse: "len" });
+                setErrors({ ...error, specifiedOtherUse: "len" });
                 return;    
             }
         }
