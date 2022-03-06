@@ -109,6 +109,7 @@ const BusinessStyle = styled.div`
 `;
 
 export default function Business() {
+  const [fileList, setFileList] = useState([])
   const [inputList, setInputList] = useState([
     { Date: "", File: "" },
     { Date: "", File: "" },
@@ -141,29 +142,41 @@ export default function Business() {
   };
 
   const onSubmitForm = async (values) => {
-    console.log(values);
-    console.log(values);
-    axios({
-      method: "post",
-      url:
-        process.env.NEXT_PUBLIC_BASE_URL +
-        "api/business-finance/upload-tax-returns/" +
-        cookie.get("loan_request_id"),
-      data: bodyFormData,
-      headers: headers,
-    }).then(
-      (response) => {
-        if (response.data.isSuccess) {
-          Router.push("/businessfinance_bd");
-        } else {
-          console.log(response);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  };
+
+    const formData = new FormData();
+		try {
+			await Promise.all(
+			  fileList.map((item) => {
+				formData.append("file")
+			  })
+			)
+			await API.post(`api/business-finance/upload-tax-returns`, formData)
+		  } catch (error) {
+			message.error();
+		  }
+		};
+   
+  //   axios({
+  //     method: "post",
+  //     url:
+  //       process.env.NEXT_PUBLIC_BASE_URL +
+  //       "api/business-finance/upload-tax-returns/" +
+  //       cookie.get("loan_request_id"),
+  //     data: bodyFormData,
+  //     headers: headers,
+  //   }).then(
+  //     (response) => {
+  //       if (response.data.isSuccess) {
+  //         Router.push("/businessfinance_bd");
+  //       } else {
+  //         console.log(response);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // };
 
   return (
     <>

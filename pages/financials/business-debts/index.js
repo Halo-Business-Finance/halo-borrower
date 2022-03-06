@@ -101,37 +101,49 @@ export default function Business() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
+	const [fileList, setFileList] = useState([])
 	const headers = {
 		"Content-Type": "application/json",
 		Authorization: "Bearer" + " " ,
 	};
 
 	const onSubmitForm = async (values) => {
-	
 
-		axios({
-			method: "post",
-			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
-			data: {
+		const formData = new FormData();
+		try {
+			await Promise.all(
+			  fileList.map((item) => {
+				formData.append("file")
+			  })
+			)
+			await API.post(`api/business-finance/add-update-business-debt`, formData)
+		  } catch (error) {
+			message.error();
+		  }
+		};
+
+	// 	axios({
+	// 		method: "post",
+	// 		url:
+	// 			process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
+	// 		data: {
 				
 			
-			},
-			headers: headers,
-		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					Router.push("businessfinance_pls");
-				} else {
-					console.log(response);
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
-	};
+	// 		},
+	// 		headers: headers,
+	// 	}).then(
+	// 		(response) => {
+	// 			if (response.data.isSuccess) {
+	// 				Router.push("businessfinance_pls");
+	// 			} else {
+	// 				console.log(response);
+	// 			}
+	// 		},
+	// 		(error) => {
+	// 			console.log(error);
+	// 		}
+	// 	);
+	// };
 
 
 	return (
