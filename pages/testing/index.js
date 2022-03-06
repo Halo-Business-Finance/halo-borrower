@@ -64,7 +64,7 @@ const Demo = () => {
   }
   useEffect(() => {
     fetchOwnerInformations();
-  }, [id]);
+  }, []);
 
   useEffect(() => {
 
@@ -75,7 +75,7 @@ const Demo = () => {
     form.setFieldsValue(inputList)
   }, [form, inputList])
 
-  useEffect(() => form.resetFields(), [initialValues]);
+  // useEffect(() => form.resetFields({users:inputList}), [initialValues]);
   console.log(inputList,"il")
   return (
     <MainWrapper>

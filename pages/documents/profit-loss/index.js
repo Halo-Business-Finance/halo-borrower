@@ -2,8 +2,11 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Form, Upload } from 'antd';
+import { Button, Form, message, Spin, Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
+import { useEffect, useState } from "react";
+import { API } from "../../../utils/api";
+import { useRouter } from "next/router";
 
 const { Dragger } = Upload;
 
@@ -14,6 +17,9 @@ const BusinessStyle = styled.div`
   font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
+ & .ant-upload-drag{
+margin-bottom:10px ;
+  }
 
   .main-style {
     width: 60%;
@@ -152,104 +158,163 @@ const BusinessStyle = styled.div`
     }
   }
 `;
+const SpinWrapper = styled.div`
+min-height:50vh ;
+width: 100%;
+display:flex ;
+justify-content: center;
+align-items: center;
+`;
 
 export default function ProfitLoss() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+  const router = useRouter();
+  const { id } = router.query
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const headers = {
-        "Content-Type": "application/json",
-        Authorization: "Bearer" + " ",
-    };
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer" + " ",
+  };
 
-    const onSubmitForm = async (values) => {
-        axios({
-            method: "post",
-            url:
-                process.env.NEXT_PUBLIC_BASE_URL + "/api/ /business-finance/upload-business-profit-and-loss/",
-            data: {
+  const onSubmitForm = async (values) => {
+    setIsSaving(true)
+    const formData = new FormData();
 
-            },
-            headers: headers,
-        }).then(
-            (response) => {
-                if (response.data.isSuccess) {
-                    Router.push("/businessfinance_bs");
-                } else {
-                    console.log(response);
-                }
-            },
-            (error) => {
-                console.log(error);
-            }
-        );
-    };
+    try {
+      await Promise.all(
+        fileList.map((item) => {
+          formData.append("file", item?.originFileObj, item?.name)
+        })
+      )
+      await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+    } catch (error) {
+      message.error(error?.payload?.reason || "Error Occured");
+      setIsSaving(false)
+    }
+    setIsSaving(false)
+  };
+  const [fileList, setFileList] = useState([])
+  const [isSaving, setIsSaving] = useState(false);
+  const [fetching, setFetching] = useState(false);
+  const GetPLDocuments = async () => {
+    setFetching(true)
+    const baseUrl = "https://dev.amazingrm.com/"
+    try {
+      const res = await API.get(`api/business-finance/get-document/${id}?typeOfDocument=2`)
+      const data = await res?.payload
+      const docs = data?.map((item) => ({
+        "id": item?.id,
+        'url': baseUrl + item?.fileName,
+        "name": item?.aliasFileName
 
+      }))
+
+      setFileList(docs)
+    } catch (error) {
+      message.error(error?.payload?.reason || "Error Occured");
+      setFetching(false)
+    }
+    setFetching(false)
+
+  }
+  useEffect(() => {
+    if (id) {
+      GetPLDocuments();
+    }
+
+  }, [id])
+  const HandleDelete = async (documentId) => {
+    try {
+      await API.delete(`/api/business-finance/delete-doc/${documentId}`);
+      GetPLDocuments();
+    } catch (error) {
+
+    }
+
+  }
+  if (fetching) {
     return (
-        <>
-            <Head>
-                <title>Profit and Loss</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <BusinessStyle>
-                <section className="main-style">
+      <SpinWrapper><Spin size="large" /></SpinWrapper>
+    )
+  }
+  return (
+    <>
+      <Head>
+        <title>Profit and Loss</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <BusinessStyle>
+        <section className="main-style">
 
-                    <header>
-                        <div className="header-one">
-                            <h1>Profit & Loss Statement</h1>
-                            <p>
-                                To evaluate how your business is doing so far this year, we
-                                will analyze a Profit & Loss Sratement, also called Income
-                                Statement. The profit & Loss Statement gives a snapshot of
-                                your business’s financial performance since your most recent
-                                tax filling.
-                            </p>
-                        </div>
-                    </header>
-                    <br />
-                    <Form layout="vertical">
-                        <Form.Item label="Upload Profit and loss statements">
-                            <Dragger
-                                max={5}
-                                accept=".xls,.pdf,.csv"
-                                previewFile={false}
-                                multiple
-                                // fileList={}
-                                beforeUpload={(file) => {
-                                    const isContentIsGreatedThan5MB = file?.size / 1024 / 1024 > 10;
+          <header>
+            <div className="header-one">
+              <h1>Profit & Loss Statement</h1>
+              <p>
+                To evaluate how your business is doing so far this year, we
+                will analyze a Profit & Loss Sratement, also called Income
+                Statement. The profit & Loss Statement gives a snapshot of
+                your business’s financial performance since your most recent
+                tax filling.
+              </p>
+            </div>
+          </header>
+          <br />
+          <Form layout="vertical">
+            <Form.Item label="Upload Profit and loss statements">
+              <Dragger
+                max={5}
+                listType="picture-card"
+                accept=".xls,.pdf,.csv"
+                previewFile={false}
+                multiple
+                fileList={fileList}
+                onRemove={(file) => {
+                  if (file?.id) {
+                    HandleDelete(file.id);
 
-                                    if (isContentIsGreatedThan5MB) {
-                                        message.error("Please upload less than 10 mb content")
-                                        return Upload.LIST_IGNORE;
-                                    }
-                                }}
-                            >
-                                <p className="ant-upload-drag-icon">
-                                    <InboxOutlined />
-                                </p>
-                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                <p className="ant-upload-hint">
-                                    Upload your profit and loss documents
-                                </p>
-                            </Dragger>
-                        </Form.Item>
-                    </Form>
-                    <div className="footer">
-                        <div className="continue-button">
-                            <img src="/images/back.png" />
-                            <input type="submit" id="button" value="Upload to continue" />
-                        </div>
+                  }
+                  console.log(file, "dke")
+                }}
+                onChange={({ fileList: newFileList }) => {
+                  setFileList(newFileList);
 
-                        <div className="skip-link">
-                            <a href="/businessfinance_bs">Skip</a>
-                        </div>
-                    </div>
+                }}
+                beforeUpload={(file) => {
+                  const isContentIsGreatedThan5MB = file?.size / 1024 / 1024 > 10;
 
-                </section>
-            </BusinessStyle>
-        </>
-    );
+                  if (isContentIsGreatedThan5MB) {
+                    message.error("Please upload less than 10 mb content")
+                    return Upload.LIST_IGNORE;
+                  }
+                }}
+              >
+                <p className="ant-upload-drag-icon">
+                  <InboxOutlined />
+                </p>
+                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                <p className="ant-upload-hint">
+                  Upload your profit and loss documents
+                </p>
+              </Dragger>
+              <br/>
+            </Form.Item>
+          </Form>
+          <div className="footer">
+            <div className="continue-button">
+              <img src="/images/back.png" />
+              <Button size="large" loading={isSaving} onClick={onSubmitForm} type="primary" >Upload to continue</Button>
+            </div>
+            <div className="skip-link">
+              <a href="/businessfinance_bs">Skip</a>
+            </div>
+          </div>
+
+        </section>
+      </BusinessStyle>
+    </>
+  );
 }
