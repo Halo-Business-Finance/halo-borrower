@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,8 @@ import cookie from "js-cookie";
 import NavMenu from "../../../components/NavMenu";
 import { Button, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
+import { API } from "../../../utils/api";
+import { useRouter } from "next/router";
 const BusinessStyle = styled.div`
   display: flex;
   justify-content: center;
@@ -109,6 +111,8 @@ const BusinessStyle = styled.div`
 `;
 
 export default function Business() {
+  const router = useRouter();
+  const { id } = router.query;
   const [fileList, setFileList] = useState([])
   const [inputList, setInputList] = useState([
     { Date: "", File: "" },
@@ -123,6 +127,7 @@ export default function Business() {
     list[index][name] = value;
     setInputList(list);
   };
+  console.log(inputList,'it')
 
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -155,28 +160,32 @@ export default function Business() {
 			message.error();
 		  }
 		};
-   
-  //   axios({
-  //     method: "post",
-  //     url:
-  //       process.env.NEXT_PUBLIC_BASE_URL +
-  //       "api/business-finance/upload-tax-returns/" +
-  //       cookie.get("loan_request_id"),
-  //     data: bodyFormData,
-  //     headers: headers,
-  //   }).then(
-  //     (response) => {
-  //       if (response.data.isSuccess) {
-  //         Router.push("/businessfinance_bd");
-  //       } else {
-  //         console.log(response);
-  //       }
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //     }
-  //   );
-  // };
+    const GetTaxReturns = async () => {
+      // const baseUrl = "https://dev.amazingrm.com/"
+      if (id) {
+      try {
+        const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
+        console.log(res,'dt')
+        // const data = await res?.payload
+        // const docs = data?.map((item) => ({
+        //   "id": item?.id,
+        //   'url': baseUrl + item?.fileName,
+        //   "name": item?.aliasFileName
+  
+        // }))
+      } 
+        catch (error) {
+        // message.error(error?.payload?.reason || "Error Occured");
+        // setFetching(false)
+      }}}
+    //   setFetching(false)
+  
+    // }
+    useEffect(() => {
+      if (id) {
+        GetTaxReturns();
+      }
+    }, [id])
 
   return (
     <>
@@ -221,7 +230,11 @@ export default function Business() {
                         onChange={(e) => handleInputChange(e, i)}
                       />
                     </div>
-                    <Upload >
+                    <Upload 
+                     name="File"
+                     value={x.File}
+                     onChange={(e) => handleInputChange(e, i)}
+                    >
     <Button icon={<UploadOutlined />}>Click to Upload</Button>
   </Upload>
 

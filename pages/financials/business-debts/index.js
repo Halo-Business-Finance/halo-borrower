@@ -5,7 +5,7 @@ import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
 import { Button, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
-
+import { API } from "../../../utils/api";
 const BusinessDebtStyle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -96,6 +96,8 @@ const BusinessDebtStyle = styled.div`
 `;
 
 export default function Business() {
+ const router = useRouter();
+  const { id } = router.query;
 	const {
 		register,
 		handleSubmit,
@@ -121,29 +123,33 @@ export default function Business() {
 			message.error();
 		  }
 		};
-
-	// 	axios({
-	// 		method: "post",
-	// 		url:
-	// 			process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
-	// 		data: {
-				
-			
-	// 		},
-	// 		headers: headers,
-	// 	}).then(
-	// 		(response) => {
-	// 			if (response.data.isSuccess) {
-	// 				Router.push("businessfinance_pls");
-	// 			} else {
-	// 				console.log(response);
-	// 			}
-	// 		},
-	// 		(error) => {
-	// 			console.log(error);
-	// 		}
-	// 	);
-	// };
+		const GetBusinessDebts = async () => {
+			// const baseUrl = "https://dev.amazingrm.com/"
+			if (id) {
+			try {
+			  const res = await API.get(`api/business-finance/get-business-debt/${id}`)
+			  console.log(res,'bd')
+			  // const data = await res?.payload
+			  // const docs = data?.map((item) => ({
+			  //   "id": item?.id,
+			  //   'url': baseUrl + item?.fileName,
+			  //   "name": item?.aliasFileName
+		
+			  // }))
+			} 
+			  catch (error) {
+			  // message.error(error?.payload?.reason || "Error Occured");
+			  // setFetching(false)
+			}}}
+		  //   setFetching(false)
+		
+		  // }
+		  useEffect(() => {
+			if (id) {
+				GetBusinessDebts();
+			}
+		  }, [id])
+	  
 
 
 	return (
