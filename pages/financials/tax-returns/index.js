@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import cookie from "js-cookie";
 import NavMenu from "../../../components/NavMenu";
-import { Button, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
+import { API } from "../../../utils/api";
+import { useRouter } from "next/router";
+import { Form, Input, Button, Space, Radio, Upload } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+
 const BusinessStyle = styled.div`
   display: flex;
   justify-content: center;
@@ -109,6 +113,12 @@ const BusinessStyle = styled.div`
 `;
 
 export default function Business() {
+  const [form] = Form.useForm()
+  const router = useRouter();
+  const { id } = router.query;
+  // const onFinish = values => {
+  //   console.log('Received values of form:', values);
+  // };
   const [inputList, setInputList] = useState([
     { Date: "", File: "" },
     { Date: "", File: "" },
@@ -122,6 +132,7 @@ export default function Business() {
     list[index][name] = value;
     setInputList(list);
   };
+  console.log(inputList,'it')
 
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -140,30 +151,51 @@ export default function Business() {
     Authorization: "Bearer" + " ",
   };
 
-  const onSubmitForm = async (values) => {
-    console.log(values);
-    console.log(values);
-    axios({
-      method: "post",
-      url:
-        process.env.NEXT_PUBLIC_BASE_URL +
-        "api/business-finance/upload-tax-returns/" +
-        cookie.get("loan_request_id"),
-      data: bodyFormData,
-      headers: headers,
-    }).then(
-      (response) => {
-        if (response.data.isSuccess) {
-          Router.push("/businessfinance_bd");
-        } else {
-          console.log(response);
-        }
-      },
-      (error) => {
-        console.log(error);
+  const onFinish = async (values) => {
+    console.log('Received values of form:', values);
+
+    const formData = new FormData();
+		try {
+			await Promise.all(
+			  inputList?.users?.map((item) => {
+				formData.append(item?.Date,item?.File?.file?.originFileObj)
+
+			  })
+			)
+			await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
+		  } catch (error) {
+        console.log(error,'errr')
+			// message.error();
+		  }
+    };
+
+    const GetTaxReturns = async () => {
+      // const baseUrl = "https://dev.amazingrm.com/"
+      if (id) {
+      try {
+        const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
+        console.log(res,'dt')
+        // const data = await res?.payload
+        // const docs = data?.map((item) => ({
+        //   "id": item?.id,
+        //   'url': baseUrl + item?.fileName,
+        //   "name": item?.aliasFileName
+  
+        // }))
+      } 
+        catch (error) {
+        // message.error(error?.payload?.reason || "Error Occured");
+        // setFetching(false)
+      }}}
+    //   setFetching(false)
+  
+    // }
+    useEffect(() => {
+      if (id) {
+        GetTaxReturns();
       }
-    );
-  };
+    }, [id])
+ 
 
   return (
     <>
@@ -190,7 +222,46 @@ export default function Business() {
               </p>
             </div>
           </div>
-          <form onSubmit={onSubmitForm}>
+          <Form form={form} initialValues={{users:inputList}}  name="dynamic_form_nest_item"  autoComplete="off">
+    <Form.List name="users">
+      {(fields, { add, remove }) => (
+        <>
+          {fields.map(({ key, name, ...restField }) => (
+            <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+              <Form.Item
+                {...restField}
+                name={[name, 'Date']}
+                rules={[{ required: true, message: 'Missing first name' }]}
+              >
+                <Input type="date" placeholder="First Name" />
+              </Form.Item>
+              <Form.Item
+                {...restField}
+                name={[name, 'File']}
+               
+              >
+                <Upload >
+                  <Button>Files</Button>
+                </Upload>
+              </Form.Item>
+              <MinusCircleOutlined onClick={() => remove(name)} />
+            </Space>
+          ))}
+          <Form.Item>
+            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              Add field
+            </Button>
+          </Form.Item>
+        </>
+      )}
+    </Form.List>
+    <Form.Item>
+      <Button onClick={onFinish} type="primary" htmlType="submit">
+        Submit
+      </Button>
+    </Form.Item>
+  </Form>
+          {/* <form onSubmit={onSubmitForm}>
             {inputList.map((x, i) => {
               return (
                 <>
@@ -199,18 +270,33 @@ export default function Business() {
                       <div className="column-one">
                         <label>2020 Profit & Loss Statement</label>
                       </div>
+
                       <input
                         className=""
                         name="Date"
                         placeholder="Enter First Name"
                         type="date"
                         value={x.Date}
-                        onChange={(e) => handleInputChange(e, i)}
-                      />
+                        onChange={(e) =>{} }
+                    />
+                  
                     </div>
-                    <Upload >
+                    <Upload 
+                     name="File"
+                     value={x.File}
+                     onChange={({file}) => { 
+                      //  handleInputChange(e, i)
+                      console.log(file,'on')
+
+                    
+                    }
+                  }
+                     
+                    >
+                    
     <Button icon={<UploadOutlined />}>Click to Upload</Button>
   </Upload>
+ 
 
                     <div className="btn-box">
                       {inputList.length - 1 === i && (
@@ -240,7 +326,7 @@ export default function Business() {
               />
               <a href="/businessfinance_bd">Skip</a>
             </div>
-          </form>
+          </form> */}
         </section>
       </BusinessStyle>
     </>
