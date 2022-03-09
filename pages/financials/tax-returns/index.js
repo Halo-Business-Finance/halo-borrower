@@ -6,7 +6,7 @@ import axios from "axios";
 import cookie from "js-cookie";
 import NavMenu from "../../../components/NavMenu";
 import { UploadOutlined } from '@ant-design/icons';
-import { API } from "../../../utils/api";
+import { API } from "../../../utils/api"
 import { useRouter } from "next/router";
 import { Form, Input, Button, Space, Radio, Upload } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -132,7 +132,7 @@ export default function Business() {
     list[index][name] = value;
     setInputList(list);
   };
-  console.log(inputList,'it')
+  console.log(inputList, 'it')
 
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -154,48 +154,50 @@ export default function Business() {
   const onFinish = async (values) => {
     console.log('Received values of form:', values);
 
-    const formData = new FormData();
-		try {
-			await Promise.all(
-			  inputList?.users?.map((item) => {
-				formData.append(item?.Date,item?.File?.file?.originFileObj)
 
-			  })
-			)
-			await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
-		  } catch (error) {
-        console.log(error,'errr')
-			// message.error();
-		  }
-    };
 
-    const GetTaxReturns = async () => {
-      // const baseUrl = "https://dev.amazingrm.com/"
-      if (id) {
+    let formData = new FormData();
+
+    inputList?.users?.map((item) => {
+      formData.append(item?.Date, item?.File?.file?.originFileObj)
+    })
+
+
+
+
+    await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
+    console.log('akjsndkjasdkj')
+  };
+
+  const GetTaxReturns = async () => {
+    // const baseUrl = "https://dev.amazingrm.com/"
+    if (id) {
       try {
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
-        console.log(res,'dt')
+        console.log(res, 'dt')
         // const data = await res?.payload
         // const docs = data?.map((item) => ({
         //   "id": item?.id,
         //   'url': baseUrl + item?.fileName,
         //   "name": item?.aliasFileName
-  
+
         // }))
-      } 
-        catch (error) {
+      }
+      catch (error) {
         // message.error(error?.payload?.reason || "Error Occured");
         // setFetching(false)
-      }}}
-    //   setFetching(false)
-  
-    // }
-    useEffect(() => {
-      if (id) {
-        GetTaxReturns();
       }
-    }, [id])
- 
+    }
+  }
+  //   setFetching(false)
+
+  // }
+  useEffect(() => {
+    if (id) {
+      GetTaxReturns();
+    }
+  }, [id])
+
 
   return (
     <>
@@ -222,45 +224,45 @@ export default function Business() {
               </p>
             </div>
           </div>
-          <Form form={form} initialValues={{users:inputList}}  name="dynamic_form_nest_item"  autoComplete="off">
-    <Form.List name="users">
-      {(fields, { add, remove }) => (
-        <>
-          {fields.map(({ key, name, ...restField }) => (
-            <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-              <Form.Item
-                {...restField}
-                name={[name, 'Date']}
-                rules={[{ required: true, message: 'Missing first name' }]}
-              >
-                <Input type="date" placeholder="First Name" />
-              </Form.Item>
-              <Form.Item
-                {...restField}
-                name={[name, 'File']}
-               
-              >
-                <Upload >
-                  <Button>Files</Button>
-                </Upload>
-              </Form.Item>
-              <MinusCircleOutlined onClick={() => remove(name)} />
-            </Space>
-          ))}
-          <Form.Item>
-            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-              Add field
-            </Button>
-          </Form.Item>
-        </>
-      )}
-    </Form.List>
-    <Form.Item>
-      <Button onClick={onFinish} type="primary" htmlType="submit">
-        Submit
-      </Button>
-    </Form.Item>
-  </Form>
+          <Form form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
+            <Form.List name="users">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'Date']}
+                        rules={[{ required: true, message: 'Missing first name' }]}
+                      >
+                        <Input type="date" placeholder="First Name" />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'File']}
+
+                      >
+                        <Upload >
+                          <Button>Files</Button>
+                        </Upload>
+                      </Form.Item>
+                      <MinusCircleOutlined onClick={() => remove(name)} />
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                      Add field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+            <Form.Item>
+              <Button onClick={onFinish} type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
           {/* <form onSubmit={onSubmitForm}>
             {inputList.map((x, i) => {
               return (
