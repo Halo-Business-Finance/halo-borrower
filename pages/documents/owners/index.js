@@ -188,6 +188,7 @@ export default function UploadDocs() {
     businessInfo: null
 
   })
+  const baseUrl = "https://dev.amazingrm.com/"
   const [owners, setOwners] = useState([]);
   const [ownersData, setOwnersData] = useState([])
   const [article, setArticle] = useState([]);
@@ -199,7 +200,16 @@ export default function UploadDocs() {
       const res = await API.get(`/api/borrower/get-owners/${id}`)
       const data = await res?.payload
 
-      setOwners(data)
+    const response=  data?.map((item) => ({
+        name: item?.fullName,
+        file:[{
+          name:item?.licenseInfo?.aliasFileName,
+          url:baseUrl+item?.licenseInfo?.fileName,
+          uid:item?.licenseInfo?.id,
+          key:item?.licenseInfo?.key,
+        }]
+      }))
+      setOwners(response)
 
     } catch (error) {
       setFetching(false)
@@ -212,7 +222,7 @@ export default function UploadDocs() {
     try {
       const res = await API.get(`/api/document/get-final-documents/${id}`)
       const data = await res?.payload
-      const baseUrl = "https://dev.amazingrm.com/"
+
 
       const refactoredData = await data?.documentInformations?.map((item, index) => ({
         "url": baseUrl + item?.fileName,
@@ -222,25 +232,25 @@ export default function UploadDocs() {
         "id": index + 1
 
       }))
-      
+
       const refactoredOwners = await data?.ownersDocument?.map((item, index) => {
 
-        
-          // file: [{
-          //   "url": baseUrl + item?.document[index]?.fileName,
-          //   "uid": item?.document[index]?.id,
-          //   "type": item?.document[index]?.key,
-          //   "name": item?.document[index]?.aliasFileName||"file",
-          //   "docs":item?.document
-          // }],
-          // "id": index + 1,
-          // "name": "ajskajsdk"
-        }
-        
-       
-              
+
+        // file: [{
+        //   "url": baseUrl + item?.document[index]?.fileName,
+        //   "uid": item?.document[index]?.id,
+        //   "type": item?.document[index]?.key,
+        //   "name": item?.document[index]?.aliasFileName||"file",
+        //   "docs":item?.document
+        // }],
+        // "id": index + 1,
+        // "name": "ajskajsdk"
+      }
+
+
+
       )
-      setOwners(refactoredOwners)
+
 
       const article = refactoredData?.filter((item) => item?.type == "Articles");
       const business = refactoredData?.filter((item) => item?.type == "BusinessInfo")
@@ -405,7 +415,9 @@ export default function UploadDocs() {
                       <Upload
                         fileList={item?.file}
                         onRemove={(file) => {
-
+                          if (file?.url) {
+                            HandleDelete(file?.uid)
+                          }
                           updateFiles(file?.uid);
 
                         }}
@@ -442,6 +454,12 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
+                  onRemove={(file)=>{
+                    if (file?.url) {
+                      HandleDelete(file?.uid)
+                    }
+
+                  }}
                     fileList={businessInfo}
                     showUploadList
                     max={1}

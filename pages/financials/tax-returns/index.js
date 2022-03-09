@@ -158,9 +158,11 @@ export default function Business() {
 
     let formData = new FormData();
 
-    inputList?.users?.map((item) => {
-      formData.append(item?.Date, item?.File?.file?.originFileObj)
-    })
+    await Promise.all(
+      values?.users?.map((item) => {
+        formData.append(item?.Date, item?.File?.file?.originFileObj)
+      })
+    )
 
 
 
@@ -224,7 +226,7 @@ export default function Business() {
               </p>
             </div>
           </div>
-          <Form form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
+          <Form onFinish={onFinish} form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
             <Form.List name="users">
               {(fields, { add, remove }) => (
                 <>
@@ -258,7 +260,7 @@ export default function Business() {
               )}
             </Form.List>
             <Form.Item>
-              <Button onClick={onFinish} type="primary" htmlType="submit">
+              <Button  type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
