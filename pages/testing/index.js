@@ -1,4 +1,4 @@
-import { Form, Input, Button, Space, Radio } from 'antd';
+import { Form, Input, Button, Space, Radio, Upload } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import { API } from '../../utils/api';
@@ -75,144 +75,183 @@ const Demo = () => {
     form.setFieldsValue(inputList)
   }, [form, inputList])
 
-  // useEffect(() => form.resetFields({users:inputList}), [initialValues]);
-  console.log(inputList,"il")
+  useEffect(() => form.resetFields(), [initialValues]);
+  
   return (
-    <MainWrapper>
-      <Form form={form} layout="vertical" initialValues={{users:inputList}} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
-        <Form.List name="users">
-          {(inputList, { add, remove }) => (
-            <>
-              {inputList.map((field, { key, name, ...restField }) => (
-
-                <div key={key} className="container">
-                  <img
-                    src={"/images/trash.png"}
-                    alt="trash"
-                    onClick={() => remove(name)}
-                  />
-                  
-                  <br />
-                  {console.log("rest",restField)}
-                  <div className="dynamic-content">
-                    <Form.Item
-
-                      label={"Full Name"}
-                      {...restField}
-                      
-                      name={[name, 'title']}
-                      rules={[{ required: true, message: 'required' }]}
-                    >
-                      <Input size="large" placeholder="Full Name" />
-                    </Form.Item>
-                    <Form.Item
-
-                      label={"Date of Birth"}
-                      {...restField}
-                      name={[name, 'dateOfBirth']}
-                      rules={[{ required: true, message: 'required' }]}
-                    >
-                      <Input size="large" type="date" placeholder="Date of birth" />
-                    </Form.Item>
-                  </div>
-                  <div className="dynamic-content">
-                    <Form.Item
-
-                      label={"State"}
-                      {...restField}
-                      name={[name, 'state']}
-                      rules={[{ required: true, message: 'required' }]}
-                    >
-                      <Input size="large" />
-                    </Form.Item>
-                    <Form.Item
-
-                      label={"Zip Code"}
-                      {...restField}
-                      name={[name, 'zipCode']}
-                      rules={[{ required: true, message: 'required' }]}
-                    >
-                      <Input size="large" />
-                    </Form.Item>
-                    <Form.Item
-
-                      label={"Social Security Number"}
-                      {...restField}
-                      name={[name, 'ssn']}
-                      rules={[{ required: true, message: 'required' }]}
-                    >
-                      <Input size="large" />
-                    </Form.Item>
-                  </div>
-                  <div className="dynamic-content">
-                    <Form.Item
-
-                      label={"Email"}
-                      {...restField}
-                      name={[name, 'email']}
-                      rules={[{ required: true, message: 'required' }, { type: "email" }]}
-                    >
-                      <Input size="large" />
-                    </Form.Item>
-                    <Form.Item
-
-                      label={"Phone Number"}
-                      {...restField}
-                      name={[name, 'phoneNumber']}
-                    //   rules={[{ required: true, message: 'required' },{type:"email"}]}
-                    >
-                      <Input size="large" />
-                    </Form.Item>
-                  </div>
-                  <div>
-                    <Form.Item
-
-                      label={"Ownership"}
-                      {...restField}
-                      name={[name, 'ownershipPercentage']}
-                    //   rules={[{ required: true, message: 'required' },{type:"email"}]}
-                    >
-                      <Input size="large" />
-                    </Form.Item>
-                  </div>
-                  <Form.Item
-
-                    label={"	Are you a:"}
-                    {...restField}
-                    name={[name, 'typeOfResident']}
-                  //   rules={[{ required: true, message: 'required' },{type:"email"}]}
-                  >
-                    <Radio.Group defaultValue="UsCitizen" >
-                      <Space justify="space-between">
-                        <Radio value="UsCitizen">Us Citizen</Radio>
-                        <Radio value="USPermanentResident">US Permanent Resident</Radio>
-                        <Radio value="Other">Other</Radio>
-
-                      </Space>
-
-                    </Radio.Group>
-                  </Form.Item>
-
-
-
-                </div>
-
-              ))}
-              <Form.Item>
-                <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                  Add New Owner
-                </Button>
+    <Form form={form} initialValues={{users:inputList}}  name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+    <Form.List name="users">
+      {(fields, { add, remove }) => (
+        <>
+          {fields.map(({ key, name, ...restField }) => (
+            <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+              <Form.Item
+                {...restField}
+                name={[name, 'title']}
+                rules={[{ required: true, message: 'Missing first name' }]}
+              >
+                <Input type="date" placeholder="First Name" />
               </Form.Item>
-            </>
-          )}
-        </Form.List>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
-    </MainWrapper>
+              <Form.Item
+                {...restField}
+                name={[name, 'file']}
+               
+              >
+                <Upload >
+                  <Button>Files</Button>
+                </Upload>
+              </Form.Item>
+              <MinusCircleOutlined onClick={() => remove(name)} />
+            </Space>
+          ))}
+          <Form.Item>
+            <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              Add field
+            </Button>
+          </Form.Item>
+        </>
+      )}
+    </Form.List>
+    <Form.Item>
+      <Button type="primary" htmlType="submit">
+        Submit
+      </Button>
+    </Form.Item>
+  </Form>
+    // <MainWrapper>
+    //   <Form form={form} layout="vertical" initialValues={{users:inputList}} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
+    //     <Form.List name="users">
+    //       {(fields, { add, remove }) => (
+    //         <>
+    //           {fields.map((field, { key, name, ...restField }) => (
+
+    //             <div key={key} className="container">
+    //               <img
+    //                 src={"/images/trash.png"}
+    //                 alt="trash"
+    //                 onClick={() => remove(name)}
+    //               />
+                  
+    //               <br />
+    //               {console.log("rest",restField)}
+    //               <div className="dynamic-content">
+    //                 <Form.Item
+
+    //                   label={"Full Name"}
+    //                   {...restField}
+                      
+    //                   name={[name, 'title']}
+    //                   rules={[{ required: true, message: 'required' }]}
+    //                 >
+    //                   <Input size="large" placeholder="Full Name" />
+    //                 </Form.Item>
+    //                 <Form.Item
+
+    //                   label={"Date of Birth"}
+    //                   {...restField}
+    //                   name={[name, 'dateOfBirth']}
+    //                   rules={[{ required: true, message: 'required' }]}
+    //                 >
+    //                   <Input size="large" type="date" placeholder="Date of birth" />
+    //                 </Form.Item>
+    //               </div>
+    //               <div className="dynamic-content">
+    //                 <Form.Item
+
+    //                   label={"State"}
+    //                   {...restField}
+    //                   name={[name, 'state']}
+    //                   rules={[{ required: true, message: 'required' }]}
+    //                 >
+    //                   <Input size="large" />
+    //                 </Form.Item>
+    //                 <Form.Item
+
+    //                   label={"Zip Code"}
+    //                   {...restField}
+    //                   name={[name, 'zipCode']}
+    //                   rules={[{ required: true, message: 'required' }]}
+    //                 >
+    //                   <Input size="large" />
+    //                 </Form.Item>
+    //                 <Form.Item
+
+    //                   label={"Social Security Number"}
+    //                   {...restField}
+    //                   name={[name, 'ssn']}
+    //                   rules={[{ required: true, message: 'required' }]}
+    //                 >
+    //                   <Input size="large" />
+    //                 </Form.Item>
+    //               </div>
+    //               <div className="dynamic-content">
+    //                 <Form.Item
+
+    //                   label={"Email"}
+    //                   {...restField}
+    //                   name={[name, 'email']}
+    //                   rules={[{ required: true, message: 'required' }, { type: "email" }]}
+    //                 >
+    //                   <Input size="large" />
+    //                 </Form.Item>
+    //                 <Form.Item
+
+    //                   label={"Phone Number"}
+    //                   {...restField}
+    //                   name={[name, 'phoneNumber']}
+    //                 //   rules={[{ required: true, message: 'required' },{type:"email"}]}
+    //                 >
+    //                   <Input size="large" />
+    //                 </Form.Item>
+    //               </div>
+    //               <div>
+    //                 <Form.Item
+
+    //                   label={"Ownership"}
+    //                   {...restField}
+    //                   name={[name, 'ownershipPercentage']}
+    //                 //   rules={[{ required: true, message: 'required' },{type:"email"}]}
+    //                 >
+    //                   <Input size="large" />
+    //                 </Form.Item>
+    //               </div>
+    //               <Form.Item
+
+    //                 label={"	Are you a:"}
+    //                 {...restField}
+    //                 name={[name, 'typeOfResident']}
+    //               //   rules={[{ required: true, message: 'required' },{type:"email"}]}
+    //               >
+    //                 <Radio.Group defaultValue="UsCitizen" >
+    //                   <Space justify="space-between">
+    //                     <Radio value="UsCitizen">Us Citizen</Radio>
+    //                     <Radio value="USPermanentResident">US Permanent Resident</Radio>
+    //                     <Radio value="Other">Other</Radio>
+
+    //                   </Space>
+
+    //                 </Radio.Group>
+    //               </Form.Item>
+
+
+
+    //             </div>
+
+    //           ))}
+    //           <Form.Item>
+    //             <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+    //               Add New Owner
+    //             </Button>
+    //           </Form.Item>
+    //         </>
+    //       )}
+    //     </Form.List>
+    //     <Form.Item>
+    //       <Button type="primary" htmlType="submit">
+    //         Submit
+    //       </Button>
+    //     </Form.Item>
+    //   </Form>
+    // </MainWrapper>
   );
 };
 export default Demo;

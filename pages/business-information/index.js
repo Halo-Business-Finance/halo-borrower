@@ -213,7 +213,8 @@ export default function businessInformation() {
         }
     }
     const onSubmitForm = async (values) => {
-
+const refactored=values.totalContractors?.replace(/,/g,'')
+const emp=values.totalEmployees?.replace(/,/g,'')
         // if (cookie.get("id") == "") {
         //     axios({
         //         method: "post",
@@ -225,8 +226,8 @@ export default function businessInformation() {
             startDate: values.date,
             industryDescription: values.industry,
             typeOfProduct: values.product,
-            totalEmployees: values.totalEmployees,
-            totalContractors: values.totalContractors,
+            totalEmployees: emp,
+            totalContractors: refactored ,
             wasPurchased: values.wasPurchased,
             id: hasId,
             loanRequestId: id
@@ -238,8 +239,8 @@ export default function businessInformation() {
             startDate: values.date,
             industryDescription: values.industry,
             typeOfProduct: values.product,
-            totalEmployees: values.totalEmployees,
-            totalContractors: values.totalContractors,
+            totalEmployees: emp,
+            totalContractors:refactored,
             wasPurchased: values.wasPurchased,
             loanRequestId: id
         }
