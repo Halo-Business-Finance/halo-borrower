@@ -6,6 +6,8 @@ import NavMenu from "../../../components/NavMenu";
 import { Button, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import { API } from "../../../utils/api";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 const BusinessDebtStyle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -103,7 +105,6 @@ export default function Business() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const [fileList, setFileList] = useState([])
 	const headers = {
 		"Content-Type": "application/json",
 		Authorization: "Bearer" + " " ,

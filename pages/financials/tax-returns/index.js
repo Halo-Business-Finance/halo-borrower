@@ -157,9 +157,11 @@ export default function Business() {
 
 
     let formData = new FormData();
-
-    inputList?.users?.map((item) => {
-      formData.append(item?.Date, item?.File?.file?.originFileObj)
+    // formData.append('abcd','abcd')
+    await values?.users?.map((item) => {
+      console.log(values,'vl')
+     
+      formData.append('abcd', item?.File?.file?.originFileObj)
     })
 
 
