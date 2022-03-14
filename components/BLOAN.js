@@ -472,7 +472,7 @@ export default function BLOAN() {
 					</section>}
 					{(bridgeLoanData.fundPlan === "construct" && formstep == 4) && <section>
 						<div className="goal">
-							<div className="cast">Construction Amount </div>
+							<div className="cast">Total Cost of the Construction </div>
 							<div className="term">
 							<input value={bridgeLoanData.constructionAmount} onChange={(e) => onChangeHandler('constructionAmount',e )}
 										className="outline"
@@ -740,7 +740,7 @@ export default function BLOAN() {
 					{(bridgeLoanData.ownerOrInvestment == "Owner" && formstep == 11) && <section>
 						<div className="goal">
 							<div className="cast">
-								Will You Occupy 51% or more of the space
+							Will you Occupy 51% or more of the work space?
 							</div>
 							<div className="term">
 								<input

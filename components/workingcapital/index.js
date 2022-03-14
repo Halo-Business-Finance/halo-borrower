@@ -495,7 +495,7 @@ const WorkingCapitalForm = () => {
 					}
 					{formstep == 9 && <section>
 						<div className="goal">
-							<div className="cast">What is your credit score look like?  </div>
+							<div className="cast">What does your credit score look like?  </div>
 							<div className="term">
 								<input
 									checked={workingCapitalData.creditScore == "score1" ? true : false}
