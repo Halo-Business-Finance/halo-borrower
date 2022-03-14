@@ -10,6 +10,7 @@ import { notification, Modal } from "antd";
 import { API } from "../../utils/api";
 import moment from "moment";
 import { Success } from '../../components/Organism/Success';
+import CurrencyFormat from "react-currency-format";
 
 const Hero = styled.div`
 	display: flex;
@@ -569,13 +570,13 @@ if (hasId !== null){
 											<label htmlFor="fdba" className="formlabel">
 												Mobile
 											</label>
-											<input
-
+											<CurrencyFormat
+										        format="+1 (###) ###-####" mask="_"	
 												name="phoneNumber"
 												className="textbox"
 												type="mobile"
 												placeholder="(XXX)-(XXX)-(XXXX)"
-												defaultValue={x.phoneNumber}
+												value={x.phoneNumber}
 												onChange={e => handleInputChange(e, i)}
 											/>
 										</div>

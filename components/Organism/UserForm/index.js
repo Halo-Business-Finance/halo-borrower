@@ -2,6 +2,7 @@ import { Button, Form, Input, Typography } from "antd";
 import React from "react";
 import styled from "styled-components";
 import {useRouter} from 'next/router';
+import CurrencyFormat from "react-currency-format";
 
 const Container = styled.div`
 max-width:500px;
@@ -13,6 +14,11 @@ background-color:#fff;
 box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 & .ant-form-vertical{
   margin-top: 30px;
+}
+& .mobile {
+  width:100%;
+  height:42px;
+  border: 1px solid #d9d9d9;
 }
 `;
 const { Title } = Typography;
@@ -55,7 +61,11 @@ export const UserForm = () => {
             name="phoneNumber"
             label="Cell Phone Number of Borrower "
           >
-            <Input size="large" type="tel" />
+            <CurrencyFormat className="mobile"
+            format="+1 (###) ###-####" mask="_"	 
+            size="large"
+             type="tel" 
+             />
           </Form.Item>
           <Form.Item>
           <Button htmlType="submit" size="large" type="primary">

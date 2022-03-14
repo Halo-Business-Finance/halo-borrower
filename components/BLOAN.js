@@ -418,9 +418,12 @@ export default function BLOAN() {
 									<label className="radio">Cash out</label>
 								</div>
 								<div className="term">
+									
 									<input
 										checked={bridgeLoanData.refinance == "term" ? true : false}
-										onChange={(e) => onChangeHandler("refinance", e)} type="radio" name="amount" value="term" />
+										onChange={(e) => onChangeHandler("refinance", e)} type="radio" name="amount" value="term"
+										prefix="$"
+										 />
 									<label className="radio">Rate and Term</label>
 								</div>
 							</div>
@@ -431,6 +434,7 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Cash out Amount </div>
 							<div className="term">
+								<span>$</span>
 							<input value={bridgeLoanData.cashOut} onChange={(e) => onChangeHandler('cashOut',e )}
 										className="outline"
 										type="number"
@@ -474,6 +478,7 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Construction Amount </div>
 							<div className="term">
+							<span>$</span>
 							<input value={bridgeLoanData.constructionAmount} onChange={(e) => onChangeHandler('constructionAmount',e )}
 										className="outline"
 										type="number"
@@ -521,6 +526,7 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
+								<span>$</span>
 								<input value={bridgeLoanData.rateTermAmount} onChange={(e) => onChangeHandler('rateTermAmount',e )}
 										className="outline"
 										type="number"

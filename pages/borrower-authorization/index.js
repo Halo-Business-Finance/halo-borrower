@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavMenu from "../../components/NavMenu";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { notification, Modal } from "antd";
+import { notification, Modal, Button } from "antd";
 import { Success } from '../../components/Organism/Success';
 
 const Hero = styled.div`
@@ -119,9 +119,13 @@ export default function Form() {
 					</section>
 
 					<div className="form-row-button">
-						<input type="submit" id="button" value="Continue" />
+						<Button type="primary" size="large" onClick={()=>setshowSucessModal(true)} >
+							Continue
+						</Button>
+						{/* <input type="submit" id="button" value="Continue" /> */}
 					</div>
 				</form>
+			
 			</Hero>
             <Modal visible={showSucessModal} footer={null}>
                 <Success />
