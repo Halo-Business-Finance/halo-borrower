@@ -336,7 +336,7 @@ export default function informationindex() {
           <div className="top-heading">
             <div className="progress-title">Loan Application Overview</div>
             <div className="progress-button">
-              <a href="#" className="progress-button" id="progress-button">
+              <a href="/test" className="progress-button" id="progress-button">
                 <span>View your loans</span>
               </a>
             </div>
@@ -357,7 +357,7 @@ export default function informationindex() {
           <br />
 
           <div className="top-heading">
-            <div onClick={()=>router.push("/test")}>
+            <div >
               <span className="dot"></span>
               <span className="inprogress">{details?.loanRequestStatus}</span>
               <p>Your application in review by lender.</p>

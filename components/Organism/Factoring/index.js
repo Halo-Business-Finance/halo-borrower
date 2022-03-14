@@ -462,7 +462,7 @@ export const Factoring = () => {
                 {formstep == 8 && <section>
                     <div className="goal">
                         <div className="cast">
-                            What is your credit score look like?
+                        What does your credit score look like?
                         </div>
                         <div className="term">
                             <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e, "creditScore",)} type="radio" name="occupied" value="579" />

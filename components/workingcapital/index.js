@@ -166,7 +166,13 @@ const WorkingCapitalForm = () => {
 		// 	return;
 		// }
 		if(workingCapitalData?.proceeds=="otherUse"){
-            if(workingCapitalData?.specifiedOtherUse?.length>20){
+			console.log(formstep)
+			if(formstep == 6){
+				setFormstep(formstep+1);
+				return;
+			}
+			
+            if(formstep==7 && workingCapitalData?.specifiedOtherUse?.length>20){
                 setErrors({ ...error, specifiedOtherUse: "len" });
 				console.log(error,'check')
                 return;    
@@ -304,7 +310,7 @@ const WorkingCapitalForm = () => {
 								<input
 									checked={workingCapitalData.bankruptcyYear == "10" ? true : false}
 									onChange={(e) => onChangeHandler('bankruptcyYear', e)} type="radio" name="bankruptcyYear" value="10" />
-								<label className="radio">5 or More than 5 years</label>
+								<label className="radio">5 or more years</label>
 							</div>
 						</div>
 						<ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
@@ -489,7 +495,7 @@ const WorkingCapitalForm = () => {
 					}
 					{formstep == 9 && <section>
 						<div className="goal">
-							<div className="cast">What is your credit score look like?  </div>
+							<div className="cast">What does your credit score look like?  </div>
 							<div className="term">
 								<input
 									checked={workingCapitalData.creditScore == "score1" ? true : false}
