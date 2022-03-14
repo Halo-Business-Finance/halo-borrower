@@ -230,8 +230,6 @@ export default function UploadDocs() {
     try {
       const res = await API.get(`/api/document/get-final-documents/${id}`)
       const data = await res?.payload
-
-
       const refactoredData = await data?.documentInformations?.map((item, index) => ({
         "url": baseUrl + item?.fileName,
         "uid": item?.id,
@@ -266,7 +264,7 @@ export default function UploadDocs() {
       setVoidedCheck(voidedCheck)
       setBusinessInfo(business)
       setArticle(article)
-      console.log(refactoredOwners)
+      
 
       // setOwners(data)
 
@@ -323,11 +321,7 @@ export default function UploadDocs() {
       if (businessInfo[0]?.status == "done") {
         bodyData.append("BusinessInfo", businessInfo[0]?.originFileObj);
 
-      }
-
-
-
-      
+      }      
         finalDocs?.map((item) => {
          if(item?.[item?.name]?.status=="done"){
             const key = `License:${item?.id}`

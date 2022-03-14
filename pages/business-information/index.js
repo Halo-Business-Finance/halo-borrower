@@ -213,8 +213,17 @@ export default function businessInformation() {
         }
     }
     const onSubmitForm = async (values) => {
-const refactored=values.totalContractors?.replace(/,/g,'')
-const emp=values.totalEmployees?.replace(/,/g,'')
+        console.log(values)
+        let refactored;
+        let emp;
+    if(values?.totalContractors?.toString()?.includes(",")){
+         refactored= values.totalContractors?.replace(/,/g,'')
+    }
+    if (values?.totalEmployees?.toString()?.includes(",")){
+        emp=values.totalEmployees?.replace(/,/g,'')
+    }
+
+ 
         // if (cookie.get("id") == "") {
         //     axios({
         //         method: "post",
@@ -250,8 +259,10 @@ const emp=values.totalEmployees?.replace(/,/g,'')
         if (id) {
             try {
                 const response = await API.get(`/api/borrower/get-business-info/${id}`);
-                const data = response.payload;
-                getConsumer(data)
+                const data = await response.payload;
+                getConsumer(data);
+                setValue("totalContractors",data?.totalContractors);
+                setValue("totalEmployees",data?.totalEmployees)
                 setHasID(data?.id)
 
             } catch (error) {

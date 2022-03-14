@@ -6,10 +6,10 @@ import NavMenu from "./NavMenu";
 import React, { useContext, useState } from "react";
 import cookie from "js-cookie";
 import axios from "axios";
-import { Button } from "antd";
+import { Avatar, Button, Dropdown, Menu, Space } from "antd";
 import { useRouter } from 'next/router';
 import { AuthContext } from "../utils/AuthContext";
-
+import { UserOutlined,LogoutOutlined } from '@ant-design/icons';
 const Nav = styled.nav`
 	height: 70px;
 	padding :0px 20px;
@@ -95,21 +95,35 @@ const Navbar = (data) => {
 		return (
 			<>
 				<Nav>
-					<div onClick={()=>router.push("/test")} className="logo">
+					<div onClick={() => router.push("/test")} className="logo">
 						<StyledLink>
 							<img src={"/logo.svg"} alt="logo" />
 						</StyledLink>
 					</div>
 					<div className="top-details">
-						{(!authenticated) ? <Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button> :
-							<Button size="large" type="primary" onClick={() => {
-								try {
-									sessionStorage.removeItem("token");
-									router.push("/login")
-								} catch (error) {
+						{(!authenticated) ?
+							<Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button> :
+							<Space size="large">
+								<Button size="large" type="primary" onClick={() => {
+									router.push("/test")
 
-								}
-							}}>Logout</Button>
+								}}>Home</Button>
+								<Dropdown overlay={
+									<Menu>
+										<Menu.Item onClick={() => {
+											try {
+												sessionStorage.removeItem("token");
+												router.push("/login")
+											} catch (error) {
+
+											}
+										}}>
+											<Button size="large" icon={<LogoutOutlined />}>Logout</Button>
+										</Menu.Item>
+									</Menu>}>
+									<Avatar size={50} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+								</Dropdown>
+							</Space>
 						}	</div>
 				</Nav>
 			</>
