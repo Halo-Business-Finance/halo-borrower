@@ -199,9 +199,15 @@ export default function businessInformation() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({
+        defaultValue:{
+            "binfo":0
+        }
+    });
 
-    const [consumer, getConsumer] = useState({});
+    const [consumer, getConsumer] = useState({
+        legalEntity:"CCorp"
+    });
 
 
     const addHandler = async (data) => {
@@ -213,7 +219,7 @@ export default function businessInformation() {
         }
     }
     const onSubmitForm = async (values) => {
-        console.log(values)
+        console.log(values,"onsumbi")
         let refactored;
         let emp;
     if(values?.totalContractors?.toString()?.includes(",")){
@@ -242,7 +248,7 @@ export default function businessInformation() {
             loanRequestId: id
         }
         const dataWithoutID = {
-            legalEntity: values.binfo,
+            legalEntity: values.legalEntity,
             stateOfOrganization: values.organization,
             federalTaxId: values.federal,
             startDate: values.date,
@@ -260,7 +266,7 @@ export default function businessInformation() {
             try {
                 const response = await API.get(`/api/borrower/get-business-info/${id}`);
                 const data = await response.payload;
-                getConsumer(data);
+                getConsumer({...data,legalEntity:data?.legalEntityString});
                 setValue("totalContractors",data?.totalContractors);
                 setValue("totalEmployees",data?.totalEmployees)
                 setHasID(data?.id)
@@ -416,7 +422,7 @@ export default function businessInformation() {
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     }
-
+console.log(consumer)
     return (
         <>
             <Head>
@@ -444,9 +450,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="CCorp"
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 0 })}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "CCorp" })}
                                         defaultValue={consumer.legalEntity}
-                                        checked={consumer.legalEntity == 0}
+                                        checked={consumer.legalEntity == "CCorp"}
                                         // defaultChecked = {datache.CCorpprecheck}
                                         {...register("binfo")}
 
@@ -462,9 +468,9 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="SoleProp"
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 1 })}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "SoleProp" })}
 
-                                        checked={consumer.legalEntity == 1}
+                                        checked={consumer.legalEntity == "SoleProp"}
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
@@ -477,9 +483,9 @@ export default function businessInformation() {
                                         name="binfo"
                                         value="LLC"
                                         {...register("binfo")}
-                                        onChange={(e) => getConsumer({ ...consumer, legalEntity: 2 })}
+                                        onChange={(e) => getConsumer({ ...consumer, legalEntity: "LLC" })}
 
-                                        checked={consumer.legalEntity == 2}
+                                        checked={consumer.legalEntity == "LLC"}
                                         defaultValue={consumer.legalEntity}
                                         
                                     />
@@ -491,8 +497,8 @@ export default function businessInformation() {
                                         type="radio"
                                         name="binfo"
                                         value="Partnership"
-                                        checked={consumer.legalEntity == 3}
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: 3 })}
+                                        checked={consumer.legalEntity == "Partnership"}
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "Partnership" })}
 
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
