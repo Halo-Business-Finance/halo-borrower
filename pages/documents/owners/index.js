@@ -194,21 +194,28 @@ export default function UploadDocs() {
   const [article, setArticle] = useState([]);
   const [businessInfo, setBusinessInfo] = useState([]);
   const [voidedCheck, setVoidedCheck] = useState([]);
+  const [saving,isSaving]=useState(false);
   const GetOwners = async () => {
     setFetching(true)
     try {
       const res = await API.get(`/api/borrower/get-owners/${id}`)
       const data = await res?.payload
 
-    const response=  data?.map((item) => ({
-        name: item?.fullName,
-        file:[{
-          name:item?.licenseInfo?.aliasFileName,
-          url:baseUrl+item?.licenseInfo?.fileName,
-          uid:item?.licenseInfo?.id,
-          key:item?.licenseInfo?.key,
-        }]
-      }))
+      const response = data?.map((item, index) => (
+
+        {
+          name: item?.fullName,
+          code: item?.id,
+          "file": item?.licenseInfo !== null ? [
+            {
+              name: item?.licenseInfo?.aliasFileName,
+              url: item?.licenseInfo != null ? baseUrl + item?.licenseInfo?.fileName : null,
+              uid: null,
+              id: item?.licenseInfo?.id,
+              key: item?.licenseInfo?.key,
+            }
+          ] : []
+        }))
       setOwners(response)
 
     } catch (error) {
@@ -216,6 +223,7 @@ export default function UploadDocs() {
     }
     setFetching(false)
   }
+
   const [finalDocs, setFinalDocs] = useState([]);
   const GetDocs = async () => {
     setFetching(true)
@@ -274,10 +282,11 @@ export default function UploadDocs() {
     }
 
   }, [id])
-  const updateFiles = (id) => {
-    const data = ownersData?.filter((item) => {
-      return item?.file?.file?.uid !== id
-    })
+  
+  const updateFiles = () => {
+    const afterDelete = finalDocs.filter((item) =>console.log(item));
+    
+    setFinalDocs(afterDelete)
 
   }
   useEffect(() => {
@@ -295,26 +304,45 @@ export default function UploadDocs() {
       <SpinWrapper><Spin size="large" /></SpinWrapper>
     )
   }
+ 
 
 
   const SaveFinalFiles = async () => {
     const bodyData = new FormData();
-
+    isSaving(true)
     try {
-      bodyData.append("VoidedCheck", documents?.voidedCheck);
-      bodyData.append("Articles", documents?.article)
-      bodyData.append("BusinessInfo", documents?.businessInfo);
-      Promise.all(
-        ownersData?.map((item) => {
-          const key = `License:${item?.id}`
-          bodyData.append(key, item?.file)
+      console.log(voidedCheck,'askjdaskjd');
+      if (voidedCheck[0]?.status == "done") {
+        bodyData.append("VoidedCheck", voidedCheck[0]?.originFileObj);
+        return
+      }
+      if (article[0]?.status == "done") {
+        bodyData.append("Articles", article[0]?.originFileObj)
+
+      }
+      if (businessInfo[0]?.status == "done") {
+        bodyData.append("BusinessInfo", businessInfo[0]?.originFileObj);
+
+      }
+
+
+
+      
+        finalDocs?.map((item) => {
+         if(item?.[item?.name]?.status=="done"){
+            const key = `License:${item?.id}`
+            bodyData.append(key, item?.[item?.name]?.originFileObj)
+          
+         }
         })
-      )
+      
+
       await API.post(`api/document/upload-final-document/${id}`, bodyData)
-
+      router.push({pathname:"/documents/owners",query:{id:id}})
     } catch (error) {
-
+      isSaving(false)
     }
+    isSaving(false)
   }
 
 
@@ -323,13 +351,16 @@ export default function UploadDocs() {
     try {
       await API.delete(`/api/business-finance/delete-doc/${documentId}`);
       GetDocs();
+      GetOwners();
     } catch (error) {
 
     }
 
   }
 
+  console.log("fdocs", finalDocs);
 
+  let fileCode = 0;
   return (
     <>
       <Head>
@@ -365,11 +396,10 @@ export default function UploadDocs() {
                     multiple={false}
                     name="avatar"
                     onChange={({ file, fileList }) => {
-                      console.log(fileList)
-                      if (file?.size > 0) {
-                        setArticle([])
-                        setArticle(fileList)
-                      }
+
+
+                      setArticle(fileList)
+
 
 
                       // setDocuments({ ...documents, article: file?.file?.originFileObj })
@@ -377,7 +407,7 @@ export default function UploadDocs() {
                     }
 
                   >
-                    {console.log(article, "articles")}
+
                     <Button disabled={article?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
                   </Upload>
 
@@ -394,54 +424,77 @@ export default function UploadDocs() {
                 <div className="column-two">
                   <Upload
                     fileList={voidedCheck}
+                    onRemove={({file}) => {
+                     
+                      if (file?.url) {
+                        HandleDelete(file?.uid)
+                      }
+                    }}
                     showUploadList
                     max={1}
                     name="avatar"
-                    onChange={(file) => setDocuments({ ...documents, voidedCheck: file?.file?.originFileObj })
+                    onChange={({ fileList }) => {
+
+                      setVoidedCheck(fileList)
+                    }
                     }
 
                   >
-                    <Button size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
+                    <Button disabled={voidedCheck?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
                   </Upload>
                 </div>
               </section>
               {
-                owners?.map((item, index) =>
-                  <section key={index}>
+                owners?.map((item, index) => {
+                    
+                    const filterData=finalDocs?.filter((data)=> data?.name==item?.name)
+                   const res= filterData?.find((docs)=>docs?.name==item?.name)
+                    console.log(item)
+                  return (<section key={index}>
                     <div className="column-one">
                       <label>Copy of driver license for {item?.name}</label>
                     </div>
                     <div className="column-two">
                       <Upload
-                        fileList={item?.file}
+                        max={1}
+                        fileList={item?.file?.length > 0 ? item?.file : filterData?.[item?.name]}
                         onRemove={(file) => {
                           if (file?.url) {
-                            HandleDelete(file?.uid)
-                          }
-                          updateFiles(file?.uid);
+                            HandleDelete(file?.id)
+                          } else {
+                            
+                        
+                        updateFiles();
+                      }
+                          
 
                         }}
                         showUploadList
-                        max={1}
-                        name="avatar"
-                        onChange={(file) => {
+                        onChange={({ fileList, file }) => {
 
                           const info = {
-                            "id": item?.id,
-                            "file": file?.file?.originFileObj
+                            "id": item?.code,
+                            "name": item?.name,
+                            [item?.name]: file,
+                            "codes": fileCode
                           }
-                          file?.file?.status == "done" && setOwnersData([...ownersData, info])
+                          fileCode = fileCode + 1;
+                          file?.status == "done" && setFinalDocs([...finalDocs, info]);
+                         
+                        
+                         
+                          //  setOwnersData([...ownersData, { ...ownersData?.val, val: fileList }])
 
 
                         }
-
                         }
 
                       >
-                        <Button size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
+                        <Button disabled={res?.[item?.name]?.size>0 || item.file?.length>0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
                       </Upload>
                     </div>
-                  </section>
+                  </section>)
+                }
                 )
               }
 
@@ -454,27 +507,29 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
-                  onRemove={(file)=>{
-                    if (file?.url) {
-                      HandleDelete(file?.uid)
-                    }
+                    onRemove={(file) => {
+                      if (file?.url) {
+                        HandleDelete(file?.uid)
+                      }
 
-                  }}
+                    }}
                     fileList={businessInfo}
                     showUploadList
                     max={1}
                     name="avatar"
-                    onChange={(file) => setDocuments({ ...documents, businessInfo: file?.file?.originFileObj })
+                    onChange={({ fileList }) => setBusinessInfo(fileList)
+                      //  setDocuments({ ...documents, businessInfo: file?.file?.originFileObj })
                     }
 
                   >
-                    <Button size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
+                    <Button disabled={businessInfo?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
                   </Upload>
                 </div>
               </section>
             </div>
             <div className="continue-button">
               <Button
+              loading={saving}
                 onClick={SaveFinalFiles}
 
                 type="primary"

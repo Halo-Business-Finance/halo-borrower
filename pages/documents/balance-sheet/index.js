@@ -190,10 +190,12 @@ export default function ProfitLoss() {
           formData.append("file", item?.originFileObj, item?.name)
         })
       )
-      await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData)
+      await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData);
+      router.push({pathname:"/documents/profit-loss",query:{id:id}})
     } catch (error) {
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
+
     }
     setIsSaving(false)
   };
