@@ -2,12 +2,8 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import NavMenu from "../../../components/NavMenu";
-import { Button, Upload } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
-import { API } from "../../../utils/api";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import NavMenu from "../components/NavMenu";
+
 const BusinessDebtStyle = styled.div`
 	display: flex;
 	justify-content: center;
@@ -98,59 +94,42 @@ const BusinessDebtStyle = styled.div`
 `;
 
 export default function Business() {
- const router = useRouter();
-  const { id } = router.query;
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+
 	const headers = {
 		"Content-Type": "application/json",
 		Authorization: "Bearer" + " " ,
 	};
 
 	const onSubmitForm = async (values) => {
+	
 
-		const formData = new FormData();
-		try {
-			await Promise.all(
-			  fileList.map((item) => {
-				formData.append("file")
-			  })
-			)
-			await API.post(`api/business-finance/add-update-business-debt`, formData)
-		  } catch (error) {
-			message.error();
-		  }
-		};
-		const GetBusinessDebts = async () => {
-			// const baseUrl = "https://dev.amazingrm.com/"
-			if (id) {
-			try {
-			  const res = await API.get(`api/business-finance/get-business-debt/${id}`)
-			  console.log(res,'bd')
-			  // const data = await res?.payload
-			  // const docs = data?.map((item) => ({
-			  //   "id": item?.id,
-			  //   'url': baseUrl + item?.fileName,
-			  //   "name": item?.aliasFileName
-		
-			  // }))
-			} 
-			  catch (error) {
-			  // message.error(error?.payload?.reason || "Error Occured");
-			  // setFetching(false)
-			}}}
-		  //   setFetching(false)
-		
-		  // }
-		  useEffect(() => {
-			if (id) {
-				GetBusinessDebts();
+		axios({
+			method: "post",
+			url:
+				process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
+			data: {
+				
+			
+			},
+			headers: headers,
+		}).then(
+			(response) => {
+				if (response.data.isSuccess) {
+					Router.push("businessfinance_pls");
+				} else {
+					console.log(response);
+				}
+			},
+			(error) => {
+				console.log(error);
 			}
-		  }, [id])
-	  
+		);
+	};
 
 
 	return (
@@ -194,9 +173,13 @@ export default function Business() {
 						</div>
 						<div className="footer">
 							<div className="continue-button">
-                            <Upload >
-    <Button icon={<UploadOutlined />}>Click to Upload</Button>
-  </Upload>
+								<img src="/images/back.png" />
+								<input
+									type="submit"
+									href="form2"
+									id="button"
+									value="Upload to continue"
+								/>
 							</div>
 
 							<div className="skip-link">

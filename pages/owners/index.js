@@ -261,15 +261,19 @@ export default function Form() {
 	} = useForm();
 
 	const addHandler = async (data) => {
+	
+		const owners = data.map((item) =>item.fullName )
+
+		console.log(owners,'own')
+	
 		try {
 			await API.post("api/borrower/add-update-owners", data)
-			setshowSucessModal(true)
-			// Router.push({pathname:"/financial-information",query:{id:id}})
+			Router.push({pathname:"/borrower-authorization",query:{id:id,owners:JSON.stringify(owners)}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
 	}
-
+ 
 	const [inputList, setInputList] = useState([]);
 
 	// handle input change
@@ -418,7 +422,6 @@ if (hasId !== null){
 					<section className="Form-design">
 
 						{inputList.map((x, i) => {
-							console.log("habjabsjdhs", x)
 							return (
 								<div>
 									<br /><br />

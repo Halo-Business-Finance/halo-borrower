@@ -178,7 +178,7 @@ export default function Form({ data }) {
 	}
 
 	const onSubmitForm = async (values) => {
-
+ localStorage.setItem('legal_name',values.businesslegalname )
 		const data = {
 
 			businessLegalName: values.businesslegalname,

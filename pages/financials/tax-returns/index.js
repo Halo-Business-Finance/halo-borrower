@@ -116,6 +116,8 @@ export default function Business() {
   const [form] = Form.useForm()
   const router = useRouter();
   const { id } = router.query;
+  const [hasId, setHasID] = useState(null);
+  const [consumer, getConsumer] = useState({});
   // const onFinish = values => {
   //   console.log('Received values of form:', values);
   // };
@@ -157,12 +159,12 @@ export default function Business() {
 
 
     let formData = new FormData();
-    // formData.append('abcd','abcd')
-    await values?.users?.map((item) => {
-      console.log(values,'vl')
-     
-      formData.append('abcd', item?.File?.file?.originFileObj)
-    })
+
+    await Promise.all(
+      values?.users?.map((item) => {
+        formData.append(item?.Date, item?.File?.file?.originFileObj)
+      })
+    )
 
 
 
@@ -176,6 +178,9 @@ export default function Business() {
     if (id) {
       try {
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
+        const data = res.payload;
+        getConsumer(data)
+        setHasID(data?.id)
         console.log(res, 'dt')
         // const data = await res?.payload
         // const docs = data?.map((item) => ({
@@ -226,7 +231,7 @@ export default function Business() {
               </p>
             </div>
           </div>
-          <Form form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
+          <Form onFinish={onFinish} form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
             <Form.List name="users">
               {(fields, { add, remove }) => (
                 <>
@@ -260,7 +265,7 @@ export default function Business() {
               )}
             </Form.List>
             <Form.Item>
-              <Button onClick={onFinish} type="primary" htmlType="submit">
+              <Button  type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
