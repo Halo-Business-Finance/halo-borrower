@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { API } from '../../../utils/api';
 import { Success } from "../Success";
+import CurrencyFormat from 'react-currency-format';
 
 
 const bounceAnimation = keyframes`${zoomIn}`;
@@ -329,10 +330,15 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Annual Revenue </div>
                         <div className="term">
-                            <input onChange={(e) => onFormChange(e, 'annualRevenue')}
-                                type="number"
+                            <CurrencyFormat 
+                            prefix={'$'}
+                            thousandSeparator={true}
+                            value={formValues.annualRevenue}
+                            onValueChange={(e) => setFormValues({...formValues,annualRevenue:e.formattedValue})}
+                                type="text"
                                 name="amount"
-                                value={formValues.annualRevenue} />
+                                className="outline"
+                                 />
 
                         </div>
 
@@ -496,9 +502,13 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Loan Amount Requested</div>
                         <div className="term">
-                            <input value={formValues.LoanAmountRequested} onChange={(e) => onFormChange(e, 'LoanAmountRequested')}
+                            <CurrencyFormat 
+                            prefix={'$'}
+                            thousandSeparator={true}
+                            value={formValues.LoanAmountRequested} 
+                            onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.formattedValue}) }
                                 className="outline"
-                                type="number"
+                                type="text"
                                 placeholder="Only Number"
                             />
                         </div>

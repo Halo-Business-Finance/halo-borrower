@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Alert, Button, Modal, notification, Progress } from "antd";
+import { Alert, Button, Input, Modal, notification, Progress } from "antd";
 import { Disqulaified } from "./Organism/Disqualify";
 import { fadeIn, zoomIn, fadeInRightBig } from 'react-animations';
 import { API } from "../utils/api";
@@ -11,6 +11,7 @@ import { Success } from "./Organism/Success";
 const zoomAnimation = keyframes`${fadeIn}`;
 const zoomInAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
+import CurrencyFormat from "react-currency-format";
 
 const Hero = styled.div`
 	padding: 40px 30px 40px 30px;
@@ -61,6 +62,7 @@ const Hero = styled.div`
 	& .outline{
 		min-width:35%;
 		border-bottom: 3px solid blue;
+
 	}
 `;
 const ButtonWrapper = styled.div`
@@ -156,6 +158,7 @@ export default function BLOAN() {
 		stabilized: "",
 
 	})
+	console.log(bridgeLoanData,'bd')
 	const completeFormStep = () => {
 
 		if ((bridgeLoanData.cashOut !== '' && Number(bridgeLoanData.cashOut) < 250000) || (bridgeLoanData.constructionAmount !== '' && Number(bridgeLoanData.constructionAmount) < 250000) || (bridgeLoanData.dollar !== '' && Number(bridgeLoanData.dollar) < 250000) || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || (bridgeLoanData.rateTermAmount !== '' && Number(bridgeLoanData.rateTermAmount) < 250000 ))) {
@@ -434,10 +437,13 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Cash out Amount </div>
 							<div className="term">
-								<span>$</span>
-							<input value={bridgeLoanData.cashOut} onChange={(e) => onChangeHandler('cashOut',e )}
+							<CurrencyFormat 
+							prefix={'$'}
+							thousandSeparator={true}
+							value={bridgeLoanData.cashOut} 
+							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,cashOut:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 								{/* <input
@@ -478,10 +484,13 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Total Cost of the Construction </div>
 							<div className="term">
-							<span>$</span>
-							<input value={bridgeLoanData.constructionAmount} onChange={(e) => onChangeHandler('constructionAmount',e )}
+							<CurrencyFormat
+							prefix={'$'}
+							thousandSeparator={true}
+							 value={bridgeLoanData.constructionAmount}
+							  onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,constructionAmount:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 								{/* <input
@@ -526,10 +535,13 @@ export default function BLOAN() {
 							<div className="goal">
 								<div className="cast">Rate and Term Amount </div>
 								<div className="term">
-								<span>$</span>
-								<input value={bridgeLoanData.rateTermAmount} onChange={(e) => onChangeHandler('rateTermAmount',e )}
+								<CurrencyFormat
+								prefix={'$'}
+								thousandSeparator={true}
+								 value={bridgeLoanData.rateTermAmount} 
+								 onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,rateTermAmount:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 									{/* <input
@@ -786,9 +798,13 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
-							<input value={bridgeLoanData.dollar} onChange={(e) => onChangeHandler('dollar',e )}
+							<CurrencyFormat 
+							prefix={'$'}
+							thousandSeparator={true}
+							value={bridgeLoanData.dollar} 
+							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,dollar:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 							</div>
@@ -916,13 +932,15 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Current Property Value</div>
 							<div className="term">
-								<input
+								<CurrencyFormat
+								prefix={'$'}
+								thousandSeparator={true}
 									value={bridgeLoanData.currentProperty}
-									onChange={(e) => onChangeHandler("currentProperty", e)}
+									onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,currentProperty:e.formattedValue})}
 									className="outline"
 									type="text"
 									name="value"
-									placeholder="Your answer"
+									placeholder="Number Only"
 								/>
 							</div>
 						</div>

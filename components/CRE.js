@@ -13,6 +13,7 @@ import {ArrowLeftOutlined} from '@ant-design/icons'
 import { Success } from "./Organism/Success";
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
+import CurrencyFormat from "react-currency-format";
 const Hero = styled.div`
 	padding: 40px 40px 40px 40px;
 	font-family: Mulish;
@@ -358,9 +359,11 @@ export default function CRE() {
 						<div className="goal">
 							<div className="cast">If Cash Out, How much?</div>
 							<div className="term">
-								<input
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
 									value={formValues.cash}
-									onChange={(e) => onFormChange(e, 'cash')}
+									onValueChange={(e) => setFormValues({...formValues,cash:e.formattedValue})}
 									className="outline"
 									type="text"
 									placeholder="Your answer"
@@ -528,9 +531,13 @@ export default function CRE() {
 						<div className="goal">
 							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
-							<input value={formValues.dollar} onChange={(e) => onFormChange(e, 'dollar')}
+							<CurrencyFormat 
+								prefix={'$'}
+								thousandSeparator={true}
+							value={formValues.dollar} 
+							onValueChange={(e) => setFormValues({...formValues,dollar:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 							</div>

@@ -9,6 +9,7 @@ import NavMenu from "../../components/NavMenu";
 import { API } from "../../utils/api";
 import { notification } from "antd";
 import moment from "moment";
+import CurrencyFormat from "react-currency-format";
 
 const Hero = styled.div`
   display: flex;
@@ -525,14 +526,16 @@ export default function financialInformation() {
                 <label htmlFor="fname" className="formlabel ">
                   Business Revenue
                 </label>
-                <input
+                <CurrencyFormat
+                prefix={'$'}
+								thousandSeparator={true}
                   className="textbox"
-                  type="number"
+                  type="text"
                   autoComplete="fname"
                   placeholder="Enter  Business Revenue"
                   defaultValue={consumer.annualRevenue}
                   {...register("annualrevenue")}
-                  onChange={(e) => getConsumer({ ...consumer, annualRevenue: e.target.value })}
+                  onValueChange={(e) => getConsumer({ ...consumer, annualRevenue: e.formattedValue })}
 
                 />
               </div>
@@ -576,17 +579,20 @@ export default function financialInformation() {
                 <label htmlFor="fdba" className="formlabel">
                   Outstanding Loan/Advance Balance
                 </label>
-                <input
+                <CurrencyFormat
+               
                   disabled={!consumer?.outstandingLoanOrAdvance}
+                  prefix={'$'}
+                  thousandSeparator={true}
                   id="firstname"
                   className="textbox"
-                  type="number"
+                  type="text"
                   autoComplete="fdba"
                   placeholder="Enter Outstanding Loan/Advance Balance"
 
                   defaultValue={consumer.ourstandingAdvancesLoanAmount}
                   {...register("outstandingloanoradvance")}
-                  onChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.target.value })}
+                  onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.formattedValue })}
 
                 />
               </div>
@@ -615,16 +621,18 @@ export default function financialInformation() {
                 <label htmlFor="fdba" className="formlabel">
                   Loan Amount Requested
                 </label>
-                <input
+                <CurrencyFormat
+                 prefix={'$'}
+                 thousandSeparator={true}
                   className="textbox"
-                  type="number"
+                  type="text"
                   autoComplete="fdba"
                   placeholder="Enter Loan Amount Requested"
                   defaultValue={consumer.loanAmountRequested}
                   {...register("loanamountrequested", {
                     required: "Required",
                   })}
-                  onChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.target.value })}
+                  onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.formattedValue })}
 
                   required
 
@@ -687,7 +695,9 @@ export default function financialInformation() {
                   <label htmlFor="fname" className="formlabel ">
                     Monthly Mortgage
                   </label>
-                  <input
+                  <CurrencyFormat
+                   prefix={'$'}
+                   thousandSeparator={true}
 
                     value={consumer?.mortgageInformation?.monthlyMortgage}
                     className="textbox"
@@ -695,7 +705,7 @@ export default function financialInformation() {
                     autoComplete="fname"
                     placeholder="Enter Monthly Rent/Mortgage"
                     {...register("mortage")}
-                    onChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.target.value } })}
+                    onValueChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.formattedValue } })}
 
                   />
                 </div>
@@ -709,17 +719,19 @@ export default function financialInformation() {
                       <label htmlFor="fname" className="formlabel ">
                         Monthly Rent
                       </label>
-                      <input
+                      <CurrencyFormat
+                       prefix={'$'}
+                       thousandSeparator={true}
                         value={consumer?.rentInformation?.monthlyRent}
                         className="textbox"
-                        type="number"
+                        type="text"
                         autoComplete="fname"
                         placeholder="Enter Monthly Rent"
                         {...register("rent")}
-                        onChange={(e) => getConsumer({
+                        onValueChange={(e) => getConsumer({
                           ...consumer, rentInformation: {
                             ...consumer?.rentInformation,
-                            monthlyRent: e.target.value
+                            monthlyRent: e.formattedValue
                           }
                         })}
 
