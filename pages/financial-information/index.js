@@ -186,12 +186,13 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
+    console.log(values,"val")
     if (hasId !== null && status == 1) {
       getConsumer({
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
+        "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
@@ -205,7 +206,7 @@ export default function financialInformation() {
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
+        "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
@@ -217,7 +218,7 @@ export default function financialInformation() {
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
+        "ourstandingAdvancesLoanAmount":consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,
@@ -232,7 +233,7 @@ export default function financialInformation() {
         "annualRevenue": consumer?.annualRevenue,
         // "dailyAverageBankBalance": null,
         "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.ourstandingAdvancesLoanAmount || "",
+        "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
         "useOfFunds": consumer?.useOfFunds,
         "loanAmountRequested": consumer?.loanAmountRequested,
         "typeOfProperty": consumer?.typeOfProperty,

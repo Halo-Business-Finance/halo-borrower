@@ -66,7 +66,14 @@ const Hero = styled.div`
         margin-top: 20px;
         min-width:200px;
         min-height: 54px;
-        font-size: 28px;
+        background: #F3BA17;
+        border-radius: 8px;
+        font-family: Mulish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 32px;
+        
     }
 `;
 const ButtonWrapper = styled.div`

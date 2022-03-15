@@ -7,7 +7,7 @@ import { Disqulaified } from '../Disqualify';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import {API} from '../../../utils/api';
+import { API } from '../../../utils/api';
 import { Success } from "../Success";
 
 
@@ -27,7 +27,13 @@ const Hero = styled.div`
         margin-top: 20px;
         min-width:200px;
         min-height: 54px;
-        font-size: 28px;
+        background: #F3BA17;
+        border-radius: 8px;
+        font-family: Mulish;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 32px;
     }
 
 	.goal {
@@ -164,12 +170,12 @@ export const Franchaise = () => {
 
     const completeFormStep = async (e) => {
         e.preventDefault();
-        if (formValues.businessYear == "0" || (formValues?.annualRevenue !== '' && Number(formValues.annualRevenue) < 25000 ) || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
+        if (formValues.businessYear == "0" || (formValues?.annualRevenue !== '' && Number(formValues.annualRevenue) < 25000) || formValues.creditScore == "579" || formValues.bankruptcyYear == "0") {
 
             setIsModalVisible(true)
             return;
         }
-        if(formValues.bankruptcy=="No"){
+        if (formValues.bankruptcy == "No") {
             setFormstep(14);
             return;
         }
@@ -195,10 +201,10 @@ export const Franchaise = () => {
             setErrors({ ...error, specifiedOtherUse: "Error" });
             return;
         }
-       else  if(formValues?.useOfProceeds=="OtherUse"){
-            if(formValues?.specifiedOtherUse?.length>20){
+        else if (formValues?.useOfProceeds == "OtherUse") {
+            if (formValues?.specifiedOtherUse?.length > 20) {
                 setErrors({ ...error, specifiedOtherUse: "len" });
-                return;    
+                return;
             }
         }
         else if (formstep == 6 && formValues.LoanTermRequested == "") {
@@ -234,7 +240,7 @@ export const Franchaise = () => {
             setFormstep(6);
             return;
         }
-        
+
 
         setFormstep(formstep + 1);
     };
@@ -247,26 +253,26 @@ export const Franchaise = () => {
 
         setFormstep(formstep - 1);
     }
-    useEffect(()=>{
-        const userData=sessionStorage.getItem("user");
-        const parsedData=JSON.parse(userData);
+    useEffect(() => {
+        const userData = sessionStorage.getItem("user");
+        const parsedData = JSON.parse(userData);
         console.log(parsedData)
-    },[])
+    }, [])
     const formHandler = async () => {
-    
+
         setIsLoading(true)
 
-        const userData=sessionStorage.getItem("user");
-        const parsedData=JSON.parse(userData);
+        const userData = sessionStorage.getItem("user");
+        const parsedData = JSON.parse(userData);
         console.log(parsedData)
-        
+
         const data = {
             "loanTypes": 104,
-            "nameOfBusiness":parsedData?.businessName,
+            "nameOfBusiness": parsedData?.businessName,
             "nameOfBorrower": parsedData?.borrowerName,
             "emailOfBorrower": parsedData?.email,
             "phoneNumber": parsedData?.phoneNumber,
-            "amountToBeBorrowed":formValues?.LoanAmountRequested,
+            "amountToBeBorrowed": formValues?.LoanAmountRequested,
             "prequalifyAnswers": formValues,
             "accepted": true
         }
@@ -280,7 +286,7 @@ export const Franchaise = () => {
         }
         setIsLoading(false)
     }
-    
+
 
     return (
         <div>
@@ -323,13 +329,13 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Annual Revenue </div>
                         <div className="term">
-                            <input  onChange={(e) => onFormChange(e, 'annualRevenue')} 
-                            type="number" 
-                            name="amount" 
-                            value={formValues.annualRevenue} />
-                            
+                            <input onChange={(e) => onFormChange(e, 'annualRevenue')}
+                                type="number"
+                                name="amount"
+                                value={formValues.annualRevenue} />
+
                         </div>
-                        
+
                     </div>
                     <ErrorMessage>{error.annualRevenue && "Please select to continue"}</ErrorMessage>
 
@@ -447,7 +453,7 @@ export const Franchaise = () => {
                 {formstep == 7 && <section>
                     <div className="goal">
                         <div className="cast">
-                        What does your credit score look like?
+                            What does your credit score look like?
                         </div>
                         <div className="term">
                             <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="579" />
@@ -490,11 +496,11 @@ export const Franchaise = () => {
                     <div className="goal">
                         <div className="cast">Loan Amount Requested</div>
                         <div className="term">
-                        <input value={formValues.LoanAmountRequested} onChange={(e) => onFormChange(e, 'LoanAmountRequested')}
-										className="outline"
-										type="number"
-										placeholder="Only Number"
-									/>
+                            <input value={formValues.LoanAmountRequested} onChange={(e) => onFormChange(e, 'LoanAmountRequested')}
+                                className="outline"
+                                type="number"
+                                placeholder="Only Number"
+                            />
                         </div>
                     </div>
                     <ErrorMessage>{error.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
@@ -550,11 +556,11 @@ export const Franchaise = () => {
                     <ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
                 </section>}
                 {
-                   formstep==14&& <div>
+                    formstep == 14 && <div>
                         <Button className="submit-form" loading={isLoading} onClick={formHandler} type="primary">Submit</Button>
                     </div>
                 }
-                {formstep<14 &&<ButtonWrapper>
+                {formstep < 14 && <ButtonWrapper>
 
                     {(formstep > 1 || formstep < 13) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
                     <Button size="large" onClick={completeFormStep} type="primary" >
@@ -566,8 +572,8 @@ export const Franchaise = () => {
                     <Disqulaified />
                 </Modal>
                 <Modal visible={showSucessModal} footer={null}>
-                <Success />
-            </Modal>
+                    <Success />
+                </Modal>
 
             </Hero>
 
