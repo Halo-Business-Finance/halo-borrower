@@ -241,8 +241,8 @@ export default function businessInformation() {
             startDate: values.date,
             industryDescription: values.industry,
             typeOfProduct: values.product,
-            totalEmployees: emp,
-            totalContractors: refactored ,
+            totalEmployees: Number(emp),
+            totalContractors: Number(refactored) ,
             wasPurchased: values.wasPurchased,
             id: hasId,
             loanRequestId: id
@@ -254,8 +254,8 @@ export default function businessInformation() {
             startDate: values.date,
             industryDescription: values.industry,
             typeOfProduct: values.product,
-            totalEmployees: emp,
-            totalContractors:refactored,
+            totalEmployees: Number(emp),
+            totalContractors:Number(refactored),
             wasPurchased: values.wasPurchased,
             loanRequestId: id
         }
