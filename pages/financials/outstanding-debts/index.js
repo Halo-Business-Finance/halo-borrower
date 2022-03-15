@@ -9,6 +9,8 @@ import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+
+const { Option } = Select;
 const OutstandingDebtStyle = styled.div`
 	display: flex;
 	justify-content: center;

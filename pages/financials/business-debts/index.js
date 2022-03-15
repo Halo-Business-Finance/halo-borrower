@@ -2,7 +2,7 @@ import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import NavMenu from "../components/NavMenu";
+import NavMenu from "../../../components/NavMenu";
 
 const BusinessDebtStyle = styled.div`
 	display: flex;

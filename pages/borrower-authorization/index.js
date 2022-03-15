@@ -106,7 +106,7 @@ export default function Form() {
 						<div className="form-head">
 							<p className="heading">
            { `               I certify that all information entered thus far into the
-                            application is accurate and that "${JSON.parse(owner)?.toString()}" is a principal
+                            application is accurate and that "${owner&&JSON.parse(owner)?.toString()}" is a principal
                             owner of "${legalName}" I am authorized to act on behalf of
                             "${legalName}" and I grant permission for Halo Business Finance
                             to procure ONLY a credit score number and share a PASS or FAIL
