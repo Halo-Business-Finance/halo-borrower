@@ -407,9 +407,7 @@ export default function Form({ data }) {
 									defaultValue={consumer.website}
 
 									placeholder="Enter Website"
-									{...register("website", {
-										required: "Required",
-									})}
+									{...register("website")}
 								/>
 							</div>
 						</div>
