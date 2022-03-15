@@ -227,10 +227,10 @@ export const Franchaise = () => {
             setErrors({ ...error, ownership: "Error" });
             return;
         }
-        else if (formstep == 11 && formValues.bankruptcy == "") {
-            setErrors({ ...error, bankruptcy: "Error" });
-            return;
-        }
+        // else if (formstep == 11 && formValues.bankruptcy == "") {
+        //     setErrors({ ...error, bankruptcy: "Error" });
+        //     return;
+        // }
         else if (formstep == 12 && formValues.bankruptcyYear == "" && formValues.bankruptcy == "yes") {
             setErrors({ ...error, bankruptcyYear: "Error" });
             return;
