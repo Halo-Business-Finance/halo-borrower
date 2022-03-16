@@ -29,18 +29,23 @@ font-weight: normal;
 font-size: 24px;
 line-height: 150%;
 }
+& .amount{
+  font-weight:800 ;
+}
 `;
 
 
-export const Success = () => {
- 
+export const Success = ({ amount }) => {
+
   return (
     <MainWrapper>
       <img src="/success.svg" />
       <Title level={4}>Congratulations!</Title>
       <p>
-        Based on your selections, you qualify for a loan up to [MAX DOLLAR AMOUNT FROM THE SELECTED LOAN AMOUNT]
+        Based on your selections, you qualify for a loan up to
+        <span className="amount">{" "}{amount}</span>
+
       </p>
-      <Button onClick={() =>window.location.assign("/test")} type="primary">Back To Home</Button>
+      <Button onClick={() => window.location.assign("/test")} type="primary">Back To Home</Button>
     </MainWrapper>);
 };

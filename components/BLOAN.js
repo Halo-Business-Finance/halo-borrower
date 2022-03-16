@@ -956,11 +956,11 @@ export default function BLOAN() {
 				</ButtonWrapper>
 
 			</Hero>
-			<Modal visible={isModalVisible} footer={null}>
+			<Modal  visible={isModalVisible} footer={null}>
 				<Disqulaified />
 			</Modal>
 			<Modal visible={showSucessModal} footer={null}>
-                <Success />
+                <Success amount={bridgeLoanData.dollar} />
             </Modal>
 		</div>
 	);
