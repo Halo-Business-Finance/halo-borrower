@@ -13,6 +13,7 @@ import { Disqulaified } from "./Organism/Disqualify";
 import { Success } from "./Organism/Success";
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
+import CurrencyFormat from "react-currency-format";
 const Hero = styled.div`
 	padding: 40px 0% 40px 0%;
 	font-family: Mulish;
@@ -434,9 +435,13 @@ export default function PROPERTYCRE() {
 						<div className="goal">
 							<div className="cast">Loan Amount Requested</div>
 							<div className="term">
-							<input value={formValues.amount} onChange={(e) => onFormChange(e, 'amount')}
+							<CurrencyFormat 
+							prefix={'$'}
+							thousandSeparator={true}
+							value={formValues.amount}
+							 onValueChange={(e) => setFormValues({...formValues,amount:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 							</div>

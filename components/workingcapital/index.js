@@ -6,6 +6,7 @@ import { zoomIn, fadeInRightBig } from 'react-animations';
 import { Disqulaified } from '../Organism/Disqualify';
 import {API} from '../../utils/api';
 import { Success } from "../Organism/Success";
+import CurrencyFormat from 'react-currency-format';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -338,10 +339,14 @@ const WorkingCapitalForm = () => {
 						<div className="goal">
 							<div className="cast">Annual Revenue </div>
 							<div className="term">
-								<input onChange={(e) => onChangeHandler("annualRevenue", e)} 
-								type="number" 
+								<CurrencyFormat 
+									prefix={'$'}
+									thousandSeparator={true}
+								onValueChange={(e) => setWorkingCapitalData({...workingCapitalData,annualRevenue:e.formattedValue})} 
+								type="text" 
 								name="amount"
 								placeholder="Only Number"
+								className="outline"
 								 value={workingCapitalData.annualRevenue} />
 						
 
@@ -547,9 +552,13 @@ const WorkingCapitalForm = () => {
 						<div className="goal">
 							<div className="cast">Loan Amount Requested  </div>
 							<div className="term">
-							<input value={workingCapitalData.loanAmount} onChange={(e) => onChangeHandler('loanAmount',e )}
+							<CurrencyFormat 
+								prefix={'$'}
+								thousandSeparator={true}
+							value={workingCapitalData.loanAmount} 
+							onValueChange={(e) => setWorkingCapitalData({...workingCapitalData,loanAmount:e.formattedValue}) }
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
 							</div>

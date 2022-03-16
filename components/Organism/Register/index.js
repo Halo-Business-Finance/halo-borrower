@@ -1,10 +1,8 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-
 import {CaretRightOutlined} from '@ant-design/icons';
 import React, { useContext,useState } from "react";
-
 import Link from "next/link";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';

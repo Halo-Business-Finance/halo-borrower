@@ -7,6 +7,7 @@ import { Disqulaified } from '../Disqualify';
 import { Success } from '../Success';
 import {API} from '../../../utils/api';
 import { useRouter } from 'next/router';
+import CurrencyFormat from 'react-currency-format';
 
 const bounceAnimation = keyframes`${zoomIn}`;
 const fadeAnimation = keyframes`${fadeInRightBig}`;
@@ -514,9 +515,13 @@ export const Factoring = () => {
                     <div className="goal">
                         <div className="cast">Loan Amount Requested </div>
                         <div className="term">
-                        <input value={formValues.LoanAmountRequested} onChange={(e) => onFormChange(e, 'LoanAmountRequested')}
+                        <CurrencyFormat 
+                        prefix={'$'}
+                        thousandSeparator={true}
+                        value={formValues.LoanAmountRequested}
+                         onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.formattedValue})}
 										className="outline"
-										type="number"
+										type="text"
 										placeholder="Only Number"
 									/>
                         </div>
