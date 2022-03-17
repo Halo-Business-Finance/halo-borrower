@@ -142,7 +142,7 @@ export const LoanList = ({name,startedDate,applicationNumber,amount=0,id,code}) 
                 </ContentWrapper>
                 <ContentWrapper>
                     <h3 className="title">Amount to borrow</h3>
-                    <strong className="subtitle">${amount}</strong>
+                    <strong className="subtitle">{amount}</strong>
                 </ContentWrapper>
                 <ContentWrapper>
                     <Button onClick={()=>router.push({
