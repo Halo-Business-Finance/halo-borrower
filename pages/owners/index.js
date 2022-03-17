@@ -576,7 +576,7 @@ if (hasId !== null){
 												className="textbox"
 												type="mobile"
 												placeholder="(XXX)-(XXX)-(XXXX)"
-												value={x.phoneNumber}
+												value={x.phoneNumber||''}
 												onChange={e => handleInputChange(e, i)}
 											/>
 										</div>
