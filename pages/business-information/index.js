@@ -220,14 +220,16 @@ export default function businessInformation() {
     }
     const onSubmitForm = async (values) => {
         console.log(values,"onsumbi")
-        let refactored;
-        let emp;
-    if(values?.totalContractors?.toString()?.includes(",")){
-         refactored= values.totalContractors?.replace(/,/g,'')
-    }
-    if (values?.totalEmployees?.toString()?.includes(",")){
-        emp=values.totalEmployees?.replace(/,/g,'')
-    }
+    //     let refactored;
+    //     let emp;
+    // if(values?.totalContractors?.toString()?.includes(",")){
+    //      refactored= values.totalContractors?.replace(/,/g,'')
+    //      console.log(refactored, 'check refactored');
+    // }
+    // if (values?.totalEmployees?.toString()?.includes(",")){
+    //     emp=values.totalEmployees?.replace(/,/g,'')
+    //     console.log(refactored, 'check emp');
+    // }
 
  
         // if (cookie.get("id") == "") {
@@ -241,8 +243,10 @@ export default function businessInformation() {
             startDate: values.date,
             industryDescription: values.industry,
             typeOfProduct: values.product,
-            totalEmployees: Number(emp),
-            totalContractors: Number(refactored) ,
+            // totalEmployees: Number(emp),
+            // totalContractors: Number(refactored) ,
+            totalEmployees: +`${values.totalEmployees}`.replace(/,/g,''),
+            totalContractors: +`${values.totalContractors}`.replace(/,/g,''),
             wasPurchased: values.wasPurchased,
             id: hasId,
             loanRequestId: id
@@ -254,8 +258,10 @@ export default function businessInformation() {
             startDate: values.date,
             industryDescription: values.industry,
             typeOfProduct: values.product,
-            totalEmployees: Number(emp),
-            totalContractors:Number(refactored),
+            // totalEmployees: Number(emp),
+            // totalContractors:Number(refactored),
+            totalEmployees: +`${values.totalEmployees}`.replace(/,/g,''),
+            totalContractors: +`${values.totalContractors}`.replace(/,/g,''),
             wasPurchased: values.wasPurchased,
             loanRequestId: id
         }
