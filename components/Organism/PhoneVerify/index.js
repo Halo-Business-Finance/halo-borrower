@@ -1,10 +1,9 @@
-import { Button, Input, Form, notification, Steps } from "antd";
+import { Button, Form, Input, notification } from "antd";
 import Head from "next/head";
+import { useRouter } from 'next/router';
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import { useRouter } from 'next/router'
 import { API } from "../../../utils/api";
-import { UserOutlined, SolutionOutlined, PhoneOutlined, SmileOutlined } from '@ant-design/icons';
 import { AuthContext } from "../../../utils/AuthContext";
 
 const Hero = styled.div`
@@ -134,15 +133,13 @@ export default function VerifyPhoneForm() {
 		setIsLoading(true)
 		const formData = new FormData();
 		formData.append("code", Number(values.code));
-		formData.append("grant_type", "password");
-		formData.append("username", router?.query?.email)
+		formData.append("phone", phone)
 		const refactoredData = {
 			code: Number(values?.code),
-			grant_type: "password",
-			username: router?.query?.email || username
+			phone: phone
 		}
 		try {
-			await API.post("/api/registration/verify-phone", formData);
+			await API.post("/api/registration/verify-phone", refactoredData);
 			router.push({ pathname: "/" })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
