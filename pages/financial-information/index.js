@@ -526,7 +526,7 @@ export default function financialInformation() {
                 <label htmlFor="fname" className="formlabel ">
                   Business Revenue
                 </label>
-                <CurrencyFormat
+                <input
                 prefix={'$'}
 								thousandSeparator={true}
                   className="textbox"
@@ -535,7 +535,7 @@ export default function financialInformation() {
                   placeholder="Enter  Business Revenue"
                   defaultValue={consumer.annualRevenue}
                   {...register("annualrevenue")}
-                  onValueChange={(e) => getConsumer({ ...consumer, annualRevenue: e.formattedValue })}
+                  onChange={(e) => getConsumer({ ...consumer, annualRevenue: e.target.value })}
 
                 />
               </div>
@@ -579,7 +579,7 @@ export default function financialInformation() {
                 <label htmlFor="fdba" className="formlabel">
                   Outstanding Loan/Advance Balance
                 </label>
-                <CurrencyFormat
+                <input
                
                   disabled={!consumer?.outstandingLoanOrAdvance}
                   prefix={'$'}
@@ -592,7 +592,7 @@ export default function financialInformation() {
 
                   defaultValue={consumer.ourstandingAdvancesLoanAmount}
                   {...register("outstandingloanoradvance")}
-                  onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.formattedValue })}
+                  onChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.target.value })}
 
                 />
               </div>
@@ -621,7 +621,7 @@ export default function financialInformation() {
                 <label htmlFor="fdba" className="formlabel">
                   Loan Amount Requested
                 </label>
-                <CurrencyFormat
+                <input
                  prefix={'$'}
                  thousandSeparator={true}
                   className="textbox"
@@ -632,7 +632,7 @@ export default function financialInformation() {
                   {...register("loanamountrequested", {
                     required: "Required",
                   })}
-                  onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.formattedValue })}
+                  onChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.target.value })}
 
                   required
 
@@ -695,7 +695,7 @@ export default function financialInformation() {
                   <label htmlFor="fname" className="formlabel ">
                     Monthly Mortgage
                   </label>
-                  <CurrencyFormat
+                  <input
                    prefix={'$'}
                    thousandSeparator={true}
 
@@ -705,7 +705,7 @@ export default function financialInformation() {
                     autoComplete="fname"
                     placeholder="Enter Monthly Rent/Mortgage"
                     {...register("mortage")}
-                    onValueChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.formattedValue } })}
+                    onChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.target.value } })}
 
                   />
                 </div>
@@ -719,7 +719,7 @@ export default function financialInformation() {
                       <label htmlFor="fname" className="formlabel ">
                         Monthly Rent
                       </label>
-                      <CurrencyFormat
+                      <input
                        prefix={'$'}
                        thousandSeparator={true}
                         value={consumer?.rentInformation?.monthlyRent}
@@ -728,10 +728,10 @@ export default function financialInformation() {
                         autoComplete="fname"
                         placeholder="Enter Monthly Rent"
                         {...register("rent")}
-                        onValueChange={(e) => getConsumer({
+                        onChange={(e) => getConsumer({
                           ...consumer, rentInformation: {
                             ...consumer?.rentInformation,
-                            monthlyRent: e.formattedValue
+                            monthlyRent: e.target.value
                           }
                         })}
 
