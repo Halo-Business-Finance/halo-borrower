@@ -587,13 +587,13 @@ export default function financialInformation() {
                   id="firstname"
                   className="textbox"
                   type="text"
-                  autoComplete="fdba"
+                  
                   placeholder="Enter Outstanding Loan/Advance Balance"
 
-                  defaultValue={consumer.ourstandingAdvancesLoanAmount}
+                
                   {...register("outstandingloanoradvance")}
                   onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.formattedValue })}
-
+                  value={consumer?.ourstandingAdvancesLoanAmount||null}
                 />
               </div>
             </div>
