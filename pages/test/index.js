@@ -393,11 +393,11 @@ const Form = () => {
 			headers: headers,
 		}).then(
 			(respo) => {
-				console.log(respo.data.payload);
+				(respo.data.payload);
 				setDetails(respo.data.payload);
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	}, []);

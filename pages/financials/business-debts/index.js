@@ -122,11 +122,11 @@ export default function Business() {
 				if (response.data.isSuccess) {
 					Router.push("businessfinance_pls");
 				} else {
-					console.log(response);
+					(response);
 				}
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	};

@@ -219,11 +219,11 @@ export default function LoansApplications() {
 			headers: headersone,
 		}).then(
 			(respo) => {
-				// console.log(respo.data.payload)
+				// (respo.data.payload)
 				setDetails(respo.data.payload);
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	}, []);
@@ -238,11 +238,11 @@ export default function LoansApplications() {
 			headers: headers,
 		}).then(
 			(respo) => {
-				// console.log((respo.data.payload));
+				// ((respo.data.payload));
 				AllLonaset(respo.data.payload);
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	}, []);

@@ -282,7 +282,7 @@ export default function UploadDocs() {
   }, [id])
   
   const updateFiles = () => {
-    const afterDelete = finalDocs.filter((item) =>console.log(item));
+    const afterDelete = finalDocs.filter((item) =>(item));
     
     setFinalDocs(afterDelete)
 
@@ -309,7 +309,7 @@ export default function UploadDocs() {
     const bodyData = new FormData();
     isSaving(true)
     try {
-      console.log(voidedCheck,'askjdaskjd');
+      (voidedCheck,'askjdaskjd');
       if (voidedCheck[0]?.status == "done") {
         bodyData.append("VoidedCheck", voidedCheck[0]?.originFileObj);
         return
@@ -352,7 +352,7 @@ export default function UploadDocs() {
 
   }
 
-  console.log("fdocs", finalDocs);
+  ("fdocs", finalDocs);
 
   let fileCode = 0;
   return (
@@ -443,7 +443,7 @@ export default function UploadDocs() {
                     
                     const filterData=finalDocs?.filter((data)=> data?.name==item?.name)
                    const res= filterData?.find((docs)=>docs?.name==item?.name)
-                    console.log(item)
+                    (item)
                   return (<section key={index}>
                     <div className="column-one">
                       <label>Copy of driver license for {item?.name}</label>

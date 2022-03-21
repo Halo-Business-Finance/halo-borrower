@@ -140,8 +140,8 @@ export default function Business() {
   };
 
   const onSubmitForm = async (values) => {
-    console.log(values);
-    console.log(values);
+    (values);
+    (values);
     axios({
       method: "post",
       url:
@@ -155,11 +155,11 @@ export default function Business() {
         if (response.data.isSuccess) {
           Router.push("/businessfinance_bd");
         } else {
-          console.log(response);
+          (response);
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   };

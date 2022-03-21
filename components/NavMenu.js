@@ -31,26 +31,27 @@ color: #FFF;
   
 `;
 
-const NavMenu = ( id) => {
+const NavMenu = ( {id}) => {
+  (id,"id")
   return (
     <Nav>
       <div>
-        <Link href={`/loan-overview/${id}`} passHref>
+        <Link href={`/loan-overview/?id=${id}`} passHref>
           <StyledLink>Pre-qualify</StyledLink>
         </Link>
       </div>
       <div>
-        <Link href={`financials/tax-returns/${id}`} passHref>
+        <Link href={`/business-contact/?id=${id}`} passHref>
           <StyledLink>Business Financials</StyledLink>
         </Link>
       </div>
-      <div>
+      {/* <div>
         <Link href="/personalfinance_pi" passHref>
           <StyledLink>Personal Financials</StyledLink>
         </Link>
-      </div>
+      </div> */}
       <div>
-        <Link href="/upload" passHref>
+        <Link href={`/documents/owners/?id=${id}`} passHref>
           <StyledLink>Documents</StyledLink>
         </Link>
       </div>

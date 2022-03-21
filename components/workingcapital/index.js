@@ -115,7 +115,7 @@ const WorkingCapitalForm = () => {
 		loanAmount: "",
 		ownership: "",
 	});
-	console.log(error,'er')
+	(error,'er')
 	const [workingCapitalData, setWorkingCapitalData] = useState({
 		bankruptcy: "",
 		bankruptcyYear: "",
@@ -167,7 +167,7 @@ const WorkingCapitalForm = () => {
 		// 	return;
 		// }
 		if(workingCapitalData?.proceeds=="otherUse"){
-			console.log(formstep)
+			(formstep)
 			if(formstep == 6){
 				setFormstep(formstep+1);
 				return;
@@ -175,7 +175,7 @@ const WorkingCapitalForm = () => {
 			
             if(formstep==7 && workingCapitalData?.specifiedOtherUse?.length>20){
                 setErrors({ ...error, specifiedOtherUse: "len" });
-				console.log(error,'check')
+				(error,'check')
                 return;    
             }
 		if(workingCapitalData?.specifiedOtherUse==''){

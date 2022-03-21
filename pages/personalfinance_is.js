@@ -280,7 +280,7 @@ export default function Incomes() {
     setCosts(_tempCosts);
   };
   const onSubmitForm = (data) => {
-    console.log(data);
+    (data);
   };
   return (
     <>

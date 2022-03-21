@@ -219,16 +219,16 @@ export default function businessInformation() {
         }
     }
     const onSubmitForm = async (values) => {
-        console.log(values,"onsumbi")
+        (values,"onsumbi")
     //     let refactored;
     //     let emp;
     // if(values?.totalContractors?.toString()?.includes(",")){
     //      refactored= values.totalContractors?.replace(/,/g,'')
-    //      console.log(refactored, 'check refactored');
+    //      (refactored, 'check refactored');
     // }
     // if (values?.totalEmployees?.toString()?.includes(",")){
     //     emp=values.totalEmployees?.replace(/,/g,'')
-    //     console.log(refactored, 'check emp');
+    //     (refactored, 'check emp');
     // }
 
  
@@ -296,11 +296,11 @@ export default function businessInformation() {
     //                 if (response.data.isSuccess) {
     //                     Router.push("/prequlaify_fi");
     //                 } else {
-    //                     console.log(response);
+    //                     (response);
     //                 }
     //             },
     //             (error) => {
-    //                 console.log(error);
+    //                 (error);
     //             }
     //         );
     //     } else {
@@ -326,11 +326,11 @@ export default function businessInformation() {
     //                 if (response.data.isSuccess) {
     //                     Router.push("/prequlaify_fi");
     //                 } else {
-    //                     console.log(response);
+    //                     (response);
     //                 }
     //             },
     //             (error) => {
-    //                 console.log(error);
+    //                 (error);
     //             }
     //         );
     //     }
@@ -379,7 +379,7 @@ export default function businessInformation() {
     //             getConsumer(dataempty);
     //         } else {
     //             cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-    //             console.log(respo.data.payload);
+    //             (respo.data.payload);
 
     // let legalEntitypre;
     // if (respo.data.payload.legalEntity == 0 ) {
@@ -397,12 +397,12 @@ export default function businessInformation() {
     // }else{
     //   legalEntitypre = false;
     // }
-    // console.log(respo.data.payload);
+    // (respo.data.payload);
     //                 getConsumer(respo.data.payload);
     //             }
     //         },
     //         (error) => {
-    //             console.log(error);
+    //             (error);
     //         }
     //     );
     // }, []);
@@ -428,7 +428,7 @@ export default function businessInformation() {
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     }
-console.log(consumer)
+(consumer)
     return (
         <>
             <Head>

@@ -171,11 +171,11 @@ export default function ProfitLoss() {
         if (response.data.isSuccess) {
           Router.push("/businessfinance_bs");
         } else {
-          console.log(response);
+          (response);
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   };

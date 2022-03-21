@@ -257,7 +257,7 @@ export const Franchaise = () => {
     useEffect(() => {
         const userData = sessionStorage.getItem("user");
         const parsedData = JSON.parse(userData);
-        console.log(parsedData)
+        (parsedData)
     }, [])
     const formHandler = async () => {
 
@@ -265,7 +265,7 @@ export const Franchaise = () => {
 
         const userData = sessionStorage.getItem("user");
         const parsedData = JSON.parse(userData);
-        console.log(parsedData)
+        (parsedData)
 
         const data = {
             "loanTypes": 104,

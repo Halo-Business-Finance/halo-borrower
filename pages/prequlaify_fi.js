@@ -182,11 +182,11 @@ export default function financialInformation() {
           if (response.data.isSuccess) {
             Router.push("/prequlaify_owner");
           } else {
-            console.log(response);
+            (response);
           }
         },
         (error) => {
-          console.log(error);
+          (error);
         }
       );
     } else {
@@ -223,11 +223,11 @@ export default function financialInformation() {
           if (response.data.isSuccess) {
             Router.push("/prequlaify_owner");
           } else {
-            console.log(response);
+            (response);
           }
         },
         (error) => {
-          console.log(error);
+          (error);
         }
       );
     }
@@ -269,12 +269,12 @@ export default function financialInformation() {
           getConsumer(dataempty);
         } else {
           cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-          // console.log(respo.data.payload);
+          // (respo.data.payload);
           getConsumer(respo.data.payload);
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   }, []);

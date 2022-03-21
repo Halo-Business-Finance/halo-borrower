@@ -120,7 +120,7 @@ export default function Business() {
   const [consumer, getConsumer] = useState({});
   
   // const onFinish = values => {
-  //   console.log('Received values of form:', values);
+  //   ('Received values of form:', values);
   // };
   const [inputList, setInputList] = useState([
     { Date: "", File: "" },
@@ -135,7 +135,7 @@ export default function Business() {
     list[index][name] = value;
     setInputList(list);
   };
-  console.log(inputList, 'it')
+  (inputList, 'it')
 
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
@@ -158,7 +158,7 @@ export default function Business() {
   };
 
   const onFinish = async (values) => {
-    console.log('Received values of form:', values);
+    ('Received values of form:', values);
 
 
 
@@ -170,20 +170,20 @@ export default function Business() {
       })
     )
     await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
-    console.log('akjsndkjasdkj')
+    ('akjsndkjasdkj')
   };
 
   const GetTaxReturns = async () => {
     const baseUrl = "https://dev.amazingrm.com/"
   
       try {
-        console.log("file")
+        ("file")
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
         const data = await res.payload;
         getConsumer(data)
         setHasID(data?.id)
         
-        console.log(data, 'mydata')
+        (data, 'mydata')
         
           const docs = data?.map((item) => ({
             Date:item?.key,
@@ -197,7 +197,7 @@ export default function Business() {
           
 
         }))
-        console.log("focs")
+        ("focs")
         setInputList(docs)
 
         
@@ -210,7 +210,7 @@ export default function Business() {
         // }))
       }
       catch (error) {
-        console.log(error)
+        (error)
         // message.error(error?.payload?.reason || "Error Occured");
         // setFetching(false)
       }
@@ -229,7 +229,7 @@ export default function Business() {
   }, [form, inputList])
 
   useEffect(() => form.resetFields(), [initialValues]);
-console.log(initialValues,'aodsjoaisdjo')
+(initialValues,'aodsjoaisdjo')
 const HandleDelete = async (documentId) => {
   try {
     await API.delete(`/api/business-finance/delete-doc/${documentId}`);
@@ -350,7 +350,7 @@ const HandleDelete = async (documentId) => {
                      value={x.File}
                      onChange={({file}) => { 
                       //  handleInputChange(e, i)
-                      console.log(file,'on')
+                      (file,'on')
 
                     
                     }

@@ -78,10 +78,10 @@ export default function Form() {
         JSON.parse(owner);
        const legalName = localStorage.getItem('legal_name')
          setLegalName(legalName)
-       console.log('ln',legalName)
+       ('ln',legalName)
      
     },[owner])
-    console.log(owner,'ow')
+    (owner,'ow')
   
 
   

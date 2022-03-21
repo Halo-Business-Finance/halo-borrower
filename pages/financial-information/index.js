@@ -187,7 +187,7 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
-    console.log(values,"val")
+    (values,"val")
     if (hasId !== null && status == 1) {
       getConsumer({
         // "annualRevenue": consumer?.annualRevenue,
@@ -334,9 +334,9 @@ export default function financialInformation() {
 
 
 
-    // console.log(values, "val")
+    // (values, "val")
 
-    // console.log(status)
+    // (status)
     // let refactoredData =
     // {
 
@@ -370,7 +370,7 @@ export default function financialInformation() {
     //   }
 
     //   if (status == 3) {
-    //     console.log("data")
+    //     ("data")
     //     refactoredData =
     //     {
 
@@ -455,11 +455,11 @@ export default function financialInformation() {
     //         if (response.data.isSuccess) {
     //           Router.push("/prequlaify_owner");
     //         } else {
-    //           console.log(response);
+    //           (response);
     //         }
     //       },
     //       (error) => {
-    //         console.log(error);
+    //         (error);
     //       }
     //     );
     //   } else {
@@ -496,11 +496,11 @@ export default function financialInformation() {
     //         if (response.data.isSuccess) {
     //           Router.push("/prequlaify_owner");
     //         } else {
-    //           console.log(response);
+    //           (response);
     //         }
     //       },
     //       (error) => {
-    //         console.log(error);
+    //         (error);
     //       }
     //     );
     //   }
@@ -511,9 +511,9 @@ export default function financialInformation() {
       if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
         const data = await response?.payload;
-        console.log(data?.id)
+        (data?.id)
         setHasID(data?.id)
-        console.log(data?.mortgageInformation?.monthlyMortgage, "sajakdbsj")
+        (data?.mortgageInformation?.monthlyMortgage, "sajakdbsj")
 
         setStatus(data?.typeOfProperty);
 
@@ -568,12 +568,12 @@ export default function financialInformation() {
     //       getConsumer(dataempty);
     //     } else {
     //       cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-    //       // console.log(respo.data.payload);
+    //       // (respo.data.payload);
     //       getConsumer(respo.data.payload);
     //     }
     //   },
     //   (error) => {
-    //     console.log(error);
+    //     (error);
     //   }
     // );
   }, [id]);
@@ -586,7 +586,7 @@ export default function financialInformation() {
 
   }, [status, id])
 
-  console.log(errors, consumer, 'check errors');
+  (errors, consumer, 'check errors');
 
   return (
     <>

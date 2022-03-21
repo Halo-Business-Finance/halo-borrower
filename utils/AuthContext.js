@@ -18,13 +18,13 @@ const AuthContextProvider = (props) => {
     
       const initialLoad = async () => {
         const token  = sessionStorage.getItem("token")?.toString();
-    console.log(token,'tk')
+    (token,'tk')
         if (token) {
         //   var decoded = await jwt_decode(token);
         //   if (decoded?.unique_name) {
             setAuthenticated(true);
             setLoading(false);
-            console.log('dec')
+            ('dec')
             return;
         //   }
         } else {

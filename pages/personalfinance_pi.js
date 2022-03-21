@@ -253,11 +253,11 @@ export default function Information() {
   //       if (response.data.isSuccess) {
   //         Router.push("/personalfinance_gi");
   //       } else {
-  //         console.log(response);
+  //         (response);
   //       }
   //     },
   //     (error) => {
-  //       console.log(error);
+  //       (error);
   //     }
   //   );
   // };
@@ -291,11 +291,11 @@ export default function Information() {
           if (response.data.isSuccess) {
             Router.push("/personalfinance_gi");
           } else {
-            console.log(response);
+            (response);
           }
         },
         (error) => {
-          console.log(error);
+          (error);
         }
       );
     } else {
@@ -327,11 +327,11 @@ export default function Information() {
           if (response.data.isSuccess) {
             Router.push("/personalfinance_gi");
           } else {
-            console.log(response);
+            (response);
           }
         },
         (error) => {
-          console.log(error);
+          (error);
         }
       );
     }
@@ -350,7 +350,7 @@ export default function Information() {
       headers: headers,
     }).then(
       (response) => {
-        console.log(response.data.payload);
+        (response.data.payload);
         if (response.data.payload == null) {
           // cookie.set("id", "", { expires: 5 / 24 });
           let dataempty = {
@@ -376,7 +376,7 @@ export default function Information() {
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   }, []);

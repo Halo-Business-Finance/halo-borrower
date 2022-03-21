@@ -35,7 +35,7 @@ const Demo = () => {
   const id = router.query.id;
   const [inputList, setInputList] = useState([]);
   const onFinish = values => {
-    console.log('Received values of form:', values);
+    ('Received values of form:', values);
   };
   let initialValues = {
     users: inputList?.length > 0 ? inputList : [],
@@ -48,7 +48,7 @@ const Demo = () => {
           .then(json => {
             form.setFieldsValue(json)
             setInputList([json])
-            console.log(json, "askjdakjsdbjh")
+            (json, "askjdakjsdbjh")
           })
         // const response = await API.get(`/api/borrower/get-owners/${id}`);
         // const data = await response.payload;
@@ -68,7 +68,7 @@ const Demo = () => {
 
   useEffect(() => {
 
-    console.log(initialValues);
+    (initialValues);
   }, [inputList]);
 
   useEffect(() => {
@@ -132,7 +132,7 @@ const Demo = () => {
     //               />
                   
     //               <br />
-    //               {console.log("rest",restField)}
+    //               {("rest",restField)}
     //               <div className="dynamic-content">
     //                 <Form.Item
 

@@ -68,7 +68,7 @@ function SampleNextArrow(props) {
         setDetails(respo.data.payload);
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   }, []);

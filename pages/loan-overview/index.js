@@ -291,12 +291,12 @@ export default function informationindex() {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
       
       setDetails(await response.payload);
-      console.log(data);
+      (data);
     } catch (error) {
 
     }
   }
-  console.log(details,"d")
+  (id,"d")
 
 
 
@@ -307,17 +307,17 @@ export default function informationindex() {
   //     headers: headers,
   //   }).then(
   //     (response) => {
-  //       console.log(response.data.payload);
+  //       (response.data.payload);
   //       setOwners(response.data.payload);
   //     },
   //     (error) => {
-  //       console.log(error);
+  //       (error);
   //     }
   //   );
   // }, []);
 
   // const onSubmitForm = async (values) => {
-  //   // console.log(values);
+  //   // (values);
   //   cookie.set("ownerId", values.ownerid, {
   //     expires: 1 / 24,
   //   });

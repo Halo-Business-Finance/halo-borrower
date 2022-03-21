@@ -23,10 +23,10 @@
 //         (respo) => {
             
 //             setDetails(respo.data.payload);
-//             console.log(details);
+//             (details);
 //         },
 //         (error) => {
-//             console.log(error);
+//             (error);
 //         }
 //         );
 //     },[]);
@@ -39,8 +39,8 @@
 //                 {details.map((datai, dataname) =>{
 
 //                     const base_url = process.env.NEXT_PUBLIC_BASE_URL + datai.thumbnail;
-//                     console.log(base_url);
-//                     console.log(process.env.NEXT_PUBLIC_BASE_URL );
+//                     (base_url);
+//                     (process.env.NEXT_PUBLIC_BASE_URL );
 //                     return(
                         
 //                         <div className="loan-type-section">
