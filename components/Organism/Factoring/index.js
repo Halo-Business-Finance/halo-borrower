@@ -596,11 +596,11 @@ export const Factoring = () => {
                 </ButtonWrapper>}
 
             </Hero>
-            <Modal visible={isModalVisible} footer={null}>
+            <Modal  visible={isModalVisible} footer={null}>
                 <Disqulaified />
             </Modal>
             <Modal visible={showSucessModal} footer={null}>
-                <Success />
+                <Success amount={formValues?.LoanAmountRequested} />
             </Modal>
         </div>
     )

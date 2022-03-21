@@ -1,10 +1,9 @@
-import { Button, Input, Form, notification, Steps } from "antd";
+import { Button, Form, Input, notification, Steps } from "antd";
 import Head from "next/head";
+import { useRouter } from 'next/router';
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import { useRouter } from 'next/router'
 import { API } from "../../../utils/api";
-import { UserOutlined, SolutionOutlined, PhoneOutlined, SmileOutlined } from '@ant-design/icons';
 import { AuthContext } from "../../../utils/AuthContext";
 const Hero = styled.div`
 	/* padding: 40px 20% 40px 20%; */
@@ -125,7 +124,7 @@ const Hero = styled.div`
 `;
 const { Step } = Steps;
 export default function VerifyEmailForm() {
-	const { setFormState, username } = useContext(AuthContext)
+	const { setFormState, username, phone } = useContext(AuthContext)
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -141,7 +140,7 @@ export default function VerifyEmailForm() {
 		}
 		try {
 			await API.post("/api/registration/verify-email", refactoredData);
-			router.push(`/register?email=${router?.query?.email}`)
+			router.push(`/register?phone=${phone}`)
 			setFormState(2);
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })

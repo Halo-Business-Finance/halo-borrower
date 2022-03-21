@@ -27,6 +27,7 @@ const Nav = styled.nav`
 //     background-color: green;
 //  }
 const StyledLink = styled.a`
+color: #FFF;
   
 `;
 

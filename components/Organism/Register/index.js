@@ -1,15 +1,15 @@
-import Head from "next/head";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import {CaretRightOutlined} from '@ant-design/icons';
-import React, { useContext,useState } from "react";
-import Link from "next/link";
+import { CaretRightOutlined } from '@ant-design/icons';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Collapse, notification } from "antd";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import * as Yup from 'yup';
 import { API } from "../../../utils/api";
 import { AuthContext } from "../../../utils/AuthContext";
-import { useRouter } from "next/router";
-import { Button, Collapse } from "antd";
 
 const Hero = styled.div`
 	padding: 40px 20% 40px 20%;
@@ -189,7 +189,7 @@ export default function RegistrationForm() {
 			setPhone(data?.phone);
 			setFormState(1);
 		} catch (error) {
-			console.log('hi', error)
+			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })
 		}
 		setIsLoading(false)
 	}

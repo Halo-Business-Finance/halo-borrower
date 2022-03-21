@@ -761,11 +761,11 @@ export default function CRE() {
 						Next Step
 					</Button>)}
 				</ButtonWrapper>
-				<Modal visible={isModalVisible} footer={null}>
+				<Modal  visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>
 				<Modal visible={showSucessModal} footer={null}>
-                <Success />
+                <Success amount={formValues.dollar} />
             </Modal>
 
 				{/* <input className="button" type="button" value="Next" /> */}

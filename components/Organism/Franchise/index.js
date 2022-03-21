@@ -582,7 +582,7 @@ export const Franchaise = () => {
                     <Disqulaified />
                 </Modal>
                 <Modal visible={showSucessModal} footer={null}>
-                    <Success />
+                    <Success  amount={formValues?.LoanAmountRequested}/>
                 </Modal>
 
             </Hero>
