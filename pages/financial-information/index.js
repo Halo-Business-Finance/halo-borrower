@@ -670,7 +670,7 @@ export default function financialInformation() {
                   id="firstname"
                   className="textbox"
                   type="text"
-                  autoComplete="fdba"
+                  
                   placeholder="Enter Outstanding Loan/Advance Balance"
 
                   defaultValue={consumer.ourstandingAdvancesLoanAmount||''}
