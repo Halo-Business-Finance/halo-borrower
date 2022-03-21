@@ -31,16 +31,16 @@ color: #FFF;
   
 `;
 
-const NavMenu = (email, userName, access_token, userid) => {
+const NavMenu = ( id) => {
   return (
     <Nav>
       <div>
-        <Link href="/prequlaify_bci" passHref>
+        <Link href={`/loan-overview/${id}`} passHref>
           <StyledLink>Pre-qualify</StyledLink>
         </Link>
       </div>
       <div>
-        <Link href="/businessfinance_btr" passHref>
+        <Link href={`financials/tax-returns/${id}`} passHref>
           <StyledLink>Business Financials</StyledLink>
         </Link>
       </div>

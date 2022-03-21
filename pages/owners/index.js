@@ -417,7 +417,7 @@ if (hasId !== null){
 				<title>Owner</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id}/>
 			<Hero>
 				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
 					<section className="Form-design">

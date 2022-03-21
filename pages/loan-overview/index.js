@@ -330,7 +330,7 @@ export default function informationindex() {
         <title>Borrower Section</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu />
+      <NavMenu id={id}/>
       <Hero>
         <div className="top-borrower">
           <div className="top-heading">

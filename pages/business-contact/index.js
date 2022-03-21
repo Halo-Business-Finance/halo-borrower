@@ -240,7 +240,7 @@ export default function Form({ data }) {
 				<title>Business Contact Information </title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id} />
 			<Hero>
 				{/* <div className="error">
               <p>{aState}</p>

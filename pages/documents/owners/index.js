@@ -361,7 +361,7 @@ export default function UploadDocs() {
         <title>Upload</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu />
+      <NavMenu id={id} />
       <BusinessStyle>
         <section className="main-style">
           <header>

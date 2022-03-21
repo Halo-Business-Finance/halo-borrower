@@ -163,7 +163,7 @@ export default function Business() {
 				<title>Outstanding Debt</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id} />
 			<OutstandingDebtStyle>
 				<section className="main-style">
 					<header>

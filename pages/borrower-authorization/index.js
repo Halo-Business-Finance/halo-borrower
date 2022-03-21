@@ -87,7 +87,7 @@ export default function Form() {
   
 	return (
 		<>
-			<NavMenu />
+			<NavMenu id={id} />
 
 			<Head>
 				<title>Form</title>

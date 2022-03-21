@@ -245,7 +245,7 @@ const HandleDelete = async (documentId) => {
         <title>Business </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu />
+      <NavMenu id={id} />
      
       <BusinessStyle>
      
