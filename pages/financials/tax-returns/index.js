@@ -118,6 +118,7 @@ export default function Business() {
   const { id } = router.query;
   const [hasId, setHasID] = useState(null);
   const [consumer, getConsumer] = useState({});
+  
   // const onFinish = values => {
   //   console.log('Received values of form:', values);
   // };
@@ -147,6 +148,9 @@ export default function Business() {
   const handleAddClick = () => {
     setInputList([...inputList, { Date: "", File: "" }]);
   };
+  let initialValues = {
+    users:  [],
+  };
 
   const headers = {
     "Content-Type": "multipart/form-data",
@@ -165,23 +169,38 @@ export default function Business() {
         formData.append(item?.Date, item?.File?.file?.originFileObj)
       })
     )
-
-
-
-
     await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
     console.log('akjsndkjasdkj')
   };
 
   const GetTaxReturns = async () => {
-    // const baseUrl = "https://dev.amazingrm.com/"
-    if (id) {
+    const baseUrl = "https://dev.amazingrm.com/"
+  
       try {
+        console.log("file")
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
-        const data = res.payload;
+        const data = await res.payload;
         getConsumer(data)
         setHasID(data?.id)
-        console.log(res, 'dt')
+        
+        console.log(data, 'mydata')
+        
+          const docs = data?.map((item) => ({
+            Date:item?.key,
+            File:{
+              file:[{
+              "uid": item?.id,
+          'url': baseUrl + item?.fileName,
+          "name": item?.aliasFileName
+            }]
+          }
+          
+
+        }))
+        console.log("focs")
+        setInputList(docs)
+
+        
         // const data = await res?.payload
         // const docs = data?.map((item) => ({
         //   "id": item?.id,
@@ -191,10 +210,11 @@ export default function Business() {
         // }))
       }
       catch (error) {
+        console.log(error)
         // message.error(error?.payload?.reason || "Error Occured");
         // setFetching(false)
       }
-    }
+    
   }
   //   setFetching(false)
 
@@ -204,8 +224,21 @@ export default function Business() {
       GetTaxReturns();
     }
   }, [id])
+  useEffect(() => {
+    form.setFieldsValue(inputList)
+  }, [form, inputList])
 
+  useEffect(() => form.resetFields(), [initialValues]);
+console.log(initialValues,'aodsjoaisdjo')
+const HandleDelete = async (documentId) => {
+  try {
+    await API.delete(`/api/business-finance/delete-doc/${documentId}`);
+    GetPLDocuments();
+  } catch (error) {
 
+  }
+
+}
   return (
     <>
       <Head>
@@ -213,7 +246,9 @@ export default function Business() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavMenu />
+     
       <BusinessStyle>
+     
         <section className="main-style">
           <div className="header">
             <div className="header-one">
@@ -231,11 +266,21 @@ export default function Business() {
               </p>
             </div>
           </div>
+          {
+        inputList.map((item) =>
+        <Form initialValues={{"Date":"2020-10-11","file":{id:1,name:"test",url:"http://example.com"}}}>
+          <Form.Item name="file">
+            <Upload >File</Upload>
+          </Form.Item>
+          </Form>
+        )
+
+      }
           <Form onFinish={onFinish} form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
             <Form.List name="users">
               {(fields, { add, remove }) => (
                 <>
-                  {fields.map(({ key, name, ...restField }) => (
+                  {fields.map(({ key, name, ...restField },index) => (
                     <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
                       <Form.Item
                         {...restField}
@@ -244,19 +289,29 @@ export default function Business() {
                       >
                         <Input type="date" placeholder="First Name" />
                       </Form.Item>
+                      
                       <Form.Item
                         {...restField}
                         name={[name, 'File']}
 
                       >
-                        <Upload >
-                          <Button>Files</Button>
-                        </Upload>
+                        <Upload
+                        
+                        onRemove={(file) => {
+                  if (file?.uid) {
+                    HandleDelete(file.uid);
+
+                  }
+                 
+                }} fileList={inputList[index]?.File?.file||inputList?.file}><Button disabled={inputList[index]?.File?.file !==undefined}>File</Button></Upload>
+                       {/* <Input type="file" /> */}
                       </Form.Item>
                       <MinusCircleOutlined onClick={() => remove(name)} />
                     </Space>
                   ))}
-                  <Form.Item>
+                  <Form.Item
+                  
+                  >
                     <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
                       Add field
                     </Button>
