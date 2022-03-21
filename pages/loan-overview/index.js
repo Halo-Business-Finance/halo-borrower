@@ -369,7 +369,7 @@ export default function informationindex() {
 
                 <div className="sba-details">
                   <p className="sba-detail-title">{LoanCode?.find((loan) => loan?.code == details?.loanTypes)?.name}</p>
-                  <p className="sba-detail-amount">$ {details?.amountToBeBorrowed} </p>
+                  <p className="sba-detail-amount">{details?.amountToBeBorrowed} </p>
                 </div>
               </div>
 

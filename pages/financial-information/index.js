@@ -190,58 +190,139 @@ export default function financialInformation() {
     console.log(values,"val")
     if (hasId !== null && status == 1) {
       getConsumer({
-        "annualRevenue": consumer?.annualRevenue,
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
         // "dailyAverageBankBalance": null,
-        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        // "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
         "useOfFunds": consumer?.useOfFunds,
-        "loanAmountRequested": consumer?.loanAmountRequested,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        id: hasId,
+      })
+      addUpdateHandler({
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
+        // "dailyAverageBankBalance": null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        // "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
+        "useOfFunds": consumer?.useOfFunds,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
         id: hasId,
       })
     }
     if (status == 1 && hasId == null) {
-
       getConsumer({
-        "annualRevenue": consumer?.annualRevenue,
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
         // "dailyAverageBankBalance": null,
-        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        // "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        // "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
         "useOfFunds": consumer?.useOfFunds,
-        "loanAmountRequested": consumer?.loanAmountRequested,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+      })
+      addUpdateHandler({
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
+        // "dailyAverageBankBalance": null,
+        // "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        // "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
+        "useOfFunds": consumer?.useOfFunds,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
       })
 
     } else if (status == 2 && hasId == null) {
       getConsumer({
-        "annualRevenue": consumer?.annualRevenue,
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
         // "dailyAverageBankBalance": null,
-        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount":consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        // "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        // "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
         "useOfFunds": consumer?.useOfFunds,
-        "loanAmountRequested": consumer?.loanAmountRequested,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
         "mortgageInformation": {
-          "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
+          // "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
+          "monthlyMoratge": +`${consumer?.mortgageInformation?.monthlyMortgage||0}`,
+        }
+      })
+      addUpdateHandler({
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
+        // "dailyAverageBankBalance": null,
+        // "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        // "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
+        "useOfFunds": consumer?.useOfFunds,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        "mortgageInformation": {
+          // "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
+          "monthlyMoratge": +`${consumer?.mortgageInformation?.monthlyMortgage||0}`,
         }
       })
     }
     if (status == 2 && hasId !== null) {
       getConsumer({
-        "annualRevenue": consumer?.annualRevenue,
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
         // "dailyAverageBankBalance": null,
-        "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
-        "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        // "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        // "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
         "useOfFunds": consumer?.useOfFunds,
-        "loanAmountRequested": consumer?.loanAmountRequested,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
         "typeOfProperty": consumer?.typeOfProperty,
         "loanRequestId": id,
         "id": hasId,
         "mortgageInformation": {
-          "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
+          // "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
+          "monthlyMoratge": +`${consumer?.mortgageInformation?.monthlyMortgage||0}`,
+        }
+      })
+      addUpdateHandler({
+        // "annualRevenue": consumer?.annualRevenue,
+        "annualRevenue": +`${consumer?.annualRevenue||0}`.replace(/[^\d]+/gi, ''),
+        // "dailyAverageBankBalance": null,
+        // "outstandingLoanOrAdvance": consumer?.outstandingLoanOrAdvance,
+        // "ourstandingAdvancesLoanAmount": consumer?.outstandingLoanOrAdvance? consumer?.ourstandingAdvancesLoanAmount : null,
+        "outstandingLoanOrAdvance": +`${consumer?.outstandingLoanOrAdvance||0}`.replace(/[^\d]+/gi, ''),
+        "ourstandingAdvancesLoanAmount": +`${consumer?.ourstandingAdvancesLoanAmount||0}`.replace(/[^\d]+/gi, ''),
+        "useOfFunds": consumer?.useOfFunds,
+        // "loanAmountRequested": consumer?.loanAmountRequested,
+        "loanAmountRequested": +`${consumer?.loanAmountRequested||0}`.replace(/[^\d]+/gi, ''),
+        "typeOfProperty": consumer?.typeOfProperty,
+        "loanRequestId": id,
+        "id": hasId,
+        "mortgageInformation": {
+          // "monthlyMoratge": consumer?.mortgageInformation?.monthlyMortgage,
+          "monthlyMoratge": +`${consumer?.mortgageInformation?.monthlyMortgage||0}`,
         }
       })
 
@@ -332,7 +413,8 @@ export default function financialInformation() {
     //   }
     // }
 
-    addUpdateHandler(consumer)
+    // addUpdateHandler(consumer)
+
     //   let olab = false;
     //   if (values.olab == "" || values.olab == "false") {
     //     olab = false;
@@ -504,6 +586,8 @@ export default function financialInformation() {
 
   }, [status, id])
 
+  console.log(errors, consumer, 'check errors');
+
   return (
     <>
       <Head>
@@ -533,7 +617,7 @@ export default function financialInformation() {
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter  Business Revenue"
-                  defaultValue={consumer.annualRevenue}
+                  defaultValue={consumer.annualRevenue ||''}
                   {...register("annualrevenue")}
                   onValueChange={(e) => getConsumer({ ...consumer, annualRevenue: e.formattedValue })}
 
@@ -580,7 +664,6 @@ export default function financialInformation() {
                   Outstanding Loan/Advance Balance
                 </label>
                 <CurrencyFormat
-               
                   disabled={!consumer?.outstandingLoanOrAdvance}
                   prefix={'$'}
                   thousandSeparator={true}
@@ -590,10 +673,9 @@ export default function financialInformation() {
                   
                   placeholder="Enter Outstanding Loan/Advance Balance"
 
-                
+                  defaultValue={consumer.ourstandingAdvancesLoanAmount||''}
                   {...register("outstandingloanoradvance")}
                   onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.formattedValue })}
-                  value={consumer?.ourstandingAdvancesLoanAmount||null}
                 />
               </div>
             </div>
@@ -628,14 +710,12 @@ export default function financialInformation() {
                   type="text"
                   autoComplete="fdba"
                   placeholder="Enter Loan Amount Requested"
-                  defaultValue={consumer.loanAmountRequested}
-                  {...register("loanamountrequested", {
-                    required: "Required",
+                  defaultValue={consumer.loanAmountRequested||''}
+                  {...register("loanAmountRequested", {
+                    // required: "Required",
                   })}
                   onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.formattedValue })}
-
                   required
-
                 />
               </div>
             </div>
@@ -699,7 +779,7 @@ export default function financialInformation() {
                    prefix={'$'}
                    thousandSeparator={true}
 
-                    value={consumer?.mortgageInformation?.monthlyMortgage}
+                    value={consumer?.mortgageInformation?.monthlyMortgage||''}
                     className="textbox"
                     type="text"
                     autoComplete="fname"
@@ -722,7 +802,7 @@ export default function financialInformation() {
                       <CurrencyFormat
                        prefix={'$'}
                        thousandSeparator={true}
-                        value={consumer?.rentInformation?.monthlyRent}
+                        value={consumer?.rentInformation?.monthlyRent||''}
                         className="textbox"
                         type="text"
                         autoComplete="fname"
