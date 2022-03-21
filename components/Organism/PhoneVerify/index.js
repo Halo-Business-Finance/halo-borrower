@@ -158,7 +158,7 @@ export default function VerifyPhoneForm() {
 			})
 			notification.success({ message: "Success", description: "Verification code resend successfully" })
 		} catch (error) {
-			console.log(error)
+			(error)
 			notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
 		}
 	}

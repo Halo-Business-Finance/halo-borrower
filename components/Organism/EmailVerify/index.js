@@ -158,7 +158,7 @@ export default function VerifyEmailForm() {
 			})
 			notification.success({ message: "Success", description: "Verification email resend successfully" })
 		} catch (error) {
-			console.log(error)
+			(error)
 			notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
 		}
 	}

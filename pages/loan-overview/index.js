@@ -291,12 +291,12 @@ export default function informationindex() {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
       
       setDetails(await response.payload);
-      console.log(data);
+      (data);
     } catch (error) {
 
     }
   }
-  console.log(details,"d")
+  (id,"d")
 
 
 
@@ -307,17 +307,17 @@ export default function informationindex() {
   //     headers: headers,
   //   }).then(
   //     (response) => {
-  //       console.log(response.data.payload);
+  //       (response.data.payload);
   //       setOwners(response.data.payload);
   //     },
   //     (error) => {
-  //       console.log(error);
+  //       (error);
   //     }
   //   );
   // }, []);
 
   // const onSubmitForm = async (values) => {
-  //   // console.log(values);
+  //   // (values);
   //   cookie.set("ownerId", values.ownerid, {
   //     expires: 1 / 24,
   //   });
@@ -330,7 +330,7 @@ export default function informationindex() {
         <title>Borrower Section</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu />
+      <NavMenu id={id}/>
       <Hero>
         <div className="top-borrower">
           <div className="top-heading">

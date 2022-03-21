@@ -35,7 +35,7 @@ const Demo = () => {
     const id=router.query.id;
     const [inputList, setInputList] = useState([]);
   const onFinish = values => {
-    console.log('Received values of form:', values);
+    ('Received values of form:', values);
   };
   let initialValues = {
     users:inputList?.length >0? inputList:[],
@@ -61,7 +61,7 @@ useEffect(() => {
 
 useEffect(() =>{
   
-  console.log(initialValues);
+  (initialValues);
 },[inputList]);
 
 useEffect(() => {
@@ -82,7 +82,7 @@ useEffect(() => {
 												alt="trash"
 												onClick={() => remove(name)}
 											/>
-                         {console.log(field,"akjsbjk")}
+                         {(field,"akjsbjk")}
                                             <br/>
               <div className="dynamic-content">
                  <Form.Item

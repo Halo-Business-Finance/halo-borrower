@@ -162,11 +162,11 @@ export default function UploadDocs() {
 				if (response.data.isSuccess) {
 					Router.push("/");
 				} else {
-					console.log(response);
+					(response);
 				}
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	};
@@ -180,7 +180,7 @@ export default function UploadDocs() {
         <title>Upload</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu />
+      <NavMenu  />
       <BusinessStyle>
         <section className="main-style">
           <header>

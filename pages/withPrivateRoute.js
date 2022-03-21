@@ -37,7 +37,7 @@ const PrivateRoute = (AuthComponent) => {
       }
       setIsLoading(false);
     }, [authenticated, loading, user]);
-   console.log(loading,isLoading,authenticated,'ld')
+   (loading,isLoading,authenticated,'ld')
     if (loading || isLoading || authenticated == null) {
       return (
         <SpinnerStyled className="loader">

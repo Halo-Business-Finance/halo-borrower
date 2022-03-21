@@ -132,11 +132,11 @@ export default function Business() {
 				if (response.data.isSuccess) {
 					Router.push("businessfinance_pls");
 				} else {
-					console.log(response);
+					(response);
 				}
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	};
@@ -148,7 +148,7 @@ export default function Business() {
 				<title>Business Debt</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id} />
 			<BusinessDebtStyle>
 				<section className="main-style">
 					<header>

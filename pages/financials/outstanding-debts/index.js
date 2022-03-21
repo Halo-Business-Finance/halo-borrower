@@ -133,7 +133,7 @@ export default function Business() {
 			if (id) {
 			try {
 			  const res = await API.get(`api/business-finance/get-business-debt/${id}`)
-			  console.log(res,'bd')
+			  (res,'bd')
 			  // const data = await res?.payload
 			  // const docs = data?.map((item) => ({
 			  //   "id": item?.id,
@@ -163,7 +163,7 @@ export default function Business() {
 				<title>Outstanding Debt</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id} />
 			<OutstandingDebtStyle>
 				<section className="main-style">
 					<header>

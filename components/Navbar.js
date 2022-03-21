@@ -44,7 +44,7 @@ const Navbar = (data) => {
 		typeof cookie.get("email") !== "undefined" ||
 		typeof cookie.get("userid") !== "undefined"
 	) {
-		// console.log(cookie.get('access_token'));
+		// (cookie.get('access_token'));
 		var token = cookie.get("access_token");
 
 		const config = {
@@ -66,7 +66,7 @@ const Navbar = (data) => {
 					} catch (err) { }
 				},
 				(error) => {
-					console.log(error);
+					(error);
 				}
 			);
 

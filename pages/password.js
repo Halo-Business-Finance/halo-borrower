@@ -107,7 +107,7 @@ export default function Form() {
     formState: { errors },
   } = useForm();
   function onSubmitForm(values) {
-    console.log(values);
+    (values);
   }
   return (
     <>

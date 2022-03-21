@@ -278,7 +278,7 @@ export default function CRE() {
 			"accepted": true
 		}
 		try {
-			console.log("lk")
+			("lk")
 			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
 			setshowSucessModal(true)

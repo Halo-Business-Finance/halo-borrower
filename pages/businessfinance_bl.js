@@ -135,7 +135,7 @@ export default function BusinessLincense() {
 	};
 
 	const onSubmitForm = async (values) => {
-      console.log(values)
+      (values)
    
 		axios({
 			method: "post",
@@ -150,11 +150,11 @@ export default function BusinessLincense() {
 				if (response.data.isSuccess) {
 					Router.push("/");
 				} else {
-					console.log(response);
+					(response);
 				}
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	};

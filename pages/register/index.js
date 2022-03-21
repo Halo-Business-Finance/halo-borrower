@@ -33,7 +33,7 @@ const LoginAndVerification = () => {
     //         setFormState(router.query.id)
     //     }
     // },[router.query])
-    // console.log(formState,'state')
+    // (formState,'state')
     return (
         <Container>
            

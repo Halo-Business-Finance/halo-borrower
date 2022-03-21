@@ -124,14 +124,14 @@ export default function Form() {
 			.then(
 				(response) => {
 					if (response.data.access_token != "") {
-						console.log(response);
+						(response);
 					} else {
 						setA(response);
 						return <div>{aState}</div>;
 					}
 				},
 				(error) => {
-					console.log(error);
+					(error);
 				}
 			);
 	};
@@ -150,17 +150,17 @@ export default function Form() {
 
 	//   .then((response) => {
 	//     if(response.data.isSuccess){
-	//       console.log(response);
+	//       (response);
 	//     }else{
 
 	//       setA(response.data.reason);
 	//       return (
 	//           <div>{aState}</div>
 	//       );
-	//       // console.log(response.data.reason);
+	//       // (response.data.reason);
 	//     }
 	//   }, (error) => {
-	//     console.log(error);
+	//     (error);
 	//   });
 
 	// }
