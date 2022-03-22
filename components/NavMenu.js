@@ -32,7 +32,7 @@ color: #FFF;
 `;
 
 const NavMenu = ( {id}) => {
-  (id,"id")
+
   return (
     <Nav>
       <div>
