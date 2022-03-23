@@ -191,9 +191,7 @@ export default function ProfitLoss() {
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
-      router.push({ pathname: "/documents/balance-sheet", query: { id: id } })
     } catch (error) {
-      console.log(error,'er')
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
     }
@@ -224,7 +222,8 @@ export default function ProfitLoss() {
 
   }
   useEffect(() => {
-    if (id) {
+    if (id)
+ {
       GetPLDocuments();
     }
 
@@ -243,6 +242,11 @@ export default function ProfitLoss() {
       <SpinWrapper><Spin size="large" /></SpinWrapper>
     )
   }
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <>
       <Head>
@@ -268,6 +272,7 @@ export default function ProfitLoss() {
           <Form layout="vertical">
             <Form.Item label="Upload Profit and loss statements">
               <Dragger
+              customRequest={dummyRequest}
                 max={5}
                 listType="picture-card"
                 accept=".xls,.pdf,.csv"
@@ -279,6 +284,7 @@ export default function ProfitLoss() {
                     HandleDelete(file.id);
 
                   }
+                  
                 }}
                 onChange={({ fileList: newFileList }) => {
                   setFileList(newFileList);
