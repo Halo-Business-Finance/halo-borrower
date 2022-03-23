@@ -191,6 +191,7 @@ export default function ProfitLoss() {
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+      router.push({pathname:"/documents/balance-sheets",query:{id:id}})
     } catch (error) {
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
