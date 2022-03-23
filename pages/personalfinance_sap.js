@@ -394,11 +394,11 @@ export default function Form() {
         if (response.data.isSuccess) {
           Router.push("/personalfinance_bds");
         } else {
-          console.log(response);
+          (response);
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   };
@@ -416,12 +416,12 @@ export default function Form() {
       headers: headers,
     }).then(
       (respo) => {
-        console.log(respo.data.payload);
+        (respo.data.payload);
 
         getConsumer(respo.data.payload);
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   }, []);

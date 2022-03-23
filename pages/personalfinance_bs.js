@@ -185,7 +185,7 @@ export default function Form() {
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmitForm = (data) => {
-    console.log(data);
+    (data);
   };
 
   return (

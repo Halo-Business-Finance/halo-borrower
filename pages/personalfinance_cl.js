@@ -266,7 +266,7 @@ export default function Liabilites() {
     setCosts(_tempCosts);
   };
   const onSubmitForm = (data) => {
-    console.log(data);
+    (data);
   };
   return (
     <>

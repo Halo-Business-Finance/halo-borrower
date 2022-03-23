@@ -298,7 +298,7 @@ export default function Form() {
 	  };
 
 	const onSubmitForm = async (values) => {
-		// console.log(values);
+		// (values);
 		const headers = {
 			"Content-Type": "application/json",
 			Authorization: "Bearer" + " " + cookie.get("access_token"),
@@ -330,14 +330,14 @@ export default function Form() {
 		}).then(
 			(response) => {
 				if (response.data.isSuccess) {
-					console.log(response.data.isSuccess);
+					(response.data.isSuccess);
 					// Router.push("/prequlaify_ba");
 				} else {
-					console.log(response);
+					(response);
 				}
 			},
 			(error) => {
-				console.log(error);
+				(error);
 			}
 		);
 	};
@@ -370,12 +370,12 @@ export default function Form() {
 			// 			  getConsumer(dataempty);
 			//   }else{
 			// 			cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-				console.log(respo.data.payload);
+				(respo.data.payload);
 				setInputList(respo.data.payload);
 			//   }
 			},
 			(error) => {
-			  console.log(error);
+			  (error);
 			}
 		  );
 		}, []);

@@ -1,18 +1,19 @@
 import Head from "next/head";
 import styled from "styled-components";
-import cookie from "js-cookie";
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import NavMenu from "../../components/NavMenu";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { API } from '../../utils/api';
 import moment from "moment";
-import {LoanCode} from '../../utils/code'
+import { LoanCode } from '../../utils/code'
+import { Progress } from "antd";
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
   font-family: Mulish;
+  margin-top:20px ;
 
   .top-borrower {
     width: 100%;
@@ -176,6 +177,7 @@ const Hero = styled.div`
     width: 68%;
     vertical-align: top;
     padding-left: 15px;
+    margin-top:10px ;
   }
 
   .sba-application-details {
@@ -257,7 +259,7 @@ const Hero = styled.div`
   & .finance-list{
     margin-top: 20px;
     & .sba-header-container{
-      margin-top: 60px;
+    
     display: flex;
     align-items: center;
     justify-content:space-between;
@@ -277,7 +279,7 @@ export default function informationindex() {
   } = useForm();
   const [details, setDetails] = useState();
   const [owners, setOwners] = useState([]);
-  
+
 
 
 
@@ -289,14 +291,14 @@ export default function informationindex() {
   const fetchLoanOverview = async () => {
     try {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
-      
+
       setDetails(await response.payload);
-      console.log(data);
+      (data);
     } catch (error) {
 
     }
   }
-  console.log(details,"d")
+  (id, "d")
 
 
 
@@ -307,17 +309,17 @@ export default function informationindex() {
   //     headers: headers,
   //   }).then(
   //     (response) => {
-  //       console.log(response.data.payload);
+  //       (response.data.payload);
   //       setOwners(response.data.payload);
   //     },
   //     (error) => {
-  //       console.log(error);
+  //       (error);
   //     }
   //   );
   // }, []);
 
   // const onSubmitForm = async (values) => {
-  //   // console.log(values);
+  //   // (values);
   //   cookie.set("ownerId", values.ownerid, {
   //     expires: 1 / 24,
   //   });
@@ -330,7 +332,7 @@ export default function informationindex() {
         <title>Borrower Section</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu />
+      <NavMenu id={id} />
       <Hero>
         <div className="top-borrower">
           <div className="top-heading">
@@ -342,12 +344,17 @@ export default function informationindex() {
             </div>
           </div>
 
-          <div className="meter">
-            <span></span>
-          </div>
+          <Progress
+            strokeColor={{
+              from: '#108ee9',
+              to: '#87d068',
+            }}
+            percent={99.9}
+            status="active"
+          />
           <div className="top-heading">
             <p>
-              <strong className="strong-color">33%</strong> complete
+              <strong className="strong-color">99%</strong> complete
             </p>
 
             <p className="meter-link">
@@ -430,7 +437,7 @@ export default function informationindex() {
               </div>
             </div>
           </div>
-          {/* 
+
           <br />
           <br />
           <div className="finance-list">
@@ -448,7 +455,7 @@ export default function informationindex() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/buiness-contact">
+                  <a href={`/business-contact/?id=${id}`}>
                     <span>Next step</span>
                   </a>
                 </div>
@@ -468,19 +475,19 @@ export default function informationindex() {
           <div className="finance-list">
             <div className="sba-header-container">
               <div className="finance-container-one">
-                <img src="/images/financials.png" className="sba-image" />
+                <img src="/images/document.svg" className="sba-image" />
 
                 <div className="sba-details">
-                  <p className="finance-detail-title">Personal Financials</p>
+                  <p className="finance-detail-title">Documents</p>
                   <p className="finance-detail-detail">
-                    You need to enter your Personal financial info!
+                    Upload necessary documents
                   </p>
                 </div>
               </div>
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href="/personalfinance_pi">
+                  <a href={`/documents/owners/?id=${id}`}>
                     <span>Next step</span>
                   </a>
                 </div>
@@ -492,7 +499,7 @@ export default function informationindex() {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* <div className="finance-list">
             {owners.map((owner, ownerdetails) => {

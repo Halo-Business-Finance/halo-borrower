@@ -277,7 +277,7 @@ export default function ProfitLoss() {
                     HandleDelete(file.id);
 
                   }
-                  console.log(file, "dke")
+                  (file, "dke")
                 }}
                 onChange={({ fileList: newFileList }) => {
                   setFileList(newFileList);

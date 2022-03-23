@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
-import { Button, DatePicker, Form, Input, Select, Upload } from "antd";
+import { Button, DatePicker, Form, Input, message, Select, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import moment from 'moment';
 
 
 const { Option } = Select;
@@ -104,6 +105,8 @@ export default function Business() {
 
  const router = useRouter();
   const { id } = router.query;
+  const [consumer, getConsumer] = useState({});
+  const [form] = Form.useForm()
 	const {
 		register,
 		handleSubmit,
@@ -115,26 +118,24 @@ export default function Business() {
 	};
 
 	const onSubmitForm = async (values) => {
+		console.log(values,'vl')
 
-		const formData = new FormData();
+		
 		try {
-			await Promise.all(
-			  fileList.map((item) => {
-				formData.append("file")
-			  })
-			)
-			await API.post(`api/business-finance/add-update-business-debt`, formData)
+		
+			await API.post(`api/business-finance/add-update-business-debt`,{...values,loanRequestId:id})
 		  } catch (error) {
 			message.error();
 		  }
 		};
 		const GetBusinessDebts = async () => {
-			// const baseUrl = "https://dev.amazingrm.com/"
+			const baseUrl = "https://dev.amazingrm.com/"
 			if (id) {
 			try {
 			  const res = await API.get(`api/business-finance/get-business-debt/${id}`)
 			  console.log(res,'bd')
-			  // const data = await res?.payload
+			  const data = await res.payload;
+			  getConsumer(data)
 			  // const docs = data?.map((item) => ({
 			  //   "id": item?.id,
 			  //   'url': baseUrl + item?.fileName,
@@ -154,6 +155,11 @@ export default function Business() {
 				GetBusinessDebts();
 			}
 		  }, [id])
+		  useEffect(() => {
+			form.setFieldsValue(consumer)
+		  }, [form, consumer])
+		
+		//   useEffect(() => form.resetFields(), [initialValues]);
 	  
 
 
@@ -163,7 +169,7 @@ export default function Business() {
 				<title>Outstanding Debt</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id} />
 			<OutstandingDebtStyle>
 				<section className="main-style">
 					<header>
@@ -183,9 +189,10 @@ export default function Business() {
 					</header>
                     <div>
                       
-                    <Form layout="vertical">
+                    <Form onFinish={onSubmitForm} form={form} layout="vertical">
                         <Form.Item 
                         label='Lender name'
+					name='lenderName'
                         >
                             <Input
                             placeholder="Enter lender name"
@@ -193,28 +200,39 @@ export default function Business() {
                         </Form.Item>
                         <Form.Item 
                         label='Type of Debt'
+						name='typeOfDebt'
                         >
-                            <Select>
-                                <Option>a</Option>
-                                <Option>b</Option>
-                            </Select>
+							<Select>
+                          <Option value={0}>Business</Option>
+						  <Option value={1}>SomeOther</Option>
+						  </Select>
+                           
                         </Form.Item>
                         <Form.Item 
                         label='Origination Year'
-                        >
-                        <DatePicker picker="year"/>
+						name='originationYear'
+					    >
+                        <Input
+						 type='number'
+                            placeholder="Enter lender name"
+                            />
                         </Form.Item>
                        
                         <Form.Item 
                         label='Payment Frequency'
+						name='paymentFrequency'
                         >
-                           <Select>
-                                <Option>a</Option>
-                                <Option>b</Option>
-                            </Select>
+							<Select>
+                          <Option value={0}>Monthly</Option>
+						  <Option value={1}>Quarterly</Option>
+						  <Option value={2}>SemiAnnually</Option>
+						  <Option value={4}> Annually</Option>
+						  </Select>
+						  
                         </Form.Item>
                         <Form.Item 
                         label='Minimum Payment'
+						name='minimumPayment'
                         >
                             <Input 
                             type='number'
@@ -223,6 +241,7 @@ export default function Business() {
                         </Form.Item>
                         <Form.Item 
                         label='Amount Remaining'
+						name='amountRemainin'
                         >
                             <Input 
                              type='number'

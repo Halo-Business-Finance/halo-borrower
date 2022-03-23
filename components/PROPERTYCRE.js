@@ -216,7 +216,7 @@ export default function PROPERTYCRE() {
 		setFormstep(formstep - 1);
 	}
 
-	console.log(formValues.tenants);
+	(formValues.tenants);
 	const isUserDisqualified = () => {
 		setIsModalVisible(true);
 	}

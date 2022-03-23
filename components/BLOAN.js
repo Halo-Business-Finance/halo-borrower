@@ -158,7 +158,7 @@ export default function BLOAN() {
 		stabilized: "",
 
 	})
-	console.log(bridgeLoanData,'bd')
+	(bridgeLoanData,'bd')
 	const completeFormStep = () => {
 
 		if ((bridgeLoanData.cashOut !== '' && Number(bridgeLoanData.cashOut) < 250000) || (bridgeLoanData.constructionAmount !== '' && Number(bridgeLoanData.constructionAmount) < 250000) || (bridgeLoanData.dollar !== '' && Number(bridgeLoanData.dollar) < 250000) || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || (bridgeLoanData.rateTermAmount !== '' && Number(bridgeLoanData.rateTermAmount) < 250000 ))) {

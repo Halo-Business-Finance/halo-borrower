@@ -187,7 +187,7 @@ export default function InformationTwo() {
   };
 
   const onSubmitForm = async (values) => {
-    console.log(values);
+    (values);
     axios({
       method: "post",
       url:
@@ -208,11 +208,11 @@ export default function InformationTwo() {
         if (response.data.isSuccess) {
           Router.push("/personalfinance_is");
         } else {
-          console.log(response);
+          (response);
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   };
@@ -230,7 +230,7 @@ export default function InformationTwo() {
       headers: headers,
     }).then(
       (response) => {
-        console.log(response.data.payload);
+        (response.data.payload);
         if (response.data.payload == null) {
           // cookie.set("id", "", { expires: 5 / 24 });
           let dataempty = {
@@ -247,7 +247,7 @@ export default function InformationTwo() {
         }
       },
       (error) => {
-        console.log(error);
+        (error);
       }
     );
   }, []);

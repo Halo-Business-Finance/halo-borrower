@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
+import { Button, Radio } from "antd";
+import React, { useState } from "react";
+import { Router } from "next/router";
+import { useRouter } from "next/router";
 
 const BusinessDebtStyle = styled.div`
 	display: flex;
@@ -58,6 +62,9 @@ const BusinessDebtStyle = styled.div`
 				color: #f3ba17;
 			}
 		}
+		.radio {
+			height: 20px;
+		}
 			.footer {
 				.continue-button {
 					display: flex;
@@ -93,42 +100,27 @@ const BusinessDebtStyle = styled.div`
 	}
 `;
 
+
 export default function Business() {
+	const [value,setValue] = useState();
+	const router = useRouter();
+	const { id } = router.query;
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
+	const onChange = (e) =>{
+		console.log(`radio checked:${e.target.value}`);
+		setValue(e.target.value);
+	  }
 	const headers = {
 		"Content-Type": "application/json",
 		Authorization: "Bearer" + " " ,
 	};
 
 	const onSubmitForm = async (values) => {
-	
-
-		axios({
-			method: "post",
-			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
-			data: {
-				
-			
-			},
-			headers: headers,
-		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					Router.push("businessfinance_pls");
-				} else {
-					console.log(response);
-				}
-			},
-			(error) => {
-				console.log(error);
-			}
-		);
+		router.push(value=='a'?`/financials/outstanding-debts/?id=${id}`:`/documents/profit-loss/?id=${id}`)
 	};
 
 
@@ -138,7 +130,7 @@ export default function Business() {
 				<title>Business Debt</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu />
+			<NavMenu id={id} />
 			<BusinessDebtStyle>
 				<section className="main-style">
 					<header>
@@ -159,27 +151,36 @@ export default function Business() {
 					</header>
 					<form onSubmit={handleSubmit(onSubmitForm)}>
 						<div className="debt-form">
-							<input
+						<Radio.Group onChange={onChange} >
+							
+      <Radio.Button  value="a">My business has debts</Radio.Button>
+	  <div className="radio"></div>
+      <Radio.Button  value="b">My business doesn’t have any debts</Radio.Button>
+    </Radio.Group>
+							{/* <input
 								type="button"
 								className="button-one"
 								value="My business has debts"
 								{...register("Debts")}
-							/>
-							<input
+							/> */}
+							{/* <input
 								type="button"
 								value="My business doesn’t have any debts"
 								{...register("noDebts")}
-							/>
+							/> */}
 						</div>
 						<div className="footer">
 							<div className="continue-button">
 								<img src="/images/back.png" />
-								<input
+								<Button size="large" htmlType="submit" type="primary">
+									Save & Continue
+								</Button>
+								{/* <input
 									type="submit"
 									href="form2"
 									id="button"
 									value="Upload to continue"
-								/>
+								/> */}
 							</div>
 
 							<div className="skip-link">

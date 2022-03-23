@@ -134,12 +134,12 @@ export default function VerifyCodeForm() {
 		}
 		try {
 			const response = await API.post("/auth/token", refactoredData);
-			console.log(response);
+			(response);
 			notification.success({ message: 'Success', description: 'Login Successfully' })
 			 sessionStorage.setItem('token', response?.Payload?.access_token)
 			setAuthenticated(true)
 			router.push({ pathname: "/test" })
-			console.log(response, 're')
+			(response, 're')
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -156,7 +156,7 @@ setLoading(false);
 			})
 			notification.success({ message: "Success", description: "Verification code resend successfully" })
 		} catch (error) {
-			console.log(error)
+			(error)
 			notification.error({ message: "Error occured", description: error?.data?.reason || "Something went wrong,please try again later" })
 		}
 	}
