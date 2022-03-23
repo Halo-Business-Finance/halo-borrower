@@ -191,7 +191,7 @@ export default function ProfitLoss() {
         })
       )
       await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData);
-      router.push({pathname:"/documents/profit-loss",query:{id:id}})
+      router.push({ pathname: "/documents/profit-loss", query: { id: id } })
     } catch (error) {
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
@@ -243,6 +243,11 @@ export default function ProfitLoss() {
       <SpinWrapper><Spin size="large" /></SpinWrapper>
     )
   }
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <>
       <Head>
@@ -256,9 +261,9 @@ export default function ProfitLoss() {
             <div className="header-one">
               <h1>Upload your Balance Sheet</h1>
               <p>
-              We need a summary of your business’s assets and liabilities
-                                since the most recent tax filing. The easiest way to do this is
-                                to run a Balance Sheet report in your account software.
+                We need a summary of your business’s assets and liabilities
+                since the most recent tax filing. The easiest way to do this is
+                to run a Balance Sheet report in your account software.
               </p>
             </div>
           </header>
@@ -266,6 +271,7 @@ export default function ProfitLoss() {
           <Form layout="vertical">
             <Form.Item label="Upload BalanceSheet document">
               <Dragger
+                customRequest={dummyRequest}
                 max={5}
                 listType="picture-card"
                 accept=".xls,.pdf,.csv"
@@ -297,10 +303,10 @@ export default function ProfitLoss() {
                 </p>
                 <p className="ant-upload-text">Click or drag file to this area to upload</p>
                 <p className="ant-upload-hint">
-                Upload BalanceSheet document
+                  Upload BalanceSheet document
                 </p>
               </Dragger>
-              <br/>
+              <br />
             </Form.Item>
           </Form>
           <div className="footer">
