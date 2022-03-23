@@ -443,7 +443,7 @@ export default function UploadDocs() {
                     
                     const filterData=finalDocs?.filter((data)=> data?.name==item?.name)
                    const res= filterData?.find((docs)=>docs?.name==item?.name)
-                    (item)
+                    
                   return (<section key={index}>
                     <div className="column-one">
                       <label>Copy of driver license for {item?.name}</label>
