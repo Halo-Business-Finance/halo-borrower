@@ -158,11 +158,12 @@ export default function Business() {
   };
 
   const onFinish = async (values) => {
-    ('Received values of form:', values);
+    console.log('Received values of form:', values);
 
 
 
-    let formData = new FormData();
+    const formData = new FormData();
+    try {
 
     await Promise.all(
       values?.users?.map((item) => {
@@ -170,6 +171,12 @@ export default function Business() {
       })
     )
     await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
+    router.push({pathname:"/financials/business-debts",query:{id:id}})
+    }
+    catch (error) {
+      message.error(error?.payload?.reason || "Error Occured");
+
+    }
    
   };
 
@@ -179,11 +186,10 @@ export default function Business() {
       try {
         ("file")
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
+        console.log(res,'rs')
         const data = await res.payload;
         getConsumer(data)
         setHasID(data?.id)
-        
-        (data, 'mydata')
         
           const docs = data?.map((item) => ({
             Date:item?.key,
@@ -229,7 +235,7 @@ export default function Business() {
   }, [form, inputList])
 
   useEffect(() => form.resetFields(), [initialValues]);
-(initialValues,'aodsjoaisdjo')
+// console.log(initialValues,'aodsjoaisdjo')
 const HandleDelete = async (documentId) => {
   try {
     await API.delete(`/api/business-finance/delete-doc/${documentId}`);

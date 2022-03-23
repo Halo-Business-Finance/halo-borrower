@@ -124,8 +124,9 @@ export default function Business() {
 		try {
 		
 			await API.post(`api/business-finance/add-update-business-debt`,{...values,loanRequestId:id})
+			router.push({pathname:"/documents/owners",query:{id:id}})
 		  } catch (error) {
-			message.error();
+				message.error(error?.payload?.reason || "Error Occured");
 		  }
 		};
 		const GetBusinessDebts = async () => {
