@@ -194,6 +194,7 @@ console.log(fileList)
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+      router.push({pathname:"/documents/balance-sheet",query:{id:id}})
     } catch (error) {
       console.log(error)
       message.error(error?.payload?.reason || "Error Occured");
@@ -226,7 +227,8 @@ console.log(fileList)
 
   }
   useEffect(() => {
-    if (id) {
+    if (id)
+ {
       GetPLDocuments();
     }
 

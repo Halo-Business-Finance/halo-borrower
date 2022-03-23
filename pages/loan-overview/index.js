@@ -426,7 +426,7 @@ export default function informationindex() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href={`/business-contact/?id=${id}`}>
+                  <a href={`/financials/tax-returns/?id=${id}`}>
                     <span>Next step</span>
                   </a>
                 </div>
