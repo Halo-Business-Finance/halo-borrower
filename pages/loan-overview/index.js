@@ -278,11 +278,6 @@ export default function informationindex() {
     formState: { errors },
   } = useForm();
   const [details, setDetails] = useState();
-  const [owners, setOwners] = useState([]);
-
-
-
-
 
   useEffect(() => {
     fetchLoanOverview();
@@ -291,40 +286,17 @@ export default function informationindex() {
   const fetchLoanOverview = async () => {
     try {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
-
       setDetails(await response.payload);
       (data);
     } catch (error) {
 
     }
   }
-  (id, "d")
 
 
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "GET",
-  //     url: url,
-  //     headers: headers,
-  //   }).then(
-  //     (response) => {
-  //       (response.data.payload);
-  //       setOwners(response.data.payload);
-  //     },
-  //     (error) => {
-  //       (error);
-  //     }
-  //   );
-  // }, []);
 
-  // const onSubmitForm = async (values) => {
-  //   // (values);
-  //   cookie.set("ownerId", values.ownerid, {
-  //     expires: 1 / 24,
-  //   });
-  //   router.push("/personalfinance_pi");
-  // };
+
 
   return (
     <>
@@ -365,9 +337,8 @@ export default function informationindex() {
 
           <div className="top-heading">
             <div >
-              <span className="dot"></span>
-              <span className="inprogress">{details?.loanRequestStatus}</span>
-              <p>Your application in review by lender.</p>
+            
+              <p>Keep up the good work!  We are only a phone call or chat away to assist you with your application if you have any questions.</p>
             </div>
 
             <div className="sba-header-container">
@@ -455,7 +426,7 @@ export default function informationindex() {
 
               <div className="finance-container-two">
                 <div className="button-step">
-                  <a href={`/business-contact/?id=${id}`}>
+                  <a href={`/financials/tax-returns/?id=${id}`}>
                     <span>Next step</span>
                   </a>
                 </div>
@@ -540,4 +511,4 @@ export default function informationindex() {
     </>
   );
 
-}
+} 

@@ -191,7 +191,9 @@ export default function ProfitLoss() {
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+      router.push({ pathname: "/documents/balance-sheet", query: { id: id } })
     } catch (error) {
+      console.log(error,'er')
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
     }
@@ -277,7 +279,6 @@ export default function ProfitLoss() {
                     HandleDelete(file.id);
 
                   }
-                  (file, "dke")
                 }}
                 onChange={({ fileList: newFileList }) => {
                   setFileList(newFileList);
