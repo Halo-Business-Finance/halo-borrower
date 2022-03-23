@@ -177,13 +177,12 @@ export default function Business() {
     const baseUrl = "https://dev.amazingrm.com/"
   
       try {
-        ("file")
+
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
         const data = await res.payload;
         getConsumer(data)
         setHasID(data?.id)
         
-        (data, 'mydata')
         
           const docs = data?.map((item) => ({
             Date:item?.key,
@@ -197,22 +196,13 @@ export default function Business() {
           
 
         }))
-        ("focs")
+       
         setInputList(docs)
 
-        
-        // const data = await res?.payload
-        // const docs = data?.map((item) => ({
-        //   "id": item?.id,
-        //   'url': baseUrl + item?.fileName,
-        //   "name": item?.aliasFileName
-
-        // }))
+   
       }
       catch (error) {
-        (error)
-        // message.error(error?.payload?.reason || "Error Occured");
-        // setFetching(false)
+      
       }
     
   }
@@ -229,7 +219,7 @@ export default function Business() {
   }, [form, inputList])
 
   useEffect(() => form.resetFields(), [initialValues]);
-(initialValues,'aodsjoaisdjo')
+
 const HandleDelete = async (documentId) => {
   try {
     await API.delete(`/api/business-finance/delete-doc/${documentId}`);
