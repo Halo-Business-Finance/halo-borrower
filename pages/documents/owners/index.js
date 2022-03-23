@@ -355,6 +355,11 @@ export default function UploadDocs() {
   console.log(voidedCheck,businessInfo)
 
   let fileCode = 0;
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <>
       <Head>
@@ -378,6 +383,7 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
+                  customRequest={dummyRequest}
                     onRemove={(file) => {
                       console.log(file)
                       if (file?.url) {
@@ -418,6 +424,7 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
+                  customRequest={dummyRequest}
                     fileList={voidedCheck}
                     onRemove={(file) => {
                       console.log(file)
@@ -452,6 +459,7 @@ export default function UploadDocs() {
                     </div>
                     <div className="column-two">
                       <Upload
+                      customRequest={dummyRequest}
                         max={1}
                         fileList={item?.file?.length > 0 ? item?.file : filterData?.[item?.name]}
                         onRemove={(file) => {
@@ -503,6 +511,7 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
+                   customRequest={dummyRequest}
                     onRemove={(file) => {
                       console.log(file)
                       if (file?.url) {
