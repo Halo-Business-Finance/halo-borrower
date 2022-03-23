@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { API } from '../../utils/api';
 import moment from "moment";
 import { LoanCode } from '../../utils/code'
-import { Progress } from "antd";
+import { Button, Progress } from "antd";
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
@@ -51,9 +51,14 @@ const Hero = styled.div`
     text-align: left;
     text-decoration: none;
     border-radius: 5px;
-    color: #333333;
+    
     margin-left: 5%;
-    background-color: #f3ba17;
+    
+    & button{
+      color: #333333;
+background-color: #f3ba17;
+border:1px solid yellow;
+    }
   }
 
   .button-time {
@@ -389,15 +394,15 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
-                <div onClick={() => router.push({
+                <div  className="button-step">
+                 <Button
+                 size="large"
+                 onClick={() => router.push({
                   pathname: "/business-contact",
                   query: {
                     id: id
                   }
-                })} className="button-step">
-                  <a >
-                    <span>Next step</span>
-                  </a>
+                })} type="primary">Next Step</Button>
                 </div>
 
                 <div className="button-time">
@@ -425,10 +430,16 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
-                <div className="button-step">
-                  <a href={`/financials/tax-returns/?id=${id}`}>
-                    <span>Next step</span>
-                  </a>
+                
+                <div  className="button-step">
+                 <Button
+                 size="large"
+                 onClick={() => router.push({
+                  pathname: "/financials/tax-returns",
+                  query: {
+                    id: id
+                  }
+                })} type="primary">Next Step</Button>
                 </div>
 
                 <div className="button-time">
@@ -457,11 +468,19 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
-                <div className="button-step">
-                  <a href={`/documents/owners/?id=${id}`}>
-                    <span>Next step</span>
-                  </a>
+               
+                <div  className="button-step">
+                 <Button
+                 size="large"
+                 onClick={() => router.push({
+                  pathname: "/documents/owners",
+                  query: {
+                    id: id
+                  }
+                })} type="primary">Next Step</Button>
                 </div>
+                
+                
 
                 <div className="button-time">
                   <a href="" id="button-time-icon">
