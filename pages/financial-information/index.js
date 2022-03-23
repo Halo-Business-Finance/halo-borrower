@@ -187,7 +187,6 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
-    (values,"val")
     if (hasId !== null && status == 1) {
       getConsumer({
         // "annualRevenue": consumer?.annualRevenue,
@@ -511,7 +510,6 @@ export default function financialInformation() {
       if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
         const data = await response?.payload;
-        (data?.id)
         setHasID(data?.id)
         (data?.mortgageInformation?.monthlyMortgage, "sajakdbsj")
 
@@ -586,7 +584,6 @@ export default function financialInformation() {
 
   }, [status, id])
 
-  (errors, consumer, 'check errors');
 
   return (
     <>

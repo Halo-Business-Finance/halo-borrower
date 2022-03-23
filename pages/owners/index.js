@@ -1,16 +1,14 @@
-import { useState, useEffect } from "react";
+import { Modal, notification } from "antd";
+import moment from "moment";
 import Head from "next/head";
+import Router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import CurrencyFormat from "react-currency-format";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import axios from "axios";
-import cookie from "js-cookie";
-import Router, { useRouter } from "next/router";
 import NavMenu from "../../components/NavMenu";
-import { notification, Modal } from "antd";
-import { API } from "../../utils/api";
-import moment from "moment";
 import { Success } from '../../components/Organism/Success';
-import CurrencyFormat from "react-currency-format";
+import { API } from "../../utils/api";
 
 const Hero = styled.div`
 	display: flex;
@@ -262,10 +260,9 @@ export default function Form() {
 	} = useForm();
 
 	const addHandler = async (data) => {
-	
 		const owners = data.map((item) =>item.fullName )
 
-		(id,'own')
+		//(id,'own')
 	
 		try {
 			await API.post("api/borrower/add-update-owners", data)

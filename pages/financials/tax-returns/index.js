@@ -170,7 +170,7 @@ export default function Business() {
       })
     )
     await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
-    ('akjsndkjasdkj')
+   
   };
 
   const GetTaxReturns = async () => {
@@ -266,16 +266,6 @@ const HandleDelete = async (documentId) => {
               </p>
             </div>
           </div>
-          {
-        inputList.map((item) =>
-        <Form initialValues={{"Date":"2020-10-11","file":{id:1,name:"test",url:"http://example.com"}}}>
-          <Form.Item name="file">
-            <Upload >File</Upload>
-          </Form.Item>
-          </Form>
-        )
-
-      }
           <Form onFinish={onFinish} form={form} initialValues={{ users: inputList }} name="dynamic_form_nest_item" autoComplete="off">
             <Form.List name="users">
               {(fields, { add, remove }) => (

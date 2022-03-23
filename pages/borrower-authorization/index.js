@@ -78,16 +78,14 @@ export default function Form() {
         JSON.parse(owner);
        const legalName = localStorage.getItem('legal_name')
          setLegalName(legalName)
-       ('ln',legalName)
      
     },[owner])
-    (owner,'ow')
   
 
   
 	return (
 		<>
-			<NavMenu id={id} />
+			<NavMenu />
 
 			<Head>
 				<title>Form</title>

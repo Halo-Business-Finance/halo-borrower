@@ -5,6 +5,8 @@ import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
 import { Button, Radio } from "antd";
 import React, { useState } from "react";
+import { Router } from "next/router";
+import { useRouter } from "next/router";
 
 const BusinessDebtStyle = styled.div`
 	display: flex;
@@ -101,6 +103,8 @@ const BusinessDebtStyle = styled.div`
 
 export default function Business() {
 	const [value,setValue] = useState();
+	const router = useRouter();
+	const { id } = router.query;
 	const {
 		register,
 		handleSubmit,
@@ -116,29 +120,7 @@ export default function Business() {
 	};
 
 	const onSubmitForm = async (values) => {
-	
-
-		axios({
-			method: "post",
-			url:
-				process.env.NEXT_PUBLIC_BASE_URL + "/api/business-finance/add-update-business-debt",
-			data: {
-				
-			
-			},
-			headers: headers,
-		}).then(
-			(response) => {
-				if (response.data.isSuccess) {
-					Router.push("businessfinance_pls");
-				} else {
-					(response);
-				}
-			},
-			(error) => {
-				(error);
-			}
-		);
+		router.push(value=='a'?`/financials/outstanding-debts/?id=${id}`:`/documents/profit-loss/?id=${id}`)
 	};
 
 
