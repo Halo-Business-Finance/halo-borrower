@@ -229,6 +229,11 @@ const HandleDelete = async (documentId) => {
   }
 
 }
+const dummyRequest = ({ file, onSuccess }) => {
+  setTimeout(() => {
+    onSuccess("ok");
+  }, 0);
+};
   return (
     <>
       <Head>
@@ -276,7 +281,7 @@ const HandleDelete = async (documentId) => {
 
                       >
                         <Upload
-                        
+                        customRequest={dummyRequest}
                         onRemove={(file) => {
                   if (file?.uid) {
                     HandleDelete(file.uid);

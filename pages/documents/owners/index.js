@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
-import { Button, Form, Spin, Upload } from 'antd';
+import { Button, Form, notification, Spin, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { API } from "../../../utils/api";
@@ -332,7 +332,8 @@ export default function UploadDocs() {
 
 
       await API.post(`api/document/upload-final-document/${id}`, bodyData)
-      router.push({ pathname: "/documents/owners", query: { id: id } })
+      notification.success({message:"Document added successfully"})
+      router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       isSaving(false)
     }
