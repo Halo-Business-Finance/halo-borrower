@@ -332,7 +332,7 @@ export default function UploadDocs() {
 
 
       await API.post(`api/document/upload-final-document/${id}`, bodyData)
-      router.push({ pathname: "/documents/owners", query: { id: id } })
+      router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       isSaving(false)
     }

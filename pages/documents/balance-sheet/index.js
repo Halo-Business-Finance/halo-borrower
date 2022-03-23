@@ -187,11 +187,13 @@ export default function ProfitLoss() {
     try {
       await Promise.all(
         fileList.map((item) => {
-          formData.append("file", item?.originFileObj, item?.name)
+          if(item?.status=="done"){
+            formData.append("file", item?.originFileObj, item?.name)
+          }
         })
       )
       await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData);
-      router.push({ pathname: "/documents/profit-loss", query: { id: id } })
+      router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
