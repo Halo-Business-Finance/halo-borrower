@@ -183,15 +183,19 @@ export default function ProfitLoss() {
   const onSubmitForm = async (values) => {
     setIsSaving(true)
     const formData = new FormData();
-
+console.log(fileList)
     try {
       await Promise.all(
         fileList.map((item) => {
-          formData.append("file", item?.originFileObj, item?.name)
+          if(item?.status=="done"){
+            formData.append("file", item?.originFileObj, item?.name)
+          }
+          
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
     } catch (error) {
+      console.log(error)
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
     }
