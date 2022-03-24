@@ -193,6 +193,7 @@ export default function ProfitLoss() {
         })
       )
       await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData);
+      localStorage.setItem("progress","9");
       router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       message.error(error?.payload?.reason || "Error Occured");

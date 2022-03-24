@@ -171,6 +171,7 @@ export default function Form({ data }) {
 	const addHandler = async(data) => {
 		try {
 		await	API.post("api/borrower/add-update-business-contact", data)
+		localStorage.setItem("progress","1")
 			Router.push({pathname:"/business-information",query:{id:id}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })

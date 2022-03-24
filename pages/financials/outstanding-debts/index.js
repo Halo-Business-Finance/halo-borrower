@@ -124,6 +124,7 @@ export default function Business() {
 		try {
 		
 			await API.post(`api/business-finance/add-update-business-debt`,{...values,loanRequestId:id})
+			
 			router.push({pathname:"/documents/profit-loss",query:{id:id}})
 		  } catch (error) {
 				message.error(error?.payload?.reason || "Error Occured");

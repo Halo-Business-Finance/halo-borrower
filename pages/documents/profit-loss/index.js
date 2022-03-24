@@ -183,7 +183,7 @@ export default function ProfitLoss() {
   const onSubmitForm = async (values) => {
     setIsSaving(true)
     const formData = new FormData();
-console.log(fileList)
+
     try {
       await Promise.all(
         fileList.map((item) => {
@@ -194,6 +194,7 @@ console.log(fileList)
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+      localStorage.setItem("progress","8");
       router.push({pathname:"/documents/balance-sheet",query:{id:id}})
     } catch (error) {
       console.log(error)

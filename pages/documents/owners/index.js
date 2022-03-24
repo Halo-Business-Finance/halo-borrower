@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
-import { Button, Form, Spin, Upload } from 'antd';
+import { Button, Form, notification, Spin, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { API } from "../../../utils/api";
@@ -309,10 +309,10 @@ export default function UploadDocs() {
     const bodyData = new FormData();
     isSaving(true)
     try {
-     
+
       if (voidedCheck[0]?.status == "done") {
         bodyData.append("VoidedCheck", voidedCheck[0]?.originFileObj);
-        
+
       }
       if (article[0]?.status == "done") {
         bodyData.append("Articles", article[0]?.originFileObj)
@@ -332,6 +332,8 @@ export default function UploadDocs() {
 
 
       await API.post(`api/document/upload-final-document/${id}`, bodyData)
+      notification.success({ message: "Document added successfully" })
+      localStorage.setItem("progress", "10");
       router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       isSaving(false)
@@ -352,7 +354,7 @@ export default function UploadDocs() {
 
   }
 
-  console.log(voidedCheck,businessInfo)
+  console.log(voidedCheck, businessInfo)
 
   let fileCode = 0;
   const dummyRequest = ({ file, onSuccess }) => {
@@ -383,7 +385,7 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
-                  customRequest={dummyRequest}
+                    customRequest={dummyRequest}
                     onRemove={(file) => {
                       console.log(file)
                       if (file?.url) {
@@ -424,7 +426,7 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
-                  customRequest={dummyRequest}
+                    customRequest={dummyRequest}
                     fileList={voidedCheck}
                     onRemove={(file) => {
                       console.log(file)
@@ -435,7 +437,7 @@ export default function UploadDocs() {
                     }}
                     showUploadList
                     max={1}
-                  
+
                     onChange={({ fileList }) => {
 
                       setVoidedCheck(fileList)
@@ -459,7 +461,7 @@ export default function UploadDocs() {
                     </div>
                     <div className="column-two">
                       <Upload
-                      customRequest={dummyRequest}
+                        customRequest={dummyRequest}
                         max={1}
                         fileList={item?.file?.length > 0 ? item?.file : filterData?.[item?.name]}
                         onRemove={(file) => {
@@ -511,7 +513,7 @@ export default function UploadDocs() {
                 </div>
                 <div className="column-two">
                   <Upload
-                   customRequest={dummyRequest}
+                    customRequest={dummyRequest}
                     onRemove={(file) => {
                       console.log(file)
                       if (file?.url) {
@@ -522,7 +524,7 @@ export default function UploadDocs() {
                     fileList={businessInfo}
                     showUploadList
                     max={1}
-                   
+
                     onChange={({ fileList }) => setBusinessInfo(fileList)
                       //  setDocuments({ ...documents, businessInfo: file?.file?.originFileObj })
                     }
@@ -537,7 +539,7 @@ export default function UploadDocs() {
               <Button
                 loading={saving}
                 onClick={SaveFinalFiles}
-     size="large"
+                size="large"
                 type="primary"
               >Upload to finish the applicaton</Button>
             </div>

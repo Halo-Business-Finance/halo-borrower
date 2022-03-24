@@ -170,7 +170,8 @@ export default function Business() {
         formData.append(item?.Date, item?.File?.file?.originFileObj)
       })
     )
-    await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
+    await API.post(`api/business-finance/upload-tax-returns/${id}`, formData);
+    localStorage.setItem("progress","6");
     router.push({pathname:"/financials/business-debts",query:{id:id}})
     }
     catch (error) {
@@ -236,6 +237,11 @@ const HandleDelete = async (documentId) => {
   }
 
 }
+const dummyRequest = ({ file, onSuccess }) => {
+  setTimeout(() => {
+    onSuccess("ok");
+  }, 0);
+};
   return (
     <>
       <Head>
@@ -283,7 +289,7 @@ const HandleDelete = async (documentId) => {
 
                       >
                         <Upload
-                        
+                        customRequest={dummyRequest}
                         onRemove={(file) => {
                   if (file?.uid) {
                     HandleDelete(file.uid);
