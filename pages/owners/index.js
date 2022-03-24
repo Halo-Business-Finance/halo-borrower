@@ -266,6 +266,7 @@ export default function Form() {
 	
 		try {
 			await API.post("api/borrower/add-update-owners", data)
+			localStorage.setItem("progress","4");
 			Router.push({pathname:"/borrower-authorization",query:{id:id,owners:JSON.stringify(owners)}})
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })

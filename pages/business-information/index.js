@@ -212,7 +212,8 @@ export default function businessInformation() {
 
     const addHandler = async (data) => {
         try {
-            await API.post("api/borrower/add-update-business-info", data)
+            await API.post("api/borrower/add-update-business-info", data);
+            localStorage.setItem("progress","2")
             Router.push({ pathname: "/financial-information", query: { id: id } })
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -290,122 +291,7 @@ export default function businessInformation() {
     function handleChange(event) {
         getConsumer(event.target.value);
     }
-    //             headers: headers,
-    //         }).then(
-    //             (response) => {
-    //                 if (response.data.isSuccess) {
-    //                     Router.push("/prequlaify_fi");
-    //                 } else {
-    //                     (response);
-    //                 }
-    //             },
-    //             (error) => {
-    //                 (error);
-    //             }
-    //         );
-    //     } else {
-    //         axios({
-    //             method: "post",
-    //             url: process.env.NEXT_PUBLIC_BASE_URL + "/api/borrower/add-update-business-info/",
-    //             data: {
-    //                 legalEntity: values.binfo,
-    //                 stateOfOrganization: values.organization,
-    //                 federalTaxId: values.federal,
-    //                 startDate: values.date,
-    //                 industryDescription: values.industry,
-    //                 typeOfProduct: values.product,
-    //                 totalEmployees: values.totalEmployees,
-    //                 totalContractors: values.totalContractors,
-    //                 wasPurchased: values.businesspurchased,
-    //                 id: cookie.get("id"),
-    //                 borrowerId: cookie.get("loan_request_id"),
-    //             },
-    //             headers: headers,
-    //         }).then(
-    //             (response) => {
-    //                 if (response.data.isSuccess) {
-    //                     Router.push("/prequlaify_fi");
-    //                 } else {
-    //                     (response);
-    //                 }
-    //             },
-    //             (error) => {
-    //                 (error);
-    //             }
-    //         );
-    //     }
-
-    // };
-
-    // useEffect(() => {
-
-
-    //   const [datache, datachecked] = useState({});
-
-    // const datatest =  {
-    //    "CCorpprecheck" : "checked"
-    // };
-
-    // // let CCorpprecheck = "checked";
-    // // let SolePropcheck ="";
-    // // let LLCcheck ="";
-    // // let Partnershipcheck ="";
-    // datachecked(datatest);
-
-    // let url =
-    //     process.env.NEXT_PUBLIC_BASE_URL +
-    //     "/api/borrower/get-business-info/" +
-    //     cookie.get("loan_request_id");
-    // axios({
-    //     method: "GET",
-    //     url: url,
-    //     headers: headers,
-    // }).then(
-    //     (respo) => {
-
-    //         if (respo.data.payload == null) {
-    //             cookie.set("id", "", { expires: 5 / 24 });
-    //             let dataempty = {
-    //                 legalEntity: "",
-    //                 stateOfOrganization: "",
-    //                 federalTaxId: "",
-    //                 startDate: "",
-    //                 industryDescription: "",
-    //                 typeOfProduct: "",
-    //                 totalEmployees: "",
-    //                 totalContractors: "",
-    //                 wasPurchased: "",
-    //             }
-    //             getConsumer(dataempty);
-    //         } else {
-    //             cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-    //             (respo.data.payload);
-
-    // let legalEntitypre;
-    // if (respo.data.payload.legalEntity == 0 ) {
-    //     legalEntitypre = false;
-    //    CCorpprecheck ="checked";
-
-    // } else if (respo.data.payload.legalEntity == "CCorp" ) {
-    //    CCorpprecheck ="checked";
-    // } else if (respo.data.payload.legalEntity == "SoleProp" ) {
-    //    SolePropcheck ="checked";
-    // }else if (respo.data.payload.legalEntity == "LLC" ) {
-    //    LLCcheck ="checked";
-    // }else if (respo.data.payload.legalEntity == "Partnership" ) {
-    //    Partnershipcheck ="checked";
-    // }else{
-    //   legalEntitypre = false;
-    // }
-    // (respo.data.payload);
-    //                 getConsumer(respo.data.payload);
-    //             }
-    //         },
-    //         (error) => {
-    //             (error);
-    //         }
-    //     );
-    // }, []);
+    
     function numberWithCommas(x) {
         return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }

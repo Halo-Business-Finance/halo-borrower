@@ -179,7 +179,8 @@ export default function financialInformation() {
 
   const addUpdateHandler = async (data) => {
     try {
-      await API.post("/api/borrower/add-update-business-financials", data)
+      await API.post("/api/borrower/add-update-business-financials", data);
+      localStorage.setItem("progress","3")
       router.push({ pathname: "/owners", query: { id: id } })
     } catch (error) {
       notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -531,58 +532,14 @@ export default function financialInformation() {
 
   useEffect(() => {
     GetAllInformations();
-    // let url =
-    //   process.env.NEXT_PUBLIC_BASE_URL +
-    //   "/api/borrower/get-business-financials/" +
-    //   cookie.get("loan_request_id");
-    // axios({
-    //   method: "GET",
-    //   url: url,
-    //   headers: headers,
-    // }).then(
-    //   (respo) => {
-    //     if (respo.data.payload == null) {
-    //       cookie.set("id", "", { expires: 5 / 24 });
-    //       let dataempty = {
-    //         annualrevenueRevenuw: "",
-    //         monthlyPayrollExpenses: "",
-    //         monthlyBusinessExpenses: "",
-    //         dailyAverageBankBalance: "",
-    //         outstandingLoanOrAdvance: "",
-    //         ourstandingAdvancesLoanAmount: "",
-    //         useOfFunds: "",
-    //         loanAmountRequested: "",
-    //         typeOfProperty: "",
-    //         mortageInformation: {
-    //           monthlyMoratge: "",
-    //         },
-    //         rentInformation: {
-    //           monthlyRent: "",
-    //           landlordName: "string",
-    //           leaseStartDate: "2021-11-22T06:39:28.564Z",
-    //           leaseEndDate: "2021-11-22T06:39:28.564Z",
-    //         },
-    //       };
-    //       getConsumer(dataempty);
-    //     } else {
-    //       cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-    //       // (respo.data.payload);
-    //       getConsumer(respo.data.payload);
-    //     }
-    //   },
-    //   (error) => {
-    //     (error);
-    //   }
-    // );
+    
   }, [id]);
 
   function handleChange(event) {
     getConsumer(event.target.value);
   }
 
-  useEffect(() => {
 
-  }, [status, id])
 
 
   return (

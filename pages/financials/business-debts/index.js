@@ -120,6 +120,7 @@ export default function Business() {
 	};
 
 	const onSubmitForm = async (values) => {
+		localStorage.setItem("progress","7");
 		router.push(value=='a'?`/financials/outstanding-debts/?id=${id}`:`/documents/profit-loss/?id=${id}`)
 	};
 
