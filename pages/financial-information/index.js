@@ -659,18 +659,17 @@ export default function financialInformation() {
                 <label htmlFor="fdba" className="formlabel">
                   Loan Amount Requested
                 </label>
-                <input
+                <CurrencyFormat
                  prefix={'$'}
                  thousandSeparator={true}
                   className="textbox"
-                  type="text"
-                  autoComplete="fdba"
+                 
                   placeholder="Enter Loan Amount Requested"
                   defaultValue={consumer.loanAmountRequested||''}
                   {...register("loanAmountRequested", {
                     // required: "Required",
                   })}
-                  onChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.target.value })}
+                  onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.value })}
                   required
                 />
               </div>
