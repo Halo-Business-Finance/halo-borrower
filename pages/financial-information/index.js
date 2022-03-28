@@ -512,8 +512,7 @@ export default function financialInformation() {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
         const data = await response?.payload;
         setHasID(data?.id)
-        (data?.mortgageInformation?.monthlyMortgage, "sajakdbsj")
-
+        
         setStatus(data?.typeOfProperty);
 
 
