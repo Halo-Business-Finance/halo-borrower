@@ -150,11 +150,11 @@ export default function CRE() {
 			setIsModalVisible(true)
 			return;
 		}
-		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
-			setIsModalVisible(true)
-			return;
+		// if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
+		// 	setIsModalVisible(true)
+		// 	return;
 
-		}
+		// }
 		if (formstep == 1 && formValues.goal == "") {
 			setErrors({ ...error, goal: "Error" });
 			return;
@@ -208,11 +208,8 @@ export default function CRE() {
 			setErrors({ ...error, bankruptcyYear: "Error" });
 			return;
 		}
-		else if (formstep == 13 && formValues.downpayment == "") {
-			setErrors({ ...error, downpayment: "Error" });
-			return;
-		}
-		else if (formstep == 14 && formValues.commercial == "") {
+		
+		else if (formstep == 13 && formValues.commercial == "") {
 			setErrors({ ...error, commercial: "Error" });
 			return;
 		}
@@ -603,7 +600,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
 					</section>}
-					{formstep == 13 && <section>
+					{/* {formstep == 13 && <section>
 						<div className="goal">
 							<div className="cast">
 								How much do you plan on putting down?
@@ -626,8 +623,8 @@ export default function CRE() {
 							</div>
 						</div>
 						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
-					</section>}
-					{(formstep == 14 || formstep == 15) && <section>
+					</section>} */}
+					{(formstep == 13 ) && <section>
 						<div className="goal">
 							<div className="cast">
 								Do you have any other commercial properties?
@@ -756,8 +753,8 @@ export default function CRE() {
 					</div>
 				)} */}
 				<ButtonWrapper>
-					{(formstep > 1 && formstep < 15) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-					{formstep == 15 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 15 && <Button size="large" type="primary" onClick={completeFormStep}>
+					{(formstep > 1 && formstep < 14) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+					{formstep == 14 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 14 && <Button size="large" type="primary" onClick={completeFormStep}>
 						Next Step
 					</Button>)}
 				</ButtonWrapper>
