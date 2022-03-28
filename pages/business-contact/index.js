@@ -317,9 +317,7 @@ export default function Form({ data }) {
 									defaultValue={consumer.suite}
 
 									placeholder="Enter Suite/FL"
-									{...register("suite", {
-										required: "Required",
-									})}
+									{...register("suite")}
 								/>
 							</div>
 						</div>
