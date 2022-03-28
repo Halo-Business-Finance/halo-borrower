@@ -188,6 +188,7 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
+    console.log(consumer,'test')
     if (hasId !== null && status == 1) {
       getConsumer({
         // "annualRevenue": consumer?.annualRevenue,
@@ -510,9 +511,11 @@ export default function financialInformation() {
     try {
       if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
+        console.log(response,'res')
         const data = await response?.payload;
         setHasID(data?.id)
         
+
         setStatus(data?.typeOfProperty);
 
 
@@ -667,7 +670,7 @@ export default function financialInformation() {
                   {...register("loanAmountRequested", {
                     // required: "Required",
                   })}
-                  onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.formattedValue })}
+                  onChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.target.value })}
                   required
                 />
               </div>
