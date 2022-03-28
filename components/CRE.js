@@ -159,7 +159,7 @@ export default function CRE() {
 			setErrors({ ...error, goal: "Error" });
 			return;
 		}
-		else if (formstep == 2 && formValues.cash == "") {
+		else if (formstep == 2 && formValues.goal=="" && formValues.cash == "") {
 			setErrors({ ...error, cash: "Error" });
 			return;
 		}
@@ -275,7 +275,7 @@ export default function CRE() {
 			"accepted": true
 		}
 		try {
-			("lk")
+			
 			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
 			setshowSucessModal(true)
@@ -352,6 +352,24 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.goal && "Please select to continue"}</ErrorMessage>
 					</section>}
+
+					{(formstep == 2 && formValues.goal=="RateAndTerm") && <section>
+						<div className="goal">
+							<div className="cast">Loan Amount Requested </div>
+							<div className="term">
+							<CurrencyFormat 
+								prefix={'$'}
+								thousandSeparator={true}
+							value={formValues.dollar} 
+							onValueChange={(e) => setFormValues({...formValues,dollar:e.formattedValue})}
+										className="outline"
+										type="text"
+										placeholder="Only Number"
+									/>
+							</div>
+						</div>
+						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
+					</section>}
 					{(formValues.goal == "CashOut" && formstep == 2) && <section>
 						<div className="goal">
 							<div className="cast">If Cash Out, How much?</div>
@@ -369,7 +387,26 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.cash && "Please Enter"}</ErrorMessage>
 					</section>}
-					{formstep == 3 && <section>
+
+					{(formstep == 3 && formValues.goal=="CashOut") && <section>
+						<div className="goal">
+							<div className="cast">Loan Amount Requested </div>
+							<div className="term">
+							<CurrencyFormat 
+								prefix={'$'}
+								thousandSeparator={true}
+							value={formValues.dollar} 
+							onValueChange={(e) => setFormValues({...formValues,dollar:e.formattedValue})}
+										className="outline"
+										type="text"
+										placeholder="Only Number"
+									/>
+							</div>
+						</div>
+						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
+					</section>}
+
+					{formstep == 4 && <section>
 						<div className="goal">
 							<div>
 								<div className="cast">
@@ -399,7 +436,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.business && "Please select to continue"}</ErrorMessage>
 					</section>}
-					{formstep == 4 && <section>
+					{formstep == 5 && <section>
 						<div className="goal">
 							<div className="cast">Property Address</div>
 							<div className="term">
@@ -415,7 +452,7 @@ export default function CRE() {
 				</>
 
 				<>
-					{formstep == 5 && <section>
+					{formstep == 6 && <section>
 						<div className="goal">
 							<div>
 								<div className="cast">Property Type</div>
@@ -472,7 +509,7 @@ export default function CRE() {
 						<ErrorMessage>{error.propertyType && "Please select to continue"}</ErrorMessage>
 					</section>}
 
-					{formstep == 6 && <section>
+					{formstep == 7 && <section>
 						<div className="goal">
 							<div className="cast">
 								Owner Occupied or Investment Property
@@ -488,7 +525,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.property && "Please select to continue"}</ErrorMessage>
 					</section>}
-					{(formValues.property == 'Owner' && formstep == 7) && <section>
+					{(formValues.property == 'Owner' && formstep == 8) && <section>
 						<div className="goal">
 							<div className="cast">
 								Will You Occupy 51% or more of the space
@@ -506,7 +543,7 @@ export default function CRE() {
 					</section>
 					}
 					<>
-						{formstep == 8 && <section>
+						{formstep == 9 && <section>
 							<div className="goal">
 								<div className="cast">How many Tenants or Units</div>
 								<div className="term">
@@ -524,23 +561,7 @@ export default function CRE() {
 				</>
 
 				<>
-					{formstep == 9 && <section>
-						<div className="goal">
-							<div className="cast">Loan Amount Requested </div>
-							<div className="term">
-							<CurrencyFormat 
-								prefix={'$'}
-								thousandSeparator={true}
-							value={formValues.dollar} 
-							onValueChange={(e) => setFormValues({...formValues,dollar:e.formattedValue})}
-										className="outline"
-										type="text"
-										placeholder="Only Number"
-									/>
-							</div>
-						</div>
-						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
-					</section>}
+					
 					{formstep == 10 && <section>
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
