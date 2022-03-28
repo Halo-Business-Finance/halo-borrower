@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import CurrencyFormat from 'react-currency-format';
 import NavMenu from "../../../components/NavMenu";
 import { Button, DatePicker, Form, Input, message, Select, Upload } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
@@ -103,10 +103,10 @@ const OutstandingDebtStyle = styled.div`
 
 export default function Business() {
 
- const router = useRouter();
-  const { id } = router.query;
-  const [consumer, getConsumer] = useState({});
-  const [form] = Form.useForm()
+	const router = useRouter();
+	const { id } = router.query;
+	const [consumer, getConsumer] = useState({});
+	const [form] = Form.useForm()
 	const {
 		register,
 		handleSubmit,
@@ -114,55 +114,83 @@ export default function Business() {
 	} = useForm();
 	const headers = {
 		"Content-Type": "application/json",
-		Authorization: "Bearer" + " " ,
+		Authorization: "Bearer" + " ",
 	};
 
-	const onSubmitForm = async (values) => {
-		console.log(values,'vl')
 
+	const removeDollarSignAndComma = (value) => {
+		const removedComma = value?.replace(/,/g, '');
+		const removeDollar = removedComma?.replace("$", '')?.toString();
+		return removeDollar
+	}
+	const [saving,setSaving]=useState(false);
+	const onSubmitForm = async (values) => {
+		setSaving(true)
+		const refactoredValues = { ...values }
 		
-		try {
-		
-			await API.post(`api/business-finance/add-update-business-debt`,{...values,loanRequestId:id})
-			
-			router.push({pathname:"/documents/profit-loss",query:{id:id}})
-		  } catch (error) {
-				message.error(error?.payload?.reason || "Error Occured");
-		  }
-		};
-		const GetBusinessDebts = async () => {
-			const baseUrl = "https://dev.amazingrm.com/"
-			if (id) {
-			try {
-			  const res = await API.get(`api/business-finance/get-business-debt/${id}`)
-			  console.log(res,'bd')
-			  const data = await res.payload;
-			  getConsumer(data)
-			  // const docs = data?.map((item) => ({
-			  //   "id": item?.id,
-			  //   'url': baseUrl + item?.fileName,
-			  //   "name": item?.aliasFileName
-		
-			  // }))
-			} 
-			  catch (error) {
-			  // message.error(error?.payload?.reason || "Error Occured");
-			  // setFetching(false)
-			}}}
-		  //   setFetching(false)
-		
-		  // }
-		  useEffect(() => {
-			if (id) {
-				GetBusinessDebts();
+		if (isNaN(values?.amountRemainin)) {
+			refactoredValues = {
+				...values,
+				amountRemainin: removeDollarSignAndComma(values?.amountRemainin),
+
 			}
-		  }, [id])
-		  useEffect(() => {
-			form.setFieldsValue(consumer)
-		  }, [form, consumer])
-		
-		//   useEffect(() => form.resetFields(), [initialValues]);
-	  
+		}
+		if (isNaN(values?.minimumPayment)) {
+			refactoredValues = {
+				...values,
+
+				minimumPayment: removeDollarSignAndComma(values?.minimumPayment),
+			}
+		}
+
+
+
+		try {
+
+			await API.post(`api/business-finance/add-update-business-debt`, { ...refactoredValues, loanRequestId: id })
+
+			router.push({ pathname: "/documents/profit-loss", query: { id: id } })
+		} catch (error) {
+			message.error(error?.payload?.reason || "Error Occured");
+			setSaving(false)
+		}
+		setSaving(false)
+	};
+	const GetBusinessDebts = async () => {
+		const baseUrl = "https://dev.amazingrm.com/"
+		if (id) {
+			try {
+				const res = await API.get(`api/business-finance/get-business-debt/${id}`)
+				console.log(res, 'bd')
+				const data = await res.payload;
+				getConsumer(data)
+				// const docs = data?.map((item) => ({
+				//   "id": item?.id,
+				//   'url': baseUrl + item?.fileName,
+				//   "name": item?.aliasFileName
+
+				// }))
+			}
+			catch (error) {
+				// message.error(error?.payload?.reason || "Error Occured");
+				// setFetching(false)
+			}
+		}
+	}
+	//   setFetching(false)
+
+	// }
+	useEffect(() => {
+		if (id) {
+			GetBusinessDebts();
+		}
+	}, [id])
+	useEffect(() => {
+		form.setFieldsValue(consumer)
+	}, [form, consumer])
+
+	//   useEffect(() => form.resetFields(), [initialValues]);
+
 
 
 	return (
@@ -183,80 +211,78 @@ export default function Business() {
 						</div>
 						<div className="header-two">
 							<p>
-							We need to know about your company’s existing debts in order to give you an accurate cash flow decision. 
-                            Business debts include terms loans, equipment leases, business credit cards (in the name of the business), 
-                            lines of credit, leases or any other business debts.
+								We need to know about your company’s existing debts in order to give you an accurate cash flow decision.
+								Business debts include terms loans, equipment leases, business credit cards (in the name of the business),
+								lines of credit, leases or any other business debts.
 							</p>
 						</div>
 					</header>
-                    <div>
-                      
-                    <Form onFinish={onSubmitForm} form={form} layout="vertical">
-                        <Form.Item 
-                        label='Lender name'
-					name='lenderName'
-                        >
-                            <Input
-                            placeholder="Enter lender name"
-                            />
-                        </Form.Item>
-                        <Form.Item 
-                        label='Type of Debt'
-						name='typeOfDebt'
-                        >
-							<Select>
-                          <Option value={0}>Business</Option>
-						  <Option value={1}>SomeOther</Option>
-						  </Select>
-                           
-                        </Form.Item>
-                        <Form.Item 
-                        label='Origination Year'
-						name='originationYear'
-					    >
-                        <Input
-						 type='number'
-                            placeholder="Enter lender name"
-                            />
-                        </Form.Item>
-                       
-                        <Form.Item 
-                        label='Payment Frequency'
-						name='paymentFrequency'
-                        >
-							<Select>
-                          <Option value={0}>Monthly</Option>
-						  <Option value={1}>Quarterly</Option>
-						  <Option value={2}>SemiAnnually</Option>
-						  <Option value={4}> Annually</Option>
-						  </Select>
-						  
-                        </Form.Item>
-                        <Form.Item 
-                        label='Minimum Payment'
-						name='minimumPayment'
-                        >
-                            <Input 
-                            type='number'
-                            placeholder="$"
-                            />
-                        </Form.Item>
-                        <Form.Item 
-                        label='Amount Remaining'
-						name='amountRemainin'
-                        >
-                            <Input 
-                             type='number'
-                            placeholder="$"
-                            />
-                        </Form.Item>
-                        <Form.Item>
-              <Button  type="primary" htmlType="submit">
-                Save debt
-              </Button>
-            </Form.Item>
-                    </Form>
-                    </div>
+					<div>
+
+						<Form onFinish={onSubmitForm} form={form} layout="vertical">
+							<Form.Item
+								label='Lender Name'
+								name='lenderName'
+							>
+								<Input
+									type="text"
+									placeholder="Enter Lender Name"
+								/>
+							</Form.Item>
+							<Form.Item
+								label='Type of Debt'
+								name='typeOfDebt'
+							>
+								<Select>
+									<Option value={0}>Business</Option>
+									<Option value={1}>Some Other</Option>
+								</Select>
+
+							</Form.Item>
+							<Form.Item
+								label='Origination Year'
+								name='originationYear'
+							>
+								<Input
+									type='date'
+									placeholder="Enter lender name"
+								/>
+							</Form.Item>
+
+							<Form.Item
+								label='Payment Frequency'
+								name='paymentFrequency'
+							>
+								<Select>
+									<Option value={0}>Monthly</Option>
+									<Option value={1}>Quarterly</Option>
+									<Option value={2}>Semi Annually</Option>
+									<Option value={4}> Annually</Option>
+								</Select>
+
+							</Form.Item>
+							<Form.Item
+								label='Minimum Payment'
+								name='minimumPayment'
+							>
+
+								<CurrencyFormat thousandSeparator prefix={'$'} customInput={Input} />
+							</Form.Item>
+							<Form.Item
+
+								label='Amount Remaining'
+								name='amountRemainin'
+							>
+								<CurrencyFormat thousandSeparator prefix={'$'} customInput={Input} />
+
+							</Form.Item>
+							<Form.Item>
+								<Button size="large" loading={saving} type="primary" htmlType="submit">
+									Save debt
+								</Button>
+							</Form.Item>
+						</Form>
+					</div>
 					{/* <form onSubmit={handleSubmit(onSubmitForm)}>
 						<div className="debt-form">
 							<input
