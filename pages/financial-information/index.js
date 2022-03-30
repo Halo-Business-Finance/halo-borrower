@@ -188,7 +188,7 @@ export default function financialInformation() {
     }
   }
   const onSubmitForm = async (values) => {
-    console.log(consumer,'test')
+    
     if (hasId !== null && status == 1) {
       getConsumer({
         // "annualRevenue": consumer?.annualRevenue,
@@ -511,7 +511,7 @@ export default function financialInformation() {
     try {
       if (id) {
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
-        console.log(response,'res')
+       
         const data = await response?.payload;
         setHasID(data?.id)
         
@@ -566,17 +566,17 @@ export default function financialInformation() {
                 <label htmlFor="fname" className="formlabel ">
                   Business Revenue
                 </label>
-                <input
+                <CurrencyFormat
                 prefix={'$'}
 								thousandSeparator={true}
                   className="textbox"
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter  Business Revenue"
-                  defaultValue={consumer.annualRevenue ||''}
+                 
                   {...register("annualrevenue")}
-                  onChange={(e) => getConsumer({ ...consumer, annualRevenue: e.target.value })}
-
+                  onValueChange={(e) => getConsumer({ ...consumer, annualRevenue: e.value })}
+value={consumer?.annualRevenue||""}
                 />
               </div>
             </div>
@@ -631,7 +631,8 @@ export default function financialInformation() {
 
                   defaultValue={consumer.ourstandingAdvancesLoanAmount||''}
                   {...register("outstandingloanoradvance")}
-                  onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.formattedValue })}
+                  onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.value })}
+                 value={consumer?.ourstandingAdvancesLoanAmount||""}
                 />
               </div>
             </div>
@@ -663,7 +664,7 @@ export default function financialInformation() {
                  prefix={'$'}
                  thousandSeparator={true}
                   className="textbox"
-                 
+                 name="loanAmountRequested"
                   placeholder="Enter Loan Amount Requested"
                   defaultValue={consumer.loanAmountRequested||''}
                   {...register("loanAmountRequested", {
@@ -671,6 +672,7 @@ export default function financialInformation() {
                   })}
                   onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.value })}
                   required
+                  value={consumer?.loanAmountRequested||""}
                 />
               </div>
             </div>
