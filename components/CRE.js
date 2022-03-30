@@ -8,7 +8,7 @@ import { UserForm } from "./Organism/UserForm";
 import { API } from '../utils/api'
 import { useRouter } from "next/router";
 import Link from 'next/link';
-import {ArrowLeftOutlined} from '@ant-design/icons'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 
 import { Success } from "./Organism/Success";
 const bounceAnimation = keyframes`${zoomIn}`;
@@ -159,32 +159,39 @@ export default function CRE() {
 			setErrors({ ...error, goal: "Error" });
 			return;
 		}
-		else if (formstep == 2 && formValues.goal=="" && formValues.cash == "") {
+		else if (formstep == 2 && formValues.goal == "RateAndTerm" && formValues?.dollar == "") {
+
+			setErrors({ ...error, dollar: "Error" });
+			return;
+		} else if (formstep == 2 && formValues.goal == "CashOut" && formValues?.cash == "") {
 			setErrors({ ...error, cash: "Error" });
 			return;
+		} else if (formstep == 3 && formValues.goal == "CashOut" && formValues?.dollar=="") {
+			setErrors({ ...error, dollar: "Error" });
+			return;
 		}
-		else if (formstep == 3 && formValues.business == "") {
+		else if (formstep == 4 && formValues.business == "") {
 			setErrors({ ...error, business: "Error" });
 			return;
 		}
-		else if (formstep == 4 && formValues.address == "") {
+		else if (formstep == 5 && formValues.address == "") {
 			setErrors({ ...error, address: "Error" });
 			return;
 		}
-		else if (formstep == 5 && formValues.propertyType == "") {
+		else if (formstep == 6 && formValues.propertyType == "") {
 			setErrors({ ...error, propertyType: "Error" });
 			return;
 		}
-		else if (formstep == 6 && formValues.property == "") {
+		else if (formstep == 7 && formValues.property == "") {
 			setErrors({ ...error, property: "Error" });
 			return;
 		}
-		else if (formstep == 7 && formValues.occupy == "") {
+		else if (formstep == 8 && formValues.occupy == "") {
 			setErrors({ ...error, occupy: "Error" });
 			return;
 		}
 
-		else if (formstep == 8 && formValues.tenants == "") {
+		else if (formstep == 9 && formValues.tenants == "") {
 			if (Number(formValues?.tenants) < 1) {
 				setErrors({ ...error, tenants: "len" });
 				return;
@@ -192,10 +199,7 @@ export default function CRE() {
 			setErrors({ ...error, tenants: "Error" });
 			return;
 		}
-		else if (formstep == 9 && formValues.dollar == "") {
-			setErrors({ ...error, dollar: "Error" });
-			return;
-		}
+
 		else if (formstep == 10 && formValues.ownership == "") {
 			setErrors({ ...error, ownership: "Error" });
 			return;
@@ -208,17 +212,17 @@ export default function CRE() {
 			setErrors({ ...error, bankruptcyYear: "Error" });
 			return;
 		}
-		
+
 		else if (formstep == 13 && formValues.commercial == "") {
 			setErrors({ ...error, commercial: "Error" });
 			return;
 		}
-		if (formValues.goal !== "CashOut" && formstep == 1) {
-			setFormstep(3);
+		if (formValues.goal !== "CashOut" && formValues.dollar !== "" && formstep == 2) {
+			setFormstep(4);
 			return;
 		}
-		if (formValues.property !== 'Owner' && formstep == 6) {
-			setFormstep(8);
+		if (formValues.property !== 'Owner' && formstep == 7) {
+			setFormstep(9);
 			return;
 		}
 		if (formValues.bankruptcy !== 'Yes' && formstep == 11) {
@@ -228,12 +232,14 @@ export default function CRE() {
 		setFormstep(formstep + 1);
 	};
 	const previousStep = () => {
-		if (formValues.goal !== "CashOut" && formstep == 3) {
-			setFormstep(1);
+	
+
+		if (formValues.goal !== "CashOut" && formValues.dollar !== "" && formstep == 4) {
+			setFormstep(2);
 			return;
 		}
-		if (formValues.property !== 'Owner' && formstep == 8) {
-			setFormstep(6);
+		if (formValues.property !== 'Owner' && formstep == 9) {
+			setFormstep(7);
 			return;
 		}
 		if (formValues.bankruptcy !== 'Yes' && formstep == 13) {
@@ -270,12 +276,12 @@ export default function CRE() {
 			"nameOfBorrower": parsedData?.borrowerName,
 			"emailOfBorrower": parsedData?.email,
 			"phoneNumber": parsedData?.phoneNumber,
-			"amountToBeBorrowed":formValues.dollar,
+			"amountToBeBorrowed": formValues.dollar,
 			"prequalifyAnswers": formValues,
 			"accepted": true
 		}
 		try {
-			
+
 			await API.post("/api/borrower/create-prequalify-request", data)
 			notification.success({ message: "Form submitted successfully" })
 			setshowSucessModal(true)
@@ -285,6 +291,7 @@ export default function CRE() {
 		}
 		setIsLoading(false)
 	}
+
 	return (
 		<div>
 			<Progress
@@ -298,7 +305,7 @@ export default function CRE() {
 
 
 			<Hero>
-				
+
 				{/* {formstep === 0 && (
 					<div className="finance-list">
 						<p className="loan-step">Step 1</p>
@@ -353,22 +360,29 @@ export default function CRE() {
 						<ErrorMessage>{error.goal && "Please select to continue"}</ErrorMessage>
 					</section>}
 
-					{(formstep == 2 && formValues.goal=="RateAndTerm") && <section>
+					{(formstep == 2 && formValues.goal == "RateAndTerm") && <section>
 						<div className="goal">
 							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
-							<CurrencyFormat 
-								prefix={'$'}
-								thousandSeparator={true}
-							value={formValues.dollar} 
-							onValueChange={(e) => setFormValues({...formValues,dollar:e.formattedValue})}
-										className="outline"
-										type="text"
-										placeholder="Only Number"
-									/>
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
+									value={formValues.dollar}
+									onValueChange={(e) => {
+										setFormValues({ ...formValues, dollar: e.formattedValue });
+										if (e.value) {
+											setErrors({ ...error, dollar: "" })
+										}
+
+
+									}}
+									className="outline"
+									type="text"
+									placeholder="Only Number"
+								/>
 							</div>
 						</div>
-						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
+						<ErrorMessage>{error.dollar && "Please enter to continue"}</ErrorMessage>
 					</section>}
 					{(formValues.goal == "CashOut" && formstep == 2) && <section>
 						<div className="goal">
@@ -378,7 +392,12 @@ export default function CRE() {
 									prefix={'$'}
 									thousandSeparator={true}
 									value={formValues.cash}
-									onValueChange={(e) => setFormValues({...formValues,cash:e.formattedValue})}
+									onValueChange={(e) => {
+										setFormValues({ ...formValues, cash: e.formattedValue })
+										if (e.value) {
+											setErrors({ ...error, cash: "" })
+										}
+									}}
 									className="outline"
 									type="text"
 									placeholder="Your answer"
@@ -387,24 +406,30 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.cash && "Please Enter"}</ErrorMessage>
 					</section>}
-
-					{(formstep == 3 && formValues.goal=="CashOut") && <section>
+					{(formstep == 3 && formValues.goal == "CashOut") && <section>
 						<div className="goal">
 							<div className="cast">Loan Amount Requested </div>
 							<div className="term">
-							<CurrencyFormat 
-								prefix={'$'}
-								thousandSeparator={true}
-							value={formValues.dollar} 
-							onValueChange={(e) => setFormValues({...formValues,dollar:e.formattedValue})}
-										className="outline"
-										type="text"
-										placeholder="Only Number"
-									/>
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
+									value={formValues.dollar}
+									onValueChange={(e) => {
+										setFormValues({ ...formValues, dollar: e.formattedValue });
+										if (e.value) {
+											setErrors({ ...error, dollar: "" })
+										}
+									}}
+									className="outline"
+									type="text"
+									placeholder="Only Number"
+								/>
 							</div>
 						</div>
-						<ErrorMessage>{error.dollar && "Please select to continue"}</ErrorMessage>
+						<ErrorMessage>{error.dollar && "Please enter"}</ErrorMessage>
 					</section>}
+
+
 
 					{formstep == 4 && <section>
 						<div className="goal">
@@ -561,7 +586,7 @@ export default function CRE() {
 				</>
 
 				<>
-					
+
 					{formstep == 10 && <section>
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
@@ -645,7 +670,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>} */}
-					{(formstep == 13 ) && <section>
+					{(formstep == 13) && <section>
 						<div className="goal">
 							<div className="cast">
 								Do you have any other commercial properties?
@@ -779,12 +804,12 @@ export default function CRE() {
 						Next Step
 					</Button>)}
 				</ButtonWrapper>
-				<Modal  visible={isModalVisible} footer={null}>
+				<Modal visible={isModalVisible} footer={null}>
 					<Disqulaified />
 				</Modal>
 				<Modal visible={showSucessModal} footer={null}>
-                <Success amount={formValues.dollar} />
-            </Modal>
+					<Success amount={formValues.dollar} />
+				</Modal>
 
 				{/* <input className="button" type="button" value="Next" /> */}
 			</Hero>
