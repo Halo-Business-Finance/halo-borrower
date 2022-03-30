@@ -9,6 +9,7 @@ import styled from "styled-components";
 import NavMenu from "../../components/NavMenu";
 import { Success } from '../../components/Organism/Success';
 import { API } from "../../utils/api";
+import PrivateRoute from "../withPrivateRoute";
 
 const Hero = styled.div`
 	display: flex;
@@ -248,7 +249,7 @@ const Hero = styled.div`
   }
 `;
 
-export default function Form() {
+ function OwnersForm() {
 	const router = useRouter();
 	const id = router.query.id;
 	const [hasId, setHasID] = useState(null);
@@ -688,3 +689,4 @@ if (hasId !== null){
 	);
 }
 
+export default PrivateRoute(OwnersForm);

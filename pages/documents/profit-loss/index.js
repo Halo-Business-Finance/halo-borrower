@@ -7,6 +7,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
+import PrivateRoute from "../../withPrivateRoute";
 
 const { Dragger } = Upload;
 
@@ -166,7 +167,7 @@ justify-content: center;
 align-items: center;
 `;
 
-export default function ProfitLoss() {
+ function ProfitLoss() {
   const router = useRouter();
   const { id } = router.query
   const {
@@ -331,3 +332,4 @@ export default function ProfitLoss() {
     </>
   );
 }
+export default PrivateRoute(ProfitLoss);

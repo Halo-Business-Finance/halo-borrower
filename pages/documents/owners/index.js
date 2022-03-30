@@ -8,6 +8,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
+import PrivateRoute from "../../withPrivateRoute";
 
 const { Dragger } = Upload;
 
@@ -145,7 +146,7 @@ justify-content: center;
 align-items: center;
 `;
 
-export default function UploadDocs() {
+ function UploadDocs() {
   const router = useRouter();
   const [fetching, setFetching] = useState(true);
   const { id } = router.query;
@@ -190,7 +191,7 @@ export default function UploadDocs() {
   })
   const baseUrl = "https://dev.amazingrm.com/"
   const [owners, setOwners] = useState([]);
-  const [ownersData, setOwnersData] = useState([])
+
   const [article, setArticle] = useState([]);
   const [businessInfo, setBusinessInfo] = useState([]);
   const [voidedCheck, setVoidedCheck] = useState([]);
@@ -354,7 +355,7 @@ export default function UploadDocs() {
 
   }
 
-  console.log(voidedCheck, businessInfo)
+
 
   let fileCode = 0;
   const dummyRequest = ({ file, onSuccess }) => {
@@ -550,3 +551,4 @@ export default function UploadDocs() {
   );
 }
 
+export default PrivateRoute(UploadDocs);

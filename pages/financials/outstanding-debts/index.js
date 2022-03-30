@@ -9,6 +9,7 @@ import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import moment from 'moment';
+import PrivateRoute from "../../withPrivateRoute";
 
 
 const { Option } = Select;
@@ -101,7 +102,7 @@ const OutstandingDebtStyle = styled.div`
 	}
 `;
 
-export default function Business() {
+function BusinessOutstandingDebts() {
 
 	const router = useRouter();
 	const { id } = router.query;
@@ -314,3 +315,4 @@ export default function Business() {
 		</>
 	);
 }
+export default  PrivateRoute(BusinessOutstandingDebts);

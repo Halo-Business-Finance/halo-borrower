@@ -1,10 +1,5 @@
 import Head from "next/head";
 import styled from "styled-components";
-import {
- 
-  ClockCircleOutlined,
- 
-} from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import NavMenu from "../../components/NavMenu";
 import { useRouter } from "next/router";
@@ -13,6 +8,7 @@ import { API } from '../../utils/api';
 import moment from "moment";
 import { LoanCode } from '../../utils/code'
 import { Button, Progress,Tag } from "antd";
+import PrivateRoute from "../withPrivateRoute";
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
@@ -281,7 +277,7 @@ border:1px solid yellow;
   }
 `;
 
-export default function informationindex() {
+ function LoanOverview() {
 
   const router = useRouter();
   const { id } = router.query;
@@ -320,7 +316,7 @@ export default function informationindex() {
     }
     setFormState(Number(formCount))
   }, [])
-  console.log(formState)
+
 
 
 
@@ -556,3 +552,4 @@ export default function informationindex() {
   );
 
 } 
+export default PrivateRoute(LoanOverview)
