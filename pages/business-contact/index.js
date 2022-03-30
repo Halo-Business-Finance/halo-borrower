@@ -1,13 +1,14 @@
 import Head from "next/head";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+
 import Router, { useRouter } from "next/router";
-import cookie from "js-cookie";
+
 import { useEffect, useState } from "react";
 import NavMenu from "../../components/NavMenu";
 import { API } from "../../utils/api";
 import { notification } from "antd";
+import PrivateRoute from "../withPrivateRoute";
 
 
 const Hero = styled.div`
@@ -156,7 +157,7 @@ const Hero = styled.div`
 
 
 
-export default function Form({ data }) {
+function BusinessContactForm({ data }) {
 	const router = useRouter();
 	const id = router.query.id;
 	const [hasId, setHasID] = useState(null);
@@ -168,18 +169,18 @@ export default function Form({ data }) {
 
 
 
-	const addHandler = async(data) => {
+	const addHandler = async (data) => {
 		try {
-		await	API.post("api/borrower/add-update-business-contact", data)
-		localStorage.setItem("progress","1")
-			Router.push({pathname:"/business-information",query:{id:id}})
+			await API.post("api/borrower/add-update-business-contact", data)
+			localStorage.setItem("progress", "1")
+			Router.push({ pathname: "/business-information", query: { id: id } })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
 	}
 
 	const onSubmitForm = async (values) => {
- localStorage.setItem('legal_name',values.businesslegalname )
+		localStorage.setItem('legal_name', values.businesslegalname)
 		const data = {
 
 			businessLegalName: values.businesslegalname,
@@ -192,7 +193,7 @@ export default function Form({ data }) {
 			businessPhone: values.phone,
 			website: values.website,
 			id: hasId,
-			loanRequestId:id
+			loanRequestId: id
 		}
 		const dataWithoutID = {
 
@@ -205,10 +206,10 @@ export default function Form({ data }) {
 			zipCode: values.zipcode,
 			businessPhone: values.phone,
 			website: values.website,
-			loanRequestId:id
-			
+			loanRequestId: id
+
 		}
-		addHandler(hasId==null?dataWithoutID:data)
+		addHandler(hasId == null ? dataWithoutID : data)
 
 	}
 	const [consumer, getConsumer] = useState({});
@@ -420,3 +421,5 @@ export default function Form({ data }) {
 		</>
 	);
 }
+
+export default PrivateRoute(BusinessContactForm)

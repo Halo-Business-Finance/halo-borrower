@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { notification, Modal, Button } from "antd";
 import { Success } from '../../components/Organism/Success';
+import PrivateRoute from "../withPrivateRoute";
 
 const Hero = styled.div`
 	display: flex;
@@ -69,13 +70,13 @@ const Hero = styled.div`
 	}
 `;
 
-export default function Form() {
+ function Form() {
 	const [legalName, setLegalName] = useState();
 	const router = useRouter();
 	const [showSucessModal, setshowSucessModal] = useState(false);
 	const owner = router.query.owners;
 	useEffect(() => {
-		JSON.parse(owner);
+		
 		const legalName = localStorage.getItem('legal_name')
 		setLegalName(legalName)
 
@@ -134,3 +135,4 @@ export default function Form() {
 		</>
 	);
 }
+export default PrivateRoute(Form)

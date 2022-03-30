@@ -10,6 +10,7 @@ import { API } from "../../../utils/api"
 import { useRouter } from "next/router";
 import { Form, Input, Button, Space, Radio, Upload } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import PrivateRoute from "../../withPrivateRoute";
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -112,7 +113,7 @@ const BusinessStyle = styled.div`
 	} */
 `;
 
-export default function Business() {
+function BusinessTaxReturns() {
   const [form] = Form.useForm()
   const router = useRouter();
   const { id } = router.query;
@@ -389,3 +390,4 @@ const dummyRequest = ({ file, onSuccess }) => {
     </>
   );
 }
+export default PrivateRoute(BusinessTaxReturns);

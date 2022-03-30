@@ -3,13 +3,11 @@ import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import cookie from "js-cookie";
 import NavMenu from "../../components/NavMenu";
 import { notification } from "antd";
 import { API } from "../../utils/api";
 import moment from "moment";
-// import InputMask from 'react-input-mask';
+import PrivateRoute from "../withPrivateRoute";
 
 
 const Hero = styled.div`
@@ -189,7 +187,7 @@ const Hero = styled.div`
   }
 `;
 
-export default function businessInformation() {
+ function BusinessInformation() {
     const router = useRouter();
     const id = router.query.id;
     const [hasId, setHasID] = useState(null);
@@ -288,9 +286,7 @@ export default function businessInformation() {
         fetchBussinessInformation();
     }, [id]);
 
-    function handleChange(event) {
-        getConsumer(event.target.value);
-    }
+  
     
     function numberWithCommas(x) {
         return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -314,7 +310,7 @@ export default function businessInformation() {
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     }
-(consumer)
+
     return (
         <>
             <Head>
@@ -577,3 +573,4 @@ export default function businessInformation() {
         </>
     );
 }
+export default PrivateRoute(BusinessInformation)

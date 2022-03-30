@@ -7,6 +7,7 @@ import { Button, Radio } from "antd";
 import React, { useState } from "react";
 import { Router } from "next/router";
 import { useRouter } from "next/router";
+import PrivateRoute from "../../withPrivateRoute";
 
 const BusinessDebtStyle = styled.div`
 	display: flex;
@@ -101,7 +102,7 @@ const BusinessDebtStyle = styled.div`
 `;
 
 
-export default function Business() {
+ function BusinessDebts() {
 	const [value,setValue] = useState();
 	const router = useRouter();
 	const { id } = router.query;
@@ -194,3 +195,4 @@ export default function Business() {
 		</>
 	);
 }
+export default PrivateRoute(BusinessDebts);
