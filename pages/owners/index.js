@@ -396,7 +396,7 @@ if (hasId !== null){
 				console.log(response,'rs')
 				const data = await response.payload;
 
-				setInputList(data)
+				setInputList(data||[{fullName:"3389"}])
 				setHasID(data[0]?.id)
 
 			} catch (error) {
@@ -408,6 +408,11 @@ if (hasId !== null){
 	useEffect(() => {
 		fetchOwnerInformations();
 	}, [id]);
+	useEffect(() => {
+		if(inputList?.length==0){
+			setInputList([""]);
+		}
+	},[inputList])
 
 
 	return (
