@@ -393,6 +393,7 @@ if (hasId !== null){
 		if (id) {
 			try {
 				const response = await API.get(`/api/borrower/get-owners/${id}`);
+				console.log(response,'rs')
 				const data = await response.payload;
 
 				setInputList(data)
