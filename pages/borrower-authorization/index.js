@@ -82,7 +82,9 @@ const Hero = styled.div`
 
 	}, [owner])
 
-
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 
 	return (
 		<>
@@ -130,7 +132,7 @@ const Hero = styled.div`
 
 			</Hero>
 			<Modal visible={showSucessModal} footer={null}>
-				<Success />
+				<Success amount={"$"+numberWithCommas(sessionStorage.getItem('loan'))}  />
 			</Modal>
 		</>
 	);
