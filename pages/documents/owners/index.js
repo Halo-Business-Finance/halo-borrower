@@ -19,6 +19,9 @@ const BusinessStyle = styled.div`
   font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
+  & .ant-btn-primary{
+    margin:10px ;
+  }
 
   .main-style {
     width: 60%;
@@ -385,7 +388,7 @@ align-items: center;
                   <label> Copy of articles</label>
                 </div>
                 <div className="column-two">
-                  <Upload
+                  <Dragger
                     customRequest={dummyRequest}
                     onRemove={(file) => {
                       console.log(file)
@@ -411,9 +414,10 @@ align-items: center;
                     }
 
                   >
+                    <p></p>
 
-                    <Button disabled={article?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                  </Upload>
+                    <Button disabled={article?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                  </Dragger>
 
                   {/* <input type="file" id="file" {...register("fileOne")} />
                   <label htmlFor="file">
@@ -426,7 +430,7 @@ align-items: center;
                   <label>Copy of voided check</label>
                 </div>
                 <div className="column-two">
-                  <Upload
+                  <Dragger
                     customRequest={dummyRequest}
                     fileList={voidedCheck}
                     onRemove={(file) => {
@@ -446,8 +450,8 @@ align-items: center;
                     }
 
                   >
-                    <Button disabled={voidedCheck?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                  </Upload>
+                    <Button disabled={voidedCheck?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                  </Dragger>
                 </div>
               </section>
               {
@@ -461,7 +465,7 @@ align-items: center;
                       <label>Copy of driver license for {item?.name}</label>
                     </div>
                     <div className="column-two">
-                      <Upload
+                      <Dragger
                         customRequest={dummyRequest}
                         max={1}
                         fileList={item?.file?.length > 0 ? item?.file : filterData?.[item?.name]}
@@ -497,8 +501,8 @@ align-items: center;
                         }
 
                       >
-                        <Button disabled={res?.[item?.name]?.size > 0 || item.file?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                      </Upload>
+                        <Button disabled={res?.[item?.name]?.size > 0 || item.file?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                      </Dragger>
                     </div>
                   </section>)
                 }
@@ -513,7 +517,7 @@ align-items: center;
                   </label>
                 </div>
                 <div className="column-two">
-                  <Upload
+                  <Dragger
                     customRequest={dummyRequest}
                     onRemove={(file) => {
                       console.log(file)
@@ -531,8 +535,8 @@ align-items: center;
                     }
 
                   >
-                    <Button disabled={businessInfo?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                  </Upload>
+                    <Button disabled={businessInfo?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                  </Dragger>
                 </div>
               </section>
             </div>
