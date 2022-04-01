@@ -951,9 +951,11 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Once Stabilized</div>
 							<div className="term">
-								<input
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
 									value={bridgeLoanData.stabilized}
-									onChange={(e) => onChangeHandler("stabilized", e)}
+									onValueChange={(e) =>  setBridgeLoanData({...bridgeLoanData,stabilized:e.formattedValue}) }
 									className="outline"
 									type="text"
 									name="stabilized"

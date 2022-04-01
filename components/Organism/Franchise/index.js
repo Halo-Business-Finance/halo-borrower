@@ -412,6 +412,10 @@ export const Franchaise = () => {
                             Use of Proceeds
                         </div>
                         <div className="term">
+                            <input checked={formValues.useOfProceeds == "PurchaseFranchise" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="PurchaseFranchise" />
+                            <label className="radio">Purchase of Franchise </label>
+                        </div>
+                        <div className="term">
                             <input checked={formValues.useOfProceeds == "BusinessExpanison" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="BusinessExpanison" />
                             <label className="radio">Business Expanison</label>
                         </div>
@@ -484,7 +488,7 @@ export const Franchaise = () => {
                 {formstep == 8 && <section>
                     <div className="goal">
                         <div className="cast">
-                            Is this a SBA Loan?
+                            Would you prefer a SBA Loan?
                         </div>
                         <div className="term">
                             <input checked={formValues.SBALoan == "Yes" ? true : false} onChange={(e) => onFormChange(e, "SBALoan")} type="radio" name="occupied" value="Yes" />

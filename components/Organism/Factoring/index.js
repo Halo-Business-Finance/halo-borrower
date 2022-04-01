@@ -417,7 +417,7 @@ export const Factoring = () => {
                         </div>
                         <div className="term">
                             <input checked={formValues.useOfProceeds == "BusinessExpanison" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="BusinessExpanison" />
-                            <label className="radio">Business Expanison</label>
+                            <label className="radio">Working Capital</label>
                         </div>
                         <div className="term">
                             <input checked={formValues.useOfProceeds == "OtherUse" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="OtherUse" />
@@ -582,18 +582,25 @@ export const Factoring = () => {
                     <ErrorMessage>{errors.bankruptcyYear && "Please select to continue"}</ErrorMessage>
 
                 </section>}
-                {
+                {/* {
                     formstep == 13 && <div>
 
                         <Button className="submit-form" loading={isLoading} onClick={formHandler} type="primary">Submit</Button>
                     </div>
-                }
-                {formstep < 13 && <ButtonWrapper>
+                } */}
+                	<ButtonWrapper>
+
+{(formstep != 1 && formstep < 14) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{formstep == 14 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 14 && <Button  size="large" type="primary" onClick={completeFormStep}>
+    Next Step
+</Button>)}
+</ButtonWrapper>
+                {/* {formstep < 13 && <ButtonWrapper>
                     <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>
                     <Button size="large" type="primary" onClick={completeFormStep}>
                         Next Step
                     </Button>
-                </ButtonWrapper>}
+                </ButtonWrapper>} */}
 
             </Hero>
             <Modal  visible={isModalVisible} footer={null}>
