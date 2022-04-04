@@ -450,14 +450,14 @@ const Hero = styled.div`
                             </div>
                             <div className="form-website">
                                 <label htmlFor="fname" className="formlabel">
-                                    Industry Description/SIC
+                                    Industry Description/SIC/NAICS Code
                                 </label>
                                 <input
                                     id="industry"
                                     className="textbox"
                                     type="text"
                                     autoComplete="fname"
-                                    placeholder="Enter Industry Description/SIC:"
+                                    placeholder="Enter Industry Description/SIC/NAICS Code"
                                     defaultValue={consumer.industryDescription}
                                     {...register("industry", {
                                         required: "Required",

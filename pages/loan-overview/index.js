@@ -327,7 +327,7 @@ border:1px solid yellow;
         <title>Borrower Section</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu id={id} />
+      {/* <NavMenu id={id} /> */}
       <Hero>
         <div className="top-borrower">
           <div className="top-heading">

@@ -552,7 +552,7 @@ export const Factoring = () => {
                     <ErrorMessage>{errors.ownership && "Please select to continue"}</ErrorMessage>
 
                 </section>}
-                {formstep == 12 && <section>
+                {(formstep == 12 || (formstep ==13 && formValues.bankruptcy == "No" )) && <section>
                     <div className="goal">
                         <div className="cast">Ever File Bankruptcy?</div>
                         <div className="term">
@@ -567,7 +567,7 @@ export const Factoring = () => {
                     <ErrorMessage>{errors.bankruptcy && "Please select to continue"}</ErrorMessage>
 
                 </section>}
-                {(formstep == 13 && formValues.bankruptcy == "Yes") && <section>
+                {((formstep == 13 || formstep == 14) && formValues.bankruptcy == "Yes") && <section>
                     <div className="goal">
                         <div className="cast">If Yes, tells us when?</div>
                         <div className="term">
@@ -591,7 +591,7 @@ export const Factoring = () => {
                 	<ButtonWrapper>
 
 {(formstep != 1 && formstep < 14) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{formstep == 14 ? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 14 && <Button  size="large" type="primary" onClick={completeFormStep}>
+{(formstep == 14 || (formstep ==13 && formValues.bankruptcy == "No" ))? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 14 && <Button  size="large" type="primary" onClick={completeFormStep}>
     Next Step
 </Button>)}
 </ButtonWrapper>

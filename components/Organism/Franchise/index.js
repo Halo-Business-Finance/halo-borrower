@@ -176,10 +176,10 @@ export const Franchaise = () => {
             setIsModalVisible(true)
             return;
         }
-        if (formValues.bankruptcy == "No") {
-            setFormstep(14);
-            return;
-        }
+        // if (formValues.bankruptcy == "No") {
+        //     setFormstep(14);
+        //     return;
+        // }
 
         if (formstep == 1 && formValues.businessYear == "") {
             setErrors({ ...error, businessYear: "Error" });
@@ -541,7 +541,7 @@ export const Franchaise = () => {
                     </div>
                     <ErrorMessage>{error.ownership && "Please select to continue"}</ErrorMessage>
                 </section>}
-                {formstep == 11 && <section>
+                {(formstep == 11 || (formstep ==12 && formValues.bankruptcy == "No" )) && <section>
                     <div className="goal">
                         <div className="cast">Ever File Bankruptcy?</div>
                         <div className="term">
@@ -569,19 +569,26 @@ export const Franchaise = () => {
                     </div>
                     <ErrorMessage>{error.bankruptcyYear && "Please select to continue"}</ErrorMessage>
                 </section>}
-                {
+                {/* {
                     formstep == 14 && <div>
                         <Button className="submit-form" loading={isLoading} onClick={formHandler} type="primary">Submit</Button>
                     </div>
-                }
-                {formstep < 14 && <ButtonWrapper>
+                } */}
+                	<ButtonWrapper>
+
+{(formstep != 1 && formstep < 13) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{(formstep == 13 || (formstep ==12 && formValues.bankruptcy == "No" ))? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 13 && <Button  size="large" type="primary" onClick={completeFormStep}>
+    Next Step
+</Button>)}
+</ButtonWrapper>
+                {/* {formstep < 14 && <ButtonWrapper>
 
                     {(formstep > 1 || formstep < 13) && <StyledButton disabled={formstep == 1} size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
                     <Button size="large" onClick={completeFormStep} type="primary" >
                         Next Step
                     </Button>
 
-                </ButtonWrapper>}
+                </ButtonWrapper>} */}
                 <Modal visible={isModalVisible} footer={null}>
                     <Disqulaified />
                 </Modal>
