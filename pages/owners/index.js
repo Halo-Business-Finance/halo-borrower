@@ -249,7 +249,7 @@ const Hero = styled.div`
   }
 `;
 
- function OwnersForm() {
+function OwnersForm() {
 	const router = useRouter();
 	const id = router.query.id;
 	const [hasId, setHasID] = useState(null);
@@ -261,20 +261,20 @@ const Hero = styled.div`
 	} = useForm();
 
 	const addHandler = async (data) => {
-		const owners = data.map((item) =>item.fullName )
+		const owners = data.map((item) => item.fullName)
 
 		//(id,'own')
-	
+
 		try {
 			await API.post("api/borrower/add-update-owners", data)
-			localStorage.setItem("progress","4");
-			Router.push({pathname:"/borrower-authorization",query:{id:id,owners:JSON.stringify(owners)}})
+			localStorage.setItem("progress", "4");
+			Router.push({ pathname: "/borrower-authorization", query: { id: id, owners: JSON.stringify(owners) } })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
 	}
- 
-	const [inputList, setInputList] = useState([]);
+
+	const [inputList, setInputList] = useState([""]);
 
 	// handle input change
 	const handleInputChange = (e, index) => {
@@ -307,7 +307,7 @@ const Hero = styled.div`
 			phoneNumber: null,
 			ownershipPercentage: null,
 			typeOfResident: null,
-			
+
 			loanRequestId: id,
 		}]);
 	};
@@ -316,27 +316,27 @@ const Hero = styled.div`
 	let a = 1;
 	const onSubmitForm = async (values) => {
 
-if (hasId !== null){
-	const refactoredData = inputList.map((values, index) => (
-		{
-			fullName: values.fullName,
-			dateOfBirth: values.dateOfBirth,
-			homeAddress: values.homeAddress,
-			city: values.city,
-			state: values.state,
-			zipCode: values.zipCode,
-			ssn: values.ssn,
-			email: values.email,
-			phoneNumber: values.phoneNumber,
-			ownershipPercentage: values.ownershipPercentage,
-			typeOfResident: values.typeOfResident,
-			loanRequestId: id,
-			id:values?.id
-			
+		if (hasId !== null) {
+			const refactoredData = inputList.map((values, index) => (
+				{
+					fullName: values.fullName,
+					dateOfBirth: values.dateOfBirth,
+					homeAddress: values.homeAddress,
+					city: values.city,
+					state: values.state,
+					zipCode: values.zipCode,
+					ssn: values.ssn,
+					email: values.email,
+					phoneNumber: values.phoneNumber,
+					ownershipPercentage: values.ownershipPercentage,
+					typeOfResident: values.typeOfResident,
+					loanRequestId: id,
+					id: values?.id
+
+				}
+			))
 		}
-	))
-}
-		
+
 		const refactoredDataWithoutID = inputList.map((values, index) => (
 			{
 
@@ -394,10 +394,23 @@ if (hasId !== null){
 		if (id) {
 			try {
 				const response = await API.get(`/api/borrower/get-owners/${id}`);
-				console.log(response,'rs')
+				console.log(response, 'rs')
 				const data = await response.payload;
 
-				setInputList(data||[{fullName:"3389"}])
+				setInputList(data || [{
+					"city": null,
+					"dateOfBirth": null,
+					"email": null,
+					"fullName": null,
+					homeAddress: null,
+					loanRequestId: id,
+					ownershipPercentage: null,
+					phoneNumber: null,
+					ssn: null,
+					state: null,
+					typeOfResident: null,
+					zipCode: ""
+				}])
 				setHasID(data[0]?.id)
 
 			} catch (error) {
@@ -409,12 +422,29 @@ if (hasId !== null){
 	useEffect(() => {
 		fetchOwnerInformations();
 	}, [id]);
+	
 	useEffect(() => {
-		if(inputList?.length==0){
-			setInputList([""]);
+if(id && hasId==undefined){
+	setInputList([
+		{
+			"city": "",
+			"dateOfBirth": null,
+			"email": null,
+			"fullName": null,
+			homeAddress: null,
+			loanRequestId: id,
+			ownershipPercentage: null,
+			phoneNumber: null,
+			ssn: null,
+			state: null,
+			typeOfResident: null,
+			zipCode: ""
 		}
-	},[inputList])
+	]);
+}
 
+	}, [id,hasId])
+	
 
 	return (
 		<>
@@ -422,7 +452,7 @@ if (hasId !== null){
 				<title>Owner</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu id={id?.id}/>
+			<NavMenu id={id?.id} />
 			<Hero>
 				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
 					<section className="Form-design">
@@ -576,12 +606,12 @@ if (hasId !== null){
 												Mobile
 											</label>
 											<CurrencyFormat
-										        format="+1 (###) ###-####" mask="_"	
+												format="+1 (###) ###-####" mask="_"
 												name="phoneNumber"
 												className="textbox"
 												type="mobile"
 												placeholder="(XXX)-(XXX)-(XXXX)"
-												value={x.phoneNumber||''}
+												value={x.phoneNumber || ''}
 												onChange={e => handleInputChange(e, i)}
 											/>
 										</div>
@@ -683,8 +713,8 @@ if (hasId !== null){
 				</form>
 			</Hero>
 			<Modal visible={showSucessModal} footer={null}>
-                <Success />
-            </Modal>
+				<Success />
+			</Modal>
 		</>
 	);
 }
