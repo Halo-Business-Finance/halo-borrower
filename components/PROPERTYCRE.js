@@ -140,7 +140,7 @@ export default function PROPERTYCRE() {
 			setIsModalVisible(true)
 			return;
 		}
-		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20) {
+		if (formValues.downpayment != '' && Number(formValues.downpayment) < 20 && formValues.bankruptcy == 'Yes') {
 			setIsModalVisible(true)
 			return;
 		}
@@ -216,10 +216,7 @@ export default function PROPERTYCRE() {
 		setFormstep(formstep - 1);
 	}
 
-	(formValues.tenants);
-	const isUserDisqualified = () => {
-		setIsModalVisible(true);
-	}
+
 	const onFormChange = (e, name) => {
 		setFormValues({
 			...formValues,
