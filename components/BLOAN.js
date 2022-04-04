@@ -337,11 +337,17 @@ export default function BLOAN() {
 	}
 
 	const onChangeHandler = (name, e) => {
-
+		
 		setBridgeLoanData({
 			...bridgeLoanData,
 			[name]: e.target.value
 		});
+		
+		setBridgeLoanData({
+			...bridgeLoanData,
+			[name]: e.target.value
+		});
+		
 		setErrors({ ...errors, [name]: "" })
 	}
 	const [loading, setLoading] = useState(false);
@@ -695,8 +701,13 @@ export default function BLOAN() {
 								<input
 									className="other"
 									type="text"
-									checked={bridgeLoanData.propertyTypeOther}
-									onChange={(e) => onChangeHandler("propertyTypeOther", e)}
+									disabled={bridgeLoanData?.propertyType!=="Other"}
+								value={bridgeLoanData?.propertyType!=="Other"?"": bridgeLoanData.propertyTypeOther}
+									onChange={(e) => {
+										if(bridgeLoanData.propertyType !="Other"){
+											setBridgeLoanData({...bridgeLoanData,propertyTypeOther:""})
+										}
+										onChangeHandler("propertyTypeOther", e)}}
 								// placeholder="Your answer"
 								/>
 							</div>

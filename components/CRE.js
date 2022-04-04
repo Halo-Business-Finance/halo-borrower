@@ -259,6 +259,7 @@ export default function CRE() {
 			[name]: e.target.value
 
 		})
+	
 		setErrors({
 			...error,
 			[name]: ""
