@@ -1,4 +1,4 @@
-import { Modal, notification } from "antd";
+import { Form, Modal, notification, Radio } from "antd";
 import moment from "moment";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
@@ -460,6 +460,7 @@ if(id && hasId==undefined){
 						{inputList.map((x, i) => {
 							return (
 								<div>
+									
 									<br /><br />
 									<div className="form-head">
 										<h2 className="heading">
@@ -477,7 +478,7 @@ if(id && hasId==undefined){
 										</h2>
 
 										<h2 className="heading-step">
-											<p className="active">Step {i + 1}</p> /3
+											<p className="active">Owner {i + 1}</p> 
 										</h2>
 									</div>
 
@@ -638,47 +639,58 @@ if(id && hasId==undefined){
 										<label htmlFor="ffti" className="formlabel">
 											Are you a:
 										</label>
+										
+										<br/>
+											<Radio.Group defaultValue={x.typeOfResident} name="typeOfResident" onChange={e => handleInputChange(e, i)} value={x.typeOfResident}>
+      <Radio   value={0}>US Citizen</Radio>
+      <Radio   value={1}>US Permanent Resident</Radio>
+      <Radio   value={2}>Other</Radio>
+      
+    </Radio.Group>
+										
 										<div className="radio-three">
-											<div className="radio-container">
+											
+									
+											{/* <div className="radio-container">
 												<input
-													checked={x.typeOfResident == 0}
+													defaultChecked={x.typeOfResident == 0}
 													defaultValue={x.typeOfResident}
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
 													value={0}
 													placeholder="Enter percent of ownership"
-													onChange={e => handleInputChange(e, i)}
+													onClick={e => handleInputChange(e, i)}
 												/>
 												<label>US Citizen</label>
-											</div>
+											</div> */}
 
-											<div className="radio-container">
+											{/* <div className="radio-container">
 												<input
-													checked={x.typeOfResident == 1}
+													defaultChecked={x.typeOfResident == 1}
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
 													value={1}
 													placeholder="Enter percent of ownership"
-													onChange={e => handleInputChange(e, i)}
+													onClick={e => handleInputChange(e, i)}
 
 												/>
 												<label>US Permanent Resident</label>
-											</div>
+											</div> */}
 
-											<div className="radio-container">
+											{/* <div className="radio-container">
 												<input
-													checked={x.typeOfResident == 2}
+													defaultChecked={x.typeOfResident == 2}
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
 													value={2}
 													placeholder="Enter percent of ownership"
-													onChange={e => handleInputChange(e, i)}
+													omChange={e => handleInputChange(e, i)}
 												/>
 												<label>Other</label>
-											</div>
+											</div> */}
 										</div>
 									</div>
 								</div>
