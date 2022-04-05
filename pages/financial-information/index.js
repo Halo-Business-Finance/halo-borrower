@@ -519,7 +519,7 @@ export default function financialInformation() {
 
         setStatus(data?.typeOfProperty);
         const res = await API.get(`/api/borrower/get-prequalify-request/${id}`); 
-        console.log(res) 
+       
                 getConsumer({
           ...data,
           loanAmountRequested: await res?.payload?.amountToBeBorrowed
