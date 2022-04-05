@@ -19,6 +19,9 @@ const Hero = styled.div`
   background: #e5e5e5;
   padding: 20px;
 
+  & .dis-code{
+      border:1px solid blue !important;
+  }
   .formstyle {
     width: 60%;
     background: #f8f8ff;
@@ -187,7 +190,7 @@ const Hero = styled.div`
   }
 `;
 
- function BusinessInformation() {
+function BusinessInformation() {
     const router = useRouter();
     const id = router.query.id;
     const [hasId, setHasID] = useState(null);
@@ -198,39 +201,39 @@ const Hero = styled.div`
         handleSubmit,
         formState: { errors },
     } = useForm({
-        defaultValue:{
-            "binfo":0
+        defaultValue: {
+            "binfo": 0
         }
     });
 
     const [consumer, getConsumer] = useState({
-        legalEntity:"CCorp"
+        legalEntity: "CCorp"
     });
 
 
     const addHandler = async (data) => {
         try {
             await API.post("api/borrower/add-update-business-info", data);
-            localStorage.setItem("progress","2")
+            localStorage.setItem("progress", "2")
             Router.push({ pathname: "/financial-information", query: { id: id } })
         } catch (error) {
             notification.error({ message: 'Error Occured', description: error?.data?.reason })
         }
     }
     const onSubmitForm = async (values) => {
-        (values,"onsumbi")
-    //     let refactored;
-    //     let emp;
-    // if(values?.totalContractors?.toString()?.includes(",")){
-    //      refactored= values.totalContractors?.replace(/,/g,'')
-    //      (refactored, 'check refactored');
-    // }
-    // if (values?.totalEmployees?.toString()?.includes(",")){
-    //     emp=values.totalEmployees?.replace(/,/g,'')
-    //     (refactored, 'check emp');
-    // }
+        (values, "onsumbi")
+        //     let refactored;
+        //     let emp;
+        // if(values?.totalContractors?.toString()?.includes(",")){
+        //      refactored= values.totalContractors?.replace(/,/g,'')
+        //      (refactored, 'check refactored');
+        // }
+        // if (values?.totalEmployees?.toString()?.includes(",")){
+        //     emp=values.totalEmployees?.replace(/,/g,'')
+        //     (refactored, 'check emp');
+        // }
 
- 
+
         // if (cookie.get("id") == "") {
         //     axios({
         //         method: "post",
@@ -244,8 +247,8 @@ const Hero = styled.div`
             typeOfProduct: values.product,
             // totalEmployees: Number(emp),
             // totalContractors: Number(refactored) ,
-            totalEmployees: +`${values.totalEmployees}`.replace(/,/g,''),
-            totalContractors: +`${values.totalContractors}`.replace(/,/g,''),
+            totalEmployees: +`${values.totalEmployees}`.replace(/,/g, ''),
+            totalContractors: +`${values.totalContractors}`.replace(/,/g, ''),
             wasPurchased: values.wasPurchased,
             id: hasId,
             loanRequestId: id
@@ -259,8 +262,8 @@ const Hero = styled.div`
             typeOfProduct: values.product,
             // totalEmployees: Number(emp),
             // totalContractors:Number(refactored),
-            totalEmployees: +`${values.totalEmployees}`.replace(/,/g,''),
-            totalContractors: +`${values.totalContractors}`.replace(/,/g,''),
+            totalEmployees: +`${values.totalEmployees}`.replace(/,/g, ''),
+            totalContractors: +`${values.totalContractors}`.replace(/,/g, ''),
             wasPurchased: values.wasPurchased,
             loanRequestId: id
         }
@@ -271,11 +274,14 @@ const Hero = styled.div`
             try {
                 const response = await API.get(`/api/borrower/get-business-info/${id}`);
                 const data = await response.payload;
-                getConsumer({...data,legalEntity:data?.legalEntityString});
-                setValue("totalContractors",data?.totalContractors);
-                setValue("totalEmployees",data?.totalEmployees)
+                
+                setValue("totalContractors", data?.totalContractors);
+                setValue("totalEmployees", data?.totalEmployees)
                 setHasID(data?.id)
-
+                const res = await API.get(`/api/borrower/get-prequalify-request/${id}`);  
+                getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
+    
+                
             } catch (error) {
 
             }
@@ -286,12 +292,12 @@ const Hero = styled.div`
         fetchBussinessInformation();
     }, [id]);
 
-  
-    
+
+
     function numberWithCommas(x) {
         return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-    
+
 
     function validate(evt) {
         var theEvent = evt || window.event;
@@ -310,6 +316,10 @@ const Hero = styled.div`
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     }
+
+
+   
+   
 
     return (
         <>
@@ -333,14 +343,16 @@ const Hero = styled.div`
                                 Legal Entity
                             </label>
                             <div className="radio-four">
-                                <div className="radio-container">
+                                <div className={consumer.legalEntity == "CCORP"?"radio-container dis-code":"radio-container"}>
                                     <input
+                                    
+                                        disabled
                                         type="radio"
                                         name="binfo"
-                                        value="CCorp"
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "CCorp" })}
+                                        value="CCORP"
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "CCORP" })}
                                         defaultValue={consumer.legalEntity}
-                                        checked={consumer.legalEntity == "CCorp"}
+                                        checked={consumer.legalEntity == "CCORP"}
                                         // defaultChecked = {datache.CCorpprecheck}
                                         {...register("binfo")}
 
@@ -351,22 +363,24 @@ const Hero = styled.div`
                                 </div>
 
 
-                                <div className="radio-container">
+                                <div className={consumer.legalEntity == "SCORP"?"radio-container dis-code":"radio-container"}>
                                     <input
+                                        disabled
                                         type="radio"
                                         name="binfo"
-                                        value="SoleProp"
-                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "SoleProp" })}
+                                        value="SCORP"
+                                        onClick={(e) => getConsumer({ ...consumer, legalEntity: "SCORP" })}
 
-                                        checked={consumer.legalEntity == "SoleProp"}
+                                        checked={consumer.legalEntity == "SCORP"}
                                         defaultValue={consumer.legalEntity}
                                         {...register("binfo")}
                                     />
-                                    <label>Sole-Prop</label>
+                                    <label>S-CORP</label>
                                 </div>
 
-                                <div className="radio-container">
+                                <div className={consumer.legalEntity == "LLC"?"radio-container dis-code":"radio-container"}>
                                     <input
+                                        disabled
                                         type="radio"
                                         name="binfo"
                                         value="LLC"
@@ -375,13 +389,14 @@ const Hero = styled.div`
 
                                         checked={consumer.legalEntity == "LLC"}
                                         defaultValue={consumer.legalEntity}
-                                        
+
                                     />
                                     <label>LLC</label>
                                 </div>
 
-                                <div className="radio-container">
+                                <div className={consumer.legalEntity == "Partnership"?"radio-container dis-code":"radio-container"}>
                                     <input
+                                        disabled
                                         type="radio"
                                         name="binfo"
                                         value="Partnership"
@@ -540,7 +555,7 @@ const Hero = styled.div`
                                             name="business"
                                             value="Yes"
                                             onClick={() => getConsumer({ ...consumer, wasPurchased: "Yes" })}
-                                            checked={consumer.wasPurchased==true||consumer.wasPurchased=="Yes"}
+                                            checked={consumer.wasPurchased == true || consumer.wasPurchased == "Yes"}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />
@@ -554,7 +569,7 @@ const Hero = styled.div`
                                             value="No"
                                             onClick={() => getConsumer({ ...consumer, wasPurchased: "No" })}
 
-                                            checked={consumer.wasPurchased=="No"||consumer.wasPurchased==false}
+                                            checked={consumer.wasPurchased == "No" || consumer.wasPurchased == false}
                                             // defaultChecked={consumer.wasPurchased}
                                             {...register("businesspurchased")}
                                         />

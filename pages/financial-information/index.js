@@ -518,11 +518,11 @@ export default function financialInformation() {
         
 
         setStatus(data?.typeOfProperty);
-
-
-        getConsumer({
-          ...data
-
+        const res = await API.get(`/api/borrower/get-prequalify-request/${id}`); 
+        console.log(res) 
+                getConsumer({
+          ...data,
+          loanAmountRequested: await res?.payload?.amountToBeBorrowed
         })
 
       }
@@ -662,6 +662,7 @@ value={consumer?.annualRevenue||""}
                   Loan Amount Requested
                 </label>
                 <CurrencyFormat
+                disabled
                  prefix={'$'}
                  thousandSeparator={true}
                   className="textbox"
