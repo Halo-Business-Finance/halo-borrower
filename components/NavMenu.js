@@ -37,24 +37,24 @@ const NavMenu = ( {id}) => {
     <Nav>
       <div>
         <Link href={`/loan-overview/?id=${id}`} passHref>
-          <StyledLink>Pre-qualify</StyledLink>
+          <StyledLink>Back to Loan Overview</StyledLink>
         </Link>
       </div>
-      <div>
+      {/* <div>
         <Link href={`/business-contact/?id=${id}`} passHref>
           <StyledLink>Business Financials</StyledLink>
         </Link>
-      </div>
+      </div> */}
       {/* <div>
         <Link href="/personalfinance_pi" passHref>
           <StyledLink>Personal Financials</StyledLink>
         </Link>
       </div> */}
-      <div>
+      {/* <div>
         <Link href={`/documents/owners/?id=${id}`} passHref>
           <StyledLink>Documents</StyledLink>
         </Link>
-      </div>
+      </div> */}
     </Nav>
   );
 };

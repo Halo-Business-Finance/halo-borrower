@@ -671,7 +671,7 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.downpayment && "Please select to continue"}</ErrorMessage>
 					</section>} */}
-					{(formstep == 13) && <section>
+					{(formstep == 13 || formstep == 14) && <section>
 						<div className="goal">
 							<div className="cast">
 								Do you have any other commercial properties?
