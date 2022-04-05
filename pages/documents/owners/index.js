@@ -287,9 +287,9 @@ align-items: center;
 
   const updateFiles = () => {
     const afterDelete = finalDocs.filter((item) => (item));
-
+console.log(afterDelete)
     setFinalDocs(afterDelete)
-
+window.location.reload()
   }
   useEffect(() => {
 
@@ -476,6 +476,7 @@ align-items: center;
 
 
                             updateFiles();
+                          
                           }
 
 

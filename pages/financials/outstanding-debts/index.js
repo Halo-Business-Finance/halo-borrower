@@ -120,6 +120,9 @@ function BusinessOutstandingDebts() {
 
 
 	const removeDollarSignAndComma = (value) => {
+		if(!isNaN(value)){
+return value
+		}
 		const removedComma = value?.replace(/,/g, '');
 		const removeDollar = removedComma?.replace("$", '')?.toString();
 		return removeDollar
@@ -127,23 +130,23 @@ function BusinessOutstandingDebts() {
 	const [saving,setSaving]=useState(false);
 	const onSubmitForm = async (values) => {
 		setSaving(true)
-		const refactoredValues = { ...values }
-		
-		if (isNaN(values?.amountRemainin)) {
-			refactoredValues = {
-				...values,
-				amountRemainin: removeDollarSignAndComma(values?.amountRemainin),
+		// let refactoredValues = { ...values }
+		// console.log(isNaN(values?.amountRemainin))
+		// if (isNaN(values?.amountRemainin)) {
+		// 	refactoredValues = {
+		// 		...values,
+		// 		amountRemainin: removeDollarSignAndComma(values?.amountRemainin),
 
-			}
+		// 	}
+		// }
+		// if (isNaN(values?.minimumPayment)) {
+			
+		// }
+		let refactoredValues = {
+			...values,
+			amountRemainin: removeDollarSignAndComma(values?.amountRemainin),
+			minimumPayment: removeDollarSignAndComma(values?.minimumPayment),
 		}
-		if (isNaN(values?.minimumPayment)) {
-			refactoredValues = {
-				...values,
-
-				minimumPayment: removeDollarSignAndComma(values?.minimumPayment),
-			}
-		}
-
 
 
 		try {
@@ -164,7 +167,7 @@ function BusinessOutstandingDebts() {
 				const res = await API.get(`api/business-finance/get-business-debt/${id}`)
 				console.log(res, 'bd')
 				const data = await res.payload;
-				getConsumer(data)
+				getConsumer({...data,originationYear:moment(data?.originationYear)?.format("YYYY-MM-DD")})
 				// const docs = data?.map((item) => ({
 				//   "id": item?.id,
 				//   'url': baseUrl + item?.fileName,

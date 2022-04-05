@@ -207,7 +207,8 @@ function BusinessTaxReturns() {
 
         }))
        
-        setInputList(docs)
+        setInputList(docs|| [{ Date: "", File: "" },
+        { Date: "", File: "" }])
 
    
       }

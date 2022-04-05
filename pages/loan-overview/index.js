@@ -297,26 +297,13 @@ border:1px solid yellow;
     try {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
       setDetails(await response.payload);
-      (data);
+      setFormState(await response.payload?.formProgress)
     } catch (error) {
 
     }
   }
   const [formState, setFormState] = useState(null)
-  useEffect(() => {
-    const formCount = localStorage.getItem('progress')
-    const success = localStorage.getItem('success')
-    if (success == "1") {
-      setFormState(10)
-      return
-    }
-
-    if (formCount == "10") {
-      localStorage.setItem('success', "1")
-    }
-    setFormState(Number(formCount))
-  }, [])
-
+  
 
 
 
@@ -344,12 +331,12 @@ border:1px solid yellow;
               from: '#108ee9',
               to: '#87d068',
             }}
-            percent={formState && Math.ceil(formState/10*100)}
+            percent={formState && Math.ceil(formState/21*100)}
             status="active"
           />
           <div className="top-heading">
             <p>
-              <strong className="strong-color">{formState && Math.ceil(formState/10*100)}%</strong> complete
+              <strong className="strong-color">{formState && Math.ceil(formState/21*100)}%</strong> complete
             </p>
 
             <p className="meter-link">
@@ -424,8 +411,8 @@ border:1px solid yellow;
                 </div>
 
                 <div className="button-time">
-                <Tag  color={formState>=5?"#87d068":"#108ee9"}>
-       { formState>=5?"Completed":"5 Minutes"}
+                <Tag  color={formState>=4?"#87d068":"#108ee9"}>
+       { formState>=4?"Completed":"5 Minutes"}
       </Tag>
                     
                   
@@ -454,7 +441,7 @@ border:1px solid yellow;
                 <div className="button-step">
                   <Button
                     size="large"
-                    disabled={formState < 5}
+                    disabled={formState < 4}
                     onClick={() => router.push({
                       pathname: "/financials/tax-returns",
                       query: {
@@ -491,7 +478,7 @@ border:1px solid yellow;
 
                 <div className="button-step">
                   <Button
-                    disabled={formState < 9}
+                    // disabled={formState < 15}
                     size="large"
                     onClick={() => router.push({
                       pathname: "/documents/owners",
@@ -504,8 +491,8 @@ border:1px solid yellow;
 
 
                 <div className="button-time">
-                <Tag  color={formState>=10?"#87d068":"#108ee9"}>
-       { formState>=10?"Completed":"5 Minutes"}
+                <Tag  color={formState>=15?"#87d068":"#108ee9"}>
+       { formState>=15?"Completed":"5 Minutes"}
       </Tag>
                 </div>
               </div>

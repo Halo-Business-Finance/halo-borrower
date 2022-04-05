@@ -271,20 +271,19 @@ function BusinessInformation() {
     }
     const fetchBussinessInformation = async () => {
         if (id) {
-            try {
+            const res = await API.get(`/api/borrower/get-prequalify-request/${id}`);  
+                getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
+    
                 const response = await API.get(`/api/borrower/get-business-info/${id}`);
                 const data = await response.payload;
-                
+                getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
+    
                 setValue("totalContractors", data?.totalContractors);
                 setValue("totalEmployees", data?.totalEmployees)
                 setHasID(data?.id)
-                const res = await API.get(`/api/borrower/get-prequalify-request/${id}`);  
-                getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
-    
                 
-            } catch (error) {
-
-            }
+                
+            
 
         }
     }
@@ -297,7 +296,7 @@ function BusinessInformation() {
     function numberWithCommas(x) {
         return x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
+console.log(consumer)
 
     function validate(evt) {
         var theEvent = evt || window.event;

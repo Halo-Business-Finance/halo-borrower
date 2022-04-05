@@ -453,19 +453,19 @@ export default function PROPERTYCRE() {
 						<div className="goal">
 							<div className="cast">Ownership Structure </div>
 							<div className="term">
-								<input checked={formValues.ownership == "1" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="1" />
+								<input checked={formValues.ownership == "LLC" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="LLC" />
 								<label className="radio">LLC</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.ownership == "2" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="2" />
+								<input checked={formValues.ownership == "CCORP" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="CCORP" />
 								<label className="radio">C-Corp</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.ownership == "3" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="3" />
+								<input checked={formValues.ownership == "SCORP" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="SCORP" />
 								<label className="radio">S-CORP</label>
 							</div>
 							<div className="term">
-								<input checked={formValues.ownership == "4" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="4" />
+								<input checked={formValues.ownership == "Partnership" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="Partnership" />
 								<label className="radio">Partnership</label>
 							</div>
 						</div>
