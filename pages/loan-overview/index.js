@@ -478,7 +478,7 @@ border:1px solid yellow;
 
                 <div className="button-step">
                   <Button
-                    // disabled={formState < 15}
+                    disabled={formState < 14}
                     size="large"
                     onClick={() => router.push({
                       pathname: "/documents/owners",

@@ -509,8 +509,13 @@ export default function financialInformation() {
   };
 
   const GetAllInformations = async () => {
-    try {
+   
       if (id) {
+        const res = await API.get(`/api/borrower/get-prequalify-request/${id}`); 
+        getConsumer({
+          ...data,
+          loanAmountRequested: await res?.payload?.amountToBeBorrowed
+        })
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
        
         const data = await response?.payload;
@@ -518,18 +523,17 @@ export default function financialInformation() {
         
 
         setStatus(data?.typeOfProperty);
-        const res = await API.get(`/api/borrower/get-prequalify-request/${id}`); 
+       
        
                 getConsumer({
           ...data,
           loanAmountRequested: await res?.payload?.amountToBeBorrowed
         })
+        console.log("aslkdnaksdnakjdsnj",res?.payload?.amountToBeBorrowed)
 
       }
 
-    } catch (error) {
-      // notification.error({ message: 'Error Occured', description: error?.data?.reason })
-    }
+    
   }
 
 
@@ -538,9 +542,8 @@ export default function financialInformation() {
     
   }, [id]);
 
-  function handleChange(event) {
-    getConsumer(event.target.value);
-  }
+  console.log(consumer)
+
 
 
 
