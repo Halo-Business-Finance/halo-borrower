@@ -319,12 +319,10 @@ align-items: center;
           </Form>
           <div className="footer">
             <div className="continue-button">
-              <img src="/images/back.png" />
+              
               <Button size="large" loading={isSaving} onClick={onSubmitForm} type="primary" >Upload to continue</Button>
             </div>
-            <div className="skip-link">
-              <a href="/businessfinance_bs">Skip</a>
-            </div>
+           
           </div>
 
         </section>

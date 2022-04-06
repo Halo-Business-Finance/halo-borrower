@@ -16,6 +16,10 @@ const BusinessDebtStyle = styled.div`
 	font-family: Mulish;
 	background: #e5e5e5;
 	padding: 10px;
+	& .ant-radio-button-wrapper:first-child {
+		width: 100%;
+	}
+
 
 	.main-style {
 		width: 52%;
@@ -173,7 +177,7 @@ const BusinessDebtStyle = styled.div`
 						</div>
 						<div className="footer">
 							<div className="continue-button">
-								<img src="/images/back.png" />
+								
 								<Button size="large" htmlType="submit" type="primary">
 									Save & Continue
 								</Button>
@@ -185,9 +189,7 @@ const BusinessDebtStyle = styled.div`
 								/> */}
 							</div>
 
-							<div className="skip-link">
-								<a href="/businessfinance_pls">Skip</a>
-							</div>
+							
 						</div>
 					</form>
 				</section>
