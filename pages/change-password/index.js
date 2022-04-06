@@ -1,8 +1,10 @@
 import { Button, Form, Input, notification } from 'antd';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {API} from '../../utils/api'
+import { AuthContext } from '../../utils/AuthContext';
+import PrivateRoute from '../withPrivateRoute';
 const MainContainer=styled.div`
 
 max-width:1440px;
@@ -18,8 +20,8 @@ margin:0 auto;
 }
 `;
 
-const ForgotPassword = () => {
-  
+const ChangePassword = () => {
+  const [userName,setUserName]=useState('')
     const [isUpdating,setIsUpdating]=useState(false);
     const router = useRouter();
 
@@ -36,7 +38,10 @@ const ForgotPassword = () => {
         }
         setIsUpdating(false);
     }
-
+    useEffect(()=>{
+        setUserName(sessionStorage.getItem("username"))
+    },[])
+    
   return (
     <MainContainer>
         
@@ -45,11 +50,11 @@ const ForgotPassword = () => {
         <br/>
         <br/>
         <br/>
-            <Form.Item rules={[{ required: true,message:"Required" }]} name="username" label="Username">
+            <Form.Item initialValue={sessionStorage.getItem("username")} rules={[{ required: true,message:"Required" }]} name="username" label="Username">
                 <Input placeholder="Enter username" size="large"/>
             </Form.Item>
             <Form.Item rules={[{ required: true,message:"Required" }]} name="oldPassword" label="Enter old password">
-                <Input.Password placeholder="Enter code" size="large"/>
+                <Input.Password placeholder="Enter old password" size="large"/>
             </Form.Item>
             <Form.Item rules={[{ required: true,message:"Required" }]} name="newPassword" label="Enter new password">
                 <Input.Password placeholder="Enter new password" size="large"/>
@@ -70,8 +75,8 @@ const ForgotPassword = () => {
               return Promise.reject(new Error('The two passwords that you entered do not match!'));
             },
           }),
-        ]} name="newConfirmPassword" label="Enter new confrim password">
-                <Input.Password placeholder="Enter new confirm password" size="large"/>
+        ]} name="newConfirmPassword" label="Confirm New Password">
+                <Input.Password placeholder="Confirm New Password" size="large"/>
             </Form.Item>
             <Form.Item>
                 <Button loading={isUpdating} size="large" htmlType="submit" type="primary">Submit</Button>
@@ -84,4 +89,4 @@ const ForgotPassword = () => {
   )
 }
 
-export default ForgotPassword
+export default PrivateRoute (ChangePassword)

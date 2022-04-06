@@ -160,6 +160,7 @@ export default function Login() {
 			"password": values.password,
 		}
 		try {
+			sessionStorage.setItem("username",values.username)
 			await API.post('/auth/request-for-code', data)
 			notification.success({ message: 'Success', description: `Verification Code sent to ${data.userName}` })
 			router.push({ pathname: "/verify", query: { email: values.username } })
