@@ -124,6 +124,10 @@ const Hero = styled.div`
 		color:red;
 	}
 `;
+const Forgot=styled.div`
+margin:5px 0px;
+text-align:center ;
+`;
 
 export default function Login() {
 	const { setUsername } = useContext(AuthContext)
@@ -229,6 +233,7 @@ export default function Login() {
 							Login
 						</Button>
 					</div>
+					<Forgot><Link href="/forgot-password"><a>Forgot password ? Click to reset </a></Link></Forgot>
 					<p className="login-description">
 						{" "}
 						Don't have an account?{" "}
