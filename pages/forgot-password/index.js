@@ -58,14 +58,14 @@ const ForgotPassword = () => {
         <br/>
         <br/>
         <br/>
-            <Form.Item rules={[{ required: true,message:"Required" }]} name="username" label="Username">
-                <Input placeholder="Enter username" size="large"/>
+            <Form.Item rules={[{ required: true,message:"Required" }]} name="username" label="Please provide your login email">
+                <Input placeholder="example@gmail.com" size="large"/>
             </Form.Item>
             <Form.Item rules={[{ required: true,message:"Required" }]} name="code" label="Code">
-                <Input placeholder="Enter code" size="large"/>
+                <Input placeholder="12345" size="large"/>
             </Form.Item>
             <Form.Item rules={[{ required: true,message:"Required" }]} name="newPassword" label="Enter new password">
-                <Input placeholder="Enter new password" size="large"/>
+                <Input placeholder="xxxxxx-xxxxxx" size="large"/>
             </Form.Item>
             <Form.Item>
                 <Button loading={isUpdating} size="large" htmlType="submit" type="primary">Submit</Button>
@@ -75,8 +75,8 @@ const ForgotPassword = () => {
         <br/>
         <br/>
         <br/>
-            <Form.Item rules={[{ required: true,message:"Required" }]} name="username" label="Username">
-                <Input placeholder="Enter username" size="large"/>
+            <Form.Item rules={[{ required: true,message:"Required" }]} name="username" label="Please provide your login email">
+                <Input placeholder="example@gmail.com" size="large"/>
             </Form.Item>
            
             <Form.Item>
