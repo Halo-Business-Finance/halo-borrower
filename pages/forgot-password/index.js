@@ -65,7 +65,7 @@ const ForgotPassword = () => {
                 <Input placeholder="12345" size="large"/>
             </Form.Item>
             <Form.Item rules={[{ required: true,message:"Required" }]} name="newPassword" label="Enter new password">
-                <Input placeholder="xxxxxx-xxxxxx" size="large"/>
+                <Input.Password placeholder="xxxxxx-xxxxxx" size="large"/>
             </Form.Item>
             <Form.Item>
                 <Button loading={isUpdating} size="large" htmlType="submit" type="primary">Submit</Button>
