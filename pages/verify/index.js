@@ -138,8 +138,8 @@ export default function VerifyCodeForm() {
 			notification.success({ message: 'Success', description: 'Login Successfully' })
 			 sessionStorage.setItem('token', response?.Payload?.access_token)
 			setAuthenticated(true)
-			router.push({ pathname: "/test" })
-			(response, 're')
+			router.push({ pathname: "/" })
+			
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })

@@ -442,7 +442,7 @@ const Form = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			{!authenticated ? <SpinWrapper><Spin size="large" /></SpinWrapper> : <Hero>
-				{router.query.id && <Popconfirm onConfirm={() => window.location.assign('/test')} title="Once you back you need to start from the beginning. Are you sure you want to go back?">
+				{router.query.id && <Popconfirm onConfirm={() => window.location.assign('/')} title="Once you back you need to start from the beginning. Are you sure you want to go back?">
 					<Button type="link" >
 						<ArrowLeftOutlined /> Back to home
 					</Button>

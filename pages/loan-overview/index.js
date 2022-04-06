@@ -320,7 +320,7 @@ border:1px solid yellow;
           <div className="top-heading">
             <div className="progress-title">Loan Application Overview</div>
             <div className="progress-button">
-              <a href="/test" className="progress-button" id="progress-button">
+              <a href="/" className="progress-button" id="progress-button">
                 <span>View your loans</span>
               </a>
             </div>

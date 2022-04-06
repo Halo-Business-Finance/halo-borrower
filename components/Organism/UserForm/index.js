@@ -27,7 +27,7 @@ export const UserForm = () => {
   const formSubmitHandler=(data)=>{
     const jsonInfo=JSON.stringify(data);
     sessionStorage.setItem("user",jsonInfo)
-    router.push({pathname:"/test",query:{id:router.query.id}})
+    router.push({pathname:"/",query:{id:router.query.id}})
   }
   return (
     <div>

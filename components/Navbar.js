@@ -95,7 +95,7 @@ const Navbar = (data) => {
 		return (
 			<>
 				<Nav>
-					<div onClick={() => router.push("/test")} className="logo">
+					<div onClick={() => router.push("/")} className="logo">
 						<StyledLink>
 							<img src={"/logo.svg"} alt="logo" />
 						</StyledLink>
@@ -105,7 +105,7 @@ const Navbar = (data) => {
 							<Button size="large" type="primary" onClick={() => router.push("/login")}>Login</Button> :
 							<Space size="large">
 								<Button size="large" type="primary" onClick={() => {
-									router.push("/test")
+									router.push("/")
 
 								}}>Home</Button>
 								<Dropdown overlay={
