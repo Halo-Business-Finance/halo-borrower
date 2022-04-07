@@ -155,18 +155,22 @@ export default function CRE() {
 		// 	return;
 
 		// }
-		if (formstep == 1 && formValues.goal == "") {
+		if (formstep == 1 && formValues.business == "") {
+			setErrors({ ...error, business: "Error" });
+			return;
+		}
+		if (formstep == 2 && formValues.goal == "") {
 			setErrors({ ...error, goal: "Error" });
 			return;
 		}
-		else if (formstep == 2 && formValues.goal == "RateAndTerm" && formValues?.dollar == "") {
+		else if (formstep == 3 && formValues.goal == "RateAndTerm" && formValues?.dollar == "") {
 
 			setErrors({ ...error, dollar: "Error" });
 			return;
-		} else if (formstep == 2 && formValues.goal == "CashOut" && formValues?.cash == "") {
+		} else if (formstep == 3 && formValues.goal == "CashOut" && formValues?.cash == "") {
 			setErrors({ ...error, cash: "Error" });
 			return;
-		} else if (formstep == 3 && formValues.goal == "CashOut" && formValues?.dollar=="") {
+		} else if (formstep == 4 && formValues.goal == "CashOut" && formValues?.dollar=="") {
 			setErrors({ ...error, dollar: "Error" });
 			return;
 		}
@@ -217,8 +221,8 @@ export default function CRE() {
 			setErrors({ ...error, commercial: "Error" });
 			return;
 		}
-		if (formValues.goal !== "CashOut" && formValues.dollar !== "" && formstep == 2) {
-			setFormstep(4);
+		if (formValues.goal !== "CashOut" && formValues.dollar !== "" && formstep == 3) {
+			setFormstep(5);
 			return;
 		}
 		if (formValues.property !== 'Owner' && formstep == 7) {
@@ -234,8 +238,8 @@ export default function CRE() {
 	const previousStep = () => {
 	
 
-		if (formValues.goal !== "CashOut" && formValues.dollar !== "" && formstep == 4) {
-			setFormstep(2);
+		if (formValues.goal !== "CashOut" && formValues.dollar !== "" && formstep == 5) {
+			setFormstep(3);
 			return;
 		}
 		if (formValues.property !== 'Owner' && formstep == 9) {
@@ -293,6 +297,8 @@ export default function CRE() {
 		setIsLoading(false)
 	}
 
+console.log("erropr",error)
+
 	return (
 		<div>
 			<Progress
@@ -345,94 +351,8 @@ export default function CRE() {
 
 
 				<>
-
-					{formstep == 1 && <section>
-						<div className="goal">
-							<div className="cast">What is your goal?</div>
-							<div className="term">
-								<input checked={formValues.goal == "CashOut" ? true : false} onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="CashOut" />
-								<label className="radio">Cast Out Refinance</label>
-							</div>
-							<div className="term">
-								<input checked={formValues.goal == "RateAndTerm" ? true : false} onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="RateAndTerm" />
-								<label className="radio">Rate and Term only</label>
-							</div>
-						</div>
-						<ErrorMessage>{error.goal && "Please select to continue"}</ErrorMessage>
-					</section>}
-
-					{(formstep == 2 && formValues.goal == "RateAndTerm") && <section>
-						<div className="goal">
-							<div className="cast">Loan Amount Requested </div>
-							<div className="term">
-								<CurrencyFormat
-									prefix={'$'}
-									thousandSeparator={true}
-									value={formValues.dollar}
-									onValueChange={(e) => {
-										setFormValues({ ...formValues, dollar: e.formattedValue });
-										if (e.value) {
-											setErrors({ ...error, dollar: "" })
-										}
-
-
-									}}
-									className="outline"
-									type="text"
-									placeholder="Only Number"
-								/>
-							</div>
-						</div>
-						<ErrorMessage>{error.dollar && "Please enter to continue"}</ErrorMessage>
-					</section>}
-					{(formValues.goal == "CashOut" && formstep == 2) && <section>
-						<div className="goal">
-							<div className="cast">If Cash Out, How much?</div>
-							<div className="term">
-								<CurrencyFormat
-									prefix={'$'}
-									thousandSeparator={true}
-									value={formValues.cash}
-									onValueChange={(e) => {
-										setFormValues({ ...formValues, cash: e.formattedValue })
-										if (e.value) {
-											setErrors({ ...error, cash: "" })
-										}
-									}}
-									className="outline"
-									type="text"
-									placeholder="Your answer"
-								/>
-							</div>
-						</div>
-						<ErrorMessage>{error.cash && "Please Enter"}</ErrorMessage>
-					</section>}
-					{(formstep == 3 && formValues.goal == "CashOut") && <section>
-						<div className="goal">
-							<div className="cast">Loan Amount Requested </div>
-							<div className="term">
-								<CurrencyFormat
-									prefix={'$'}
-									thousandSeparator={true}
-									value={formValues.dollar}
-									onValueChange={(e) => {
-										setFormValues({ ...formValues, dollar: e.formattedValue });
-										if (e.value) {
-											setErrors({ ...error, dollar: "" })
-										}
-									}}
-									className="outline"
-									type="text"
-									placeholder="Only Number"
-								/>
-							</div>
-						</div>
-						<ErrorMessage>{error.dollar && "Please enter"}</ErrorMessage>
-					</section>}
-
-
-
-					{formstep == 4 && <section>
+				{formstep}
+				{formstep == 1 && <section>
 						<div className="goal">
 							<div>
 								<div className="cast">
@@ -462,6 +382,94 @@ export default function CRE() {
 						</div>
 						<ErrorMessage>{error.business && "Please select to continue"}</ErrorMessage>
 					</section>}
+
+					{formstep == 2 && <section>
+						<div className="goal">
+							<div className="cast">What is your goal?</div>
+							<div className="term">
+								<input checked={formValues.goal == "CashOut" ? true : false} onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="CashOut" />
+								<label className="radio">Cast Out Refinance</label>
+							</div>
+							<div className="term">
+								<input checked={formValues.goal == "RateAndTerm" ? true : false} onChange={(e) => onFormChange(e, 'goal')} type="radio" name="goal" value="RateAndTerm" />
+								<label className="radio">Rate and Term only</label>
+							</div>
+						</div>
+						<ErrorMessage>{error.goal && "Please select to continue"}</ErrorMessage>
+					</section>}
+
+					{(formstep == 3 && formValues.goal == "RateAndTerm") && <section>
+						<div className="goal">
+							<div className="cast">Loan Amount Requested </div>
+							<div className="term">
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
+									value={formValues.dollar}
+									onValueChange={(e) => {
+										setFormValues({ ...formValues, dollar: e.formattedValue });
+										if (e.value) {
+											setErrors({ ...error, dollar: "" })
+										}
+
+
+									}}
+									className="outline"
+									type="text"
+									placeholder="Only Number"
+								/>
+							</div>
+						</div>
+						<ErrorMessage>{error.dollar && "Please enter to continue"}</ErrorMessage>
+					</section>}
+					{(formValues.goal == "CashOut" && formstep == 3) && <section>
+						<div className="goal">
+							<div className="cast">If Cash Out, How much?</div>
+							<div className="term">
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
+									value={formValues.cash}
+									onValueChange={(e) => {
+										setFormValues({ ...formValues, cash: e.formattedValue })
+										if (e.value) {
+											setErrors({ ...error, cash: "" })
+										}
+									}}
+									className="outline"
+									type="text"
+									placeholder="Your answer"
+								/>
+							</div>
+						</div>
+						<ErrorMessage>{error.cash && "Please Enter"}</ErrorMessage>
+					</section>}
+					{(formstep == 4 && formValues.goal == "CashOut") && <section>
+						<div className="goal">
+							<div className="cast">Loan Amount Requested </div>
+							<div className="term">
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
+									value={formValues.dollar}
+									onValueChange={(e) => {
+										setFormValues({ ...formValues, dollar: e.formattedValue });
+										if (e.value) {
+											setErrors({ ...error, dollar: "" })
+										}
+									}}
+									className="outline"
+									type="text"
+									placeholder="Only Number"
+								/>
+							</div>
+						</div>
+						<ErrorMessage>{error.dollar && "Please enter"}</ErrorMessage>
+					</section>}
+
+
+
+					
 					{formstep == 5 && <section>
 						<div className="goal">
 							<div className="cast">Property Address</div>
