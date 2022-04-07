@@ -297,7 +297,7 @@ export default function CRE() {
 		setIsLoading(false)
 	}
 
-console.log("erropr",error)
+
 
 	return (
 		<div>
@@ -351,7 +351,7 @@ console.log("erropr",error)
 
 
 				<>
-				{formstep}
+				
 				{formstep == 1 && <section>
 						<div className="goal">
 							<div>
