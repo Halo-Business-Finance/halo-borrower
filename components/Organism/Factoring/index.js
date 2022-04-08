@@ -126,7 +126,7 @@ export const Factoring = () => {
         AreaOfBusiness: '',
         useOfProceeds: '',
         specifiedOtherUse: "",
-        LoanTermRequested: "",
+        // LoanTermRequested: "",
         creditScore: "",
         franchiseCompany: "",
         LoanAmountRequested: "",
@@ -143,7 +143,7 @@ export const Factoring = () => {
         AreaOfBusiness: '',
         useOfProceeds: '',
         specifiedOtherUse: "",
-        LoanTermRequested: "",
+        // LoanTermRequested: "",
         creditScore: "",
         franchiseCompany: "",
         LoanAmountRequested: "",
@@ -153,6 +153,7 @@ export const Factoring = () => {
 
 
     });
+    console.log(errors,'er')
     const onFormChange = (e, name) => {
         setFormValues({
             ...formValues,
@@ -177,15 +178,19 @@ export const Factoring = () => {
             setErrors({ ...errors, payableTerms: "Error" });
             return;
         }
-        if (formstep == 4 && formValues.AreaOfBusiness == "") {
-            setErrors({ ...errors, AreaOfBusiness: "Error" });
+        if (formstep == 4 && formValues.LoanAmountRequested == "") {
+            setErrors({ ...errors, LoanAmountRequested: "Error" });
             return;
         }
-        if (formstep == 5 && formValues.useOfProceeds == "") {
+        if (formstep == 5 && formValues.creditScore == "") {
+            setErrors({ ...errors, creditScore: "Error" });
+            return;
+        }
+        if (formstep == 6 && formValues.useOfProceeds == "") {
             setErrors({ ...errors, useOfProceeds: "Error" });
             return;
         }
-        if (formstep == 6 && formValues.useOfProceeds == "OtherUse" && formValues.specifiedOtherUse == "") {
+         if (formstep == 7 && formValues.useOfProceeds == "OtherUse" && formValues.specifiedOtherUse == "") {
             setErrors({ ...errors, specifiedOtherUse: "Error" });
             return;
         }
@@ -195,51 +200,47 @@ export const Factoring = () => {
                 return;    
             }
         }
-        if (formstep == 7 && formValues.LoanTermRequested == "") {
-            setErrors({ ...errors, specifiedOtherUse: "Error" });
+          if (formstep == 8 && formValues.AreaOfBusiness == "") {
+            setErrors({ ...errors, AreaOfBusiness: "Error" });
             return;
         }
-        if (formstep == 8 && formValues.creditScore == "") {
-            setErrors({ ...errors, creditScore: "Error" });
-            return;
-        }
+        // if (formstep == 7 && formValues.LoanTermRequested == "") {
+        //     setErrors({ ...errors, specifiedOtherUse: "Error" });
+        //     return;
+        // }
         if (formstep == 9 && formValues.franchiseCompany == "") {
             setErrors({ ...errors, franchiseCompany: "Error" });
             return;
         }
-        if (formstep == 10 && formValues.LoanAmountRequested == "") {
-            setErrors({ ...errors, LoanAmountRequested: "Error" });
-            return;
-        }
-        if (formstep == 11 && formValues.ownership == "") {
+        if (formstep == 10 && formValues.ownership == "") {
             setErrors({ ...errors, ownership: "Error" });
             return;
         }
-        if (formstep == 12 && formValues.bankruptcy == "") {
+        if (formstep == 11 && formValues.bankruptcy == "") {
             setErrors({ ...errors, bankruptcy: "Error" });
             return;
         }
-        if (formstep == 13 && formValues.bankruptcy == "Yes" && formValues.bankruptcyYear == "") {
+        if (formstep == 12 && formValues.bankruptcy == "Yes" && formValues.bankruptcyYear == "") {
             setErrors({ ...errors, bankruptcy: "Error" });
             return;
         }
-        if (formValues.useOfProceeds !== "OtherUse" && formstep == 5) {
-            setFormstep(7);
+        if (formValues.useOfProceeds !== "OtherUse" && formstep == 6) {
+            setFormstep(8);
             return;
         }
 
         setFormstep(formstep + 1);
     };
     const previousStep = () => {
-        if (formValues.useOfProceeds !== "OtherUse" && formstep == 7) {
-            setFormstep(5);
+        if (formValues.useOfProceeds !== "OtherUse" && formstep == 8) {
+            setFormstep(6);
             return;
         }
 
         setFormstep(formstep - 1);
     }
 
-    const formCount = formValues.bankruptcy == "Yes" ? 13 : 12;
+    const formCount = formValues.bankruptcy == "Yes" ? 12 : 11;
 
     const formHandler = async () => {
         setIsLoading(true)
@@ -350,6 +351,99 @@ export const Factoring = () => {
                 </section>}
                 {formstep == 4 && <section>
                     <div className="goal">
+                        <div className="cast">Loan Amount Requested </div>
+                        <div className="term">
+                        <CurrencyFormat 
+                        prefix={'$'}
+                        thousandSeparator={true}
+                        value={formValues.LoanAmountRequested}
+                         onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.value})}
+										className="outline"
+										type="text"
+										placeholder="Only Number"
+									/>
+                        </div>
+                    </div>
+                    <ErrorMessage>{errors.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
+                     </section>}
+                {formstep == 5 && <section>
+                    <div className="goal">
+                        <div className="cast">
+                        What does your credit score look like?
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e, "creditScore",)} type="radio" name="occupied" value="579" />
+                            <label className="radio">579 or Less</label>
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.creditScore == "580_620" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="580_620" />
+                            <label className="radio">580-620</label>
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.creditScore == "620_680" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="620_680" />
+                            <label className="radio">620-680</label>
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="680_740" />
+                            <label className="radio">680 & Above</label>
+                        </div>
+                    </div>
+                    <ErrorMessage>{errors.creditScore && "Please select to continue"}</ErrorMessage>
+                    </section>}
+                {formstep == 6 && <section>
+                <div className="goal">
+                        <div className="cast">
+                            Use of Proceeds
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.useOfProceeds == "BusinessExpanison" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="BusinessExpanison" />
+                            <label className="radio">Working Capital</label>
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.useOfProceeds == "OtherUse" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="OtherUse" />
+                            <label className="radio">Other Use</label>
+                        </div>
+                    </div>
+                    <ErrorMessage>{errors.useOfProceeds && "Please select to continue"}</ErrorMessage> 
+                    </section>}
+                {(formstep == 7 && formValues.useOfProceeds == "OtherUse") && <section>
+                                        <div className="goal">
+                        <div className="cast">If Other use, Please Specify </div>
+                        <div className="term">
+                            <input 
+                            value={formValues.specifiedOtherUse} onChange={(e) => onFormChange(e, 'specifiedOtherUse')}
+                                className="outline input_text"
+                                type="text"
+                                placeholder="Your answer"
+                            />
+                        </div>
+                    </div>
+                   <ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
+                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
+
+                    {/* <div className="goal">
+                        <div className="cast">
+                            Loan Term Requested
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.LoanTermRequested == "3to24Month" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="3to24Month" />
+                            <label className="radio">3-24 Months</label>
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.LoanTermRequested == "2to5" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="2to5" />
+                            <label className="radio">2-5 Years</label>
+                        </div>
+                        <div className="term">
+                            <input checked={formValues.LoanTermRequested == "7to10" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="7to10" />
+                            <label className="radio">7-10 Years</label>
+                        </div>
+                    </div>
+                    <ErrorMessage>{errors.LoanTermRequested && "Please select to continue"}</ErrorMessage>
+ */}
+
+                </section>}
+                {formstep == 8 && <section>
+                     <div className="goal">
                         <div>
                             <div className="cast">What area of business are you in?</div>
                         </div>
@@ -407,91 +501,7 @@ export const Factoring = () => {
                         </div>
                     </div>
                     <ErrorMessage>{errors.AreaOfBusiness && "Please select to continue"}</ErrorMessage>
-
-
-                </section>}
-                {formstep == 5 && <section>
-                    <div className="goal">
-                        <div className="cast">
-                            Use of Proceeds
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.useOfProceeds == "BusinessExpanison" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="BusinessExpanison" />
-                            <label className="radio">Working Capital</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.useOfProceeds == "OtherUse" ? true : false} onChange={(e) => onFormChange(e, "useOfProceeds")} type="radio" name="occupied" value="OtherUse" />
-                            <label className="radio">Other Use</label>
-                        </div>
-                    </div>
-                    <ErrorMessage>{errors.useOfProceeds && "Please select to continue"}</ErrorMessage>
-
-
-                </section>}
-                {(formstep == 6 && formValues.useOfProceeds == "OtherUse") && <section>
-                    <div className="goal">
-                        <div className="cast">If Other use, Please Specify </div>
-                        <div className="term">
-                            <input 
-                            value={formValues.specifiedOtherUse} onChange={(e) => onFormChange(e, 'specifiedOtherUse')}
-                                className="outline input_text"
-                                type="text"
-                                placeholder="Your answer"
-                            />
-                        </div>
-                    </div>
-                   <ErrorMessage>{errors?.specifiedOtherUse.startsWith("le") && "Please enter with in 20 characters"}</ErrorMessage>
-                    <ErrorMessage>{errors.specifiedOtherUse.startsWith("Error") && "Please enter"}</ErrorMessage>
-
-
-                </section>}
-                {formstep == 7 && <section>
-                    <div className="goal">
-                        <div className="cast">
-                            Loan Term Requested
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanTermRequested == "3to24Month" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="3to24Month" />
-                            <label className="radio">3-24 Months</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanTermRequested == "2to5" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="2to5" />
-                            <label className="radio">2-5 Years</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.LoanTermRequested == "7to10" ? true : false} onChange={(e) => onFormChange(e, "LoanTermRequested")} type="radio" name="occupied" value="7to10" />
-                            <label className="radio">7-10 Years</label>
-                        </div>
-                    </div>
-                    <ErrorMessage>{errors.LoanTermRequested && "Please select to continue"}</ErrorMessage>
-
-
-                </section>}
-                {formstep == 8 && <section>
-                    <div className="goal">
-                        <div className="cast">
-                        What does your credit score look like?
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.creditScore == "579" ? true : false} onChange={(e) => onFormChange(e, "creditScore",)} type="radio" name="occupied" value="579" />
-                            <label className="radio">579 or Less</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.creditScore == "580_620" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="580_620" />
-                            <label className="radio">580-620</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.creditScore == "620_680" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="620_680" />
-                            <label className="radio">620-680</label>
-                        </div>
-                        <div className="term">
-                            <input checked={formValues.creditScore == "680_740" ? true : false} onChange={(e) => onFormChange(e, "creditScore")} type="radio" name="occupied" value="680_740" />
-                            <label className="radio">680 & Above</label>
-                        </div>
-                    </div>
-                    <ErrorMessage>{errors.creditScore && "Please select to continue"}</ErrorMessage>
-
-                </section>}
+                    </section>}
 
                 {formstep == 9 && <section>
                     <div className="goal">
@@ -508,29 +518,10 @@ export const Factoring = () => {
                         </div>
                     </div>
                     <ErrorMessage>{errors.franchiseCompany && "Please select to continue"}</ErrorMessage>
-
-                </section>}
+                     </section>}
 
                 {formstep == 10 && <section>
-                    <div className="goal">
-                        <div className="cast">Loan Amount Requested </div>
-                        <div className="term">
-                        <CurrencyFormat 
-                        prefix={'$'}
-                        thousandSeparator={true}
-                        value={formValues.LoanAmountRequested}
-                         onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.formattedValue})}
-										className="outline"
-										type="text"
-										placeholder="Only Number"
-									/>
-                        </div>
-                    </div>
-                    <ErrorMessage>{errors.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
-
-                </section>}
-                {formstep == 11 && <section>
-                    <div className="goal">
+                                        <div className="goal">
                         <div className="cast">Ownership Structure </div>
                         <div className="term">
                             <input checked={formValues.ownership == "LLC" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="LLC" />
@@ -550,9 +541,8 @@ export const Factoring = () => {
                         </div>
                     </div>
                     <ErrorMessage>{errors.ownership && "Please select to continue"}</ErrorMessage>
-
-                </section>}
-                {(formstep == 12 || (formstep ==13 && formValues.bankruptcy == "No" )) && <section>
+                   </section>}
+                {(formstep == 11 || (formstep ==12 && formValues.bankruptcy == "No" )) && <section>
                     <div className="goal">
                         <div className="cast">Ever File Bankruptcy?</div>
                         <div className="term">
@@ -567,7 +557,7 @@ export const Factoring = () => {
                     <ErrorMessage>{errors.bankruptcy && "Please select to continue"}</ErrorMessage>
 
                 </section>}
-                {((formstep == 13 || formstep == 14) && formValues.bankruptcy == "Yes") && <section>
+                {((formstep == 12 || formstep == 13) && formValues.bankruptcy == "Yes") && <section>
                     <div className="goal">
                         <div className="cast">If Yes, tells us when?</div>
                         <div className="term">
@@ -590,8 +580,8 @@ export const Factoring = () => {
                 } */}
                 	<ButtonWrapper>
 
-{(formstep != 1 && formstep < 14) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
-{(formstep == 14 || (formstep ==13 && formValues.bankruptcy == "No" ))? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 14 && <Button  size="large" type="primary" onClick={completeFormStep}>
+{(formstep != 1 && formstep < 13) && <StyledButton size="large" onClick={previousStep} type="dashed">Previous Step</StyledButton>}
+{(formstep == 13 || (formstep ==12 && formValues.bankruptcy == "No" ))? <Button loading={isLoading} onClick={formHandler} type="primary">Submit</Button> : (formstep < 13 && <Button  size="large" type="primary" onClick={completeFormStep}>
     Next Step
 </Button>)}
 </ButtonWrapper>
