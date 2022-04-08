@@ -317,7 +317,7 @@ export default function PROPERTYCRE() {
 									thousandSeparator={true}
 									value={formValues.amount}
 									onValueChange={(e) => {
-										setFormValues({ ...formValues, amount: e.formattedValue });
+										setFormValues({ ...formValues, amount: e.value });
 										if (e.value >= 0) {
 											setErrors({ ...error, amount: "" })
 										}
