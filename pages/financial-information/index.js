@@ -747,7 +747,7 @@ value={consumer?.annualRevenue||""}
                     autoComplete="fname"
                     placeholder="Enter Monthly Rent/Mortgage"
                     {...register("mortage")}
-                    onValueChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.formattedValue } })}
+                    onValueChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.value } })}
 
                   />
                 </div>
@@ -773,7 +773,7 @@ value={consumer?.annualRevenue||""}
                         onValueChange={(e) => getConsumer({
                           ...consumer, rentInformation: {
                             ...consumer?.rentInformation,
-                            monthlyRent: e.formattedValue
+                            monthlyRent: e.value
                           }
                         })}
 

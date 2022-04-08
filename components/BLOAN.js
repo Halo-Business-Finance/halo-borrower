@@ -447,7 +447,7 @@ export default function BLOAN() {
 							prefix={'$'}
 							thousandSeparator={true}
 							value={bridgeLoanData.cashOut} 
-							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,cashOut:e.formattedValue})}
+							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,cashOut:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -494,7 +494,7 @@ export default function BLOAN() {
 							prefix={'$'}
 							thousandSeparator={true}
 							 value={bridgeLoanData.constructionAmount}
-							  onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,constructionAmount:e.formattedValue})}
+							  onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,constructionAmount:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -545,7 +545,7 @@ export default function BLOAN() {
 								prefix={'$'}
 								thousandSeparator={true}
 								 value={bridgeLoanData.rateTermAmount} 
-								 onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,rateTermAmount:e.formattedValue})}
+								 onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,rateTermAmount:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -813,7 +813,7 @@ export default function BLOAN() {
 							prefix={'$'}
 							thousandSeparator={true}
 							value={bridgeLoanData.dollar} 
-							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,dollar:e.formattedValue})}
+							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,dollar:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -947,7 +947,7 @@ export default function BLOAN() {
 								prefix={'$'}
 								thousandSeparator={true}
 									value={bridgeLoanData.currentProperty}
-									onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,currentProperty:e.formattedValue})}
+									onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,currentProperty:e.value})}
 									className="outline"
 									type="text"
 									name="value"
@@ -966,7 +966,7 @@ export default function BLOAN() {
 									prefix={'$'}
 									thousandSeparator={true}
 									value={bridgeLoanData.stabilized}
-									onValueChange={(e) =>  setBridgeLoanData({...bridgeLoanData,stabilized:e.formattedValue}) }
+									onValueChange={(e) =>  setBridgeLoanData({...bridgeLoanData,stabilized:e.value}) }
 									className="outline"
 									type="text"
 									name="stabilized"

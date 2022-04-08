@@ -407,7 +407,7 @@ export default function CRE() {
 									thousandSeparator={true}
 									value={formValues.dollar}
 									onValueChange={(e) => {
-										setFormValues({ ...formValues, dollar: e.formattedValue });
+										setFormValues({ ...formValues, dollar: e.value });
 										if (e.value) {
 											setErrors({ ...error, dollar: "" })
 										}
@@ -431,7 +431,7 @@ export default function CRE() {
 									thousandSeparator={true}
 									value={formValues.cash}
 									onValueChange={(e) => {
-										setFormValues({ ...formValues, cash: e.formattedValue })
+										setFormValues({ ...formValues, cash: e.value })
 										if (e.value) {
 											setErrors({ ...error, cash: "" })
 										}
@@ -453,7 +453,7 @@ export default function CRE() {
 									thousandSeparator={true}
 									value={formValues.dollar}
 									onValueChange={(e) => {
-										setFormValues({ ...formValues, dollar: e.formattedValue });
+										setFormValues({ ...formValues, dollar: e.value });
 										if (e.value) {
 											setErrors({ ...error, dollar: "" })
 										}
