@@ -510,7 +510,7 @@ export const Franchaise = () => {
                             prefix={'$'}
                             thousandSeparator={true}
                             value={formValues.LoanAmountRequested} 
-                            onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.formattedValue}) }
+                            onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.value}) }
                                 className="outline"
                                 type="text"
                                 placeholder="Only Number"

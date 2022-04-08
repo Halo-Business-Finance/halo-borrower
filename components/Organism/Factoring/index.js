@@ -521,7 +521,25 @@ export const Factoring = () => {
                      </section>}
 
                 {formstep == 10 && <section>
-                                        <div className="goal">
+                    <div className="goal">
+                        <div className="cast">Loan Amount Requested </div>
+                        <div className="term">
+                        <CurrencyFormat 
+                        prefix={'$'}
+                        thousandSeparator={true}
+                        value={formValues.LoanAmountRequested}
+                         onValueChange={(e) => setFormValues({...formValues,LoanAmountRequested:e.value})}
+										className="outline"
+										type="text"
+										placeholder="Only Number"
+									/>
+                        </div>
+                    </div>
+                    <ErrorMessage>{errors.LoanAmountRequested && "Please select to continue"}</ErrorMessage>
+
+                </section>}
+                {formstep == 11 && <section>
+                    <div className="goal">
                         <div className="cast">Ownership Structure </div>
                         <div className="term">
                             <input checked={formValues.ownership == "LLC" ? true : false} onChange={(e) => onFormChange(e, 'ownership')} type="radio" name="amount" value="LLC" />
