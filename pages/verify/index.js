@@ -188,7 +188,7 @@ setLoading(false);
 							<center>
 								<img src="/images/sms.png" />
 								<p className="verify">
-									{`A verification code has been sand to your email and phone.\n This code will be valid for 15 minutes.`}
+									{`A verification code has been send to your email and phone.\n This code will be valid for 15 minutes.`}
 								</p>
 							</center>
 						</div>
