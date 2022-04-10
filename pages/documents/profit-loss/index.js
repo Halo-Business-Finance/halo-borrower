@@ -1,11 +1,6 @@
-import Head from "next/head";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import { Button, Form, message, Spin, Upload } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
-import { useEffect, useState } from "react";
-import { API } from "../../../utils/api";
+import { Button, Form, message, Spin, Upload } from 'antd';
+import Head from "next/head";
 import { useRouter } from "next/router";
 import PrivateRoute from "../../withPrivateRoute";
 
@@ -209,7 +204,7 @@ align-items: center;
   const [fetching, setFetching] = useState(false);
   const GetPLDocuments = async () => {
     setFetching(true)
-    const baseUrl = "https://dev.amazingrm.com/"
+    const baseUrl = "https://dev-api.halobusinessfinance.com/"
     try {
       const res = await API.get(`api/business-finance/get-document/${id}?typeOfDocument=2`)
       const data = await res?.payload
