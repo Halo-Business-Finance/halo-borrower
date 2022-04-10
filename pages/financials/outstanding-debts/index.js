@@ -1,13 +1,14 @@
-import { Button, Form, Input, message, Select } from "antd";
-import moment from 'moment';
 import Head from "next/head";
+import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import CurrencyFormat from 'react-currency-format';
+import NavMenu from "../../../components/NavMenu";
+import { Button, DatePicker, Form, Input, message, Select, Upload } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
+import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import CurrencyFormat from 'react-currency-format';
-import { useForm } from "react-hook-form";
-import styled from "styled-components";
-import NavMenu from "../../../components/NavMenu";
-import { API } from "../../../utils/api";
+import moment from 'moment';
 import PrivateRoute from "../../withPrivateRoute";
 
 
