@@ -1,14 +1,11 @@
+import { Button, Form, Input, message, Select } from "antd";
 import Head from "next/head";
-import styled from "styled-components";
-import { useForm } from "react-hook-form";
-import axios from "axios";
-import NavMenu from "../../../components/NavMenu";
-import { Button, DatePicker, Form, Input, message, Select, Upload } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
-import { API } from "../../../utils/api";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import moment from 'moment';
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
+import NavMenu from "../../../components/NavMenu";
+import { API } from "../../../utils/api";
 
 
 const { Option } = Select;
@@ -122,15 +119,19 @@ export default function Business() {
 
 		
 		try {
-		
-			await API.post(`api/business-finance/add-update-business-debt`,{...values,loanRequestId:id})
-		  } catch (error) {
-			message.error();
-		  }
-		};
-		const GetBusinessDebts = async () => {
-			const baseUrl = "https://dev.amazingrm.com/"
-			if (id) {
+
+			await API.post(`api/business-finance/add-update-business-debt`, { ...refactoredValues, loanRequestId: id })
+
+			router.push({ pathname: "/documents/profit-loss", query: { id: id } })
+		} catch (error) {
+			message.error(error?.payload?.reason || "Error Occured");
+			setSaving(false)
+		}
+		setSaving(false)
+	};
+	const GetBusinessDebts = async () => {
+		const baseUrl = "https://dev-api.halobusinessfinance.com/"
+		if (id) {
 			try {
 			  const res = await API.get(`api/business-finance/get-business-debt/${id}`)
 			  console.log(res,'bd')
