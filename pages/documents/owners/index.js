@@ -1,11 +1,13 @@
-import { UploadOutlined } from '@ant-design/icons';
-import { Button, notification, Spin, Upload } from 'antd';
-import axios from "axios";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 import NavMenu from "../../../components/NavMenu";
+import { Button, Form, notification, Spin, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { useEffect, useState } from "react";
+import { API } from "../../../utils/api";
+import { useRouter } from "next/router";
 import PrivateRoute from "../../withPrivateRoute";
 
 const { Dragger } = Upload;
@@ -190,7 +192,7 @@ align-items: center;
     businessInfo: null
 
   })
-  const baseUrl = "https://dev-api.halobusinessfinance.com/"
+  const baseUrl = "https://dev.amazingrm.com/"
   const [owners, setOwners] = useState([]);
 
   const [article, setArticle] = useState([]);
