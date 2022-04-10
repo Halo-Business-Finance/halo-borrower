@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styled from "styled-components";
-
 import { useEffect, useState } from "react";
 import NavMenu from "../../components/NavMenu";
 import { useRouter } from "next/router";
@@ -8,7 +7,8 @@ import { useForm } from "react-hook-form";
 import { API } from '../../utils/api';
 import moment from "moment";
 import { LoanCode } from '../../utils/code'
-import { Progress } from "antd";
+import { Button, Progress,Tag } from "antd";
+import PrivateRoute from "../withPrivateRoute";
 
 const Hero = styled.div`
   padding: 40px 10% 40px 10%;
@@ -51,9 +51,14 @@ const Hero = styled.div`
     text-align: left;
     text-decoration: none;
     border-radius: 5px;
-    color: #333333;
+    
     margin-left: 5%;
-    background-color: #f3ba17;
+    
+    & button{
+      color: #333333;
+background-color: #f3ba17;
+border:1px solid yellow;
+    }
   }
 
   .button-time {
@@ -65,7 +70,12 @@ const Hero = styled.div`
     cursor: pointer;
     border-radius: 5px;
     display: inline-block;
-    border: 1px solid #ededed;
+    & span{
+      font-weight: 700;
+      font-size: 18px;
+      line-height:30px ;
+    }
+    
   }
 
   #button-time-icon {
@@ -94,7 +104,7 @@ const Hero = styled.div`
   #progress-button span {
     font-style: Bold;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 18px;
     padding-left: 20%;
     vertical-align: Center;
 
@@ -267,7 +277,7 @@ const Hero = styled.div`
   }
 `;
 
-export default function informationindex() {
+ function LoanOverview() {
 
   const router = useRouter();
   const { id } = router.query;
@@ -278,11 +288,6 @@ export default function informationindex() {
     formState: { errors },
   } = useForm();
   const [details, setDetails] = useState();
-  const [owners, setOwners] = useState([]);
-
-
-
-
 
   useEffect(() => {
     fetchLoanOverview();
@@ -291,40 +296,17 @@ export default function informationindex() {
   const fetchLoanOverview = async () => {
     try {
       const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
-
       setDetails(await response.payload);
-      (data);
+      setFormState(await response.payload?.formProgress)
     } catch (error) {
 
     }
   }
-  (id, "d")
+  const [formState, setFormState] = useState(null)
+  
 
 
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "GET",
-  //     url: url,
-  //     headers: headers,
-  //   }).then(
-  //     (response) => {
-  //       (response.data.payload);
-  //       setOwners(response.data.payload);
-  //     },
-  //     (error) => {
-  //       (error);
-  //     }
-  //   );
-  // }, []);
-
-  // const onSubmitForm = async (values) => {
-  //   // (values);
-  //   cookie.set("ownerId", values.ownerid, {
-  //     expires: 1 / 24,
-  //   });
-  //   router.push("/personalfinance_pi");
-  // };
 
   return (
     <>
@@ -332,13 +314,13 @@ export default function informationindex() {
         <title>Borrower Section</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavMenu id={id} />
+      {/* <NavMenu id={id} /> */}
       <Hero>
         <div className="top-borrower">
           <div className="top-heading">
             <div className="progress-title">Loan Application Overview</div>
             <div className="progress-button">
-              <a href="/test" className="progress-button" id="progress-button">
+              <a href="/" className="progress-button" id="progress-button">
                 <span>View your loans</span>
               </a>
             </div>
@@ -349,12 +331,12 @@ export default function informationindex() {
               from: '#108ee9',
               to: '#87d068',
             }}
-            percent={99.9}
+            percent={formState && Math.ceil(formState/21*100)}
             status="active"
           />
           <div className="top-heading">
             <p>
-              <strong className="strong-color">99%</strong> complete
+              <strong className="strong-color">{formState && Math.ceil(formState/21*100)}%</strong> complete
             </p>
 
             <p className="meter-link">
@@ -365,9 +347,8 @@ export default function informationindex() {
 
           <div className="top-heading">
             <div >
-              <span className="dot"></span>
-              <span className="inprogress">{details?.loanRequestStatus}</span>
-              <p>Your application in review by lender.</p>
+
+              <p>Keep up the good work!  We are only a phone call or chat away to assist you with your application if you have any questions.</p>
             </div>
 
             <div className="sba-header-container">
@@ -418,21 +399,23 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
-                <div onClick={() => router.push({
-                  pathname: "/business-contact",
-                  query: {
-                    id: id
-                  }
-                })} className="button-step">
-                  <a >
-                    <span>Next step</span>
-                  </a>
+                <div className="button-step">
+                  <Button
+                    size="large"
+                    onClick={() => router.push({
+                      pathname: "/business-contact",
+                      query: {
+                        id: id
+                      }
+                    })} type="primary">Next Step</Button>
                 </div>
 
                 <div className="button-time">
-                  <a href="#" id="button-time-icon">
-                    <span>5 minutes</span>
-                  </a>
+                <Tag  color={formState>=4?"#87d068":"#108ee9"}>
+       { formState>=4?"Completed":"5 Minutes"}
+      </Tag>
+                    
+                  
                 </div>
               </div>
             </div>
@@ -454,17 +437,23 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
+
                 <div className="button-step">
-                  <a href={`/business-contact/?id=${id}`}>
-                    <span>Next step</span>
-                  </a>
+                  <Button
+                    size="large"
+                    disabled={formState < 4}
+                    onClick={() => router.push({
+                      pathname: "/financials/tax-returns",
+                      query: {
+                        id: id
+                      }
+                    })} type="primary">Next Step</Button>
                 </div>
 
                 <div className="button-time">
-                  <a href="#" id="button-time-icon">
-                    {" "}
-                    <span>5 minutes</span>
-                  </a>
+                <Tag  color={formState>=9?"#87d068":"#108ee9"}>
+       { formState>=9?"Completed":"5 Minutes"}
+      </Tag>
                 </div>
               </div>
             </div>
@@ -486,16 +475,25 @@ export default function informationindex() {
               </div>
 
               <div className="finance-container-two">
+
                 <div className="button-step">
-                  <a href={`/documents/owners/?id=${id}`}>
-                    <span>Next step</span>
-                  </a>
+                  <Button
+                    disabled={formState < 14}
+                    size="large"
+                    onClick={() => router.push({
+                      pathname: "/documents/owners",
+                      query: {
+                        id: id
+                      }
+                    })} type="primary">Next Step</Button>
                 </div>
 
+
+
                 <div className="button-time">
-                  <a href="" id="button-time-icon">
-                    <span>5 minutes</span>
-                  </a>
+                <Tag  color={formState>=15?"#87d068":"#108ee9"}>
+       { formState>=15?"Completed":"5 Minutes"}
+      </Tag>
                 </div>
               </div>
             </div>
@@ -540,4 +538,5 @@ export default function informationindex() {
     </>
   );
 
-}
+} 
+export default PrivateRoute(LoanOverview)

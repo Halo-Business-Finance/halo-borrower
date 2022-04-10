@@ -46,6 +46,6 @@ export const Success = ({ amount }) => {
         <span className="amount">{" "}{amount}</span>
 
       </p>
-      <Button onClick={() => window.location.assign("/test")} type="primary">Back To Home</Button>
+      <Button onClick={() => window.location.assign("/")} type="primary">Back To Home</Button>
     </MainWrapper>);
 };

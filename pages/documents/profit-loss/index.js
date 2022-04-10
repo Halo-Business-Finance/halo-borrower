@@ -2,10 +2,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import { Button, Form, message, Spin, Upload } from 'antd';
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import styled from "styled-components";
-import { API } from "../../../utils/api";
+import PrivateRoute from "../../withPrivateRoute";
 
 const { Dragger } = Upload;
 
@@ -165,7 +162,7 @@ justify-content: center;
 align-items: center;
 `;
 
-export default function ProfitLoss() {
+ function ProfitLoss() {
   const router = useRouter();
   const { id } = router.query
   const {
@@ -186,11 +183,17 @@ export default function ProfitLoss() {
     try {
       await Promise.all(
         fileList.map((item) => {
-          formData.append("file", item?.originFileObj, item?.name)
+          if(item?.status=="done"){
+            formData.append("file", item?.originFileObj, item?.name)
+          }
+          
         })
       )
       await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+      localStorage.setItem("progress","8");
+      router.push({pathname:"/documents/balance-sheet",query:{id:id}})
     } catch (error) {
+      console.log(error)
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
     }
@@ -221,7 +224,8 @@ export default function ProfitLoss() {
 
   }
   useEffect(() => {
-    if (id) {
+    if (id)
+ {
       GetPLDocuments();
     }
 
@@ -240,6 +244,11 @@ export default function ProfitLoss() {
       <SpinWrapper><Spin size="large" /></SpinWrapper>
     )
   }
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <>
       <Head>
@@ -265,6 +274,7 @@ export default function ProfitLoss() {
           <Form layout="vertical">
             <Form.Item label="Upload Profit and loss statements">
               <Dragger
+              customRequest={dummyRequest}
                 max={5}
                 listType="picture-card"
                 accept=".xls,.pdf,.csv"
@@ -276,7 +286,7 @@ export default function ProfitLoss() {
                     HandleDelete(file.id);
 
                   }
-                  (file, "dke")
+                  
                 }}
                 onChange={({ fileList: newFileList }) => {
                   setFileList(newFileList);
@@ -304,12 +314,10 @@ export default function ProfitLoss() {
           </Form>
           <div className="footer">
             <div className="continue-button">
-              <img src="/images/back.png" />
+              
               <Button size="large" loading={isSaving} onClick={onSubmitForm} type="primary" >Upload to continue</Button>
             </div>
-            <div className="skip-link">
-              <a href="/businessfinance_bs">Skip</a>
-            </div>
+           
           </div>
 
         </section>
@@ -317,3 +325,4 @@ export default function ProfitLoss() {
     </>
   );
 }
+export default PrivateRoute(ProfitLoss);

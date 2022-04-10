@@ -179,14 +179,17 @@ export default function financialInformation() {
 
   const addUpdateHandler = async (data) => {
     try {
-      await API.post("/api/borrower/add-update-business-financials", data)
-      router.push({ pathname: "/owners", query: { id: id } })
+      await API.post("/api/borrower/add-update-business-financials", data);
+      localStorage.setItem("progress","3")
+      sessionStorage.setItem("loan",consumer.loanAmountRequested)
+      router.push({ pathname: "/owners", query: { id: id}})
     } catch (error) {
       notification.error({ message: 'Error Occured', description: error?.data?.reason })
 
     }
   }
   const onSubmitForm = async (values) => {
+    
     if (hasId !== null && status == 1) {
       getConsumer({
         // "annualRevenue": consumer?.annualRevenue,
@@ -506,83 +509,43 @@ export default function financialInformation() {
   };
 
   const GetAllInformations = async () => {
-    try {
+   
       if (id) {
+        const res = await API.get(`/api/borrower/get-prequalify-request/${id}`); 
+        getConsumer({
+          ...data,
+          loanAmountRequested: await res?.payload?.amountToBeBorrowed
+        })
         const response = await API.get(`/api/borrower/get-business-financials/${id}`);
+       
         const data = await response?.payload;
         setHasID(data?.id)
-        (data?.mortgageInformation?.monthlyMortgage, "sajakdbsj")
+        
 
         setStatus(data?.typeOfProperty);
-
-
-        getConsumer({
-          ...data
-
+       
+       
+                getConsumer({
+          ...data,
+          loanAmountRequested: await res?.payload?.amountToBeBorrowed
         })
+        console.log("aslkdnaksdnakjdsnj",res?.payload?.amountToBeBorrowed)
 
       }
 
-    } catch (error) {
-      // notification.error({ message: 'Error Occured', description: error?.data?.reason })
-    }
+    
   }
 
 
   useEffect(() => {
     GetAllInformations();
-    // let url =
-    //   process.env.NEXT_PUBLIC_BASE_URL +
-    //   "/api/borrower/get-business-financials/" +
-    //   cookie.get("loan_request_id");
-    // axios({
-    //   method: "GET",
-    //   url: url,
-    //   headers: headers,
-    // }).then(
-    //   (respo) => {
-    //     if (respo.data.payload == null) {
-    //       cookie.set("id", "", { expires: 5 / 24 });
-    //       let dataempty = {
-    //         annualrevenueRevenuw: "",
-    //         monthlyPayrollExpenses: "",
-    //         monthlyBusinessExpenses: "",
-    //         dailyAverageBankBalance: "",
-    //         outstandingLoanOrAdvance: "",
-    //         ourstandingAdvancesLoanAmount: "",
-    //         useOfFunds: "",
-    //         loanAmountRequested: "",
-    //         typeOfProperty: "",
-    //         mortageInformation: {
-    //           monthlyMoratge: "",
-    //         },
-    //         rentInformation: {
-    //           monthlyRent: "",
-    //           landlordName: "string",
-    //           leaseStartDate: "2021-11-22T06:39:28.564Z",
-    //           leaseEndDate: "2021-11-22T06:39:28.564Z",
-    //         },
-    //       };
-    //       getConsumer(dataempty);
-    //     } else {
-    //       cookie.set("id", respo.data.payload.id, { expires: 5 / 24 });
-    //       // (respo.data.payload);
-    //       getConsumer(respo.data.payload);
-    //     }
-    //   },
-    //   (error) => {
-    //     (error);
-    //   }
-    // );
+    
   }, [id]);
 
-  function handleChange(event) {
-    getConsumer(event.target.value);
-  }
+  console.log(consumer)
 
-  useEffect(() => {
 
-  }, [status, id])
+
 
 
   return (
@@ -607,17 +570,17 @@ export default function financialInformation() {
                 <label htmlFor="fname" className="formlabel ">
                   Business Revenue
                 </label>
-                <input
+                <CurrencyFormat
                 prefix={'$'}
 								thousandSeparator={true}
                   className="textbox"
                   type="text"
                   autoComplete="fname"
                   placeholder="Enter  Business Revenue"
-                  defaultValue={consumer.annualRevenue ||''}
+                 
                   {...register("annualrevenue")}
-                  onChange={(e) => getConsumer({ ...consumer, annualRevenue: e.target.value })}
-
+                  onValueChange={(e) => getConsumer({ ...consumer, annualRevenue: e.value })}
+value={consumer?.annualRevenue||""}
                 />
               </div>
             </div>
@@ -672,7 +635,8 @@ export default function financialInformation() {
 
                   defaultValue={consumer.ourstandingAdvancesLoanAmount||''}
                   {...register("outstandingloanoradvance")}
-                  onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.formattedValue })}
+                  onValueChange={(e) => getConsumer({ ...consumer, ourstandingAdvancesLoanAmount: e.value })}
+                 value={consumer?.ourstandingAdvancesLoanAmount||""}
                 />
               </div>
             </div>
@@ -700,19 +664,20 @@ export default function financialInformation() {
                 <label htmlFor="fdba" className="formlabel">
                   Loan Amount Requested
                 </label>
-                <input
+                <CurrencyFormat
+                disabled
                  prefix={'$'}
                  thousandSeparator={true}
                   className="textbox"
-                  type="text"
-                  autoComplete="fdba"
+                 name="loanAmountRequested"
                   placeholder="Enter Loan Amount Requested"
                   defaultValue={consumer.loanAmountRequested||''}
                   {...register("loanAmountRequested", {
                     // required: "Required",
                   })}
-                  onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.formattedValue })}
+                  onValueChange={(e) => getConsumer({ ...consumer, loanAmountRequested: e.value })}
                   required
+                  value={consumer?.loanAmountRequested||""}
                 />
               </div>
             </div>
@@ -772,7 +737,7 @@ export default function financialInformation() {
                   <label htmlFor="fname" className="formlabel ">
                     Monthly Mortgage
                   </label>
-                  <input
+                  <CurrencyFormat
                    prefix={'$'}
                    thousandSeparator={true}
 
@@ -782,7 +747,7 @@ export default function financialInformation() {
                     autoComplete="fname"
                     placeholder="Enter Monthly Rent/Mortgage"
                     {...register("mortage")}
-                    onChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.target.value } })}
+                    onValueChange={(e) => getConsumer({ ...consumer, mortgageInformation: { monthlyMortgage: e.value } })}
 
                   />
                 </div>
@@ -796,7 +761,7 @@ export default function financialInformation() {
                       <label htmlFor="fname" className="formlabel ">
                         Monthly Rent
                       </label>
-                      <input
+                      <CurrencyFormat
                        prefix={'$'}
                        thousandSeparator={true}
                         value={consumer?.rentInformation?.monthlyRent||''}
@@ -805,10 +770,10 @@ export default function financialInformation() {
                         autoComplete="fname"
                         placeholder="Enter Monthly Rent"
                         {...register("rent")}
-                        onChange={(e) => getConsumer({
+                        onValueChange={(e) => getConsumer({
                           ...consumer, rentInformation: {
                             ...consumer?.rentInformation,
-                            monthlyRent: e.target.value
+                            monthlyRent: e.value
                           }
                         })}
 

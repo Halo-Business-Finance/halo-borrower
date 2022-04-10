@@ -2,10 +2,7 @@ import { InboxOutlined } from '@ant-design/icons';
 import { Button, Form, message, Spin, Upload } from 'antd';
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import styled from "styled-components";
-import { API } from "../../../utils/api";
+import PrivateRoute from "../../withPrivateRoute";
 
 const { Dragger } = Upload;
 
@@ -165,7 +162,7 @@ justify-content: center;
 align-items: center;
 `;
 
-export default function ProfitLoss() {
+ function BalanceSheet() {
   const router = useRouter();
   const { id } = router.query
   const {
@@ -186,11 +183,14 @@ export default function ProfitLoss() {
     try {
       await Promise.all(
         fileList.map((item) => {
-          formData.append("file", item?.originFileObj, item?.name)
+          if(item?.status=="done"){
+            formData.append("file", item?.originFileObj, item?.name)
+          }
         })
       )
       await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData);
-      router.push({pathname:"/documents/profit-loss",query:{id:id}})
+      localStorage.setItem("progress","9");
+      router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       message.error(error?.payload?.reason || "Error Occured");
       setIsSaving(false)
@@ -242,6 +242,11 @@ export default function ProfitLoss() {
       <SpinWrapper><Spin size="large" /></SpinWrapper>
     )
   }
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <>
       <Head>
@@ -255,9 +260,9 @@ export default function ProfitLoss() {
             <div className="header-one">
               <h1>Upload your Balance Sheet</h1>
               <p>
-              We need a summary of your business’s assets and liabilities
-                                since the most recent tax filing. The easiest way to do this is
-                                to run a Balance Sheet report in your account software.
+                We need a summary of your business’s assets and liabilities
+                since the most recent tax filing. The easiest way to do this is
+                to run a Balance Sheet report in your account software.
               </p>
             </div>
           </header>
@@ -265,6 +270,7 @@ export default function ProfitLoss() {
           <Form layout="vertical">
             <Form.Item label="Upload BalanceSheet document">
               <Dragger
+                customRequest={dummyRequest}
                 max={5}
                 listType="picture-card"
                 accept=".xls,.pdf,.csv"
@@ -296,20 +302,18 @@ export default function ProfitLoss() {
                 </p>
                 <p className="ant-upload-text">Click or drag file to this area to upload</p>
                 <p className="ant-upload-hint">
-                Upload BalanceSheet document
+                  Upload BalanceSheet document
                 </p>
               </Dragger>
-              <br/>
+              <br />
             </Form.Item>
           </Form>
           <div className="footer">
             <div className="continue-button">
-              <img src="/images/back.png" />
+              
               <Button size="large" loading={isSaving} onClick={onSubmitForm} type="primary" >Upload to continue</Button>
             </div>
-            <div className="skip-link">
-              <a href="/businessfinance_bs">Skip</a>
-            </div>
+           
           </div>
 
         </section>
@@ -317,3 +321,4 @@ export default function ProfitLoss() {
     </>
   );
 }
+export default PrivateRoute(BalanceSheet);

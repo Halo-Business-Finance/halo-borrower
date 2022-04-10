@@ -138,8 +138,8 @@ export default function VerifyCodeForm() {
 			notification.success({ message: 'Success', description: 'Login Successfully' })
 			 sessionStorage.setItem('token', response?.Payload?.access_token)
 			setAuthenticated(true)
-			router.push({ pathname: "/test" })
-			(response, 're')
+			router.push({ pathname: "/" })
+			
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -188,7 +188,7 @@ setLoading(false);
 							<center>
 								<img src="/images/sms.png" />
 								<p className="verify">
-									{`A verification code has been sand to your email and phone.\n This code will be valid for 15 minutes.`}
+									{`A verification code has been send to your email and phone.\n This code will be valid for 15 minutes.`}
 								</p>
 							</center>
 						</div>

@@ -18,7 +18,7 @@ const PrivateRoute = (AuthComponent) => {
 
     useEffect(() => {
       if (authenticated && (Router.pathname === "/login"||Router.pathname === "/verify")) {
-        Router.push("/test");
+        Router.push("/");
         setIsLoading(false);
         return;
       }

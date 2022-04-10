@@ -1,4 +1,4 @@
-import { Modal, notification } from "antd";
+import { Form, Modal, notification, Radio } from "antd";
 import moment from "moment";
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
@@ -9,6 +9,7 @@ import styled from "styled-components";
 import NavMenu from "../../components/NavMenu";
 import { Success } from '../../components/Organism/Success';
 import { API } from "../../utils/api";
+import PrivateRoute from "../withPrivateRoute";
 
 const Hero = styled.div`
 	display: flex;
@@ -248,7 +249,7 @@ const Hero = styled.div`
   }
 `;
 
-export default function Form() {
+function OwnersForm() {
 	const router = useRouter();
 	const id = router.query.id;
 	const [hasId, setHasID] = useState(null);
@@ -260,19 +261,20 @@ export default function Form() {
 	} = useForm();
 
 	const addHandler = async (data) => {
-		const owners = data.map((item) =>item.fullName )
+		const owners = data.map((item) => item.fullName)
 
 		//(id,'own')
-	
+
 		try {
 			await API.post("api/borrower/add-update-owners", data)
-			Router.push({pathname:"/borrower-authorization",query:{id:id,owners:JSON.stringify(owners)}})
+			localStorage.setItem("progress", "4");
+			Router.push({ pathname: "/borrower-authorization", query: { id: id, owners: JSON.stringify(owners) } })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 		}
 	}
- 
-	const [inputList, setInputList] = useState([]);
+
+	const [inputList, setInputList] = useState([""]);
 
 	// handle input change
 	const handleInputChange = (e, index) => {
@@ -305,7 +307,7 @@ export default function Form() {
 			phoneNumber: null,
 			ownershipPercentage: null,
 			typeOfResident: null,
-			
+
 			loanRequestId: id,
 		}]);
 	};
@@ -314,27 +316,27 @@ export default function Form() {
 	let a = 1;
 	const onSubmitForm = async (values) => {
 
-if (hasId !== null){
-	const refactoredData = inputList.map((values, index) => (
-		{
-			fullName: values.fullName,
-			dateOfBirth: values.dateOfBirth,
-			homeAddress: values.homeAddress,
-			city: values.city,
-			state: values.state,
-			zipCode: values.zipCode,
-			ssn: values.ssn,
-			email: values.email,
-			phoneNumber: values.phoneNumber,
-			ownershipPercentage: values.ownershipPercentage,
-			typeOfResident: values.typeOfResident,
-			loanRequestId: id,
-			id:values?.id
-			
+		if (hasId !== null) {
+			const refactoredData = inputList.map((values, index) => (
+				{
+					fullName: values.fullName,
+					dateOfBirth: values.dateOfBirth,
+					homeAddress: values.homeAddress,
+					city: values.city,
+					state: values.state,
+					zipCode: values.zipCode,
+					ssn: values.ssn,
+					email: values.email,
+					phoneNumber: values.phoneNumber,
+					ownershipPercentage: values.ownershipPercentage,
+					typeOfResident: values.typeOfResident,
+					loanRequestId: id,
+					id: values?.id
+
+				}
+			))
 		}
-	))
-}
-		
+
 		const refactoredDataWithoutID = inputList.map((values, index) => (
 			{
 
@@ -392,9 +394,23 @@ if (hasId !== null){
 		if (id) {
 			try {
 				const response = await API.get(`/api/borrower/get-owners/${id}`);
+				console.log(response, 'rs')
 				const data = await response.payload;
 
-				setInputList(data)
+				setInputList(data || [{
+					"city": null,
+					"dateOfBirth": null,
+					"email": null,
+					"fullName": null,
+					homeAddress: null,
+					loanRequestId: id,
+					ownershipPercentage: null,
+					phoneNumber: null,
+					ssn: null,
+					state: null,
+					typeOfResident: null,
+					zipCode: ""
+				}])
 				setHasID(data[0]?.id)
 
 			} catch (error) {
@@ -406,7 +422,29 @@ if (hasId !== null){
 	useEffect(() => {
 		fetchOwnerInformations();
 	}, [id]);
+	
+	useEffect(() => {
+if(id && hasId==undefined){
+	setInputList([
+		{
+			"city": "",
+			"dateOfBirth": null,
+			"email": null,
+			"fullName": null,
+			homeAddress: null,
+			loanRequestId: id,
+			ownershipPercentage: null,
+			phoneNumber: null,
+			ssn: null,
+			state: null,
+			typeOfResident: null,
+			zipCode: ""
+		}
+	]);
+}
 
+	}, [id,hasId])
+	
 
 	return (
 		<>
@@ -414,7 +452,7 @@ if (hasId !== null){
 				<title>Owner</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<NavMenu id={id?.id}/>
+			<NavMenu id={id?.id} />
 			<Hero>
 				<form className="formstyle" onSubmit={handleSubmit(onSubmitForm)}>
 					<section className="Form-design">
@@ -422,6 +460,7 @@ if (hasId !== null){
 						{inputList.map((x, i) => {
 							return (
 								<div>
+									
 									<br /><br />
 									<div className="form-head">
 										<h2 className="heading">
@@ -439,7 +478,7 @@ if (hasId !== null){
 										</h2>
 
 										<h2 className="heading-step">
-											<p className="active">Step {i + 1}</p> /3
+											<p className="active">Owner {i + 1}</p> 
 										</h2>
 									</div>
 
@@ -568,12 +607,12 @@ if (hasId !== null){
 												Mobile
 											</label>
 											<CurrencyFormat
-										        format="+1 (###) ###-####" mask="_"	
+												format="+1 (###) ###-####" mask="_"
 												name="phoneNumber"
 												className="textbox"
 												type="mobile"
 												placeholder="(XXX)-(XXX)-(XXXX)"
-												value={x.phoneNumber||''}
+												value={x.phoneNumber || ''}
 												onChange={e => handleInputChange(e, i)}
 											/>
 										</div>
@@ -600,47 +639,58 @@ if (hasId !== null){
 										<label htmlFor="ffti" className="formlabel">
 											Are you a:
 										</label>
+										
+										<br/>
+											<Radio.Group defaultValue={x.typeOfResident} name="typeOfResident" onChange={e => handleInputChange(e, i)} value={x.typeOfResident}>
+      <Radio   value={0}>US Citizen</Radio>
+      <Radio   value={1}>US Permanent Resident</Radio>
+      <Radio   value={2}>Other</Radio>
+      
+    </Radio.Group>
+										
 										<div className="radio-three">
-											<div className="radio-container">
+											
+									
+											{/* <div className="radio-container">
 												<input
-													checked={x.typeOfResident == 0}
+													defaultChecked={x.typeOfResident == 0}
 													defaultValue={x.typeOfResident}
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
 													value={0}
 													placeholder="Enter percent of ownership"
-													onChange={e => handleInputChange(e, i)}
+													onClick={e => handleInputChange(e, i)}
 												/>
 												<label>US Citizen</label>
-											</div>
+											</div> */}
 
-											<div className="radio-container">
+											{/* <div className="radio-container">
 												<input
-													checked={x.typeOfResident == 1}
+													defaultChecked={x.typeOfResident == 1}
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
 													value={1}
 													placeholder="Enter percent of ownership"
-													onChange={e => handleInputChange(e, i)}
+													onClick={e => handleInputChange(e, i)}
 
 												/>
 												<label>US Permanent Resident</label>
-											</div>
+											</div> */}
 
-											<div className="radio-container">
+											{/* <div className="radio-container">
 												<input
-													checked={x.typeOfResident == 2}
+													defaultChecked={x.typeOfResident == 2}
 													name="typeOfResident"
 													className="own-click"
 													type="radio"
 													value={2}
 													placeholder="Enter percent of ownership"
-													onChange={e => handleInputChange(e, i)}
+													omChange={e => handleInputChange(e, i)}
 												/>
 												<label>Other</label>
-											</div>
+											</div> */}
 										</div>
 									</div>
 								</div>
@@ -675,9 +725,10 @@ if (hasId !== null){
 				</form>
 			</Hero>
 			<Modal visible={showSucessModal} footer={null}>
-                <Success />
-            </Modal>
+				<Success />
+			</Modal>
 		</>
 	);
 }
 
+export default PrivateRoute(OwnersForm);

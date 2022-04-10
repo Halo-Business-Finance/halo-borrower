@@ -158,7 +158,7 @@ export default function BLOAN() {
 		stabilized: "",
 
 	})
-	(bridgeLoanData,'bd')
+	
 	const completeFormStep = () => {
 
 		if ((bridgeLoanData.cashOut !== '' && Number(bridgeLoanData.cashOut) < 250000) || (bridgeLoanData.constructionAmount !== '' && Number(bridgeLoanData.constructionAmount) < 250000) || (bridgeLoanData.dollar !== '' && Number(bridgeLoanData.dollar) < 250000) || bridgeLoanData.bankruptcyYear == "0" || (bridgeLoanData.plan == "10" || bridgeLoanData.plan == '20' || (bridgeLoanData.rateTermAmount !== '' && Number(bridgeLoanData.rateTermAmount) < 250000 ))) {
@@ -337,11 +337,17 @@ export default function BLOAN() {
 	}
 
 	const onChangeHandler = (name, e) => {
-
+		
 		setBridgeLoanData({
 			...bridgeLoanData,
 			[name]: e.target.value
 		});
+		
+		setBridgeLoanData({
+			...bridgeLoanData,
+			[name]: e.target.value
+		});
+		
 		setErrors({ ...errors, [name]: "" })
 	}
 	const [loading, setLoading] = useState(false);
@@ -441,7 +447,7 @@ export default function BLOAN() {
 							prefix={'$'}
 							thousandSeparator={true}
 							value={bridgeLoanData.cashOut} 
-							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,cashOut:e.formattedValue})}
+							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,cashOut:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -488,7 +494,7 @@ export default function BLOAN() {
 							prefix={'$'}
 							thousandSeparator={true}
 							 value={bridgeLoanData.constructionAmount}
-							  onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,constructionAmount:e.formattedValue})}
+							  onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,constructionAmount:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -539,7 +545,7 @@ export default function BLOAN() {
 								prefix={'$'}
 								thousandSeparator={true}
 								 value={bridgeLoanData.rateTermAmount} 
-								 onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,rateTermAmount:e.formattedValue})}
+								 onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,rateTermAmount:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -695,8 +701,13 @@ export default function BLOAN() {
 								<input
 									className="other"
 									type="text"
-									checked={bridgeLoanData.propertyTypeOther}
-									onChange={(e) => onChangeHandler("propertyTypeOther", e)}
+									disabled={bridgeLoanData?.propertyType!=="Other"}
+								value={bridgeLoanData?.propertyType!=="Other"?"": bridgeLoanData.propertyTypeOther}
+									onChange={(e) => {
+										if(bridgeLoanData.propertyType !="Other"){
+											setBridgeLoanData({...bridgeLoanData,propertyTypeOther:""})
+										}
+										onChangeHandler("propertyTypeOther", e)}}
 								// placeholder="Your answer"
 								/>
 							</div>
@@ -802,7 +813,7 @@ export default function BLOAN() {
 							prefix={'$'}
 							thousandSeparator={true}
 							value={bridgeLoanData.dollar} 
-							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,dollar:e.formattedValue})}
+							onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,dollar:e.value})}
 										className="outline"
 										type="text"
 										placeholder="Only Number"
@@ -936,7 +947,7 @@ export default function BLOAN() {
 								prefix={'$'}
 								thousandSeparator={true}
 									value={bridgeLoanData.currentProperty}
-									onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,currentProperty:e.formattedValue})}
+									onValueChange={(e) => setBridgeLoanData({...bridgeLoanData,currentProperty:e.value})}
 									className="outline"
 									type="text"
 									name="value"
@@ -951,9 +962,11 @@ export default function BLOAN() {
 						<div className="goal">
 							<div className="cast">Once Stabilized</div>
 							<div className="term">
-								<input
+								<CurrencyFormat
+									prefix={'$'}
+									thousandSeparator={true}
 									value={bridgeLoanData.stabilized}
-									onChange={(e) => onChangeHandler("stabilized", e)}
+									onValueChange={(e) =>  setBridgeLoanData({...bridgeLoanData,stabilized:e.value}) }
 									className="outline"
 									type="text"
 									name="stabilized"

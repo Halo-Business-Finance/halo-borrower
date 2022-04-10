@@ -1,13 +1,12 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Spin, Upload } from 'antd';
+import { Button, notification, Spin, Upload } from 'antd';
 import axios from "axios";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import NavMenu from "../../../components/NavMenu";
-import { API } from "../../../utils/api";
+import PrivateRoute from "../../withPrivateRoute";
 
 const { Dragger } = Upload;
 
@@ -18,6 +17,9 @@ const BusinessStyle = styled.div`
   font-family: Mulish;
   background: #e5e5e5;
   padding: 10px;
+  & .ant-btn-primary{
+    margin:10px ;
+  }
 
   .main-style {
     width: 60%;
@@ -145,7 +147,7 @@ justify-content: center;
 align-items: center;
 `;
 
-export default function UploadDocs() {
+ function UploadDocs() {
   const router = useRouter();
   const [fetching, setFetching] = useState(true);
   const { id } = router.query;
@@ -190,11 +192,11 @@ export default function UploadDocs() {
   })
   const baseUrl = "https://dev-api.halobusinessfinance.com/"
   const [owners, setOwners] = useState([]);
-  const [ownersData, setOwnersData] = useState([])
+
   const [article, setArticle] = useState([]);
   const [businessInfo, setBusinessInfo] = useState([]);
   const [voidedCheck, setVoidedCheck] = useState([]);
-  const [saving,isSaving]=useState(false);
+  const [saving, isSaving] = useState(false);
   const GetOwners = async () => {
     setFetching(true)
     try {
@@ -264,7 +266,7 @@ export default function UploadDocs() {
       setVoidedCheck(voidedCheck)
       setBusinessInfo(business)
       setArticle(article)
-      
+
 
       // setOwners(data)
 
@@ -280,12 +282,12 @@ export default function UploadDocs() {
     }
 
   }, [id])
-  
-  const updateFiles = () => {
-    const afterDelete = finalDocs.filter((item) =>(item));
-    
-    setFinalDocs(afterDelete)
 
+  const updateFiles = () => {
+    const afterDelete = finalDocs.filter((item) => (item));
+console.log(afterDelete)
+    setFinalDocs(afterDelete)
+window.location.reload()
   }
   useEffect(() => {
 
@@ -302,17 +304,17 @@ export default function UploadDocs() {
       <SpinWrapper><Spin size="large" /></SpinWrapper>
     )
   }
- 
+
 
 
   const SaveFinalFiles = async () => {
     const bodyData = new FormData();
     isSaving(true)
     try {
-      (voidedCheck,'askjdaskjd');
+
       if (voidedCheck[0]?.status == "done") {
         bodyData.append("VoidedCheck", voidedCheck[0]?.originFileObj);
-        return
+
       }
       if (article[0]?.status == "done") {
         bodyData.append("Articles", article[0]?.originFileObj)
@@ -321,18 +323,20 @@ export default function UploadDocs() {
       if (businessInfo[0]?.status == "done") {
         bodyData.append("BusinessInfo", businessInfo[0]?.originFileObj);
 
-      }      
-        finalDocs?.map((item) => {
-         if(item?.[item?.name]?.status=="done"){
-            const key = `License:${item?.id}`
-            bodyData.append(key, item?.[item?.name]?.originFileObj)
-          
-         }
-        })
-      
+      }
+      finalDocs?.map((item) => {
+        if (item?.[item?.name]?.status == "done") {
+          const key = `License:${item?.id}`
+          bodyData.append(key, item?.[item?.name]?.originFileObj)
+
+        }
+      })
+
 
       await API.post(`api/document/upload-final-document/${id}`, bodyData)
-      router.push({pathname:"/documents/owners",query:{id:id}})
+      notification.success({ message: "Document added successfully" })
+      localStorage.setItem("progress", "10");
+      router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {
       isSaving(false)
     }
@@ -352,9 +356,14 @@ export default function UploadDocs() {
 
   }
 
-  ("fdocs", finalDocs);
+
 
   let fileCode = 0;
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
   return (
     <>
       <Head>
@@ -377,8 +386,10 @@ export default function UploadDocs() {
                   <label> Copy of articles</label>
                 </div>
                 <div className="column-two">
-                  <Upload
+                  <Dragger
+                    customRequest={dummyRequest}
                     onRemove={(file) => {
+                      console.log(file)
                       if (file?.url) {
                         HandleDelete(file?.uid)
                       }
@@ -388,7 +399,7 @@ export default function UploadDocs() {
                     max={1}
 
                     multiple={false}
-                    name="avatar"
+
                     onChange={({ file, fileList }) => {
 
 
@@ -401,9 +412,10 @@ export default function UploadDocs() {
                     }
 
                   >
+                    <p></p>
 
-                    <Button disabled={article?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                  </Upload>
+                    <Button disabled={article?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                  </Dragger>
 
                   {/* <input type="file" id="file" {...register("fileOne")} />
                   <label htmlFor="file">
@@ -416,17 +428,19 @@ export default function UploadDocs() {
                   <label>Copy of voided check</label>
                 </div>
                 <div className="column-two">
-                  <Upload
+                  <Dragger
+                    customRequest={dummyRequest}
                     fileList={voidedCheck}
-                    onRemove={({file}) => {
-                     
+                    onRemove={(file) => {
+                      console.log(file)
                       if (file?.url) {
                         HandleDelete(file?.uid)
                       }
+
                     }}
                     showUploadList
                     max={1}
-                    name="avatar"
+
                     onChange={({ fileList }) => {
 
                       setVoidedCheck(fileList)
@@ -434,33 +448,35 @@ export default function UploadDocs() {
                     }
 
                   >
-                    <Button disabled={voidedCheck?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                  </Upload>
+                    <Button disabled={voidedCheck?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                  </Dragger>
                 </div>
               </section>
               {
                 owners?.map((item, index) => {
-                    
-                    const filterData=finalDocs?.filter((data)=> data?.name==item?.name)
-                   const res= filterData?.find((docs)=>docs?.name==item?.name)
-                    (item)
+
+                  const filterData = finalDocs?.filter((data) => data?.name == item?.name)
+                  const res = filterData?.find((docs) => docs?.name == item?.name)
+
                   return (<section key={index}>
                     <div className="column-one">
                       <label>Copy of driver license for {item?.name}</label>
                     </div>
                     <div className="column-two">
-                      <Upload
+                      <Dragger
+                        customRequest={dummyRequest}
                         max={1}
                         fileList={item?.file?.length > 0 ? item?.file : filterData?.[item?.name]}
                         onRemove={(file) => {
                           if (file?.url) {
                             HandleDelete(file?.id)
                           } else {
-                            
-                        
-                        updateFiles();
-                      }
+
+
+                            updateFiles();
                           
+                          }
+
 
                         }}
                         showUploadList
@@ -474,9 +490,9 @@ export default function UploadDocs() {
                           }
                           fileCode = fileCode + 1;
                           file?.status == "done" && setFinalDocs([...finalDocs, info]);
-                         
-                        
-                         
+
+
+
                           //  setOwnersData([...ownersData, { ...ownersData?.val, val: fileList }])
 
 
@@ -484,8 +500,8 @@ export default function UploadDocs() {
                         }
 
                       >
-                        <Button disabled={res?.[item?.name]?.size>0 || item.file?.length>0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                      </Upload>
+                        <Button disabled={res?.[item?.name]?.size > 0 || item.file?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                      </Dragger>
                     </div>
                   </section>)
                 }
@@ -500,8 +516,10 @@ export default function UploadDocs() {
                   </label>
                 </div>
                 <div className="column-two">
-                  <Upload
+                  <Dragger
+                    customRequest={dummyRequest}
                     onRemove={(file) => {
+                      console.log(file)
                       if (file?.url) {
                         HandleDelete(file?.uid)
                       }
@@ -510,22 +528,22 @@ export default function UploadDocs() {
                     fileList={businessInfo}
                     showUploadList
                     max={1}
-                    name="avatar"
+
                     onChange={({ fileList }) => setBusinessInfo(fileList)
                       //  setDocuments({ ...documents, businessInfo: file?.file?.originFileObj })
                     }
 
                   >
-                    <Button disabled={businessInfo?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click to Upload</Button>
-                  </Upload>
+                    <Button disabled={businessInfo?.length > 0} size="large" type="primary" icon={<UploadOutlined />}>Click or drag file to this area to upload</Button>
+                  </Dragger>
                 </div>
               </section>
             </div>
             <div className="continue-button">
               <Button
-              loading={saving}
+                loading={saving}
                 onClick={SaveFinalFiles}
-
+                size="large"
                 type="primary"
               >Upload to finish the applicaton</Button>
             </div>
@@ -536,3 +554,4 @@ export default function UploadDocs() {
   );
 }
 
+export default PrivateRoute(UploadDocs);

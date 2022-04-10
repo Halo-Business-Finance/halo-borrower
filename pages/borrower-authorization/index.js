@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { notification, Modal, Button } from "antd";
 import { Success } from '../../components/Organism/Success';
+import PrivateRoute from "../withPrivateRoute";
 
 const Hero = styled.div`
 	display: flex;
@@ -69,20 +70,22 @@ const Hero = styled.div`
 	}
 `;
 
-export default function Form() {
-    const [legalName,setLegalName] = useState();
-    const router = useRouter();
-    const [showSucessModal, setshowSucessModal] = useState(false);
-    const owner = router.query.owners;
-    useEffect(()=>{
-        JSON.parse(owner);
-       const legalName = localStorage.getItem('legal_name')
-         setLegalName(legalName)
-     
-    },[owner])
-  
+ function Form() {
+	const [legalName, setLegalName] = useState();
+	const router = useRouter();
+	const [showSucessModal, setshowSucessModal] = useState(false);
+	const owner = router.query.owners;
+	useEffect(() => {
+		
+		const legalName = localStorage.getItem('legal_name')
+		setLegalName(legalName)
 
-  
+	}, [owner])
+
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 	return (
 		<>
 			<NavMenu />
@@ -103,8 +106,8 @@ export default function Form() {
 
 						<div className="form-head">
 							<p className="heading">
-           { `               I certify that all information entered thus far into the
-                            application is accurate and that "${owner&&JSON.parse(owner)?.toString()}" is a principal
+								{`               I certify that all information entered thus far into the
+                            application is accurate and that "${owner && JSON.parse(owner)?.toString()}" is a principal
                             owner of "${legalName}" I am authorized to act on behalf of
                             "${legalName}" and I grant permission for Halo Business Finance
                             to procure ONLY a credit score number and share a PASS or FAIL
@@ -117,17 +120,21 @@ export default function Form() {
 					</section>
 
 					<div className="form-row-button">
-						<Button type="primary" size="large" onClick={()=>setshowSucessModal(true)} >
+						<Button type="primary" size="large" onClick={() => {
+							localStorage.setItem("progress", "5");
+							setshowSucessModal(true)
+						}} >
 							Continue
 						</Button>
 						{/* <input type="submit" id="button" value="Continue" /> */}
 					</div>
 				</form>
-			
+
 			</Hero>
-            <Modal visible={showSucessModal} footer={null}>
-                <Success />
-            </Modal>
+			<Modal visible={showSucessModal} footer={null}>
+				<Success amount={"$"+numberWithCommas(sessionStorage.getItem('loan'))}  />
+			</Modal>
 		</>
 	);
 }
+export default PrivateRoute(Form)

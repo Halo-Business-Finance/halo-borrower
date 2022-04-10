@@ -1,11 +1,5 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Space, Upload } from 'antd';
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import NavMenu from "../../../components/NavMenu";
-import { API } from "../../../utils/api";
+import PrivateRoute from "../../withPrivateRoute";
 
 const BusinessStyle = styled.div`
   display: flex;
@@ -108,7 +102,7 @@ const BusinessStyle = styled.div`
 	} */
 `;
 
-export default function Business() {
+function BusinessTaxReturns() {
   const [form] = Form.useForm()
   const router = useRouter();
   const { id } = router.query;
@@ -154,18 +148,26 @@ export default function Business() {
   };
 
   const onFinish = async (values) => {
-    ('Received values of form:', values);
+    console.log('Received values of form:', values);
 
 
 
-    let formData = new FormData();
+    const formData = new FormData();
+    try {
 
     await Promise.all(
       values?.users?.map((item) => {
         formData.append(item?.Date, item?.File?.file?.originFileObj)
       })
     )
-    await API.post(`api/business-finance/upload-tax-returns/${id}`, formData)
+    await API.post(`api/business-finance/upload-tax-returns/${id}`, formData);
+    localStorage.setItem("progress","6");
+    router.push({pathname:"/financials/business-debts",query:{id:id}})
+    }
+    catch (error) {
+      message.error(error?.payload?.reason || "Error Occured");
+
+    }
    
   };
 
@@ -173,13 +175,13 @@ export default function Business() {
     const baseUrl = "https://dev-api.halobusinessfinance.com/"
   
       try {
-        ("file")
+
         const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
+        console.log(res,'rs')
         const data = await res.payload;
         getConsumer(data)
         setHasID(data?.id)
         
-        (data, 'mydata')
         
           const docs = data?.map((item) => ({
             Date:item?.key,
@@ -193,22 +195,14 @@ export default function Business() {
           
 
         }))
-        ("focs")
-        setInputList(docs)
+       
+        setInputList(docs|| [{ Date: "", File: "" },
+        { Date: "", File: "" }])
 
-        
-        // const data = await res?.payload
-        // const docs = data?.map((item) => ({
-        //   "id": item?.id,
-        //   'url': baseUrl + item?.fileName,
-        //   "name": item?.aliasFileName
-
-        // }))
+   
       }
       catch (error) {
-        (error)
-        // message.error(error?.payload?.reason || "Error Occured");
-        // setFetching(false)
+      
       }
     
   }
@@ -225,7 +219,6 @@ export default function Business() {
   }, [form, inputList])
 
   useEffect(() => form.resetFields(), [initialValues]);
-(initialValues,'aodsjoaisdjo')
 const HandleDelete = async (documentId) => {
   try {
     await API.delete(`/api/business-finance/delete-doc/${documentId}`);
@@ -235,6 +228,11 @@ const HandleDelete = async (documentId) => {
   }
 
 }
+const dummyRequest = ({ file, onSuccess }) => {
+  setTimeout(() => {
+    onSuccess("ok");
+  }, 0);
+};
   return (
     <>
       <Head>
@@ -282,7 +280,7 @@ const HandleDelete = async (documentId) => {
 
                       >
                         <Upload
-                        
+                        customRequest={dummyRequest}
                         onRemove={(file) => {
                   if (file?.uid) {
                     HandleDelete(file.uid);
@@ -382,3 +380,4 @@ const HandleDelete = async (documentId) => {
     </>
   );
 }
+export default PrivateRoute(BusinessTaxReturns);

@@ -342,7 +342,7 @@ const WorkingCapitalForm = () => {
 								<CurrencyFormat 
 									prefix={'$'}
 									thousandSeparator={true}
-								onValueChange={(e) => setWorkingCapitalData({...workingCapitalData,annualRevenue:e.formattedValue})} 
+								onValueChange={(e) => setWorkingCapitalData({...workingCapitalData,annualRevenue:e.value})} 
 								type="text" 
 								name="amount"
 								placeholder="Only Number"
@@ -556,7 +556,7 @@ const WorkingCapitalForm = () => {
 								prefix={'$'}
 								thousandSeparator={true}
 							value={workingCapitalData.loanAmount} 
-							onValueChange={(e) => setWorkingCapitalData({...workingCapitalData,loanAmount:e.formattedValue}) }
+							onValueChange={(e) => setWorkingCapitalData({...workingCapitalData,loanAmount:e.value}) }
 										className="outline"
 										type="text"
 										placeholder="Only Number"

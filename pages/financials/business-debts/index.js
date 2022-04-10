@@ -7,6 +7,7 @@ import { Button, Radio } from "antd";
 import React, { useState } from "react";
 import { Router } from "next/router";
 import { useRouter } from "next/router";
+import PrivateRoute from "../../withPrivateRoute";
 
 const BusinessDebtStyle = styled.div`
 	display: flex;
@@ -15,6 +16,10 @@ const BusinessDebtStyle = styled.div`
 	font-family: Mulish;
 	background: #e5e5e5;
 	padding: 10px;
+	& .ant-radio-button-wrapper:first-child {
+		width: 100%;
+	}
+
 
 	.main-style {
 		width: 52%;
@@ -101,7 +106,7 @@ const BusinessDebtStyle = styled.div`
 `;
 
 
-export default function Business() {
+ function BusinessDebts() {
 	const [value,setValue] = useState();
 	const router = useRouter();
 	const { id } = router.query;
@@ -120,6 +125,7 @@ export default function Business() {
 	};
 
 	const onSubmitForm = async (values) => {
+		localStorage.setItem("progress","7");
 		router.push(value=='a'?`/financials/outstanding-debts/?id=${id}`:`/documents/profit-loss/?id=${id}`)
 	};
 
@@ -171,7 +177,7 @@ export default function Business() {
 						</div>
 						<div className="footer">
 							<div className="continue-button">
-								<img src="/images/back.png" />
+								
 								<Button size="large" htmlType="submit" type="primary">
 									Save & Continue
 								</Button>
@@ -183,9 +189,7 @@ export default function Business() {
 								/> */}
 							</div>
 
-							<div className="skip-link">
-								<a href="/businessfinance_pls">Skip</a>
-							</div>
+							
 						</div>
 					</form>
 				</section>
@@ -193,3 +197,4 @@ export default function Business() {
 		</>
 	);
 }
+export default PrivateRoute(BusinessDebts);

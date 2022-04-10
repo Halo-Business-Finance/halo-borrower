@@ -41,6 +41,6 @@ export const Disqulaified = () => {
       <p>
         We are sorry, but Halo Business Finance isn't able to move forward with your loan request at this time. Please try again in the future.
       </p>
-      <Button onClick={() => window.location.assign("/test")} type="primary">Continue</Button>
+      <Button onClick={() => window.location.assign("/")} type="primary">Continue</Button>
     </MainWrapper>);
 };
