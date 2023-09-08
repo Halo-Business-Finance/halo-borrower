@@ -415,11 +415,15 @@ const Form = () => {
 		Router.push("/registration");
 	};
 	const [prequalifyData, setPrequalifyData] = useState([])
-  const [isFeatchingloanList,setIsFetchingLoanList]=useState(true);
+  	const [isFeatchingloanList,setIsFetchingLoanList]=useState(true);
 	const FetchPrequaifyDataFromAPI = async () => {
 		
 		try {
-			const response = await API.get("/api/borrower/get-prequalify-request");
+			const response = await API.get("/api/borrower/get-prequalify-request", {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			});
 			const data = await response?.payload;
 			setPrequalifyData(data)
 			

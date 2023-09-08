@@ -136,7 +136,7 @@ export default function VerifyCodeForm() {
 			const response = await API.post("/auth/token", refactoredData);
 			(response);
 			notification.success({ message: 'Success', description: 'Login Successfully' })
-			 sessionStorage.setItem('token', response?.Payload?.access_token)
+			sessionStorage.setItem('token', response?.payload?.access_token)
 			setAuthenticated(true)
 			router.push({ pathname: "/" })
 			
