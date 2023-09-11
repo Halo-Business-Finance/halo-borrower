@@ -213,7 +213,11 @@ function BusinessInformation() {
 
     const addHandler = async (data) => {
         try {
-            await API.post("api/borrower/add-update-business-info", data);
+            await API.post("api/borrower/add-update-business-info", data, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
             localStorage.setItem("progress", "2")
             Router.push({ pathname: "/financial-information", query: { id: id } })
         } catch (error) {

@@ -266,7 +266,11 @@ function OwnersForm() {
 		//(id,'own')
 
 		try {
-			await API.post("api/borrower/add-update-owners", data)
+			await API.post("api/borrower/add-update-owners", data, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			})
 			localStorage.setItem("progress", "4");
 			Router.push({ pathname: "/borrower-authorization", query: { id: id, owners: JSON.stringify(owners) } })
 		} catch (error) {

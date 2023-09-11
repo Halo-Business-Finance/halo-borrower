@@ -27,7 +27,11 @@ const ForgotPassword = () => {
     const handleCode=async(value)=>{
         setSendingCode(true);
         try {
-            await API.post("/auth/reset-password-request",value);
+            await API.post("/auth/reset-password-request",value, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
             setIsCodeSent(true)
             notification.success({Message: "Sucess",description:"Code sent successfully"})
         } catch (error) {
@@ -39,7 +43,11 @@ const ForgotPassword = () => {
     const handleChangePassword=async(value)=>{
         setIsUpdating(true);
         try {
-            await API.post("/auth/reset-password",value);
+            await API.post("/auth/reset-password",value, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
             setIsCodeSent(true)
             notification.success({Message: "Sucess",description:"Password updated sucessfully"});
             router.push("/login")

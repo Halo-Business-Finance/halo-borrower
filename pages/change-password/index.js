@@ -29,7 +29,11 @@ const ChangePassword = () => {
     const handleChangePassword=async(value)=>{
         setIsUpdating(true);
         try {
-            await API.post("/auth/change-password",value);
+            await API.post("/auth/change-password",value, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
             notification.success({Message: "Sucess",description:"Password updated sucessfully"});
             router.push("/")
         } catch (error) {

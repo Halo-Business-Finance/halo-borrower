@@ -258,7 +258,11 @@ const WorkingCapitalForm = () => {
 				"prequalifyAnswers": workingCapitalData,
 				"accepted": true
 			}
-			await API.post("/api/borrower/create-prequalify-request", data)
+			await API.post("/api/borrower/create-prequalify-request", data, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			})
 			notification.success({ message: "Form submitted successfully" })
 			setshowSucessModal(true)
 

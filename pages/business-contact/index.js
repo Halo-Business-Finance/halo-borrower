@@ -171,7 +171,11 @@ function BusinessContactForm({ data }) {
 
 	const addHandler = async (data) => {
 		try {
-			await API.post("api/borrower/add-update-business-contact", data)
+			await API.post("api/borrower/add-update-business-contact", data, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			})
 			localStorage.setItem("progress", "1")
 			Router.push({ pathname: "/business-information", query: { id: id } })
 		} catch (error) {

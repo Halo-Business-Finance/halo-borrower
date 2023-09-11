@@ -193,7 +193,11 @@ align-items: center;
           }
         })
       )
-      await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData);
+      await API.post(`/api/business-finance/upload-business-balancesheet/${id}`, formData, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      });
       localStorage.setItem("progress","9");
       router.push({ pathname: "/loan-overview", query: { id: id } })
     } catch (error) {

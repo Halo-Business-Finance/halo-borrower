@@ -343,7 +343,11 @@ window.location.reload()
       })
 
 
-      await API.post(`api/document/upload-final-document/${id}`, bodyData)
+      await API.post(`api/document/upload-final-document/${id}`, bodyData, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      })
       notification.success({ message: "Document added successfully" })
       localStorage.setItem("progress", "10");
       router.push({ pathname: "/loan-overview", query: { id: id } })

@@ -179,7 +179,11 @@ export default function financialInformation() {
 
   const addUpdateHandler = async (data) => {
     try {
-      await API.post("/api/borrower/add-update-business-financials", data);
+      await API.post("/api/borrower/add-update-business-financials", data, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem('token')
+        }
+      });
       localStorage.setItem("progress","3")
       sessionStorage.setItem("loan",consumer.loanAmountRequested)
       router.push({ pathname: "/owners", query: { id: id}})

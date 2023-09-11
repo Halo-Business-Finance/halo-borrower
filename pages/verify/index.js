@@ -152,7 +152,10 @@ setLoading(false);
 		try {
 			await API.post("/api/registration/send-phone-verification", {
 				"phone": phone
-
+			}, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
 			})
 			notification.success({ message: "Success", description: "Verification code resend successfully" })
 		} catch (error) {

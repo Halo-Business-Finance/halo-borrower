@@ -184,7 +184,11 @@ export default function RegistrationForm() {
 		// router.push({pathname:"/log",query:{email:data?.email}})
 
 		try {
-			await API.post("/api/registration/borrower-registration", data)
+			await API.post("/api/registration/borrower-registration", data, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			})
 			setUsername(data?.email);
 			setPhone(data?.phone);
 			setFormState(1);

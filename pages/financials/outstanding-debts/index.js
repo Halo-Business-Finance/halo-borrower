@@ -151,7 +151,11 @@ return value
 
 		try {
 
-			await API.post(`api/business-finance/add-update-business-debt`, { ...refactoredValues, loanRequestId: id })
+			await API.post(`api/business-finance/add-update-business-debt`, { ...refactoredValues, loanRequestId: id }, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			})
 
 			router.push({ pathname: "/documents/profit-loss", query: { id: id } })
 		} catch (error) {

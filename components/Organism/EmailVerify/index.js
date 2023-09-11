@@ -139,7 +139,11 @@ export default function VerifyEmailForm() {
 			email: username,
 		}
 		try {
-			await API.post("/api/registration/verify-email", refactoredData);
+			await API.post("/api/registration/verify-email", refactoredData, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			});
 			router.push(`/register?phone=${phone}`)
 			setFormState(2);
 		} catch (error) {
@@ -154,7 +158,10 @@ export default function VerifyEmailForm() {
 		try {
 			await API.post("/api/registration/send-email-verification", {
 				"email": username != null ? username : router.query.email
-
+			}, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
 			})
 			notification.success({ message: "Success", description: "Verification email resend successfully" })
 		} catch (error) {

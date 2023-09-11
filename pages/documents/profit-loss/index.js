@@ -194,7 +194,11 @@ align-items: center;
           
         })
       )
-      await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData)
+      await API.post(`api/business-finance/upload-business-profit-and-loss/${id}`, formData, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      })
       localStorage.setItem("progress","8");
       router.push({pathname:"/documents/balance-sheet",query:{id:id}})
     } catch (error) {

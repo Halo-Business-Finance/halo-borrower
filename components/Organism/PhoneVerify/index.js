@@ -139,7 +139,11 @@ export default function VerifyPhoneForm() {
 			phone: phone
 		}
 		try {
-			await API.post("/api/registration/verify-phone", refactoredData);
+			await API.post("/api/registration/verify-phone", refactoredData, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			});
 			router.push({ pathname: "/" })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
@@ -153,8 +157,10 @@ export default function VerifyPhoneForm() {
 		try {
 			await API.post("/api/registration/send-phone-verification", {
 				"phone": phone,
-
-
+			}, {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
 			})
 			notification.success({ message: "Success", description: "Verification code resend successfully" })
 		} catch (error) {
