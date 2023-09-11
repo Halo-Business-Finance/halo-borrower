@@ -217,7 +217,11 @@ function BusinessContactForm({ data }) {
 	const fetchBussinessContactInformations = async () => {
 		if (id) {
 			try {
-				const response = await API.get(`/api/borrower/get-business-contact/${id}`);
+				const response = await API.get(`/api/borrower/get-business-contact/${id}`, {
+					headers: {
+						Authorization: "Bearer " + sessionStorage.getItem('token')
+					}
+				});
 				const data = response.payload;
 				getConsumer(data)
 				setHasID(data?.id)

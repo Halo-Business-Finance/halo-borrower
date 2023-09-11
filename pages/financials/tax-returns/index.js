@@ -187,7 +187,11 @@ function BusinessTaxReturns() {
   
       try {
 
-        const res = await API.get(`api/business-finance/get-tax-returns/${id}`)
+        const res = await API.get(`api/business-finance/get-tax-returns/${id}`, {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+        })
         console.log(res,'rs')
         const data = await res.payload;
         getConsumer(data)

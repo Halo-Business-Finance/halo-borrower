@@ -164,7 +164,11 @@ return value
 		const baseUrl = "https://dev.amazingrm.com/"
 		if (id) {
 			try {
-				const res = await API.get(`api/business-finance/get-business-debt/${id}`)
+				const res = await API.get(`api/business-finance/get-business-debt/${id}`, {
+					headers: {
+						Authorization: "Bearer " + sessionStorage.getItem('token')
+					}
+				})
 				console.log(res, 'bd')
 				const data = await res.payload;
 				getConsumer({...data,originationYear:moment(data?.originationYear)?.format("YYYY-MM-DD")})

@@ -43,7 +43,11 @@ const Demo = () => {
   const fetchOwnerInformations = async () => {
     if (id) {
         try {
-            const response = await API.get(`/api/borrower/get-owners/${id}`);
+            const response = await API.get(`/api/borrower/get-owners/${id}`, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
             const data = await response.payload;
             initialValues={users: [{fullName:"asdsa kj"}]}
             setInputList(data)

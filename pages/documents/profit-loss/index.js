@@ -211,7 +211,11 @@ align-items: center;
     setFetching(true)
     const baseUrl = "https://dev.amazingrm.com/"
     try {
-      const res = await API.get(`api/business-finance/get-document/${id}?typeOfDocument=2`)
+      const res = await API.get(`api/business-finance/get-document/${id}?typeOfDocument=2`, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      });
       const data = await res?.payload
       const docs = data?.map((item) => ({
         "id": item?.id,

@@ -202,7 +202,11 @@ align-items: center;
   const GetOwners = async () => {
     setFetching(true)
     try {
-      const res = await API.get(`/api/borrower/get-owners/${id}`)
+      const res = await API.get(`/api/borrower/get-owners/${id}`, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      });
       const data = await res?.payload
 
       const response = data?.map((item, index) => (
@@ -232,7 +236,11 @@ align-items: center;
   const GetDocs = async () => {
     setFetching(true)
     try {
-      const res = await API.get(`/api/document/get-final-documents/${id}`)
+      const res = await API.get(`/api/document/get-final-documents/${id}`, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      });
       const data = await res?.payload
       const refactoredData = await data?.documentInformations?.map((item, index) => ({
         "url": baseUrl + item?.fileName,

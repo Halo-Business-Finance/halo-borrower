@@ -419,7 +419,11 @@ const Form = () => {
 	const FetchPrequaifyDataFromAPI = async () => {
 		
 		try {
-			const response = await API.get("/api/borrower/get-prequalify-request");
+			const response = await API.get("/api/borrower/get-prequalify-request", {
+				headers: {
+					Authorization: "Bearer " + sessionStorage.getItem('token')
+				}
+			});
 			const data = await response?.payload;
 			setPrequalifyData(data)
 			

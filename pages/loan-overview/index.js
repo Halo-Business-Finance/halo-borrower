@@ -295,7 +295,11 @@ border:1px solid yellow;
 
   const fetchLoanOverview = async () => {
     try {
-      const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`)
+      const response = await API.get(`/api/borrower/get-prequalify-request/${router.query.id}`, {
+          headers: {
+              Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+      })
       setDetails(await response.payload);
       setFormState(await response.payload?.formProgress)
     } catch (error) {

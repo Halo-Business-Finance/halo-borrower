@@ -511,12 +511,20 @@ export default function financialInformation() {
   const GetAllInformations = async () => {
    
       if (id) {
-        const res = await API.get(`/api/borrower/get-prequalify-request/${id}`); 
+        const res = await API.get(`/api/borrower/get-prequalify-request/${id}`, {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+        });
         getConsumer({
           ...data,
           loanAmountRequested: await res?.payload?.amountToBeBorrowed
         })
-        const response = await API.get(`/api/borrower/get-business-financials/${id}`);
+        const response = await API.get(`/api/borrower/get-business-financials/${id}`, {
+          headers: {
+            Authorization: "Bearer " + sessionStorage.getItem('token')
+          }
+        });
        
         const data = await response?.payload;
         setHasID(data?.id)

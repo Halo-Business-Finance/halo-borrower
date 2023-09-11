@@ -271,20 +271,24 @@ function BusinessInformation() {
     }
     const fetchBussinessInformation = async () => {
         if (id) {
-            const res = await API.get(`/api/borrower/get-prequalify-request/${id}`);  
-                getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
-    
-                const response = await API.get(`/api/borrower/get-business-info/${id}`);
-                const data = await response.payload;
-                getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
-    
-                setValue("totalContractors", data?.totalContractors);
-                setValue("totalEmployees", data?.totalEmployees)
-                setHasID(data?.id)
-                
-                
-            
+            const res = await API.get(`/api/borrower/get-prequalify-request/${id}`, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
+            getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
 
+            const response = await API.get(`/api/borrower/get-business-info/${id}`, {
+                headers: {
+                    Authorization: "Bearer " + sessionStorage.getItem('token')
+                }
+            });
+            const data = await response.payload;
+            getConsumer({ ...data, legalEntity: await res?.payload?.prequalifyAnswers?.ownership })
+
+            setValue("totalContractors", data?.totalContractors);
+            setValue("totalEmployees", data?.totalEmployees)
+            setHasID(data?.id)
         }
     }
     useEffect(() => {
