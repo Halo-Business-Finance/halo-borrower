@@ -168,8 +168,6 @@ export default function Login() {
 
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error.data.reason })
-
-
 		}
 		setIsLoading(false)
 

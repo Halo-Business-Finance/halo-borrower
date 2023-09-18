@@ -139,13 +139,16 @@ export default function VerifyEmailForm() {
 			email: username,
 		}
 		try {
-			await API.post("/api/registration/verify-email", refactoredData, {
-				headers: {
-					Authorization: "Bearer " + sessionStorage.getItem('token')
-				}
-			});
-			router.push(`/register?phone=${phone}`)
-			setFormState(2);
+			const response = await API.post("/api/registration/verify-email", refactoredData);
+			const isError = await response?.isError;
+			if (isError) {
+				notification.error({ message: "Email verification unsuccessful", description: response?.reason || "The email or phone verification has failed." })
+			}
+			else {
+				router.push(`/register?phone=${phone}`);
+				setFormState(2);
+			}
+
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })
 

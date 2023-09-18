@@ -135,16 +135,17 @@ export default function VerifyPhoneForm() {
 		formData.append("code", Number(values.code));
 		formData.append("phone", phone)
 		const refactoredData = {
-			code: Number(values?.code),
+			code: values?.code,
 			phone: phone
 		}
 		try {
-			await API.post("/api/registration/verify-phone", refactoredData, {
-				headers: {
-					Authorization: "Bearer " + sessionStorage.getItem('token')
-				}
-			});
-			router.push({ pathname: "/" })
+			const response = await API.post("/api/registration/verify-phone", refactoredData);
+			const isError = await response?.isError;
+			if (isError) {
+				notification.error({ message: "Phone verification unsuccessful", description: response?.reason || "The email or phone verification has failed." })
+			}
+			else
+				router.push({ pathname: "/" })
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason })
 

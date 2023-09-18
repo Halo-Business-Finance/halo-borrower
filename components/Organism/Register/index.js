@@ -184,14 +184,17 @@ export default function RegistrationForm() {
 		// router.push({pathname:"/log",query:{email:data?.email}})
 
 		try {
-			await API.post("/api/registration/borrower-registration", data, {
-				headers: {
-					Authorization: "Bearer " + sessionStorage.getItem('token')
-				}
-			})
-			setUsername(data?.email);
-			setPhone(data?.phone);
-			setFormState(1);
+			const response = await API.post("/api/registration/borrower-registration", data);
+			const isError = await response?.isError;
+			if (isError) {
+				notification.error({ message: "Error occured", description: response?.reason || "The email or phone verification has failed." })
+			}
+			else {
+				setUsername(data?.email);
+				setPhone(data?.phone);
+				setFormState(1);
+			}
+
 		} catch (error) {
 			notification.error({ message: 'Error Occured', description: error?.data?.reason || 'Something went wrong. Please try again' })
 		}
